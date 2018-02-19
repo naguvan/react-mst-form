@@ -1,0 +1,21 @@
+{
+    "properties": {
+        "name": {
+            "title": "Task name",
+            "type": "string",
+            "minLength": 2
+        },
+        "description": {
+            "title": "Description",
+            "type": "string",
+            "widget": "textarea"
+        },
+        "dueTo": {
+            "title": "Due to",
+            "type": "string",
+            "widget": "compatible-datetime",
+            "format": "date-time"
+        }
+    },
+    "required": ["name"]
+}
