@@ -13,6 +13,7 @@ export const StringField: IModelType<
     .compose(
         TypeField,
         types.model('StringFieldProps', {
+            type: types.literal('string'),
             minLength: types.optional(types.number, 0)
         })
     )

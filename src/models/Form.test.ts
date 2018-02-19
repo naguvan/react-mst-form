@@ -2,10 +2,14 @@ import { Form } from './Form';
 import { ITypeFieldConfig, ITypeField } from '../types/Field';
 import { IStringFieldConfig, IStringField } from '../types/Field';
 import { INumberFieldConfig, INumberField } from '../types/Field';
-import { IFormConfig, IForm } from '../types/Form';
+import { getSnapshot } from 'mobx-state-tree';
+// import { IFormConfig, IForm } from '../types/Form';
+
+import { StringField } from './StringField';
+import { NumberField } from './NumberField';
 
 test('create form', () => {
-    const config: IFormConfig = {
+    const form = Form.create({
         properties: {
             age: {
                 title: 'naguvan',
@@ -20,9 +24,11 @@ test('create form', () => {
             } as IStringFieldConfig
         },
         layout: ['age', 'name']
-    };
+    });
+    console.info(getSnapshot(form));
+    expect(form.properties.get('age')!.value).toBe(1);
+    expect(NumberField.is(form.properties.get('age'))).toBe(true);
 
-    const form = Form.create(config);
-    console.info(form);
-    expect(form.fields.length).toBe(0);
+    expect(form.properties.get('name')!.value).toBe('sk');
+    expect(StringField.is(form.properties.get('name'))).toBe(true);
 });

@@ -10,7 +10,12 @@ export const TypeField: IModelType<
     ITypeField<any, any>
 > = types
     .model<ITypeFieldConfig<any, any>>('Field', {
-        type: types.string,
+        //    type: types.union(
+        //        types.literal('string'),
+        //        types.literal('number'),
+        //        types.literal('boolean')
+        //    ),
+        type: types.enumeration('type', ['string', 'number', 'boolean']),
         title: types.string,
         required: types.optional(types.boolean, false),
         name: types.optional(types.string, ''),
@@ -26,15 +31,12 @@ export const TypeField: IModelType<
                 unprotect(it);
             }
         },
-
         setName(name: string): void {
             it.name = name;
         },
-
         setValue(value: any): void {
             it.value = value;
         },
-
         setTitle(title: string): void {
             it.title = title;
         }

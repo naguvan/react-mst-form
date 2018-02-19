@@ -13,6 +13,7 @@ export const NumberField: IModelType<
     .compose(
         TypeField,
         types.model('NumberFieldProps', {
+            type: types.literal('number'),
             minimum: types.optional(types.number, Number.MIN_SAFE_INTEGER),
             maximum: types.optional(types.number, Number.MAX_SAFE_INTEGER)
         })
