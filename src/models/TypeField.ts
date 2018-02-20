@@ -1,4 +1,4 @@
-import { IModelType, types, unprotect } from 'mobx-state-tree';
+import { IModelType, types, flow } from 'mobx-state-tree';
 import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
@@ -17,11 +17,12 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
-            error: types.optional(types.string, ''),
+            errors: types.optional(types.array(types.string), []),
             type: types.literal(type),
             value: types.optional(kind, defaultv),
             default: types.optional(kind, defaultv),
-            initial: types.optional(kind, defaultv)
+            initial: types.optional(kind, defaultv),
+            validating: types.optional(types.boolean, false)
         })
         .actions(it => ({
             afterCreate() {
@@ -49,14 +50,36 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             setVisible(visible: boolean): void {
                 it.visible = visible;
             },
-            setError(error: string): void {
-                it.error = error;
+            addError(error: string): void {
+                it.errors.push(error);
+            },
+            addErrors(errors: Array<string>): void {
+                it.errors.push(...errors);
+            },
+            clearError(): void {
+                it.errors.length = 0;
             },
             setValue(value: T): void {
                 it.value = value;
             },
             reset(): void {
                 it.value = it.initial;
+                it.errors.length = 0;
+            },
+            validate: flow<Array<string>>(function*() {
+                it.validating = true;
+                const errors = yield Promise.resolve([]);
+                it.validating = false;
+                it.errors.push(...errors);
+                return errors;
+            })
+        }))
+        .views(it => ({
+            get modified(): boolean {
+                return it.value !== it.initial;
+            },
+            get hasError(): boolean {
+                return it.errors.length > 0;
             }
         }));
 

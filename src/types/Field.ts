@@ -14,8 +14,11 @@ export interface ITypeFieldConfig<T> extends Partial<ITypeFieldProps<T>> {
 
 export interface ITypeField<T> extends ITypeFieldProps<T> {
     readonly type: string;
+    readonly modified: boolean;
+    readonly validating: boolean;
+    readonly hasError: boolean;
     title: string;
-    error: string;
+    errors: Array<string>;
     initial: T;
     setValue(value: T): void;
     setName(name: string): void;
@@ -23,8 +26,11 @@ export interface ITypeField<T> extends ITypeFieldProps<T> {
     setRequired(required: boolean): void;
     setDisabled(disabled: boolean): void;
     setVisible(visible: boolean): void;
-    setError(error: string): void;
+    addError(error: string): void;
+    addErrors(errors: Array<string>): void;
+    clearError(): void;
     reset(): void;
+    validate(): Promise<Array<string>>;
 }
 
 export interface IStringFieldProps extends ITypeFieldProps<string> {
