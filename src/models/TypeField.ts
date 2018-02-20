@@ -9,17 +9,14 @@ export const TypeField: IModelType<
     Partial<ITypeFieldConfig<any, any>>,
     ITypeField<any, any>
 > = types
-    .model<ITypeFieldConfig<any, any>>('Field', {
-        //    type: types.union(
-        //        types.literal('string'),
-        //        types.literal('number'),
-        //        types.literal('boolean')
-        //    ),
+    .model('Field', {
         type: types.enumeration('type', ['string', 'number', 'boolean']),
         title: types.string,
-        required: types.optional(types.boolean, false),
         name: types.optional(types.string, ''),
-        value: types.optional(types.frozen, null)
+        required: types.optional(types.boolean, false),
+        disabled: types.optional(types.boolean, false),
+        visible: types.optional(types.boolean, true),
+        error: types.optional(types.string, '')
     })
     .actions(it => ({
         afterCreate() {
@@ -27,17 +24,26 @@ export const TypeField: IModelType<
                 const { title } = it;
                 it.name = title.toLowerCase().replace(' ', '-');
             }
-            if (!hasParent(it)) {
-                unprotect(it);
-            }
+            // if (!hasParent(it)) {
+            //     unprotect(it);
+            // }
         },
         setName(name: string): void {
             it.name = name;
         },
-        setValue(value: any): void {
-            it.value = value;
-        },
         setTitle(title: string): void {
             it.title = title;
+        },
+        setRequired(required: boolean): void {
+            it.required = required;
+        },
+        setDisabled(disabled: boolean): void {
+            it.disabled = disabled;
+        },
+        setVisible(visible: boolean): void {
+            it.visible = visible;
+        },
+        setError(error: string): void {
+            it.error = error;
         }
-    }));
+    })) as any;

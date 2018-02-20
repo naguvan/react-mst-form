@@ -13,9 +13,14 @@ export const BooleanField: IModelType<
     .compose(
         TypeField,
         types.model('BooleanFieldProps', {
-            type: types.literal('boolean')
+            type: types.literal('boolean'),
+            value: types.boolean
         })
     )
     .actions(it => ({
-        afterCreate() {}
+        afterCreate() {},
+
+        setValue(value: boolean): void {
+            it.value = value;
+        }
     }));

@@ -14,11 +14,16 @@ export const StringField: IModelType<
         TypeField,
         types.model('StringFieldProps', {
             type: types.literal('string'),
+            value: types.string,
             minLength: types.optional(types.number, 0)
         })
     )
     .actions(it => ({
         afterCreate() {
             // it.type = 'string';
+        },
+
+        setValue(value: string): void {
+            it.value = value;
         }
     }));

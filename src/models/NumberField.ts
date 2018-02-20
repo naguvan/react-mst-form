@@ -14,6 +14,7 @@ export const NumberField: IModelType<
         TypeField,
         types.model('NumberFieldProps', {
             type: types.literal('number'),
+            value: types.number,
             minimum: types.optional(types.number, Number.MIN_SAFE_INTEGER),
             maximum: types.optional(types.number, Number.MAX_SAFE_INTEGER)
         })
@@ -21,5 +22,9 @@ export const NumberField: IModelType<
     .actions(it => ({
         afterCreate() {
             // it.type = 'string';
+        },
+
+        setValue(value: number): void {
+            it.value = value;
         }
     }));

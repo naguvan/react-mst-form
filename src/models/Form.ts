@@ -31,11 +31,16 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
                 throw new TypeError(
                     `[${invalids
                         .map(invalid => `'${invalid}'`)
-                        .join('\t')}] layout field${
+                        .join(', ')}] layout field${
                         invalids.length === 1 ? ' is' : 's are'
                     } not configured.`
                 );
             }
+
+            it.properties
+                .entries()
+                .forEach(([key, field]) => field.setName(key));
+
             // if (!hasParent(it)) {
             //     unprotect(it);
             // }
