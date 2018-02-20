@@ -3,12 +3,12 @@ import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IFieldConfig, IField } from '../types/Field';
-import { IFormConfig, IForm } from '../types/Form';
+import { IFieldConfig, IField } from '@root/types';
+import { IFormConfig, IForm } from '@root/types';
 
-import { Field } from './Field';
+import { Field } from '../field/Field';
 
-import { flatArray } from '../utils';
+import { flatArray } from '../../utils';
 
 export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .model('Form', {

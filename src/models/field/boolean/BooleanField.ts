@@ -3,8 +3,8 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IBooleanFieldConfig, IBooleanField } from '../types/Field';
-import { create } from './ValueField';
+import { IBooleanFieldConfig, IBooleanField } from '@root/types';
+import { create } from '../value/ValueField';
 
 export const BooleanField: IModelType<
     Partial<IBooleanFieldConfig>,

@@ -1,5 +1,5 @@
 import { Field } from './Field';
-import { IValueField, IStringField, INumberField } from '../types/Field';
+import { IValueField, IStringField, INumberField } from '@root/types';
 
 test('create string field', () => {
     const field = Field.create({

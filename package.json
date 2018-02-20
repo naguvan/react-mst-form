@@ -42,6 +42,9 @@
             "jsx",
             "json",
             "node"
+        ],
+        "modulePaths": [
+            "<rootDir>/src/"
         ]
     },
     "scripts": {

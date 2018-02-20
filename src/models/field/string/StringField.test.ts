@@ -1,5 +1,5 @@
 import { StringField } from './StringField';
-import { IStringFieldConfig } from '../types/Field';
+import { IStringFieldConfig } from '@root/types';
 
 const config: IStringFieldConfig = {
     title: 'naguvan',

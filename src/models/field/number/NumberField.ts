@@ -3,8 +3,8 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { INumberFieldConfig, INumberField } from '../types/Field';
-import { create } from './ValueField';
+import { INumberFieldConfig, INumberField } from '@root/types';
+import { create } from '../value/ValueField';
 
 export const NumberField: IModelType<
     Partial<INumberFieldConfig>,

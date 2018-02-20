@@ -3,8 +3,8 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IStringFieldConfig, IStringField } from '../types/Field';
-import { create } from './ValueField';
+import { IStringFieldConfig, IStringField } from '@root/types';
+import { create } from '../value/ValueField';
 
 export const StringField: IModelType<
     Partial<IStringFieldConfig>,
