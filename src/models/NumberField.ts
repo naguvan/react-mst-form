@@ -4,17 +4,16 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { INumberFieldConfig, INumberField } from '../types/Field';
-import { TypeField } from './TypeField';
+import { create } from './TypeField';
 
 export const NumberField: IModelType<
     Partial<INumberFieldConfig>,
     INumberField
 > = types
     .compose(
-        TypeField,
-        types.model('NumberFieldProps', {
-            type: types.literal('number'),
-            value: types.number,
+        'NumberField',
+        create<number>('number', types.number, 0),
+        types.model({
             minimum: types.optional(types.number, Number.MIN_SAFE_INTEGER),
             maximum: types.optional(types.number, Number.MAX_SAFE_INTEGER)
         })
@@ -22,9 +21,5 @@ export const NumberField: IModelType<
     .actions(it => ({
         afterCreate() {
             // it.type = 'string';
-        },
-
-        setValue(value: number): void {
-            it.value = value;
         }
     }));

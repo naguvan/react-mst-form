@@ -1,10 +1,13 @@
+import { types } from 'mobx-state-tree';
 import { ITypeFieldConfig, ITypeField } from '../types/Field';
-import { TypeField } from './TypeField';
+import { create } from './TypeField';
 
-const config: ITypeFieldConfig<'boolean', boolean> = {
+const config: ITypeFieldConfig<boolean> = {
     title: 'naguvan',
     type: 'boolean'
 };
+
+const TypeField = create<boolean>('boolean', types.boolean, false);
 
 test('create type field', () => {
     const field = TypeField.create(config);

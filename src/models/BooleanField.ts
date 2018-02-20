@@ -4,23 +4,17 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IBooleanFieldConfig, IBooleanField } from '../types/Field';
-import { TypeField } from './TypeField';
+import { create } from './TypeField';
 
 export const BooleanField: IModelType<
     Partial<IBooleanFieldConfig>,
     IBooleanField
 > = types
     .compose(
-        TypeField,
-        types.model('BooleanFieldProps', {
-            type: types.literal('boolean'),
-            value: types.boolean
-        })
+        'BooleanField',
+        create<boolean>('boolean', types.boolean, false),
+        types.model({})
     )
     .actions(it => ({
-        afterCreate() {},
-
-        setValue(value: boolean): void {
-            it.value = value;
-        }
+        afterCreate() {}
     }));
