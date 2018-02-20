@@ -4,7 +4,7 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IBooleanFieldConfig, IBooleanField } from '../types/Field';
-import { create } from './TypeField';
+import { create } from './ValueField';
 
 export const BooleanField: IModelType<
     Partial<IBooleanFieldConfig>,

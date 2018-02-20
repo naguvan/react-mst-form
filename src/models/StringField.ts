@@ -4,7 +4,7 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IStringFieldConfig, IStringField } from '../types/Field';
-import { create } from './TypeField';
+import { create } from './ValueField';
 
 export const StringField: IModelType<
     Partial<IStringFieldConfig>,

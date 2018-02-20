@@ -1,4 +1,4 @@
-export interface ITypeFieldProps<T> {
+export interface IValueFieldProps<T> {
     value: T;
     default: T;
     name: string;
@@ -7,12 +7,12 @@ export interface ITypeFieldProps<T> {
     required: boolean;
 }
 
-export interface ITypeFieldConfig<T> extends Partial<ITypeFieldProps<T>> {
+export interface IValueFieldConfig<T> extends Partial<IValueFieldProps<T>> {
     readonly type: string;
     readonly title: string;
 }
 
-export interface ITypeField<T> extends ITypeFieldProps<T> {
+export interface IValueField<T> extends IValueFieldProps<T> {
     readonly type: string;
     readonly modified: boolean;
     readonly validating: boolean;
@@ -34,41 +34,41 @@ export interface ITypeField<T> extends ITypeFieldProps<T> {
     validate(): Promise<void>;
 }
 
-export interface IStringFieldProps extends ITypeFieldProps<string> {
+export interface IStringFieldProps extends IValueFieldProps<string> {
     readonly minLength: number;
 }
 
 export interface IStringFieldConfig
-    extends ITypeFieldConfig<string>,
+    extends IValueFieldConfig<string>,
         Partial<IStringFieldProps> {
 }
 
-export interface IStringField extends IStringFieldProps, ITypeField<string> {
+export interface IStringField extends IStringFieldProps, IValueField<string> {
 }
 
-export interface INumberFieldProps extends ITypeFieldProps<number> {
+export interface INumberFieldProps extends IValueFieldProps<number> {
     // readonly type: 'number';
     readonly minimum: number;
     readonly maximum: number;
 }
 
 export interface INumberFieldConfig
-    extends ITypeFieldConfig<number>,
+    extends IValueFieldConfig<number>,
         Partial<INumberFieldProps> {
 }
 
-export interface INumberField extends INumberFieldProps, ITypeField<number> {
+export interface INumberField extends INumberFieldProps, IValueField<number> {
 }
 
-export interface IBooleanFieldProps extends ITypeFieldProps<boolean> {
+export interface IBooleanFieldProps extends IValueFieldProps<boolean> {
 }
 
 export interface IBooleanFieldConfig
-    extends ITypeFieldConfig<boolean>,
+    extends IValueFieldConfig<boolean>,
         Partial<IBooleanFieldProps> {
 }
 
-export interface IBooleanField extends IBooleanFieldProps, ITypeField<boolean> {
+export interface IBooleanField extends IBooleanFieldProps, IValueField<boolean> {
 }
 
 export type IFieldConfig =

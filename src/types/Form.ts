@@ -1,4 +1,4 @@
-import { IFieldConfig, IField, ITypeFieldConfig } from './Field';
+import { IFieldConfig, IField, IValueFieldConfig } from './Field';
 import { ISimpleType, IComplexType } from 'mobx-state-tree';
 
 export interface IFormConfig {

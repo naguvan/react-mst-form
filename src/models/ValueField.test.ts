@@ -1,17 +1,17 @@
 import { types } from 'mobx-state-tree';
-import { ITypeFieldConfig, ITypeField } from '../types/Field';
-import { create } from './TypeField';
+import { IValueFieldConfig, IValueField } from '../types/Field';
+import { create } from './ValueField';
 
-const config: ITypeFieldConfig<boolean> = {
+const config: IValueFieldConfig<boolean> = {
     title: 'naguvan',
     value: true,
     type: 'boolean'
 };
 
-const TypeField = create<boolean>('boolean', types.boolean, false);
+const ValueField = create<boolean>('boolean', types.boolean, false);
 
 test('create type field', () => {
-    const field = TypeField.create(config);
+    const field = ValueField.create(config);
     expect(field.type).toBe('boolean');
     expect(field.title).toBe('naguvan');
     expect(field.name).toBe(field.title);
@@ -27,7 +27,7 @@ test('create type field', () => {
 });
 
 test('change type value', () => {
-    const field = TypeField.create({ ...config, value: false });
+    const field = ValueField.create({ ...config, value: false });
 
     expect(field.value).toBe(false);
     expect(field.initial).toBe(false);
@@ -44,14 +44,14 @@ test('change type value', () => {
 });
 
 test('change type name', () => {
-    const field = TypeField.create(config);
+    const field = ValueField.create(config);
 
     field.setName('senthilnathan');
     expect(field.name).toBe('senthilnathan');
 });
 
 test('change required property', () => {
-    const field = TypeField.create(config);
+    const field = ValueField.create(config);
 
     expect(field.required).toBe(false);
 
@@ -60,7 +60,7 @@ test('change required property', () => {
 });
 
 test('change disabled property', () => {
-    const field = TypeField.create({ ...config, disabled: true });
+    const field = ValueField.create({ ...config, disabled: true });
 
     expect(field.disabled).toBe(true);
 
@@ -69,7 +69,7 @@ test('change disabled property', () => {
 });
 
 test('change visible property', () => {
-    const field = TypeField.create({ ...config, visible: false });
+    const field = ValueField.create({ ...config, visible: false });
 
     expect(field.visible).toBe(false);
 
@@ -81,7 +81,7 @@ test('change visible property', () => {
 });
 
 test('change error property', () => {
-    const field = TypeField.create(config);
+    const field = ValueField.create(config);
 
     expect(field.errors.length).toBe(0);
     expect(field.valid).toBe(true);
@@ -96,7 +96,7 @@ test('change error property', () => {
 });
 
 test('check validating property', async () => {
-    const field = TypeField.create(config);
+    const field = ValueField.create(config);
 
     expect(field.validating).toBe(false);
 
