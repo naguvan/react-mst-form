@@ -1,6 +1,6 @@
 export function flatMap<T, U>(
-    array: T[],
-    mapper: (value: T, index: number, array: T[]) => U[]
-): U[] {
-    return [].concat(...array.map(mapper));
+    array: Array<T>,
+    mapper: (value: T, index: number, array: Array<T>) => Array<U>
+): Array<U> {
+    return ([] as Array<U>).concat(...array.map(mapper));
 }

@@ -12,7 +12,7 @@ export default function configure(env: any): Array<webpack.Configuration> {
     stats: { modules: false },
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx'],
-      alias: { '@sk': path.resolve('./src') }
+      alias: { '@root': path.resolve('./src') }
     },
     output: {
       filename: '[name].js',
@@ -30,7 +30,7 @@ export default function configure(env: any): Array<webpack.Configuration> {
         }
       ]
     },
-    entry: { client: './src/index.ts' },
+    entry: { lib: './src/index.ts', client: './src/client.tsx' },
     plugins: [
       // new webpack.SourceMapDevToolPlugin({
       //   filename: "[file].map",

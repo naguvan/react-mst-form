@@ -15,9 +15,9 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         title: types.string,
         properties: types.map(Field),
         errors: types.optional(types.array(types.string), []),
-        _validating: types.optional(types.boolean, false),
         layout: types.frozen
     })
+    .volatile(it => ({ _validating: false }))
     .actions(it => ({
         afterCreate() {
             const { properties, layout } = it;
