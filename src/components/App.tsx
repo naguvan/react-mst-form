@@ -1,12 +1,14 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
+import { IAppProps, IAppStates } from '@root/types';
+import { IAppStyleProps, IAppStyles } from '@root/types';
+
+import withStyles from 'material-ui/styles/withStyles';
+import * as classNames from 'classnames';
+
 import FormView from './Form';
 import { Form as FormModel } from '../models/form/Form';
-
-export interface IAppProps {}
-
-export interface IAppStates {}
 
 const form = FormModel.create({
     title: 'Test Form',
@@ -33,13 +35,24 @@ const form = FormModel.create({
     layout: ['name', 'age', ['boy']]
 });
 
-export default class App extends Component<IAppProps, IAppStates> {
+export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
+    constructor(props: IAppProps & IAppStyleProps, context: {}) {
+        super(props, context);
+    }
+
     public render(): ReactNode {
+        const { className, classes, style } = this.props;
+        const root: string = classNames(classes!.root, className);
         return (
-            <div>
+            <div className={root} style={style}>
                 <h1>App Form </h1>
-                <FormView form={form} />
+                <FormView className={classes.form} form={form} />
             </div>
         );
     }
 }
+
+export default withStyles<keyof IAppStyles>({
+    root: {},
+    form: {}
+})(App);

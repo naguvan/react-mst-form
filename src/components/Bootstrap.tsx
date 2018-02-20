@@ -13,11 +13,7 @@ import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 
 import Reboot from 'material-ui/Reboot';
 
-export interface IBootstrapProps {
-    theme: 'dark' | 'brown' | 'light';
-}
-
-export interface IBootstrapStates {}
+import { IBootstrapProps, IBootstrapStates } from '@root/types';
 
 // Create a JSS instance with the default preset of plugins.
 // It's optional.
@@ -30,6 +26,10 @@ export default class Bootstrap extends Component<
     IBootstrapProps,
     IBootstrapStates
 > {
+    constructor(props: IBootstrapProps, context: {}) {
+        super(props, context);
+    }
+
     public render(): ReactNode {
         const { theme } = this.props;
         return (
@@ -48,7 +48,7 @@ export default class Bootstrap extends Component<
             //   // primary: green,
             //   // accent: red,
             //   shades: theme || "light"
-            // }
+            // }});
         });
     }
 }

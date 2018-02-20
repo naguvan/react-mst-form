@@ -1,4 +1,2 @@
-export * from './models/Field';
-export * from './models/Form';
-
-export * from './components/Form';
+export * from './components';
+export * from './models';
