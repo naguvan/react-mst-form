@@ -8,6 +8,8 @@ import { IFormStyleProps, IFormStyles } from '@root/types';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
+import Layout from '../Layout';
+
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     constructor(props: IFormProps & IFormStyleProps, context: {}) {
@@ -28,7 +30,20 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
                         </li>
                     ))}
                 </ul>
+                <Layout
+                    center
+                    items={form.layout}
+                    render={this.fieldRenderer(form) as any}
+                />
             </div>
+        );
+    }
+
+    private fieldRenderer(form: IForm): (item: string) => ReactNode {
+        return item => (
+            <li key={form.get(item)!.name}>
+                {form.get(item)!.name}-{form.get(item)!.value}
+            </li>
         );
     }
 }
