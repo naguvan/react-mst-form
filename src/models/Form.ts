@@ -6,12 +6,11 @@ export type __IModelType = IModelType<any, any>;
 import { IFieldConfig, IField } from '../types/Field';
 import { IFormConfig, IForm } from '../types/Form';
 
-import { StringField } from './StringField';
-import { NumberField } from './NumberField';
-import { TypeField } from './TypeField';
 import { Field } from './Field';
 
-export const Form = types
+import { flatArray } from '../utils';
+
+export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .model('Form', {
         properties: types.map(Field),
         layout: types.frozen // ,
@@ -24,34 +23,40 @@ export const Form = types
     })
     .actions(it => ({
         afterCreate() {
-            const { properties } = it;
+            const { properties, layout } = it;
+            const items = flatArray<string>(layout);
+            const invalids = items.filter(item => !properties.has(item));
 
-            // Object.keys(it.properties).map(property => {
-            //     const config = properties.getValue();
-            //     console.info(property, JSON.stringify(config));
-            //     // return create(config);
-            // });
-
-            // it.fields = Object.keys(properties).map(property => {
-            //     const config = properties[property];
-            //     console.info(property, JSON.stringify(config));
-            //     return create(config);
-            // });
+            if (invalids.length) {
+                throw new TypeError(
+                    `[${invalids
+                        .map(invalid => `'${invalid}'`)
+                        .join('\t')}] layout field${
+                        invalids.length === 1 ? ' is' : 's are'
+                    } not configured.`
+                );
+            }
             // if (!hasParent(it)) {
             //     unprotect(it);
             // }
         }
     }))
     .views(it => ({
+        get fields(): Array<IField> {
+            return it.properties.values();
+        },
+
         get values() {
-            // const { fields }: { fields: Array<IField> } = it;
-            // return fields.reduce(
-            //     (values: any, field: IField) => {
-            //         values[field.title] = field.value;
-            //         return values;
-            //     },
-            //     {} as any
-            // );
-            return {};
+            return it.properties.entries().reduce(
+                (values: any, [key, field]) => {
+                    values[key] = field.value;
+                    return values;
+                },
+                {} as any
+            );
+        },
+
+        get(key: string): IField | undefined {
+            return it.properties.get(key);
         }
-    }));
+    })) as any;

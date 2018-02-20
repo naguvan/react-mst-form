@@ -25,14 +25,14 @@ test('create number field', () => {
     expect(field.value).toBe(50);
 });
 
-// test('create type field', () => {
-//     const field = Field.create({
-//         title: 'naguvan',
-//         value: true,
-//         type: 'boolean'
-//     });
-//     expect(field.type).toBe('boolean');
-//     expect(field.title).toBe('naguvan');
-//     expect(field.name).toBe(field.title);
-//     expect(field.value).toBe(true);
-// });
+test('create type field', () => {
+    const field = Field.create({
+        title: 'naguvan',
+        value: true,
+        type: 'boolean'
+    });
+    expect(field.type).toBe('boolean');
+    expect(field.title).toBe('naguvan');
+    expect(field.name).toBe(field.title);
+    expect(field.value).toBe(true);
+});

@@ -11,9 +11,6 @@ test('create number field', () => {
     expect(field.value).toBe(50);
     expect(field.minimum).toBe(Number.MIN_SAFE_INTEGER);
     expect(field.maximum).toBe(Number.MAX_SAFE_INTEGER);
-
-    field.setName('senthilnathan');
-    expect(field.name).toBe('senthilnathan');
 });
 
 test('change number name field', () => {
