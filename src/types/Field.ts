@@ -16,10 +16,11 @@ export interface ITypeField<T> extends ITypeFieldProps<T> {
     readonly type: string;
     readonly modified: boolean;
     readonly validating: boolean;
-    readonly hasError: boolean;
-    title: string;
-    errors: Array<string>;
-    initial: T;
+    readonly syncing: boolean;
+    readonly valid: boolean;
+    readonly title: string;
+    readonly errors: Array<string>;
+    readonly initial: T;
     setValue(value: T): void;
     setName(name: string): void;
     setTitle(title: string): void;
@@ -30,7 +31,7 @@ export interface ITypeField<T> extends ITypeFieldProps<T> {
     addErrors(errors: Array<string>): void;
     clearError(): void;
     reset(): void;
-    validate(): Promise<Array<string>>;
+    validate(): Promise<void>;
 }
 
 export interface IStringFieldProps extends ITypeFieldProps<string> {

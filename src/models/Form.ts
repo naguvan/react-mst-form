@@ -1,4 +1,4 @@
-import { IModelType, types, unprotect } from 'mobx-state-tree';
+import { IModelType, types, flow } from 'mobx-state-tree';
 import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
@@ -12,14 +12,11 @@ import { flatArray } from '../utils';
 
 export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .model('Form', {
+        title: types.string,
         properties: types.map(Field),
-        layout: types.frozen // ,
-        // fields: types.optional(types.array(Field), [])
-        // ,
-        // values: types.optional(
-        //     types.map(types.union(types.string, types.number)),
-        //     {}
-        // )
+        errors: types.optional(types.array(types.string), []),
+        _validating: types.optional(types.boolean, false),
+        layout: types.frozen
     })
     .actions(it => ({
         afterCreate() {
@@ -50,18 +47,54 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         get fields(): Array<IField> {
             return it.properties.values();
         },
-
-        get values() {
+        get values(): { [key: string]: string | number | boolean } {
             return it.properties.entries().reduce(
-                (values: any, [key, field]) => {
+                (values, [key, field]) => {
                     values[key] = field.value;
                     return values;
                 },
-                {} as any
+                {} as {
+                    [key: string]: string | number | boolean;
+                }
             );
         },
-
         get(key: string): IField | undefined {
             return it.properties.get(key);
+        },
+        get fieldErrors(): { [key: string]: Array<string> } {
+            return it.properties.entries().reduce(
+                (values, [key, field]) => {
+                    values[key] = field.errors.slice(0);
+                    return values;
+                },
+                {} as { [key: string]: Array<string> }
+            );
         }
-    })) as any;
+    }))
+    .views(it => ({
+        get valid(): boolean {
+            return it.fields.every(field => field.valid);
+        },
+        get modified(): boolean {
+            return it.fields.some(field => field.modified);
+        },
+        get validating(): boolean {
+            return it._validating || it.fields.some(field => field.validating);
+        }
+    }))
+    .actions(it => ({
+        reset(): void {
+            it.errors.length = 0;
+            it.fields.forEach(field => field.reset());
+        },
+        validate: flow<void>(function*() {
+            if (it.validating) {
+                return [];
+            }
+            it._validating = true;
+            for (const field of it.fields) {
+                yield field.validate();
+            }
+            it._validating = false;
+        })
+    }));

@@ -11,17 +11,17 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
         ITypeField<T>
     > = types
         .model('TypeField', {
-            // type: types.enumeration('type', ['string', 'number', 'boolean']),
             title: types.string,
+            type: types.literal(type),
+            value: types.optional(kind, defaultv),
+            default: types.optional(kind, defaultv),
+            initial: types.optional(kind, defaultv),
             name: types.optional(types.string, ''),
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
             errors: types.optional(types.array(types.string), []),
-            type: types.literal(type),
-            value: types.optional(kind, defaultv),
-            default: types.optional(kind, defaultv),
-            initial: types.optional(kind, defaultv),
+            syncing: types.optional(types.boolean, false),
             validating: types.optional(types.boolean, false)
         })
         .actions(it => ({
@@ -60,26 +60,34 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 it.errors.length = 0;
             },
             setValue(value: T): void {
-                it.value = value;
-            },
+                if (!it.syncing) {
+                    it.syncing = true;
+                    it.value = value;
+                    it.syncing = false;
+                }
+            }
+        }))
+        .actions(it => ({
             reset(): void {
                 it.value = it.initial;
-                it.errors.length = 0;
+                it.clearError();
             },
-            validate: flow<Array<string>>(function*() {
+            validate: flow<void>(function*() {
+                if (it.syncing || it.validating) {
+                    return [];
+                }
                 it.validating = true;
                 const errors = yield Promise.resolve([]);
                 it.validating = false;
-                it.errors.push(...errors);
-                return errors;
+                it.addErrors(errors);
             })
         }))
         .views(it => ({
             get modified(): boolean {
                 return it.value !== it.initial;
             },
-            get hasError(): boolean {
-                return it.errors.length > 0;
+            get valid(): boolean {
+                return it.errors.length === 0;
             }
         }));
 

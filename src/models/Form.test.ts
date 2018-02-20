@@ -33,6 +33,7 @@ const boy: IBooleanFieldConfig = {
 
 test('create form', () => {
     const form = Form.create({
+        title: 'Test Form',
         properties: {
             name,
             age,
@@ -42,6 +43,12 @@ test('create form', () => {
     });
 
     // console.info(getSnapshot(form));
+
+    expect(form.title).toBe('Test Form');
+    expect(form.errors.length).toBe(0);
+    expect(form.valid).toBe(true);
+    expect(form.modified).toBe(false);
+    expect(form.validating).toBe(false);
 
     expect(form.get('name')!.value).toBe('sk');
     expect(form.get('name')!.name).toBe('name');
@@ -66,6 +73,7 @@ test('create form', () => {
 test('test form layout single mis-configuration error', () => {
     expect(() =>
         Form.create({
+            title: 'Test Form',
             properties: {
                 name
             },
@@ -77,6 +85,7 @@ test('test form layout single mis-configuration error', () => {
 test('test form layout multi mis-configuration error', () => {
     expect(() =>
         Form.create({
+            title: 'Test Form',
             properties: {
                 name,
                 a: age,
@@ -85,4 +94,73 @@ test('test form layout multi mis-configuration error', () => {
             layout: ['name', 'age', ['boy']]
         })
     ).toThrowError(`['age', 'boy'] layout fields are not configured.`);
+});
+
+test('test field modification', () => {
+    const form = Form.create({
+        title: 'Test Form',
+        properties: {
+            name
+        },
+        layout: ['name']
+    });
+
+    expect(form.title).toBe('Test Form');
+    expect(form.modified).toBe(false);
+    expect(form.values).toEqual({ name: 'sk' });
+
+    const fname = form.get('name') as IStringField;
+    fname!.setValue('senthilnathan');
+
+    expect(form.modified).toBe(true);
+    expect(form.values).toEqual({ name: 'senthilnathan' });
+
+    fname!.reset();
+    expect(form.modified).toBe(false);
+    expect(form.values).toEqual({ name: 'sk' });
+});
+
+test('test field error', () => {
+    const form = Form.create({
+        title: 'Test Form',
+        properties: {
+            name
+        },
+        layout: ['name']
+    });
+
+    expect(form.title).toBe('Test Form');
+    expect(form.valid).toBe(true);
+    expect(form.fieldErrors).toEqual({ name: [] });
+
+    const fname = form.get('name') as IStringField;
+    fname!.addError('testing field error');
+
+    expect(form.valid).toBe(false);
+    expect(form.fieldErrors).toEqual({ name: ['testing field error'] });
+
+    fname!.reset();
+    expect(form.valid).toBe(true);
+    expect(form.fieldErrors).toEqual({ name: [] });
+});
+
+test('test field validating', async () => {
+    const form = Form.create({
+        title: 'Test Form',
+        properties: {
+            name
+        },
+        layout: ['name']
+    });
+
+    expect(form.title).toBe('Test Form');
+    expect(form.validating).toBe(false);
+
+    const fname = form.get('name') as IStringField;
+
+    const validate = fname.validate();
+    expect(form.validating).toBe(true);
+
+    await validate;
+    expect(form.validating).toBe(false);
 });

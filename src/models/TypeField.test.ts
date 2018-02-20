@@ -84,12 +84,15 @@ test('change error property', () => {
     const field = TypeField.create(config);
 
     expect(field.errors.length).toBe(0);
+    expect(field.valid).toBe(true);
 
     field.addError('this field has some error');
     expect(field.errors.slice(0)).toEqual(['this field has some error']);
+    expect(field.valid).toBe(false);
 
     field.reset();
     expect(field.errors.length).toBe(0);
+    expect(field.valid).toBe(true);
 });
 
 test('check validating property', async () => {
