@@ -4,6 +4,9 @@ import { WithStyles } from 'material-ui';
 
 export interface IFormStyles {
     root: React.CSSProperties;
+    layout: React.CSSProperties;
+    set: React.CSSProperties;
+    item: React.CSSProperties;
 }
 
 export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}

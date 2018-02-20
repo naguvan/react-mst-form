@@ -66,6 +66,11 @@ export function isNull(value: any): value is null {
     return value === null;
 }
 
+export function toNumber(value: string, defaultn: number): number {
+    const num = Number(value);
+    return isNumber(num) ? num : defaultn;
+}
+
 export function isObject(value: any): value is object {
     const type = typeof value;
     return value != null && (type === 'object' || type === 'function');

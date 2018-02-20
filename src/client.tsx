@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { render } from 'react-dom';
 
-import Bootstrap from './components/Bootstrap';
+import Boot from './components/Boot';
 
-render(<Bootstrap theme={'light'} />, document.getElementById('root'));
+render(<Boot theme={'light'} />, document.getElementById('root'));

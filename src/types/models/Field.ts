@@ -34,41 +34,40 @@ export interface IValueField<T> extends IValueFieldProps<T> {
     validate(): Promise<void>;
 }
 
-export interface IStringFieldProps extends IValueFieldProps<string> {
+export interface IStringFieldAttrs extends IValueFieldProps<string> {
     readonly minLength: number;
 }
 
 export interface IStringFieldConfig
     extends IValueFieldConfig<string>,
-        Partial<IStringFieldProps> {
+        Partial<IStringFieldAttrs> {
 }
 
-export interface IStringField extends IStringFieldProps, IValueField<string> {
+export interface IStringField extends IStringFieldAttrs, IValueField<string> {
 }
 
-export interface INumberFieldProps extends IValueFieldProps<number> {
-    // readonly type: 'number';
+export interface INumberFieldAttrs extends IValueFieldProps<number> {
     readonly minimum: number;
     readonly maximum: number;
 }
 
 export interface INumberFieldConfig
     extends IValueFieldConfig<number>,
-        Partial<INumberFieldProps> {
+        Partial<INumberFieldAttrs> {
 }
 
-export interface INumberField extends INumberFieldProps, IValueField<number> {
+export interface INumberField extends INumberFieldAttrs, IValueField<number> {
 }
 
-export interface IBooleanFieldProps extends IValueFieldProps<boolean> {
+export interface IBooleanFieldAttrs extends IValueFieldProps<boolean> {
 }
 
 export interface IBooleanFieldConfig
     extends IValueFieldConfig<boolean>,
-        Partial<IBooleanFieldProps> {
+        Partial<IBooleanFieldAttrs> {
 }
 
-export interface IBooleanField extends IBooleanFieldProps, IValueField<boolean> {
+export interface IBooleanField extends IBooleanFieldAttrs, IValueField<boolean> {
 }
 
 export type IFieldConfig =

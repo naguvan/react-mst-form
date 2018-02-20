@@ -21,10 +21,13 @@ export class Layout<T> extends Component<
     public render(): ReactNode {
         const { path = '0', items, render, center = false } = this.props;
         const { direction = 'column' } = this.props;
-        const props = { path, direction, center };
+        const { className, classes, style } = this.props;
+        const root: string = classNames(classes!.root, className);
+        const props = { path, direction, center, className: root };
         return (
             <Set
                 {...props}
+                classes={{ set: classes.set, item: classes.item }}
                 render={render as any}
                 items={Array.isArray(items) ? arrange(items) : items}
             />

@@ -13,7 +13,7 @@ import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 
 import Reboot from 'material-ui/Reboot';
 
-import { IBootstrapProps, IBootstrapStates } from '@root/types';
+import { IBootProps, IBootStates } from '@root/types';
 
 // Create a JSS instance with the default preset of plugins.
 // It's optional.
@@ -22,11 +22,11 @@ const jss = create(preset());
 
 const generateClassName = createGenerateClassName();
 
-export default class Bootstrap extends Component<
-    IBootstrapProps,
-    IBootstrapStates
+export default class Boot extends Component<
+    IBootProps,
+    IBootStates
 > {
-    constructor(props: IBootstrapProps, context: {}) {
+    constructor(props: IBootProps, context: {}) {
         super(props, context);
     }
 
