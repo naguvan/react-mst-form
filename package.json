@@ -46,17 +46,8 @@
             "^.+\\.tsx?$": "ts-jest"
         },
         "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
-        "moduleFileExtensions": [
-            "ts",
-            "tsx",
-            "js",
-            "jsx",
-            "json",
-            "node"
-        ],
-        "modulePaths": [
-            "<rootDir>/src/"
-        ]
+        "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
+        "modulePaths": ["<rootDir>/src/"]
     },
     "config": {
         "windowsVerbatimArguments": true
@@ -65,9 +56,13 @@
         "build": "tsc -p .",
         "lint": "tslint -p .",
         "test": "jest",
-        "stats": "webpack --config webpack.config.js --env.prod --profile --json > stats.json",
-        "bundle": "cross-env NODE_ENV=production webpack --config webpack.config.js --env.prod",
-        "dev": "cross-env NODE_ENV=development webpack --config webpack.config.js",
-        "demo": "ts-node --compilerOptions {\\\"module\\\":\\\"commonjs\\\"} ./demo/server.ts"
+        "stats":
+            "webpack --config webpack.config.js --env.prod --profile --json > stats.json",
+        "bundle":
+            "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod",
+        "dev":
+            "cross-env NODE_ENV=development TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts",
+        "demo":
+            "ts-node --compilerOptions {\\\"module\\\":\\\"commonjs\\\"} ./demo/server.ts"
     }
 }
