@@ -6,7 +6,7 @@ export type __IModelType = IModelType<any, any>;
 import { IFieldConfig, IField } from '@root/types';
 import { IFormConfig, IForm } from '@root/types';
 
-import { Field } from '../field/Field';
+import Field from '../Field';
 
 import { flatArray } from '../../utils';
 

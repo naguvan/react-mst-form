@@ -3,8 +3,8 @@ import { IBoolean, IBooleanConfig } from '@root/types';
 import { IString, IStringConfig } from '@root/types';
 import { INumber, INumberConfig } from '@root/types';
 
-import { String } from './string/String';
-import { Number } from './number/Number';
-import { Boolean } from './boolean/Boolean';
+import { String } from './String/String';
+import { Number } from './Number/Number';
+import { Boolean } from './Boolean/Boolean';
 
 export const Field = types.union(String, Number, Boolean);

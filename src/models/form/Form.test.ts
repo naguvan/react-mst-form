@@ -6,9 +6,9 @@ import { IBooleanConfig, IBoolean } from '@root/types';
 import { getSnapshot } from 'mobx-state-tree';
 import { IFormConfig, IForm } from '@root/types';
 
-import { String } from '../field/string/String';
-import { Number } from '../field/number/Number';
-import { Boolean } from '../field/boolean/Boolean';
+import { String } from '../Field/String/String';
+import { Number } from '../Field/Number/Number';
+import { Boolean } from '../Field/Boolean/Boolean';
 
 const name: IStringConfig = {
     title: 'Name',
