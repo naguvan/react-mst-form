@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IColorFieldProps, IColorFieldStates } from '@root/types';
+import { IColorProps, IColorStates } from '@root/types';
 import { IColor } from '@root/types';
 
 import { observer } from 'mobx-react';
@@ -13,10 +13,10 @@ import TextField from 'material-ui/TextField';
 @observer
 export default class Color extends Base<
     IColor,
-    IColorFieldProps,
-    IColorFieldStates
+    IColorProps,
+    IColorStates
 > {
-    constructor(props: IColorFieldProps, context: any) {
+    constructor(props: IColorProps, context: any) {
         super(props, context);
     }
 

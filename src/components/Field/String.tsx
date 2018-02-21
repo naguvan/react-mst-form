@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IStringFieldProps, IStringFieldStates } from '@root/types';
+import { IStringProps, IStringStates } from '@root/types';
 import { IString } from '@root/types';
 
 import { observer } from 'mobx-react';
@@ -13,10 +13,10 @@ import TextField from 'material-ui/TextField';
 @observer
 export default class String extends Base<
     IString,
-    IStringFieldProps,
-    IStringFieldStates
+    IStringProps,
+    IStringStates
 > {
-    constructor(props: IStringFieldProps, context: any) {
+    constructor(props: IStringProps, context: any) {
         super(props, context);
     }
 

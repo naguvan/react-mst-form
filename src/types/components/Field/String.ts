@@ -2,6 +2,6 @@ import { IFieldProps, IFieldStates } from './Field';
 
 import { IString } from '../../models/Field';
 
-export interface IStringFieldProps extends IFieldProps<IString> {}
+export interface IStringProps extends IFieldProps<IString> {}
 
-export interface IStringFieldStates extends IFieldStates<IString> {}
+export interface IStringStates extends IFieldStates<IString> {}

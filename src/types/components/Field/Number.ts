@@ -2,6 +2,6 @@ import { IFieldProps, IFieldStates } from './Field';
 
 import { INumber } from '../../models/Field';
 
-export interface INumberFieldProps extends IFieldProps<INumber> {}
+export interface INumberProps extends IFieldProps<INumber> {}
 
-export interface INumberFieldStates extends IFieldStates<INumber> {}
+export interface INumberStates extends IFieldStates<INumber> {}

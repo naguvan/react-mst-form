@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IBooleanFieldProps, IBooleanFieldStates } from '@root/types';
+import { IBooleanProps, IBooleanStates } from '@root/types';
 import { IBoolean } from '@root/types';
 
 import { observer } from 'mobx-react';
@@ -15,10 +15,10 @@ import Switch from 'material-ui/Switch';
 @observer
 export default class Boolean extends Base<
     IBoolean,
-    IBooleanFieldProps,
-    IBooleanFieldStates
+    IBooleanProps,
+    IBooleanStates
 > {
-    constructor(props: IBooleanFieldProps, context: any) {
+    constructor(props: IBooleanProps, context: any) {
         super(props, context);
     }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IEnumFieldProps, IEnumFieldStates } from '@root/types';
+import { IEnumProps, IEnumStates } from '@root/types';
 import { IEnum } from '@root/types';
 
 import { observer } from 'mobx-react';
@@ -14,10 +14,10 @@ import MenuItem from 'material-ui/Menu/MenuItem';
 @observer
 export default class Enum extends Base<
     IEnum,
-    IEnumFieldProps,
-    IEnumFieldStates
+    IEnumProps,
+    IEnumStates
 > {
-    constructor(props: IEnumFieldProps, context: any) {
+    constructor(props: IEnumProps, context: any) {
         super(props, context);
     }
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { INumberFieldProps, INumberFieldStates } from '@root/types';
+import { INumberProps, INumberStates } from '@root/types';
 import { INumber } from '@root/types';
 
 import { observer } from 'mobx-react';
@@ -15,10 +15,10 @@ import { toNumber } from '@root/utils';
 @observer
 export default class Number extends Base<
     INumber,
-    INumberFieldProps,
-    INumberFieldStates
+    INumberProps,
+    INumberStates
 > {
-    constructor(props: INumberFieldProps, context: any) {
+    constructor(props: INumberProps, context: any) {
         super(props, context);
     }
 
