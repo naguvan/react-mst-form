@@ -1,5 +1,5 @@
 import { Field } from './Field';
-import { IValueField, IStringField, INumberField } from '@root/types';
+import { IValue, IString, INumber } from '@root/types';
 
 test('create string field', () => {
     const field = Field.create({
@@ -7,7 +7,7 @@ test('create string field', () => {
         value: 'sk',
         type: 'string',
         minLength: 4
-    }) as IStringField;
+    }) as IString;
     expect(field.type).toBe('string');
     expect(field.title).toBe('naguvan');
     expect(field.value).toBe('sk');
@@ -19,7 +19,7 @@ test('create number field', () => {
         title: 'naguvan',
         value: 50,
         type: 'number'
-    }) as INumberField;
+    }) as INumber;
     expect(field.type).toBe('number');
     expect(field.title).toBe('naguvan');
     expect(field.value).toBe(50);

@@ -1,6 +1,6 @@
 import { IForm } from '../models/Form';
-import { IField, IStringField } from '../models/Field';
-import { INumberField, IBooleanField } from '../models/Field';
+import { IField, IString } from '../models/Field';
+import { INumber, IBoolean } from '../models/Field';
 
 export interface IFieldProps<T extends IField> {
     field: T;
@@ -9,14 +9,14 @@ export interface IFieldProps<T extends IField> {
 
 export interface IFieldStates<T extends IField> {}
 
-export interface IStringFieldProps extends IFieldProps<IStringField> {}
+export interface IStringFieldProps extends IFieldProps<IString> {}
 
-export interface IStringFieldStates extends IFieldStates<IStringField> {}
+export interface IStringFieldStates extends IFieldStates<IString> {}
 
-export interface INumberFieldProps extends IFieldProps<INumberField> {}
+export interface INumberFieldProps extends IFieldProps<INumber> {}
 
-export interface INumberFieldStates extends IFieldStates<INumberField> {}
+export interface INumberFieldStates extends IFieldStates<INumber> {}
 
-export interface IBooleanFieldProps extends IFieldProps<IBooleanField> {}
+export interface IBooleanFieldProps extends IFieldProps<IBoolean> {}
 
-export interface IBooleanFieldStates extends IFieldStates<IBooleanField> {}
+export interface IBooleanFieldStates extends IFieldStates<IBoolean> {}

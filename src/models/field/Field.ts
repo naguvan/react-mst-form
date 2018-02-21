@@ -1,10 +1,10 @@
 import { types, IType } from 'mobx-state-tree';
-import { IBooleanField, IBooleanFieldConfig } from '@root/types';
-import { IStringField, IStringFieldConfig } from '@root/types';
-import { INumberField, INumberFieldConfig } from '@root/types';
+import { IBoolean, IBooleanConfig } from '@root/types';
+import { IString, IStringConfig } from '@root/types';
+import { INumber, INumberConfig } from '@root/types';
 
-import { StringField } from './string/StringField';
-import { NumberField } from './number/NumberField';
-import { BooleanField } from './boolean/BooleanField';
+import { String } from './string/String';
+import { Number } from './number/Number';
+import { Boolean } from './boolean/Boolean';
 
-export const Field = types.union(StringField, NumberField, BooleanField);
+export const Field = types.union(String, Number, Boolean);

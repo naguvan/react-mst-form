@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IStringFieldProps, IStringFieldStates } from '@root/types';
-import { IStringField } from '@root/types';
+import { IString } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -12,7 +12,7 @@ import TextField from 'material-ui/TextField';
 
 @observer
 export default class String extends Base<
-    IStringField,
+    IString,
     IStringFieldProps,
     IStringFieldStates
 > {
@@ -20,7 +20,7 @@ export default class String extends Base<
         super(props, context);
     }
 
-    protected renderField(field: IStringField): ReactNode {
+    protected renderField(field: IString): ReactNode {
         return (
             <>
                 <TextField

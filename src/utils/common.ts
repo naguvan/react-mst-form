@@ -1,6 +1,8 @@
 export const INFINITY = 1 / 0;
 
-export const MAX_SAFE_INTEGER = 9007199254740991;
+export const MAX_SAFE_INTEGER = Number.MAX_SAFE_INTEGER; // 9007199254740991;
+
+export const MIN_SAFE_INTEGER = Number.MIN_SAFE_INTEGER;
 
 export function toString(value: any): string {
     return Object.prototype.toString.call(value);

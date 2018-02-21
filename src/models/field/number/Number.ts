@@ -3,19 +3,17 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { INumberFieldConfig, INumberField } from '@root/types';
-import { create } from '../value/ValueField';
+import { INumberConfig, INumber } from '@root/types';
+import { create } from '../value/Value';
+import { MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
 
-export const NumberField: IModelType<
-    Partial<INumberFieldConfig>,
-    INumberField
-> = types
+export const Number: IModelType<Partial<INumberConfig>, INumber> = types
     .compose(
-        'NumberField',
+        'Number',
         create<number>('number', types.number, 0),
         types.model({
-            minimum: types.optional(types.number, Number.MIN_SAFE_INTEGER),
-            maximum: types.optional(types.number, Number.MAX_SAFE_INTEGER)
+            minimum: types.optional(types.number, MIN_SAFE_INTEGER),
+            maximum: types.optional(types.number, MAX_SAFE_INTEGER)
         })
     )
     .actions(it => ({

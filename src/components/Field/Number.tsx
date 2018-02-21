@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { INumberFieldProps, INumberFieldStates } from '@root/types';
-import { INumberField } from '@root/types';
+import { INumber } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -14,7 +14,7 @@ import { toNumber } from '@root/utils';
 
 @observer
 export default class Number extends Base<
-    INumberField,
+    INumber,
     INumberFieldProps,
     INumberFieldStates
 > {
@@ -22,7 +22,7 @@ export default class Number extends Base<
         super(props, context);
     }
 
-    protected renderField(field: INumberField): ReactNode {
+    protected renderField(field: INumber): ReactNode {
         return (
             <>
                 <TextField

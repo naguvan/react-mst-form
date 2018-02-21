@@ -1,8 +1,8 @@
 import { types } from 'mobx-state-tree';
-import { IValueFieldConfig, IValueField } from '@root/types';
-import { create } from '../value/ValueField';
+import { IValueConfig, IValue } from '@root/types';
+import { create } from '../value/Value';
 
-const config: IValueFieldConfig<boolean> = {
+const config: IValueConfig<boolean> = {
     title: 'naguvan',
     value: true,
     type: 'boolean'

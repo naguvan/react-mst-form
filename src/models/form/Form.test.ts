@@ -1,23 +1,23 @@
 import { Form } from './Form';
 import { IFieldConfig, IField } from '@root/types';
-import { IStringFieldConfig, IStringField } from '@root/types';
-import { INumberFieldConfig, INumberField } from '@root/types';
-import { IBooleanFieldConfig, IBooleanField } from '@root/types';
+import { IStringConfig, IString } from '@root/types';
+import { INumberConfig, INumber } from '@root/types';
+import { IBooleanConfig, IBoolean } from '@root/types';
 import { getSnapshot } from 'mobx-state-tree';
 import { IFormConfig, IForm } from '@root/types';
 
-import { StringField } from '../field/string/StringField';
-import { NumberField } from '../field/number/NumberField';
-import { BooleanField } from '../field/boolean/BooleanField';
+import { String } from '../field/string/String';
+import { Number } from '../field/number/Number';
+import { Boolean } from '../field/boolean/Boolean';
 
-const name: IStringFieldConfig = {
+const name: IStringConfig = {
     title: 'Name',
     value: 'sk',
     type: 'string',
     minLength: 5
 };
 
-const age: INumberFieldConfig = {
+const age: INumberConfig = {
     title: 'Age',
     value: 1,
     type: 'number',
@@ -25,7 +25,7 @@ const age: INumberFieldConfig = {
     minimum: 0
 };
 
-const boy: IBooleanFieldConfig = {
+const boy: IBooleanConfig = {
     title: 'Boy?',
     value: true,
     type: 'boolean'
@@ -52,15 +52,15 @@ test('create form', () => {
 
     expect(form.get('name')!.value).toBe('sk');
     expect(form.get('name')!.name).toBe('name');
-    expect(StringField.is(form.get('name'))).toBe(true);
+    expect(String.is(form.get('name'))).toBe(true);
 
     expect(form.get('age')!.value).toBe(1);
     expect(form.get('age')!.name).toBe('age');
-    expect(NumberField.is(form.get('age'))).toBe(true);
+    expect(Number.is(form.get('age'))).toBe(true);
 
     expect(form.get('boy')!.value).toBe(true);
     expect(form.get('boy')!.name).toBe('boy');
-    expect(BooleanField.is(form.get('boy'))).toBe(true);
+    expect(Boolean.is(form.get('boy'))).toBe(true);
 
     expect(form.fields.length).toBe(3);
     expect(form.values).toEqual({ name: 'sk', age: 1, boy: true });
@@ -109,7 +109,7 @@ test('test field modification', () => {
     expect(form.modified).toBe(false);
     expect(form.values).toEqual({ name: 'sk' });
 
-    const fname = form.get('name') as IStringField;
+    const fname = form.get('name') as IString;
     fname!.setValue('senthilnathan');
 
     expect(form.modified).toBe(true);
@@ -133,7 +133,7 @@ test('test field error', () => {
     expect(form.valid).toBe(true);
     expect(form.fieldErrors).toEqual({ name: [] });
 
-    const fname = form.get('name') as IStringField;
+    const fname = form.get('name') as IString;
     fname!.addError('testing field error');
 
     expect(form.valid).toBe(false);
@@ -156,7 +156,7 @@ test('test field validating', async () => {
     expect(form.title).toBe('Test Form');
     expect(form.validating).toBe(false);
 
-    const fname = form.get('name') as IStringField;
+    const fname = form.get('name') as IString;
 
     const validate = fname.validate();
     expect(form.validating).toBe(true);

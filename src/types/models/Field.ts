@@ -1,4 +1,4 @@
-export interface IValueFieldProps<T> {
+export interface IValueAttrs<T> {
     value: T;
     default: T;
     name: string;
@@ -7,12 +7,12 @@ export interface IValueFieldProps<T> {
     required: boolean;
 }
 
-export interface IValueFieldConfig<T> extends Partial<IValueFieldProps<T>> {
+export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
     readonly type: string;
     readonly title: string;
 }
 
-export interface IValueField<T> extends IValueFieldProps<T> {
+export interface IValue<T> extends IValueAttrs<T> {
     readonly type: string;
     readonly modified: boolean;
     readonly validating: boolean;
@@ -34,45 +34,45 @@ export interface IValueField<T> extends IValueFieldProps<T> {
     validate(): Promise<void>;
 }
 
-export interface IStringFieldAttrs extends IValueFieldProps<string> {
+export interface IStringAttrs extends IValueAttrs<string> {
     readonly minLength: number;
 }
 
-export interface IStringFieldConfig
-    extends IValueFieldConfig<string>,
-        Partial<IStringFieldAttrs> {
+export interface IStringConfig
+    extends IValueConfig<string>,
+        Partial<IStringAttrs> {
 }
 
-export interface IStringField extends IStringFieldAttrs, IValueField<string> {
+export interface IString extends IStringAttrs, IValue<string> {
 }
 
-export interface INumberFieldAttrs extends IValueFieldProps<number> {
+export interface INumberAttrs extends IValueAttrs<number> {
     readonly minimum: number;
     readonly maximum: number;
 }
 
-export interface INumberFieldConfig
-    extends IValueFieldConfig<number>,
-        Partial<INumberFieldAttrs> {
+export interface INumberConfig
+    extends IValueConfig<number>,
+        Partial<INumberAttrs> {
 }
 
-export interface INumberField extends INumberFieldAttrs, IValueField<number> {
+export interface INumber extends INumberAttrs, IValue<number> {
 }
 
-export interface IBooleanFieldAttrs extends IValueFieldProps<boolean> {
+export interface IBooleanAttrs extends IValueAttrs<boolean> {
 }
 
-export interface IBooleanFieldConfig
-    extends IValueFieldConfig<boolean>,
-        Partial<IBooleanFieldAttrs> {
+export interface IBooleanConfig
+    extends IValueConfig<boolean>,
+        Partial<IBooleanAttrs> {
 }
 
-export interface IBooleanField extends IBooleanFieldAttrs, IValueField<boolean> {
+export interface IBoolean extends IBooleanAttrs, IValue<boolean> {
 }
 
 export type IFieldConfig =
-    | IStringFieldConfig
-    | INumberFieldConfig
-    | IBooleanFieldConfig;
+    | IStringConfig
+    | INumberConfig
+    | IBooleanConfig;
 
-export type IField = IStringField | INumberField | IBooleanField;
+export type IField = IString | INumber | IBoolean;

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IBooleanFieldProps, IBooleanFieldStates } from '@root/types';
-import { IBooleanField } from '@root/types';
+import { IBoolean } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -12,7 +12,7 @@ import Switch from 'material-ui/Switch';
 
 @observer
 export default class Boolean extends Base<
-    IBooleanField,
+    IBoolean,
     IBooleanFieldProps,
     IBooleanFieldStates
 > {
@@ -20,7 +20,7 @@ export default class Boolean extends Base<
         super(props, context);
     }
 
-    protected renderField(field: IBooleanField): ReactNode {
+    protected renderField(field: IBoolean): ReactNode {
         return (
             <>
                 <Switch

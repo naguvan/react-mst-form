@@ -3,15 +3,15 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IBooleanFieldConfig, IBooleanField } from '@root/types';
-import { create } from '../value/ValueField';
+import { IBooleanConfig, IBoolean } from '@root/types';
+import { create } from '../value/Value';
 
-export const BooleanField: IModelType<
-    Partial<IBooleanFieldConfig>,
-    IBooleanField
+export const Boolean: IModelType<
+    Partial<IBooleanConfig>,
+    IBoolean
 > = types
     .compose(
-        'BooleanField',
+        'Boolean',
         create<boolean>('boolean', types.boolean, false),
         types.model({})
     )

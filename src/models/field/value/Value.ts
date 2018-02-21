@@ -3,12 +3,12 @@ import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IValueFieldConfig, IValueField } from '@root/types';
+import { IValueConfig, IValue } from '@root/types';
 
 export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
     const TypeField: IModelType<
-        Partial<IValueFieldConfig<T>>,
-        IValueField<T>
+        Partial<IValueConfig<T>>,
+        IValue<T>
     > = types
         .model('TypeField', {
             title: types.string,

@@ -1,7 +1,7 @@
-import { StringField } from './StringField';
-import { IStringFieldConfig } from '@root/types';
+import { String } from './String';
+import { IStringConfig } from '@root/types';
 
-const config: IStringFieldConfig = {
+const config: IStringConfig = {
     title: 'naguvan',
     value: 'sk',
     type: 'string',
@@ -9,7 +9,7 @@ const config: IStringFieldConfig = {
 };
 
 test('create string field', () => {
-    const field = StringField.create(config);
+    const field = String.create(config);
 
     expect(field.type).toBe('string');
     expect(field.title).toBe('naguvan');
@@ -18,7 +18,7 @@ test('create string field', () => {
 });
 
 test('change string value', () => {
-    const field = StringField.create(config);
+    const field = String.create(config);
 
     field.setValue('senthilnathan');
     expect(field.value).toBe('senthilnathan');

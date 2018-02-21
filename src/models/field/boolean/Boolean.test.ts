@@ -1,7 +1,7 @@
-import { BooleanField } from './BooleanField';
+import { Boolean } from './Boolean';
 
 test('create number field', () => {
-    const field = BooleanField.create({
+    const field = Boolean.create({
         title: 'naguvan',
         value: true,
         type: 'boolean'
@@ -13,7 +13,7 @@ test('create number field', () => {
 });
 
 test('change number name field', () => {
-    const field = BooleanField.create({
+    const field = Boolean.create({
         title: 'naguvan',
         value: true,
         type: 'boolean'
