@@ -75,6 +75,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
 
     private onSubmit = (values: { [key: string]: any }) => {
         console.info(values);
+        window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
     };
 
     private onPatch = (patch: {
