@@ -8,7 +8,7 @@ import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
 import FormView from './Form';
-import { Form as FormModel } from '../models/form/Form';
+import { Form as FormModel } from '../models/Form/Form';
 import { renderer } from './Field';
 
 import Paper from 'material-ui/Paper';

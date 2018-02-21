@@ -1,4 +1,4 @@
 import FormView from './components/Form';
-import { Form as FormModel } from './models/form/Form';
+import FormModel from './models/Form';
 
 export { FormView, FormModel };
