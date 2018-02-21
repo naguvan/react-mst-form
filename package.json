@@ -1,9 +1,9 @@
 {
     "name": "react-mst-form",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "react-mobx-state-tree-form",
     "main": "./dist/index.js",
-    "typings": "./dist/index.d.ts",
+    "typings": "./dist/index",
     "repository": "https://github.com/naguvan/react-mst-form.git",
     "author": "naguvan <naguvan@outlook.com>",
     "license": "MIT",
