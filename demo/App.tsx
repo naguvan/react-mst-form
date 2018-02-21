@@ -7,9 +7,7 @@ import { IAppStyleProps, IAppStyles } from '@root/types';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
-import FormView from './Form';
-import { Form as FormModel } from '../models/Form/Form';
-import { renderer } from './Field';
+import { FormView, FormModel, renderer } from '@root/index';
 
 import Paper from 'material-ui/Paper';
 
