@@ -1,8 +1,10 @@
+import { IForm } from '../models/Form';
 import { IField, IStringField } from '../models/Field';
 import { INumberField, IBooleanField } from '../models/Field';
 
 export interface IFieldProps<T extends IField> {
     field: T;
+    form: IForm;
 }
 
 export interface IFieldStates<T extends IField> {}

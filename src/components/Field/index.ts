@@ -1,3 +1,1 @@
-import { factory } from './factory';
-
-export { factory };
+export * from './renderer';

@@ -9,30 +9,33 @@ import * as classNames from 'classnames';
 
 import FormView from './Form';
 import { Form as FormModel } from '../models/form/Form';
+import { renderer } from './Field';
+
+import Paper from 'material-ui/Paper';
 
 const form = FormModel.create({
     title: 'Test Form',
     properties: {
-        name: {
-            title: 'Name',
+        title: {
+            title: 'Title',
             value: 'sk',
             type: 'string',
             minLength: 5
         },
-        age: {
-            title: 'Age',
-            value: 1,
+        size: {
+            title: 'Size',
+            value: 5,
             type: 'number',
             maximum: 10,
-            minimum: 0
+            minimum: 3
         },
-        boy: {
-            title: 'Boy?',
-            value: true,
+        agree: {
+            title: 'I agree with your terms',
+            value: false,
             type: 'boolean'
         }
     },
-    layout: ['name', 'age', ['boy']]
+    layout: ['title', 'size', ['agree'], ['title', 'size']]
 });
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
@@ -45,14 +48,22 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
         const root: string = classNames(classes!.root, className);
         return (
             <div className={root} style={style}>
-                <h1>App Form </h1>
-                <FormView className={classes.form} form={form} />
+                <h1>Form</h1>
+                <div>
+                    <Paper square elevation={3}>
+                        <FormView
+                            className={classes.form}
+                            form={form}
+                            renderer={renderer}
+                        />
+                    </Paper>
+                </div>
             </div>
         );
     }
 }
 
 export default withStyles<keyof IAppStyles>({
-    root: {},
+    root: { marginLeft: 300, width: 500 },
     form: {}
 })(App);

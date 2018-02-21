@@ -9,7 +9,6 @@ import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
 import Layout from '../Layout';
-import { factory as FieldFactory } from '../Field';
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
@@ -18,7 +17,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     }
 
     public render(): ReactNode {
-        const { form } = this.props;
+        const { form, renderer } = this.props;
         const { className, classes, style } = this.props;
         const root: string = classNames(classes!.root, className);
         return (
@@ -28,14 +27,15 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
                     className={classes.layout}
                     classes={{ set: classes.set, item: classes.item }}
                     items={form.layout}
-                    render={this.fieldRenderer(form) as any}
+                    render={this.getFieldRenderer() as any}
                 />
             </div>
         );
     }
 
-    private fieldRenderer(form: IForm): (item: string) => ReactNode {
-        return item => FieldFactory(form.get(item)!);
+    protected getFieldRenderer(): (item: string) => ReactNode {
+        const { form, renderer } = this.props;
+        return item => renderer(form.get(item)!, form);
     }
 }
 
