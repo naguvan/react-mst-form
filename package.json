@@ -1,10 +1,10 @@
 {
-    "name": "schema-form",
+    "name": "react-mst-form",
     "version": "1.0.0",
-    "description": "react-mst-schema-form",
+    "description": "react-mst-form",
     "main": "./lib/index.js",
     "typings": "./lib/index",
-    "repository": "https://github.com/naguvan/schema-form.git",
+    "repository": "https://github.com/naguvan/react-mst-form.git",
     "author": "naguvan <naguvan@outlook.com>",
     "license": "MIT",
     "private": false,

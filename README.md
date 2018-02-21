@@ -1,8 +1,12 @@
-# schema-form
+# react-mst-form
 
 Library for generating React forms from [JSON schema](https://json-schema.org/) using the [react](https://github.com/facebook/react), [material-ui](https://github.com/mui-org/material-ui), [mobx](https://github.com/mobxjs/mobx) and [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree).
 
-**https://github.com/naguvan/schema-form**
+**https://naguvan.github.io/react-mst-form**
+
+# Online demo
+
+[online demo](https://naguvan.github.io/react-mst-form/demo/index.html)
 
 # Running the demo
 
@@ -86,4 +90,4 @@ render(
 
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
-![](https://raw.githubusercontent.com/naguvan/schema-form/master/demo/form.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/form.png)
