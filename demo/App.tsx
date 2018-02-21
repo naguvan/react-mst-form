@@ -4,6 +4,7 @@ import { Component, ReactNode } from 'react';
 import { IAppProps, IAppStates } from './types';
 import { IAppStyleProps, IAppStyles } from './types';
 
+import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 

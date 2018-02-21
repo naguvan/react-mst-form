@@ -1,13 +1,16 @@
 {
     "name": "react-mst-form",
     "version": "1.0.0",
-    "description": "react-mst-form",
-    "main": "./lib/index.js",
-    "typings": "./lib/index",
+    "description": "react-mobx-state-tree-form",
+    "main": "./dist/index.js",
+    "typings": "./dist/index.d.ts",
     "repository": "https://github.com/naguvan/react-mst-form.git",
     "author": "naguvan <naguvan@outlook.com>",
     "license": "MIT",
     "private": false,
+    "files": [
+        "dist"
+    ],
     "dependencies": {
         "classnames": "^2.2.5",
         "jss": "^9.8.0",
@@ -49,10 +52,8 @@
         "moduleFileExtensions": ["ts", "tsx", "js", "jsx", "json", "node"],
         "modulePaths": ["<rootDir>/src/"]
     },
-    "config": {
-        "windowsVerbatimArguments": true
-    },
     "scripts": {
+        "prepublish": "yarn run lint && yarn run test && yarn run bundle",
         "build": "tsc -p .",
         "lint": "tslint -p .",
         "test": "jest",

@@ -14,7 +14,7 @@ export default function configure(env: any): Array<webpack.Configuration> {
             }
         },
         entry: {
-            'dist/lib': './src/index.ts',
+            'dist/index': './src/index.ts',
             'demo/client': './demo/client.tsx'
         },
         output: {

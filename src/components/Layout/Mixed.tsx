@@ -4,6 +4,7 @@ import { Component, ReactNode } from 'react';
 import { ILayoutMixedProps, ILayoutMixedStates } from '@root/types';
 import { ILayoutMixedStyleProps, ILayoutMixedStyles } from '@root/types';
 
+import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 

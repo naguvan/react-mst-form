@@ -5,6 +5,7 @@ import { observer } from 'mobx-react';
 import { IForm, IFormProps, IFormStates } from '@root/types';
 import { IFormStyleProps, IFormStyles } from '@root/types';
 
+import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 

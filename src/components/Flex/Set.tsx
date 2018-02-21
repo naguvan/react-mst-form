@@ -4,6 +4,7 @@ import { Component, ReactNode } from 'react';
 import { IFlexSetProps, IFlexSetStates } from '@root/types';
 import { IFlexSetStyleProps, IFlexSetStyles } from '@root/types';
 
+import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { WithStyles } from 'material-ui';
+import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
