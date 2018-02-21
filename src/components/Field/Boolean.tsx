@@ -8,6 +8,8 @@ import { observer } from 'mobx-react';
 
 import Base from './Base';
 
+import FormControlLabel from 'material-ui/Form/FormControlLabel';
+
 import Switch from 'material-ui/Switch';
 
 @observer
@@ -23,16 +25,21 @@ export default class Boolean extends Base<
     protected renderField(field: IBoolean): ReactNode {
         return (
             <>
-                <Switch
-                    key={field.name}
-                    name={field.name}
-                    checked={field.value}
-                    color={'primary'}
+                <FormControlLabel
+                    label={field.title}
                     disabled={field.disabled}
-                    // tslint:disable-next-line:jsx-no-lambda
-                    onChange={e => field.setValue(e.target.checked)}
+                    control={
+                        <Switch
+                            key={field.name}
+                            name={field.name}
+                            checked={field.value}
+                            color={'primary'}
+                            disabled={field.disabled}
+                            // tslint:disable-next-line:jsx-no-lambda
+                            onChange={e => field.setValue(e.target.checked)}
+                        />
+                    }
                 />
-                <br />
             </>
         );
     }
