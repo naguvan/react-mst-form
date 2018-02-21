@@ -8,3 +8,4 @@ yarn-debug.log*
 yarn-error.log*
 dist
 demo/client.js
+stats.json

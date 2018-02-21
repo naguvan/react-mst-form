@@ -1,9 +1,6 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
 
-// const BundleAnalyzerPlugin: any = require("webpack-bundle-analyzer")
-//   .BundleAnalyzerPlugin;
-
 export default function configure(env: any): Array<webpack.Configuration> {
     const isDevBuild: boolean = !(env && env.prod);
     const nodeEnv: string = process.env.NODE_ENV || 'development';
@@ -72,8 +69,6 @@ export default function configure(env: any): Array<webpack.Configuration> {
                 __DEV__: nodeEnv === 'development',
                 __TEST__: nodeEnv === 'test'
             }) // prod
-            // ,
-            // new BundleAnalyzerPlugin()
         ]
     };
 
