@@ -4,7 +4,7 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { INumberConfig, INumber } from '@root/types';
-import { create } from '../value/Value';
+import create from '../Value';
 import { MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
 
 export const Number: IModelType<Partial<INumberConfig>, INumber> = types

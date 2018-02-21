@@ -13,30 +13,40 @@ import { renderer } from './Field';
 
 import Paper from 'material-ui/Paper';
 
+import { onSnapshot, onPatch } from 'mobx-state-tree';
+
 const form = FormModel.create({
     title: 'Test Form',
     properties: {
         title: {
+            type: 'string',
             title: 'Title',
             value: 'sk',
-            type: 'string',
             minLength: 5
         },
+        color: {
+            type: 'color',
+            title: 'In which color'
+        },
         size: {
+            type: 'number',
             title: 'Size',
             value: 5,
-            type: 'number',
             maximum: 10,
             minimum: 3
         },
         agree: {
+            type: 'boolean',
             title: 'I agree with your terms',
-            value: false,
-            type: 'boolean'
+            value: false
         }
     },
-    layout: ['title', 'size', ['agree'], ['title', 'size']]
+    layout: ['title', ['size', 'color'], ['agree'], ['title', 'size']]
 });
+
+onSnapshot(form, snapshot => console.info(snapshot));
+
+onPatch(form, patch => console.info(patch));
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     constructor(props: IAppProps & IAppStyleProps, context: {}) {

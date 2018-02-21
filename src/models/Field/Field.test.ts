@@ -25,7 +25,7 @@ test('create number field', () => {
     expect(field.value).toBe(50);
 });
 
-test('create type field', () => {
+test('create boolean field', () => {
     const field = Field.create({
         title: 'naguvan',
         value: true,
@@ -35,4 +35,15 @@ test('create type field', () => {
     expect(field.title).toBe('naguvan');
     expect(field.name).toBe(field.title);
     expect(field.value).toBe(true);
+});
+
+test('create color field', () => {
+    const field = Field.create({
+        title: 'naguvan',
+        value: '#EDFC',
+        type: 'color'
+    });
+    expect(field.type).toBe('color');
+    expect(field.title).toBe('naguvan');
+    expect(field.value).toBe('#EDFC');
 });

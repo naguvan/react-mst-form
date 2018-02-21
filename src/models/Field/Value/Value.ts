@@ -6,10 +6,7 @@ export type __IModelType = IModelType<any, any>;
 import { IValueConfig, IValue } from '@root/types';
 
 export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
-    const TypeField: IModelType<
-        Partial<IValueConfig<T>>,
-        IValue<T>
-    > = types
+    const TypeField: IModelType<Partial<IValueConfig<T>>, IValue<T>> = types
         .model('TypeField', {
             title: types.string,
             type: types.literal(type),
@@ -21,9 +18,9 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
             errors: types.optional(types.array(types.string), []),
-            syncing: types.optional(types.boolean, false),
             validating: types.optional(types.boolean, false)
         })
+        .volatile(it => ({ syncing: false }))
         .actions(it => ({
             afterCreate() {
                 if (it.name === '') {

@@ -1,6 +1,6 @@
 import { Boolean } from './Boolean';
 
-test('create number field', () => {
+test('create boolean field', () => {
     const field = Boolean.create({
         title: 'naguvan',
         value: true,
@@ -12,7 +12,7 @@ test('create number field', () => {
 
 });
 
-test('change number name field', () => {
+test('change boolean name field', () => {
     const field = Boolean.create({
         title: 'naguvan',
         value: true,
