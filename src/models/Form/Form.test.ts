@@ -39,7 +39,8 @@ test('create form', () => {
             age,
             boy
         },
-        layout: ['name', 'age', ['boy']]
+        layout: ['name', 'age', ['boy']],
+        sections: [{ title: 'Basic', layout: ['name', 'age'] }]
     });
 
     // console.info(getSnapshot(form));
@@ -68,6 +69,10 @@ test('create form', () => {
     expect(form.layout).toEqual(['name', 'age', ['boy']]);
 
     expect(form.layout).toContain('age');
+
+    expect(form.sections.length).toBe(1);
+    expect(form.sections[0].title).toBe('Basic');
+    expect(form.sections[0].layout).toEqual(['name', 'age']);
 });
 
 test('test form layout single mis-configuration error', () => {

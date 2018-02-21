@@ -15,7 +15,13 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         title: types.string,
         properties: types.map(Field),
         errors: types.optional(types.array(types.string), []),
-        layout: types.frozen
+        layout: types.optional(types.frozen, []),
+        sections: types.optional(
+            types.array(
+                types.model({ title: types.string, layout: types.frozen })
+            ),
+            []
+        )
     })
     .volatile(it => ({ _validating: false }))
     .actions(it => ({

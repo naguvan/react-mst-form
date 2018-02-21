@@ -20,4 +20,6 @@ export interface IFormProps {
     renderer(field: IField, form: IForm): ReactNode;
 }
 
-export interface IFormStates {}
+export interface IFormStates {
+    active: number;
+}

@@ -46,6 +46,16 @@ const config: IFormConfig = {
             value: false
         }
     },
+    sections: [
+        {
+            title: 'Basic',
+            layout: ['title', ['size', 'color'], 'type', 'agree']
+        },
+        {
+            title: 'Others',
+            layout: ['type', 'agree']
+        }
+    ],
     layout: ['title', ['size', 'color'], 'type', 'agree']
 };
 
