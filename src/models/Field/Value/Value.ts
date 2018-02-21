@@ -65,6 +65,11 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             }
         }))
         .actions(it => ({
+            async validation(): Promise<Array<string>> {
+                return [];
+            }
+        }))
+        .actions(it => ({
             reset(): void {
                 it.value = it.initial;
                 it.clearError();
@@ -74,7 +79,7 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                     return [];
                 }
                 it.validating = true;
-                const errors = yield Promise.resolve([]);
+                const errors = yield it.validation();
                 it.validating = false;
                 it.addErrors(errors);
             })
