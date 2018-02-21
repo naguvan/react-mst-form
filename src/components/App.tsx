@@ -35,13 +35,21 @@ const form = FormModel.create({
             maximum: 10,
             minimum: 3
         },
+        type: {
+            type: 'enum',
+            title: 'Select a type',
+            options: [
+                { label: 'One', value: '1' },
+                { label: 'Two', value: '2' }
+            ]
+        },
         agree: {
             type: 'boolean',
             title: 'I agree with your terms',
             value: false
         }
     },
-    layout: ['title', ['size', 'color'], ['agree'], ['title', 'size']]
+    layout: ['title', ['size', 'color'], 'type', 'agree', ['title', 'size']]
 });
 
 onSnapshot(form, snapshot => console.info(snapshot));

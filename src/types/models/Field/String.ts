@@ -6,6 +6,8 @@ export interface IStringAttrs extends IValueAttrs<string> {
 
 export interface IStringConfig
     extends IValueConfig<string>,
-        Partial<IStringAttrs> {}
+        Partial<IStringAttrs> {
+    readonly type: 'string';
+}
 
 export interface IString extends IStringAttrs, IValue<string> {}

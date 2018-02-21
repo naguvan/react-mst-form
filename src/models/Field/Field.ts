@@ -7,5 +7,6 @@ import String from './String';
 import Number from './Number';
 import Boolean from './Boolean';
 import Color from './Color';
+import Enum from './Enum';
 
-export const Field = types.union(String, Number, Boolean, Color);
+export const Field = types.union(String, Number, Boolean, Color, Enum);
