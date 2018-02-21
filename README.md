@@ -2,11 +2,7 @@
 
 Library for generating React forms from [JSON schema](https://json-schema.org/) using the [react](https://github.com/facebook/react), [material-ui](https://github.com/mui-org/material-ui), [mobx](https://github.com/mobxjs/mobx) and [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree).
 
-**https://naguvan.github.io/react-mst-form**
-
-# Online demo
-
-[online demo](https://naguvan.github.io/react-mst-form/demo/index.html)
+**https://naguvan.github.io/react-mst-form/demo/index.html**
 
 # Running the demo
 
