@@ -66,9 +66,9 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
         const root: string = classNames(classes!.root, className);
         return (
             <div className={root} style={style}>
-                <h1>Form</h1>
                 <div>
-                    <Paper square elevation={3}>
+                    <h1>Form</h1>
+                    <Paper square elevation={3} className={classes.paper}>
                         <FormView
                             className={classes.form}
                             form={form}
@@ -82,6 +82,14 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
 }
 
 export default withStyles<keyof IAppStyles>({
-    root: { marginLeft: 300, width: 500 },
-    form: {}
+    root: {
+        display: 'flex',
+        justifyContent: 'center',
+        // flexDirection: 'column',
+        margin: 20
+    },
+    paper: {
+        backgroundColor: '#eeeeee'
+    },
+    form: { padding: 10 }
 })(App);

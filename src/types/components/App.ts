@@ -3,6 +3,7 @@ import { WithStyles } from 'material-ui';
 export interface IAppStyles {
     root: React.CSSProperties;
     form: React.CSSProperties;
+    paper: React.CSSProperties;
 }
 
 export interface IAppStyleProps extends WithStyles<keyof IAppStyles> {}
