@@ -1,13 +1,13 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IAppProps, IAppStates } from '@root/types';
-import { IAppStyleProps, IAppStyles } from '@root/types';
+import { IAppProps, IAppStates } from './types';
+import { IAppStyleProps, IAppStyles } from './types';
 
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
-import { FormView, FormModel, renderer } from '@root/index';
+import { FormView, FormModel, FormSubmit, FieldRenderer } from '@root/index';
 
 import Paper from 'material-ui/Paper';
 
@@ -47,7 +47,7 @@ const form = FormModel.create({
             value: false
         }
     },
-    layout: ['title', ['size', 'color'], 'type', 'agree', ['title', 'size']]
+    layout: ['title', ['size', 'color'], 'type', 'agree']
 });
 
 onSnapshot(form, snapshot => console.info(snapshot));
@@ -64,14 +64,23 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
         const root: string = classNames(classes!.root, className);
         return (
             <div className={root} style={style}>
-                <div>
+                <div className={classes.container}>
                     <h1>Form</h1>
                     <Paper square elevation={3} className={classes.paper}>
                         <FormView
                             className={classes.form}
                             form={form}
-                            renderer={renderer}
+                            renderer={FieldRenderer}
                         />
+                        <div className={classes.submit}>
+                            <FormSubmit
+                                form={form}
+                                onSubmit={
+                                    // tslint:disable-next-line:jsx-no-lambda
+                                    values => console.info(values)
+                                }
+                            />
+                        </div>
                     </Paper>
                 </div>
             </div>
@@ -83,11 +92,20 @@ export default withStyles<keyof IAppStyles>({
     root: {
         display: 'flex',
         justifyContent: 'center',
-        // flexDirection: 'column',
         margin: 20
+    },
+    container: {
+        minWidth: 400
     },
     paper: {
         backgroundColor: '#eeeeee'
     },
-    form: { padding: 10 }
+    form: {
+        padding: 10
+    },
+    submit: {
+        display: 'flex',
+        justifyContent: 'flex-end',
+        padding: 10
+    }
 })(App);

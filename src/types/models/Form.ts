@@ -17,7 +17,7 @@ export interface IForm {
     readonly validating: boolean;
     readonly fields: Array<IField>;
     readonly errors: Array<string>;
-    readonly values: { [key: string]: string | number | boolean };
+    readonly values: { [key: string]: any };
     readonly layout: Array<
         string | Array<string | Array<string | Array<string>>>
     >;

@@ -13,7 +13,7 @@ import createGenerateClassName from 'material-ui/styles/createGenerateClassName'
 
 import Reboot from 'material-ui/Reboot';
 
-import { IBootProps, IBootStates } from '@root/types';
+import { IBootProps, IBootStates } from './types';
 
 // Create a JSS instance with the default preset of plugins.
 // It's optional.

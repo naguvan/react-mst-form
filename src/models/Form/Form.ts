@@ -47,14 +47,14 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         get fields(): Array<IField> {
             return it.properties.values();
         },
-        get values(): { [key: string]: string | number | boolean } {
+        get values(): { [key: string]: any } {
             return it.properties.entries().reduce(
                 (values, [key, field]) => {
                     values[key] = field.value;
                     return values;
                 },
                 {} as {
-                    [key: string]: string | number | boolean;
+                    [key: string]: any;
                 }
             );
         },
