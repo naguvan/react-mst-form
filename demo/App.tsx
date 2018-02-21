@@ -7,13 +7,11 @@ import { IAppStyleProps, IAppStyles } from './types';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
-import { FormView, FormModel, FormSubmit, FieldRenderer } from '@root/index';
+import { Form, IFormConfig } from '@root/index';
 
 import Paper from 'material-ui/Paper';
 
-import { onSnapshot, onPatch } from 'mobx-state-tree';
-
-const form = FormModel.create({
+const config: IFormConfig = {
     title: 'Test Form',
     properties: {
         title: {
@@ -48,11 +46,7 @@ const form = FormModel.create({
         }
     },
     layout: ['title', ['size', 'color'], 'type', 'agree']
-});
-
-onSnapshot(form, snapshot => console.info(snapshot));
-
-onPatch(form, patch => console.info(patch));
+};
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     constructor(props: IAppProps & IAppStyleProps, context: {}) {
@@ -67,25 +61,33 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
                 <div className={classes.container}>
                     <h1>Form</h1>
                     <Paper square elevation={3} className={classes.paper}>
-                        <FormView
-                            className={classes.form}
-                            form={form}
-                            renderer={FieldRenderer}
+                        <Form
+                            config={config}
+                            onSubmit={this.onSubmit}
+                            onPatch={this.onPatch}
+                            onSnapshot={this.onSnapshot}
                         />
-                        <div className={classes.submit}>
-                            <FormSubmit
-                                form={form}
-                                onSubmit={
-                                    // tslint:disable-next-line:jsx-no-lambda
-                                    values => console.info(values)
-                                }
-                            />
-                        </div>
                     </Paper>
                 </div>
             </div>
         );
     }
+
+    private onSubmit = (values: { [key: string]: any }) => {
+        console.info(values);
+    };
+
+    private onPatch = (patch: {
+        op: 'replace' | 'add' | 'remove';
+        path: string;
+        value?: any;
+    }): void => {
+        console.info(patch);
+    };
+
+    private onSnapshot = (snapshot: {}): void => {
+        console.info(snapshot);
+    };
 }
 
 export default withStyles<keyof IAppStyles>({
