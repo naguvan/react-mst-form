@@ -26,10 +26,15 @@ export default class Submit extends Component<ISubmitProps, ISubmitStates> {
         );
     }
 
-    private onSubmit = (e: React.MouseEvent<HTMLButtonElement>) => {
-        const { form, onSubmit } = this.props;
-        if (onSubmit) {
-            onSubmit(form.values);
+    private onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+        const { form, onSubmit, onErrors } = this.props;
+        await form.validate();
+        if (form.valid) {
+            if (onSubmit) {
+                onSubmit(form.values);
+            }
+        } else if (onErrors) {
+            onErrors(form.fieldErrors);
         }
     };
 }

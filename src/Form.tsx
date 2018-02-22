@@ -27,7 +27,8 @@ export interface IFormProps {
     style?: React.CSSProperties;
     className?: string;
     config: IFormConfig;
-    onSubmit?: (values: { [key: string]: any }) => void;
+    onSubmit: (values: { [key: string]: any }) => void;
+    onErrors?: (errors: { [key: string]: Array<string> }) => void;
     onPatch?: (
         patch: {
             op: 'replace' | 'add' | 'remove';
@@ -60,7 +61,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
 
     public render(): ReactNode {
         const { form } = this.state;
-        const { className, classes, style, onSubmit } = this.props;
+        const { className, classes, style, onSubmit, onErrors } = this.props;
         const root: string = classNames(
             classes!.root,
             className,
@@ -74,11 +75,9 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
                     form={form}
                     renderer={FieldRenderer}
                 />
-                {onSubmit && (
-                    <div className={classes.submit}>
-                        <FormSubmit form={form} onSubmit={onSubmit} />
-                    </div>
-                )}
+                <div className={classes.submit}>
+                    <FormSubmit {...{ form, onSubmit, onErrors }} />
+                </div>
             </>
         );
     }

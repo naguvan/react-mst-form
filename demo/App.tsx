@@ -51,7 +51,8 @@ const config: IFormConfig = {
         agree: {
             type: 'boolean',
             title: 'I agree with your terms',
-            value: false
+            value: false,
+            const: true
         }
     },
     sections: [
@@ -63,8 +64,7 @@ const config: IFormConfig = {
             title: 'Others',
             layout: ['ipv4', 'type', 'agree']
         }
-    ] // ,
-    // layout: ['title', ['size', 'color'], 'type', 'agree']
+    ]
 };
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
@@ -133,6 +133,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
                         <Form
                             config={config}
                             onSubmit={this.onSubmit}
+                            onErrors={this.onErrors}
                             onPatch={this.onPatch}
                             onSnapshot={this.onSnapshot}
                         />
@@ -145,6 +146,11 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     private onSubmit = (values: { [key: string]: any }) => {
         console.info(values);
         window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
+    };
+
+    private onErrors = (errors: { [key: string]: Array<string> }) => {
+        console.error(errors);
+        window.alert(`errors:\n\n${JSON.stringify(errors, null, 2)}`);
     };
 
     private onPatch = (patch: {

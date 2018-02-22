@@ -61,18 +61,16 @@ const config = {
             multipleOf: 3
         },
         type: {
-            type: 'string',
+            type: 'number',
             title: 'Select a type',
             enum: [1, 2],
-            options: [
-                { label: 'One', value: '1' },
-                { label: 'Two', value: '2' }
-            ]
+            options: [{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]
         },
         agree: {
             type: 'boolean',
             title: 'I agree with your terms',
-            value: false
+            value: false,
+            const: true
         }
     },
     sections: [
@@ -86,7 +84,6 @@ const config = {
         }
     ]
 };
-
 
 const onSubmit = values => {
     window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
@@ -107,3 +104,8 @@ render(
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
 ![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/sections.png)
+
+
+And when the form has validation errors..
+
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/form-errors.png)
