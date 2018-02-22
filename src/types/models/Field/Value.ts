@@ -29,7 +29,7 @@ export interface IValue<T> extends IValueAttrs<T> {
     setVisible(visible: boolean): void;
     addError(error: string): void;
     addErrors(errors: Array<string>): void;
-    clearError(): void;
+    clearErrors(): void;
     reset(): void;
     validate(): Promise<void>;
 }

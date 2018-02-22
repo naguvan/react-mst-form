@@ -5,18 +5,24 @@ export type __IModelType = IModelType<any, any>;
 
 import { IStringConfig, IString } from '@root/types';
 import create from '../Value';
-import { MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
+import { regex, MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
 
 export const String: IModelType<Partial<IStringConfig>, IString> = types
     .compose(
         'String',
         create<string>('string', types.string, ''),
         types.model({
-            minLength: types.optional(types.number, MIN_SAFE_INTEGER)
+            pattern: types.optional(types.string, ''),
+            minLength: types.optional(types.number, MIN_SAFE_INTEGER),
+            maxLength: types.optional(types.number, MAX_SAFE_INTEGER)
         })
     )
     .actions(it => ({
-        afterCreate() {}
+        afterCreate() {
+            if (it.pattern && !regex(it.pattern)) {
+                throw new TypeError(`pattern '${it.pattern}' is invalid.`);
+            }
+        }
     }))
     .actions(it => ({
         async validation(): Promise<Array<string>> {
@@ -25,6 +31,14 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
                 errors.push(
                     `should NOT be shorter than ${it.minLength} characters`
                 );
+            }
+            if (it.value.length > it.maxLength) {
+                errors.push(
+                    `should NOT be longer than ${it.maxLength} characters`
+                );
+            }
+            if (it.pattern && !it.value.match(regex(it.pattern)!)) {
+                errors.push(`should match pattern ${it.pattern}`);
             }
             return errors;
         }

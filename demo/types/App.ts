@@ -15,4 +15,7 @@ export interface IAppProps {
     className?: string;
 }
 
-export interface IAppStates {}
+export interface IAppStates {
+    width: string;
+    height: string;
+}

@@ -2,6 +2,8 @@ import { IValue, IValueAttrs, IValueConfig } from './Value';
 
 export interface IStringAttrs extends IValueAttrs<string> {
     readonly minLength: number;
+    readonly maxLength: number;
+    readonly pattern: string;
 }
 
 export interface IStringConfig

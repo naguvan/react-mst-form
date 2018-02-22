@@ -53,15 +53,8 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             addErrors(errors: Array<string>): void {
                 it.errors.push(...errors);
             },
-            clearError(): void {
+            clearErrors(): void {
                 it.errors.length = 0;
-            },
-            setValue(value: T): void {
-                if (!it.syncing) {
-                    it.syncing = true;
-                    it.value = value;
-                    it.syncing = false;
-                }
             }
         }))
         .actions(it => ({
@@ -72,7 +65,7 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
         .actions(it => ({
             reset(): void {
                 it.value = it.initial;
-                it.clearError();
+                it.clearErrors();
             },
             validate: flow<void>(function*() {
                 if (it.syncing || it.validating) {
@@ -83,6 +76,17 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 it.validating = false;
                 it.addErrors(errors);
             })
+        }))
+        .actions(it => ({
+            setValue(value: T): void {
+                if (!it.syncing) {
+                    it.syncing = true;
+                    it.value = value;
+                    it.syncing = false;
+                    it.clearErrors();
+                    it.validate();
+                }
+            }
         }))
         .views(it => ({
             get modified(): boolean {

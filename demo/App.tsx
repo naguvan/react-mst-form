@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
+import { findDOMNode } from 'react-dom';
 
 import { IAppProps, IAppStates } from './types';
 import { IAppStyleProps, IAppStyles } from './types';
@@ -20,6 +21,14 @@ const config: IFormConfig = {
             title: 'Title',
             value: 'sk',
             minLength: 5
+        },
+        ipv4: {
+            type: 'string',
+            title: 'ipv4',
+            minLength: 5,
+            maxLength: 20,
+            pattern:
+                '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'
         },
         color: {
             type: 'color',
@@ -53,7 +62,7 @@ const config: IFormConfig = {
         },
         {
             title: 'Others',
-            layout: ['type', 'agree']
+            layout: ['ipv4', 'type', 'agree']
         }
     ] // ,
     // layout: ['title', ['size', 'color'], 'type', 'agree']
@@ -62,14 +71,64 @@ const config: IFormConfig = {
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     constructor(props: IAppProps & IAppStyleProps, context: {}) {
         super(props, context);
+        this.state = { width: 'auto', height: 'auto' };
+    }
+
+    containers: Array<HTMLDivElement> = [];
+
+    timeout: number = -1;
+
+    private addContainer = (container: HTMLDivElement): void => {
+        if (container) {
+            this.containers.push(container);
+        }
+    };
+
+    componentWillUpdate() {
+        this.containers.length = 0;
+    }
+
+    componentDidMount() {
+        this.adjustWidthHeight();
+    }
+
+    componentDidUpdate() {
+        this.adjustWidthHeight();
+    }
+
+    componentWillUnmount() {
+        window.clearTimeout(this.timeout);
+    }
+
+    adjustWidthHeight(): void {
+        window.clearTimeout(this.timeout);
+        const { width, height } = this.state;
+        if (width === 'auto' || height === 'auto') {
+            this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
+        }
+    }
+
+    updateWidthHeight(): void {
+        const containers = this.containers.filter(container => !!container);
+        const widths = containers.map(container => container.offsetWidth);
+        const heights = containers.map(container => container.offsetHeight);
+
+        const width = `${Math.max(...widths)}px`;
+        const height = `${Math.max(...heights)}px`;
+
+        this.setState(() => ({ width, height }));
     }
 
     public render(): ReactNode {
         const { className, classes, style } = this.props;
+        const { width, height } = this.state;
         const root: string = classNames(classes!.root, className);
         return (
             <div className={root} style={style}>
-                <div className={classes.container}>
+                <div
+                    className={classes.container}
+                    style={{ width, height }}
+                    ref={this.addContainer}>
                     <h1>Form</h1>
                     <Paper square elevation={3} className={classes.paper}>
                         <Form
