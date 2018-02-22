@@ -65,7 +65,16 @@ const config = {
             value: false
         }
     },
-    layout: ['title', ['size', 'color'], 'type', 'agree']
+    sections: [
+        {
+            title: 'Basic',
+            layout: ['title', ['size', 'color'], 'type', 'agree']
+        },
+        {
+            title: 'Others',
+            layout: ['type', 'agree']
+        }
+    ]
 };
 
 const onSubmit = values => {
@@ -86,4 +95,4 @@ render(
 
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
-![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/form.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/sections.png)

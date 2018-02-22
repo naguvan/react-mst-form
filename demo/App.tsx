@@ -55,8 +55,8 @@ const config: IFormConfig = {
             title: 'Others',
             layout: ['type', 'agree']
         }
-    ],
-    layout: ['title', ['size', 'color'], 'type', 'agree']
+    ] // ,
+    // layout: ['title', ['size', 'color'], 'type', 'agree']
 };
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
