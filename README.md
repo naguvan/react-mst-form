@@ -45,8 +45,7 @@ const config = {
             title: 'ipv4',
             minLength: 5,
             maxLength: 20,
-            pattern:
-                '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'
+            format: 'ipv4'
         },
         color: {
             type: 'color',
@@ -108,4 +107,4 @@ And, provided that you have a `<div id="form-holder">`, you should see something
 
 And when the form has validation errors..
 
-![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/form-errors.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/form-validation.png)
