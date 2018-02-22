@@ -47,16 +47,3 @@ test('create color field', () => {
     expect(field.title).toBe('naguvan');
     expect(field.value).toBe('#EDFC');
 });
-
-test('create enum field', () => {
-    const field = Field.create({
-        title: 'naguvan',
-        value: 'sk',
-        type: 'enum',
-        options: [{ label: 'One', value: '1' }, { label: 'Two', value: '2' }]
-    });
-
-    expect(field.type).toBe('enum');
-    expect(field.title).toBe('naguvan');
-    expect(field.value).toBe('sk');
-});

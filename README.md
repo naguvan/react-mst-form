@@ -61,8 +61,9 @@ const config = {
             multipleOf: 3
         },
         type: {
-            type: 'enum',
+            type: 'string',
             title: 'Select a type',
+            enum: [1, 2],
             options: [
                 { label: 'One', value: '1' },
                 { label: 'Two', value: '2' }

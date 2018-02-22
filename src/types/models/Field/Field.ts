@@ -2,13 +2,11 @@ import { IString, IStringConfig } from './String';
 import { INumber, INumberConfig } from './Number';
 import { IBoolean, IBooleanConfig } from './Boolean';
 import { IColor, IColorConfig } from './Color';
-import { IEnum, IEnumConfig } from './Enum';
 
 export type IFieldConfig =
     | IStringConfig
     | INumberConfig
     | IBooleanConfig
-    | IColorConfig
-    | IEnumConfig;
+    | IColorConfig;
 
-export type IField = IString | INumber | IBoolean | IColor | IEnum;
+export type IField = IString | INumber | IBoolean | IColor;
