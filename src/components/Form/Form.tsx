@@ -35,11 +35,14 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     }
 
     protected renderSections(form: IForm, active: number): ReactNode {
+        const { classes } = this.props;
+        const section: IFormSection = form.sections[active];
+        const hasError = this.hasSectionError(section, form);
         return (
             <>
                 <Tabs
-                    indicatorColor="primary"
-                    textColor="primary"
+                    indicatorColor={hasError ? 'secondary' : 'primary'}
+                    textColor={hasError ? 'secondary' : 'primary'}
                     value={active}
                     onChange={this.handleChange}>
                     {form.sections.map((section, index: number) => (
@@ -47,12 +50,30 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
                             key={section.title}
                             label={section.title}
                             value={index}
+                            className={
+                                this.hasSectionError(section, form)
+                                    ? classes.secondary
+                                    : ''
+                            }
                         />
                     ))}
                 </Tabs>
-                {this.renderForm(form, form.sections[active].layout)}
+                {this.renderForm(form, section.layout)}
             </>
         );
+    }
+
+    protected hasSectionError(section: IFormSection, form: IForm): boolean {
+        return this.hasLayoutError(section.layout, form);
+    }
+
+    protected hasLayoutError(layout: IFormLayout, form: IForm): boolean {
+        return layout.some(item => {
+            if (typeof item === 'string') {
+                return !form.get(item)!.valid;
+            }
+            return this.hasLayoutError(item as IFormLayout, form);
+        });
     }
 
     protected handleChange = (event: any, active: number) => {
@@ -78,9 +99,12 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     }
 }
 
-export default withStyles<keyof IFormStyles>({
+export default withStyles<keyof IFormStyles>(theme => ({
     root: {},
     layout: {},
     set: {},
-    item: {}
-})(Form);
+    item: {},
+    secondary: {
+        color: theme.palette.secondary.main
+    }
+}))(Form);

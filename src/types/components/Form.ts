@@ -9,6 +9,7 @@ export interface IFormStyles {
     layout: React.CSSProperties;
     set: React.CSSProperties;
     item: React.CSSProperties;
+    secondary: React.CSSProperties;
 }
 
 export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}

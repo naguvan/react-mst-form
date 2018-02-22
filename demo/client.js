@@ -18389,9 +18389,27 @@ var Form = /** @class */ (function (_super) {
             : this.renderForm(form, form.layout)));
     };
     Form.prototype.renderSections = function (form, active) {
+        var _this = this;
+        var classes = this.props.classes;
+        var section = form.sections[active];
+        var hasError = this.hasSectionError(section, form);
         return (React.createElement(React.Fragment, null,
-            React.createElement(Tabs_1.default, { indicatorColor: "primary", textColor: "primary", value: active, onChange: this.handleChange }, form.sections.map(function (section, index) { return (React.createElement(Tabs_1.Tab, { key: section.title, label: section.title, value: index })); })),
-            this.renderForm(form, form.sections[active].layout)));
+            React.createElement(Tabs_1.default, { indicatorColor: hasError ? 'secondary' : 'primary', textColor: hasError ? 'secondary' : 'primary', value: active, onChange: this.handleChange }, form.sections.map(function (section, index) { return (React.createElement(Tabs_1.Tab, { key: section.title, label: section.title, value: index, className: _this.hasSectionError(section, form)
+                    ? classes.secondary
+                    : '' })); })),
+            this.renderForm(form, section.layout)));
+    };
+    Form.prototype.hasSectionError = function (section, form) {
+        return this.hasLayoutError(section.layout, form);
+    };
+    Form.prototype.hasLayoutError = function (layout, form) {
+        var _this = this;
+        return layout.some(function (item) {
+            if (typeof item === 'string') {
+                return !form.get(item).valid;
+            }
+            return _this.hasLayoutError(item, form);
+        });
     };
     Form.prototype.renderForm = function (form, layout) {
         var classes = this.props.classes;
@@ -18407,12 +18425,15 @@ var Form = /** @class */ (function (_super) {
     return Form;
 }(react_1.Component));
 exports.Form = Form;
-exports.default = withStyles_1.default({
+exports.default = withStyles_1.default(function (theme) { return ({
     root: {},
     layout: {},
     set: {},
-    item: {}
-})(Form);
+    item: {},
+    secondary: {
+        color: theme.palette.secondary.main
+    }
+}); })(Form);
 
 
 /***/ }),
