@@ -2,21 +2,21 @@ import { types } from 'mobx-state-tree';
 import { IValueConfig, IValue } from '@root/types';
 import { create } from './Value';
 
-const config: IValueConfig<boolean> = {
+const config: IValueConfig<number> = {
     title: 'naguvan',
-    value: true,
-    type: 'boolean'
+    value: 10,
+    type: 'number'
 };
 
-const ValueField = create<boolean>('boolean', types.boolean, false);
+const Value = create<number>('number', types.number, 0);
 
 test('create type field', () => {
-    const field = ValueField.create(config);
-    expect(field.type).toBe('boolean');
+    const field = Value.create(config);
+    expect(field.type).toBe('number');
     expect(field.title).toBe('naguvan');
     expect(field.name).toBe(field.title);
-    expect(field.value).toBe(true);
-    expect(field.initial).toBe(true);
+    expect(field.value).toBe(10);
+    expect(field.initial).toBe(10);
     expect(field.modified).toBe(false);
 
     expect(field.required).toBe(false);
@@ -27,31 +27,31 @@ test('create type field', () => {
 });
 
 test('change type value', () => {
-    const field = ValueField.create({ ...config, value: false });
+    const field = Value.create({ ...config, value: 20 });
 
-    expect(field.value).toBe(false);
-    expect(field.initial).toBe(false);
+    expect(field.value).toBe(20);
+    expect(field.initial).toBe(20);
     expect(field.modified).toBe(false);
 
-    field.setValue(true);
-    expect(field.value).toBe(true);
-    expect(field.initial).toBe(false);
+    field.setValue(30);
+    expect(field.value).toBe(30);
+    expect(field.initial).toBe(20);
     expect(field.modified).toBe(true);
 
     field.reset();
-    expect(field.value).toBe(false);
+    expect(field.value).toBe(20);
     expect(field.modified).toBe(false);
 });
 
 test('change type name', () => {
-    const field = ValueField.create(config);
+    const field = Value.create(config);
 
-    field.setName('senthilnathan');
-    expect(field.name).toBe('senthilnathan');
+    field.setName('skclusive');
+    expect(field.name).toBe('skclusive');
 });
 
 test('change required property', () => {
-    const field = ValueField.create(config);
+    const field = Value.create(config);
 
     expect(field.required).toBe(false);
 
@@ -60,7 +60,7 @@ test('change required property', () => {
 });
 
 test('change disabled property', () => {
-    const field = ValueField.create({ ...config, disabled: true });
+    const field = Value.create({ ...config, disabled: true });
 
     expect(field.disabled).toBe(true);
 
@@ -69,7 +69,7 @@ test('change disabled property', () => {
 });
 
 test('change visible property', () => {
-    const field = ValueField.create({ ...config, visible: false });
+    const field = Value.create({ ...config, visible: false });
 
     expect(field.visible).toBe(false);
 
@@ -81,7 +81,7 @@ test('change visible property', () => {
 });
 
 test('change error property', () => {
-    const field = ValueField.create(config);
+    const field = Value.create(config);
 
     expect(field.errors.length).toBe(0);
     expect(field.valid).toBe(true);
@@ -96,7 +96,7 @@ test('change error property', () => {
 });
 
 test('check validating property', async () => {
-    const field = ValueField.create(config);
+    const field = Value.create(config);
 
     expect(field.validating).toBe(false);
 
@@ -105,4 +105,54 @@ test('check validating property', async () => {
 
     await validate;
     expect(field.validating).toBe(false);
+});
+
+test('validate const valid', async () => {
+    const field = Value.create({ ...config, const: 5 });
+
+    field.setValue(5);
+    expect(field.value).toBe(5);
+
+    await field.validate();
+
+    expect(field.valid).toBe(true);
+    expect(field.errors.slice(0)).toEqual([]);
+});
+
+test('validate const invalid', async () => {
+    const field = Value.create({ ...config, const: 5 });
+
+    field.setValue(10);
+    expect(field.value).toBe(10);
+
+    await field.validate();
+
+    expect(field.valid).toBe(false);
+    expect(field.errors.slice(0)).toEqual(['should be equal to 5']);
+});
+
+test('validate enum valid', async () => {
+    const field = Value.create({ ...config, enum: [5, 10] });
+
+    field.setValue(5);
+    expect(field.value).toBe(5);
+
+    await field.validate();
+
+    expect(field.valid).toBe(true);
+    expect(field.errors.slice(0)).toEqual([]);
+});
+
+test('validate enum invalid', async () => {
+    const field = Value.create({ ...config, enum: [5, 20] });
+
+    field.setValue(10);
+    expect(field.value).toBe(10);
+
+    await field.validate();
+
+    expect(field.valid).toBe(false);
+    expect(field.errors.slice(0)).toEqual([
+        'should be equal to one of the allowed values [5,20]'
+    ]);
 });

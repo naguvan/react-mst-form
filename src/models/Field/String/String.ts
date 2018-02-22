@@ -25,8 +25,8 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
         }
     }))
     .actions(it => ({
-        async validation(): Promise<Array<string>> {
-            const errors: Array<string> = [];
+        syncValidate(): Array<string> {
+            const errors: Array<string> = it.syncValidateBase();
             if (it.value.length < it.minLength) {
                 errors.push(
                     `should NOT be shorter than ${it.minLength} characters`

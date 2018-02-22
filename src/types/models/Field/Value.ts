@@ -1,10 +1,13 @@
 export interface IValueAttrs<T> {
-    value: T;
-    default: T;
-    name: string;
-    disabled: boolean;
-    visible: boolean;
-    required: boolean;
+    readonly value: T;
+    readonly default: T;
+    readonly name: string;
+    readonly disabled: boolean;
+    readonly visible: boolean;
+    readonly required: boolean;
+    readonly enum: Array<T>;
+    readonly const: T;
+    readonly options: Array<{ label: string; value: T }>;
 }
 
 export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
@@ -14,11 +17,11 @@ export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
 
 export interface IValue<T> extends IValueAttrs<T> {
     readonly type: string;
+    readonly title: string;
     readonly modified: boolean;
     readonly validating: boolean;
     readonly syncing: boolean;
     readonly valid: boolean;
-    readonly title: string;
     readonly errors: Array<string>;
     readonly initial: T;
     setValue(value: T): void;
@@ -32,4 +35,9 @@ export interface IValue<T> extends IValueAttrs<T> {
     clearErrors(): void;
     reset(): void;
     validate(): Promise<void>;
+
+    asyncValidate(): Promise<Array<string>>;
+    syncValidate(): Array<string>;
+    asyncValidateBase(): Promise<Array<string>>;
+    syncValidateBase(): Array<string>;
 }

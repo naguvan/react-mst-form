@@ -110,3 +110,53 @@ test('validate multipleOf invalid', async () => {
     expect(field.valid).toBe(false);
     expect(field.errors.slice(0)).toEqual(['should be multiple of 3']);
 });
+
+test('validate const valid', async () => {
+    const field = Number.create({ ...config, const: 5 });
+
+    field.setValue(5);
+    expect(field.value).toBe(5);
+
+    await field.validate();
+
+    expect(field.valid).toBe(true);
+    expect(field.errors.slice(0)).toEqual([]);
+});
+
+test('validate const invalid', async () => {
+    const field = Number.create({ ...config, const: 5 });
+
+    field.setValue(10);
+    expect(field.value).toBe(10);
+
+    await field.validate();
+
+    expect(field.valid).toBe(false);
+    expect(field.errors.slice(0)).toEqual(['should be equal to 5']);
+});
+
+test('validate enum valid', async () => {
+    const field = Number.create({ ...config, enum: [5, 10] });
+
+    field.setValue(5);
+    expect(field.value).toBe(5);
+
+    await field.validate();
+
+    expect(field.valid).toBe(true);
+    expect(field.errors.slice(0)).toEqual([]);
+});
+
+test('validate enum invalid', async () => {
+    const field = Number.create({ ...config, enum: [5, 20] });
+
+    field.setValue(10);
+    expect(field.value).toBe(10);
+
+    await field.validate();
+
+    expect(field.valid).toBe(false);
+    expect(field.errors.slice(0)).toEqual([
+        'should be equal to one of the allowed values [5,20]'
+    ]);
+});

@@ -9,21 +9,20 @@ import { observer } from 'mobx-react';
 import Base from './Base';
 
 import TextField from 'material-ui/TextField';
+import MenuItem from 'material-ui/Menu/MenuItem';
 
 @observer
-export default class String extends Base<
-    IString,
-    IStringProps,
-    IStringStates
-> {
+export default class String extends Base<IString, IStringProps, IStringStates> {
     constructor(props: IStringProps, context: any) {
         super(props, context);
     }
 
     protected renderField(field: IString): ReactNode {
+        const select: boolean = field.enum.length > 0;
         return (
             <>
                 <TextField
+                    select={select}
                     key={field.name}
                     type={'text'}
                     margin={'normal'}
@@ -36,9 +35,13 @@ export default class String extends Base<
                     label={field.title}
                     helperText={field.errors.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
-                    onChange={e => field.setValue(e.target.value)}
-                />
-                <br />
+                    onChange={e => field.setValue(e.target.value)}>
+                    {field.options.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                            {option.label}
+                        </MenuItem>
+                    ))}
+                </TextField>
             </>
         );
     }

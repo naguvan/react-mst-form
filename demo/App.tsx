@@ -43,12 +43,10 @@ const config: IFormConfig = {
             multipleOf: 3
         },
         type: {
-            type: 'enum',
+            type: 'number',
             title: 'Select a type',
-            options: [
-                { label: 'One', value: '1' },
-                { label: 'Two', value: '2' }
-            ]
+            enum: [1, 2],
+            options: [{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]
         },
         agree: {
             type: 'boolean',

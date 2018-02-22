@@ -29,8 +29,8 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
         }
     }))
     .actions(it => ({
-        async validation(): Promise<Array<string>> {
-            const errors: Array<string> = [];
+        syncValidate(): Array<string> {
+            const errors: Array<string> = it.syncValidateBase();
             if (it.value < it.minimum) {
                 errors.push(`should NOT be lesser than ${it.minimum}`);
             }

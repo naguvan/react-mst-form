@@ -13,6 +13,12 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             value: types.optional(kind, defaultv),
             default: types.optional(kind, defaultv),
             initial: types.optional(kind, defaultv),
+            enum: types.optional(types.array(kind), []),
+            options: types.optional(
+                types.array(types.model({ label: types.string, value: kind })),
+                []
+            ),
+            const: types.optional(kind, defaultv),
             name: types.optional(types.string, ''),
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
@@ -20,7 +26,7 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             errors: types.optional(types.array(types.string), []),
             validating: types.optional(types.boolean, false)
         })
-        .volatile(it => ({ syncing: false }))
+        .volatile(it => ({ syncing: false, _default: defaultv }))
         .actions(it => ({
             afterCreate() {
                 if (it.name === '') {
@@ -28,9 +34,15 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                     it.name = title.toLowerCase().replace(' ', '-');
                 }
                 it.initial = it.value;
-                // if (!hasParent(it)) {
-                //     unprotect(it);
-                // }
+                if (it.enum.length > 0 && it.options.length === 0) {
+                    const options = it.enum
+                        .map(option => ({
+                            label: String(option),
+                            value: option
+                        }))
+                        .slice(0);
+                    it.options.push(...options);
+                }
             },
             setName(name: string): void {
                 it.name = name;
@@ -58,8 +70,33 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             }
         }))
         .actions(it => ({
-            async validation(): Promise<Array<string>> {
+            async asyncValidateBase(): Promise<Array<string>> {
                 return [];
+            },
+            syncValidateBase(): Array<string> {
+                const errors: Array<string> = [];
+                if (it.const !== it._default && it.value !== it.const) {
+                    errors.push(`should be equal to ${it.const}`);
+                }
+                if (
+                    it.enum.length > 0 &&
+                    it.enum.findIndex(en => en === it.value) === -1
+                ) {
+                    errors.push(
+                        `should be equal to one of the allowed values [${it.enum.slice(
+                            0
+                        )}]`
+                    );
+                }
+                return errors;
+            }
+        }))
+        .actions(it => ({
+            async asyncValidate(): Promise<Array<string>> {
+                return await it.asyncValidateBase();
+            },
+            syncValidate(): Array<string> {
+                return it.syncValidateBase();
             }
         }))
         .actions(it => ({
@@ -71,10 +108,13 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 if (it.syncing || it.validating) {
                     return [];
                 }
+                it.clearErrors();
                 it.validating = true;
-                const errors = yield it.validation();
-                it.validating = false;
+                const errors: Array<string> = [];
+                errors.push(...it.syncValidate());
+                errors.push(...(yield it.asyncValidate()));
                 it.addErrors(errors);
+                it.validating = false;
             })
         }))
         .actions(it => ({
@@ -83,7 +123,6 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                     it.syncing = true;
                     it.value = value;
                     it.syncing = false;
-                    it.clearErrors();
                     it.validate();
                 }
             }
