@@ -13,20 +13,22 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             value: types.optional(kind, defaultv),
             default: types.optional(kind, defaultv),
             initial: types.optional(kind, defaultv),
-            enum: types.optional(types.array(kind), []),
-            options: types.optional(
-                types.array(types.model({ label: types.string, value: kind })),
-                []
+            enum: types.maybe(types.array(kind)),
+            options: types.maybe(
+                types.array(types.model({ label: types.string, value: kind }))
             ),
-            const: types.optional(kind, defaultv),
+            const: types.maybe(kind),
             name: types.optional(types.string, ''),
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
-            errors: types.optional(types.array(types.string), []),
-            validating: types.optional(types.boolean, false)
+            errors: types.optional(types.array(types.string), [])
         })
-        .volatile(it => ({ syncing: false, _default: defaultv }))
+        .volatile(it => ({
+            validating: false,
+            syncing: false,
+            _default: defaultv
+        }))
         .actions(it => ({
             afterCreate() {
                 if (it.name === '') {
@@ -34,14 +36,16 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                     it.name = title.toLowerCase().replace(' ', '-');
                 }
                 it.initial = it.value;
-                if (it.enum.length > 0 && it.options.length === 0) {
-                    const options = it.enum
-                        .map(option => ({
-                            label: String(option),
-                            value: option
-                        }))
-                        .slice(0);
-                    it.options.push(...options);
+                if (
+                    it.enum != null &&
+                    it.enum.length > 0 &&
+                    (it.options == null || it.options.length === 0)
+                ) {
+                    const options = it.enum.map(option => ({
+                        label: String(option),
+                        value: option
+                    }));
+                    (it.options as any) = options;
                 }
             },
             setName(name: string): void {
@@ -75,10 +79,11 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             },
             syncValidateBase(): Array<string> {
                 const errors: Array<string> = [];
-                if (it.const !== it._default && it.value !== it.const) {
+                if (it.const !== null && it.value !== it.const) {
                     errors.push(`should be equal to ${it.const}`);
                 }
                 if (
+                    it.enum != null &&
                     it.enum.length > 0 &&
                     it.enum.findIndex(en => en === it.value) === -1
                 ) {

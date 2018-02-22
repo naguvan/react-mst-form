@@ -5,21 +5,21 @@ export type __IModelType = IModelType<any, any>;
 
 import { INumberConfig, INumber } from '@root/types';
 import create from '../Value';
-import { decimals, MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
+import { decimals } from '../../../utils';
 
 export const Number: IModelType<Partial<INumberConfig>, INumber> = types
     .compose(
         'Number',
         create<number>('number', types.number, 0),
         types.model({
-            minimum: types.optional(types.number, MIN_SAFE_INTEGER),
-            maximum: types.optional(types.number, MAX_SAFE_INTEGER),
-            multipleOf: types.optional(types.number, 1)
+            minimum: types.maybe(types.number),
+            maximum: types.maybe(types.number),
+            multipleOf: types.maybe(types.number)
         })
     )
     .actions(it => ({
         afterCreate() {
-            if (it.multipleOf <= 0) {
+            if (it.multipleOf !== null && it.multipleOf <= 0) {
                 throw new TypeError(
                     `multipleOf can not be ${
                         it.multipleOf === 0 ? 'zero' : 'negative'
@@ -31,13 +31,13 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
     .actions(it => ({
         syncValidate(): Array<string> {
             const errors: Array<string> = it.syncValidateBase();
-            if (it.value < it.minimum) {
+            if (it.minimum !== null && it.value < it.minimum) {
                 errors.push(`should NOT be lesser than ${it.minimum}`);
             }
-            if (it.value > it.maximum) {
+            if (it.maximum !== null && it.value > it.maximum) {
                 errors.push(`should NOT be greater than ${it.maximum}`);
             }
-            if (it.multipleOf > 1) {
+            if (it.multipleOf !== null && it.multipleOf > 1) {
                 const multiplier = Math.pow(
                     10,
                     Math.max(decimals(it.value), decimals(it.multipleOf))

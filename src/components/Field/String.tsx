@@ -18,7 +18,7 @@ export default class String extends Base<IString, IStringProps, IStringStates> {
     }
 
     protected renderField(field: IString): ReactNode {
-        const select: boolean = field.enum.length > 0;
+        const select: boolean = !!field.enum && field.enum.length > 0;
         return (
             <>
                 <TextField
@@ -36,7 +36,7 @@ export default class String extends Base<IString, IStringProps, IStringStates> {
                     helperText={field.errors.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e => field.setValue(e.target.value)}>
-                    {field.options.map(option => (
+                    {field.options && field.options.map(option => (
                         <MenuItem key={option.value} value={option.value}>
                             {option.label}
                         </MenuItem>

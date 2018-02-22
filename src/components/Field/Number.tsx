@@ -20,7 +20,7 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
     }
 
     protected renderField(field: INumber): ReactNode {
-        const select: boolean = field.enum.length > 0;
+        const select: boolean = !!field.enum && field.enum.length > 0;
         return (
             <>
                 <TextField
@@ -40,11 +40,12 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
                     onChange={e =>
                         field.setValue(toNumber(e.target.value, field.value))
                     }>
-                    {field.options.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
+                    {field.options &&
+                        field.options.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
                 </TextField>
             </>
         );

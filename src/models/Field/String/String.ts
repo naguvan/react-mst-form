@@ -12,9 +12,9 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
         'String',
         create<string>('string', types.string, ''),
         types.model({
-            pattern: types.optional(types.string, ''),
-            minLength: types.optional(types.number, MIN_SAFE_INTEGER),
-            maxLength: types.optional(types.number, MAX_SAFE_INTEGER)
+            pattern: types.maybe(types.string),
+            minLength: types.maybe(types.number),
+            maxLength: types.maybe(types.number)
         })
     )
     .actions(it => ({
@@ -27,17 +27,17 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
     .actions(it => ({
         syncValidate(): Array<string> {
             const errors: Array<string> = it.syncValidateBase();
-            if (it.value.length < it.minLength) {
+            if (it.minLength !== null && it.value.length < it.minLength) {
                 errors.push(
                     `should NOT be shorter than ${it.minLength} characters`
                 );
             }
-            if (it.value.length > it.maxLength) {
+            if (it.maxLength !== null && it.value.length > it.maxLength) {
                 errors.push(
                     `should NOT be longer than ${it.maxLength} characters`
                 );
             }
-            if (it.pattern && !it.value.match(regex(it.pattern)!)) {
+            if (it.pattern !== null && !it.value.match(regex(it.pattern)!)) {
                 errors.push(`should match pattern ${it.pattern}`);
             }
             return errors;

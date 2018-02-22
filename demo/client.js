@@ -45017,11 +45017,11 @@ var String = /** @class */ (function (_super) {
         return _super.call(this, props, context) || this;
     }
     String.prototype.renderField = function (field) {
-        var select = field.enum.length > 0;
+        var select = !!field.enum && field.enum.length > 0;
         return (React.createElement(React.Fragment, null,
             React.createElement(TextField_1.default, { select: select, key: field.name, type: 'text', margin: 'normal', fullWidth: true, name: field.name, id: field.name, value: field.value || '', disabled: field.disabled, error: !field.valid, label: field.title, helperText: field.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
-                onChange: function (e) { return field.setValue(e.target.value); } }, field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
+                onChange: function (e) { return field.setValue(e.target.value); } }, field.options && field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
     };
     String = __decorate([
         mobx_react_1.observer
@@ -51183,13 +51183,14 @@ var Number = /** @class */ (function (_super) {
         return _super.call(this, props, context) || this;
     }
     Number.prototype.renderField = function (field) {
-        var select = field.enum.length > 0;
+        var select = !!field.enum && field.enum.length > 0;
         return (React.createElement(React.Fragment, null,
             React.createElement(TextField_1.default, { select: select, key: field.name, type: 'number', margin: 'normal', fullWidth: true, name: field.name, id: field.name, value: field.value || '', disabled: field.disabled, error: !field.valid, label: field.title, helperText: field.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
                 onChange: function (e) {
                     return field.setValue(utils_1.toNumber(e.target.value, field.value));
-                } }, field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
+                } }, field.options &&
+                field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
     };
     Number = __decorate([
         mobx_react_1.observer
@@ -52633,9 +52634,9 @@ var Value_1 = __webpack_require__(64);
 var utils_1 = __webpack_require__(63);
 exports.String = mobx_state_tree_1.types
     .compose('String', Value_1.default('string', mobx_state_tree_1.types.string, ''), mobx_state_tree_1.types.model({
-    pattern: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.string, ''),
-    minLength: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MIN_SAFE_INTEGER),
-    maxLength: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MAX_SAFE_INTEGER)
+    pattern: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.string),
+    minLength: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number),
+    maxLength: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number)
 }))
     .actions(function (it) { return ({
     afterCreate: function () {
@@ -52647,13 +52648,13 @@ exports.String = mobx_state_tree_1.types
     .actions(function (it) { return ({
     syncValidate: function () {
         var errors = it.syncValidateBase();
-        if (it.value.length < it.minLength) {
+        if (it.minLength !== null && it.value.length < it.minLength) {
             errors.push("should NOT be shorter than " + it.minLength + " characters");
         }
-        if (it.value.length > it.maxLength) {
+        if (it.maxLength !== null && it.value.length > it.maxLength) {
             errors.push("should NOT be longer than " + it.maxLength + " characters");
         }
-        if (it.pattern && !it.value.match(utils_1.regex(it.pattern))) {
+        if (it.pattern !== null && !it.value.match(utils_1.regex(it.pattern))) {
             errors.push("should match pattern " + it.pattern);
         }
         return errors;
@@ -52712,17 +52713,20 @@ function create(type, kind, defaultv) {
         value: mobx_state_tree_1.types.optional(kind, defaultv),
         default: mobx_state_tree_1.types.optional(kind, defaultv),
         initial: mobx_state_tree_1.types.optional(kind, defaultv),
-        enum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(kind), []),
-        options: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.model({ label: mobx_state_tree_1.types.string, value: kind })), []),
-        const: mobx_state_tree_1.types.optional(kind, defaultv),
+        enum: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.array(kind)),
+        options: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.array(mobx_state_tree_1.types.model({ label: mobx_state_tree_1.types.string, value: kind }))),
+        const: mobx_state_tree_1.types.maybe(kind),
         name: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.string, ''),
         required: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
         disabled: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
         visible: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, true),
-        errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), []),
-        validating: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false)
+        errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), [])
     })
-        .volatile(function (it) { return ({ syncing: false, _default: defaultv }); })
+        .volatile(function (it) { return ({
+        validating: false,
+        syncing: false,
+        _default: defaultv
+    }); })
         .actions(function (it) { return ({
         afterCreate: function () {
             if (it.name === '') {
@@ -52730,16 +52734,15 @@ function create(type, kind, defaultv) {
                 it.name = title.toLowerCase().replace(' ', '-');
             }
             it.initial = it.value;
-            if (it.enum.length > 0 && it.options.length === 0) {
-                var options = it.enum
-                    .map(function (option) { return ({
+            if (it.enum != null &&
+                it.enum.length > 0 &&
+                (it.options == null || it.options.length === 0)) {
+                var options = it.enum.map(function (option) { return ({
                     label: String(option),
                     value: option
-                }); })
-                    .slice(0);
-                (_a = it.options).push.apply(_a, options);
+                }); });
+                it.options = options;
             }
-            var _a;
         },
         setName: function (name) {
             it.name = name;
@@ -52780,7 +52783,8 @@ function create(type, kind, defaultv) {
             if (it.const !== it._default && it.value !== it.const) {
                 errors.push("should be equal to " + it.const);
             }
-            if (it.enum.length > 0 &&
+            if (it.enum != null &&
+                it.enum.length > 0 &&
                 it.enum.findIndex(function (en) { return en === it.value; }) === -1) {
                 errors.push("should be equal to one of the allowed values [" + it.enum.slice(0) + "]");
             }
@@ -52877,13 +52881,13 @@ var Value_1 = __webpack_require__(64);
 var utils_1 = __webpack_require__(63);
 exports.Number = mobx_state_tree_1.types
     .compose('Number', Value_1.default('number', mobx_state_tree_1.types.number, 0), mobx_state_tree_1.types.model({
-    minimum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MIN_SAFE_INTEGER),
-    maximum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MAX_SAFE_INTEGER),
-    multipleOf: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, 1)
+    minimum: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number),
+    maximum: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number),
+    multipleOf: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number)
 }))
     .actions(function (it) { return ({
     afterCreate: function () {
-        if (it.multipleOf <= 0) {
+        if (it.multipleOf !== null && it.multipleOf <= 0) {
             throw new TypeError("multipleOf can not be " + (it.multipleOf === 0 ? 'zero' : 'negative'));
         }
     }
@@ -52891,13 +52895,13 @@ exports.Number = mobx_state_tree_1.types
     .actions(function (it) { return ({
     syncValidate: function () {
         var errors = it.syncValidateBase();
-        if (it.value < it.minimum) {
+        if (it.minimum !== null && it.value < it.minimum) {
             errors.push("should NOT be lesser than " + it.minimum);
         }
-        if (it.value > it.maximum) {
+        if (it.maximum !== null && it.value > it.maximum) {
             errors.push("should NOT be greater than " + it.maximum);
         }
-        if (it.multipleOf > 1) {
+        if (it.multipleOf !== null && it.multipleOf > 1) {
             var multiplier = Math.pow(10, Math.max(utils_1.decimals(it.value), utils_1.decimals(it.multipleOf)));
             if (Math.round(it.value * multiplier) %
                 Math.round(it.multipleOf * multiplier) !==

@@ -1,13 +1,13 @@
 export interface IValueAttrs<T> {
     readonly value: T;
-    readonly default: T;
+    readonly default?: T;
     readonly name: string;
     readonly disabled: boolean;
     readonly visible: boolean;
     readonly required: boolean;
-    readonly enum: Array<T>;
-    readonly const: T;
-    readonly options: Array<{ label: string; value: T }>;
+    readonly enum?: Array<T> | null;
+    readonly const?: T | null;
+    readonly options?: Array<{ label: string; value: T }> | null;
 }
 
 export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
