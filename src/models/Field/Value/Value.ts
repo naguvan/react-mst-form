@@ -21,13 +21,12 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             name: types.optional(types.string, ''),
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
-            visible: types.optional(types.boolean, true),
-            errors: types.optional(types.array(types.string), [])
+            visible: types.optional(types.boolean, true)
         })
         .volatile(it => ({
+            errors: [] as Array<string>,
             validating: false,
-            syncing: false,
-            _default: defaultv
+            syncing: false
         }))
         .actions(it => ({
             afterCreate() {

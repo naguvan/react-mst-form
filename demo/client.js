@@ -52719,13 +52719,12 @@ function create(type, kind, defaultv) {
         name: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.string, ''),
         required: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
         disabled: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
-        visible: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, true),
-        errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), [])
+        visible: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, true)
     })
         .volatile(function (it) { return ({
+        errors: [],
         validating: false,
-        syncing: false,
-        _default: defaultv
+        syncing: false
     }); })
         .actions(function (it) { return ({
         afterCreate: function () {
@@ -52780,7 +52779,7 @@ function create(type, kind, defaultv) {
         },
         syncValidateBase: function () {
             var errors = [];
-            if (it.const !== it._default && it.value !== it.const) {
+            if (it.const !== null && it.value !== it.const) {
                 errors.push("should be equal to " + it.const);
             }
             if (it.enum != null &&
