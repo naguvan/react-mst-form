@@ -39,7 +39,8 @@ const config: IFormConfig = {
             title: 'Size',
             value: 5,
             maximum: 10,
-            minimum: 3
+            minimum: 3,
+            multipleOf: 3
         },
         type: {
             type: 'enum',

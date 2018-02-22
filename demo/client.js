@@ -60,7 +60,7 @@
 /******/ 	__webpack_require__.p = "/dist/";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 405);
+/******/ 	return __webpack_require__(__webpack_require__.s = 406);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -5122,7 +5122,7 @@ var types = {
 
 
 
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(387).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(388).setImmediate))
 
 /***/ }),
 /* 24 */
@@ -7078,7 +7078,7 @@ exports.default = Base;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Value_1 = __webpack_require__(393);
+var Value_1 = __webpack_require__(394);
 exports.default = Value_1.create;
 
 
@@ -7938,6 +7938,7 @@ __export(__webpack_require__(156));
 __export(__webpack_require__(372));
 __export(__webpack_require__(373));
 __export(__webpack_require__(374));
+__export(__webpack_require__(375));
 
 
 /***/ }),
@@ -17481,7 +17482,7 @@ exports.replaceAll = replaceAll;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Form_1 = __webpack_require__(386);
+var Form_1 = __webpack_require__(387);
 exports.default = Form_1.Form;
 
 
@@ -18215,7 +18216,7 @@ var Field_1 = __webpack_require__(144);
 exports.FieldRenderer = Field_1.renderer;
 var Form_2 = __webpack_require__(157);
 exports.FormModel = Form_2.default;
-var Form_3 = __webpack_require__(402);
+var Form_3 = __webpack_require__(403);
 exports.Form = Form_3.default;
 
 
@@ -44774,9 +44775,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var String_1 = __webpack_require__(327);
 var Number_1 = __webpack_require__(371);
-var Boolean_1 = __webpack_require__(375);
-var Color_1 = __webpack_require__(383);
-var Enum_1 = __webpack_require__(384);
+var Boolean_1 = __webpack_require__(376);
+var Color_1 = __webpack_require__(384);
+var Enum_1 = __webpack_require__(385);
 function renderer(field, form) {
     switch (field.type) {
         case 'number':
@@ -51058,6 +51059,34 @@ exports.regex = regex;
 
 "use strict";
 
+Object.defineProperty(exports, "__esModule", { value: true });
+function decimals(value) {
+    var parts = value.toString().split('e');
+    var decimals = 0;
+    var left = parts[0], right = parts[1];
+    if (parts.length === 2) {
+        if (right[0] !== '-') {
+            return decimals;
+        }
+        else {
+            decimals = Number(right.slice(1));
+        }
+    }
+    var splits = left.split('.');
+    if (splits.length === 2) {
+        decimals += splits[1].length;
+    }
+    return decimals;
+}
+exports.decimals = decimals;
+
+
+/***/ }),
+/* 376 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
         ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
@@ -51079,7 +51108,7 @@ var React = __webpack_require__(0);
 var mobx_react_1 = __webpack_require__(24);
 var Base_1 = __webpack_require__(44);
 var FormControlLabel_1 = __webpack_require__(148);
-var Switch_1 = __webpack_require__(376);
+var Switch_1 = __webpack_require__(377);
 var Boolean = /** @class */ (function (_super) {
     __extends(Boolean, _super);
     function Boolean(props, context) {
@@ -51100,7 +51129,7 @@ exports.default = Boolean;
 
 
 /***/ }),
-/* 376 */
+/* 377 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51110,7 +51139,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Switch = __webpack_require__(377);
+var _Switch = __webpack_require__(378);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51122,7 +51151,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 377 */
+/* 378 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51161,7 +51190,7 @@ var _withStyles = __webpack_require__(4);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _SwitchBase = __webpack_require__(378);
+var _SwitchBase = __webpack_require__(379);
 
 var _SwitchBase2 = _interopRequireDefault(_SwitchBase);
 
@@ -51351,7 +51380,7 @@ Switch.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitch' })(Switch);
 
 /***/ }),
-/* 378 */
+/* 379 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51406,11 +51435,11 @@ var _classnames = __webpack_require__(5);
 
 var _classnames2 = _interopRequireDefault(_classnames);
 
-var _CheckBoxOutlineBlank = __webpack_require__(379);
+var _CheckBoxOutlineBlank = __webpack_require__(380);
 
 var _CheckBoxOutlineBlank2 = _interopRequireDefault(_CheckBoxOutlineBlank);
 
-var _CheckBox = __webpack_require__(380);
+var _CheckBox = __webpack_require__(381);
 
 var _CheckBox2 = _interopRequireDefault(_CheckBox);
 
@@ -51418,7 +51447,7 @@ var _withStyles = __webpack_require__(4);
 
 var _withStyles2 = _interopRequireDefault(_withStyles);
 
-var _IconButton = __webpack_require__(381);
+var _IconButton = __webpack_require__(382);
 
 var _IconButton2 = _interopRequireDefault(_IconButton);
 
@@ -51654,7 +51683,7 @@ SwitchBase.contextTypes = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiSwitchBase' })(SwitchBase);
 
 /***/ }),
-/* 379 */
+/* 380 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51696,7 +51725,7 @@ CheckBoxOutlineBlank.muiName = 'SvgIcon';
 exports.default = CheckBoxOutlineBlank;
 
 /***/ }),
-/* 380 */
+/* 381 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51738,7 +51767,7 @@ CheckBox.muiName = 'SvgIcon';
 exports.default = CheckBox;
 
 /***/ }),
-/* 381 */
+/* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51748,7 +51777,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _IconButton = __webpack_require__(382);
+var _IconButton = __webpack_require__(383);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -51760,7 +51789,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 382 */
+/* 383 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51923,7 +51952,7 @@ IconButton.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiIconButton' })(IconButton);
 
 /***/ }),
-/* 383 */
+/* 384 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51970,7 +51999,7 @@ exports.default = Color;
 
 
 /***/ }),
-/* 384 */
+/* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51996,7 +52025,7 @@ var React = __webpack_require__(0);
 var mobx_react_1 = __webpack_require__(24);
 var Base_1 = __webpack_require__(44);
 var TextField_1 = __webpack_require__(64);
-var MenuItem_1 = __webpack_require__(385);
+var MenuItem_1 = __webpack_require__(386);
 var Enum = /** @class */ (function (_super) {
     __extends(Enum, _super);
     function Enum(props, context) {
@@ -52017,7 +52046,7 @@ exports.default = Enum;
 
 
 /***/ }),
-/* 385 */
+/* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52136,7 +52165,7 @@ MenuItem.defaultProps = {
 exports.default = (0, _withStyles2.default)(styles, { name: 'MuiMenuItem' })(MenuItem);
 
 /***/ }),
-/* 386 */
+/* 387 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52170,7 +52199,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mobx_state_tree_1 = __webpack_require__(23);
-var Field_1 = __webpack_require__(389);
+var Field_1 = __webpack_require__(390);
 var utils_1 = __webpack_require__(65);
 exports.Form = mobx_state_tree_1.types
     .model('Form', {
@@ -52271,7 +52300,7 @@ exports.Form = mobx_state_tree_1.types
 
 
 /***/ }),
-/* 387 */
+/* 388 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -52324,7 +52353,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(388);
+__webpack_require__(389);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -52338,7 +52367,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ }),
-/* 388 */
+/* 389 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {(function (global, undefined) {
@@ -52531,30 +52560,14 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(25)))
 
 /***/ }),
-/* 389 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Field_1 = __webpack_require__(390);
-exports.default = Field_1.Field;
-
-
-/***/ }),
 /* 390 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mobx_state_tree_1 = __webpack_require__(23);
-var String_1 = __webpack_require__(391);
-var Number_1 = __webpack_require__(394);
-var Boolean_1 = __webpack_require__(396);
-var Color_1 = __webpack_require__(398);
-var Enum_1 = __webpack_require__(400);
-exports.Field = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Color_1.default, Enum_1.default);
+var Field_1 = __webpack_require__(391);
+exports.default = Field_1.Field;
 
 
 /***/ }),
@@ -52564,12 +52577,28 @@ exports.Field = mobx_state_tree_1.types.union(String_1.default, Number_1.default
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
+var mobx_state_tree_1 = __webpack_require__(23);
 var String_1 = __webpack_require__(392);
-exports.default = String_1.String;
+var Number_1 = __webpack_require__(395);
+var Boolean_1 = __webpack_require__(397);
+var Color_1 = __webpack_require__(399);
+var Enum_1 = __webpack_require__(401);
+exports.Field = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Color_1.default, Enum_1.default);
 
 
 /***/ }),
 /* 392 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var String_1 = __webpack_require__(393);
+exports.default = String_1.String;
+
+
+/***/ }),
+/* 393 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52649,7 +52678,7 @@ exports.String = mobx_state_tree_1.types
 
 
 /***/ }),
-/* 393 */
+/* 394 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52802,36 +52831,14 @@ exports.create = create;
 
 
 /***/ }),
-/* 394 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var Number_1 = __webpack_require__(395);
-exports.default = Number_1.Number;
-
-
-/***/ }),
 /* 395 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var mobx_state_tree_1 = __webpack_require__(23);
-var Value_1 = __webpack_require__(45);
-var utils_1 = __webpack_require__(65);
-exports.Number = mobx_state_tree_1.types
-    .compose('Number', Value_1.default('number', mobx_state_tree_1.types.number, 0), mobx_state_tree_1.types.model({
-    minimum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MIN_SAFE_INTEGER),
-    maximum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MAX_SAFE_INTEGER)
-}))
-    .actions(function (it) { return ({
-    afterCreate: function () {
-        // it.type = 'string';
-    }
-}); });
+var Number_1 = __webpack_require__(396);
+exports.default = Number_1.Number;
 
 
 /***/ }),
@@ -52840,13 +52847,98 @@ exports.Number = mobx_state_tree_1.types
 
 "use strict";
 
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-var Boolean_1 = __webpack_require__(397);
-exports.default = Boolean_1.Boolean;
+var mobx_state_tree_1 = __webpack_require__(23);
+var Value_1 = __webpack_require__(45);
+var utils_1 = __webpack_require__(65);
+exports.Number = mobx_state_tree_1.types
+    .compose('Number', Value_1.default('number', mobx_state_tree_1.types.number, 0), mobx_state_tree_1.types.model({
+    minimum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MIN_SAFE_INTEGER),
+    maximum: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, utils_1.MAX_SAFE_INTEGER),
+    multipleOf: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.number, 1)
+}))
+    .actions(function (it) { return ({
+    afterCreate: function () {
+        if (it.multipleOf <= 0) {
+            throw new TypeError("multipleOf can not be " + (it.multipleOf === 0 ? 'zero' : 'negative'));
+        }
+    }
+}); })
+    .actions(function (it) { return ({
+    validation: function () {
+        return __awaiter(this, void 0, void 0, function () {
+            var errors, multiplier;
+            return __generator(this, function (_a) {
+                errors = [];
+                if (it.value < it.minimum) {
+                    errors.push("should NOT be lesser than " + it.minimum);
+                }
+                if (it.value > it.maximum) {
+                    errors.push("should NOT be greater than " + it.maximum);
+                }
+                if (it.multipleOf > 1) {
+                    multiplier = Math.pow(10, Math.max(utils_1.decimals(it.value), utils_1.decimals(it.multipleOf)));
+                    if (Math.round(it.value * multiplier) %
+                        Math.round(it.multipleOf * multiplier) !==
+                        0) {
+                        errors.push("should be multiple of " + it.multipleOf);
+                    }
+                }
+                return [2 /*return*/, errors];
+            });
+        });
+    }
+}); });
 
 
 /***/ }),
 /* 397 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var Boolean_1 = __webpack_require__(398);
+exports.default = Boolean_1.Boolean;
+
+
+/***/ }),
+/* 398 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52862,18 +52954,18 @@ exports.Boolean = mobx_state_tree_1.types
 
 
 /***/ }),
-/* 398 */
+/* 399 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Color_1 = __webpack_require__(399);
+var Color_1 = __webpack_require__(400);
 exports.default = Color_1.Color;
 
 
 /***/ }),
-/* 399 */
+/* 400 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52889,18 +52981,18 @@ exports.Color = mobx_state_tree_1.types
 
 
 /***/ }),
-/* 400 */
+/* 401 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Enum_1 = __webpack_require__(401);
+var Enum_1 = __webpack_require__(402);
 exports.default = Enum_1.Enum;
 
 
 /***/ }),
-/* 401 */
+/* 402 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52918,7 +53010,7 @@ exports.Enum = mobx_state_tree_1.types
 
 
 /***/ }),
-/* 402 */
+/* 403 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -52994,7 +53086,7 @@ exports.default = withStyles_1.default({
 
 
 /***/ }),
-/* 403 */
+/* 404 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53004,7 +53096,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _jssTemplate = __webpack_require__(407);
+var _jssTemplate = __webpack_require__(408);
 
 var _jssTemplate2 = _interopRequireDefault(_jssTemplate);
 
@@ -53012,7 +53104,7 @@ var _jssGlobal = __webpack_require__(161);
 
 var _jssGlobal2 = _interopRequireDefault(_jssGlobal);
 
-var _jssExtend = __webpack_require__(409);
+var _jssExtend = __webpack_require__(410);
 
 var _jssExtend2 = _interopRequireDefault(_jssExtend);
 
@@ -53020,7 +53112,7 @@ var _jssNested = __webpack_require__(162);
 
 var _jssNested2 = _interopRequireDefault(_jssNested);
 
-var _jssCompose = __webpack_require__(410);
+var _jssCompose = __webpack_require__(411);
 
 var _jssCompose2 = _interopRequireDefault(_jssCompose);
 
@@ -53032,7 +53124,7 @@ var _jssDefaultUnit = __webpack_require__(164);
 
 var _jssDefaultUnit2 = _interopRequireDefault(_jssDefaultUnit);
 
-var _jssExpand = __webpack_require__(411);
+var _jssExpand = __webpack_require__(412);
 
 var _jssExpand2 = _interopRequireDefault(_jssExpand);
 
@@ -53054,7 +53146,7 @@ exports.default = function () {
 };
 
 /***/ }),
-/* 404 */
+/* 405 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53104,7 +53196,7 @@ var _warning = __webpack_require__(12);
 
 var _warning2 = _interopRequireDefault(_warning);
 
-var _brcast = __webpack_require__(416);
+var _brcast = __webpack_require__(417);
 
 var _brcast2 = _interopRequireDefault(_brcast);
 
@@ -53257,7 +53349,7 @@ MuiThemeProvider.contextTypes = (0, _extends3.default)({}, _themeListener2.defau
 exports.default = MuiThemeProvider;
 
 /***/ }),
-/* 405 */
+/* 406 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53265,12 +53357,12 @@ exports.default = MuiThemeProvider;
 Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var react_dom_1 = __webpack_require__(16);
-var Boot_1 = __webpack_require__(406);
+var Boot_1 = __webpack_require__(407);
 react_dom_1.render(React.createElement(Boot_1.default, { theme: 'light' }), document.getElementById('root'));
 
 
 /***/ }),
-/* 406 */
+/* 407 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53289,13 +53381,13 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var React = __webpack_require__(0);
 var react_1 = __webpack_require__(0);
 var jss_1 = __webpack_require__(85);
-var jss_preset_default_1 = __webpack_require__(403);
-var JssProvider_1 = __webpack_require__(413);
-var App_1 = __webpack_require__(415);
-var MuiThemeProvider_1 = __webpack_require__(404);
+var jss_preset_default_1 = __webpack_require__(404);
+var JssProvider_1 = __webpack_require__(414);
+var App_1 = __webpack_require__(416);
+var MuiThemeProvider_1 = __webpack_require__(405);
 var createMuiTheme_1 = __webpack_require__(89);
 var createGenerateClassName_1 = __webpack_require__(134);
-var Reboot_1 = __webpack_require__(417);
+var Reboot_1 = __webpack_require__(418);
 // Create a JSS instance with the default preset of plugins.
 // It's optional.
 var jss = jss_1.create(jss_preset_default_1.default());
@@ -53321,7 +53413,7 @@ exports.default = Boot;
 
 
 /***/ }),
-/* 407 */
+/* 408 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53331,7 +53423,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _parse = __webpack_require__(408);
+var _parse = __webpack_require__(409);
 
 var _parse2 = _interopRequireDefault(_parse);
 
@@ -53348,7 +53440,7 @@ exports['default'] = function () {
 };
 
 /***/ }),
-/* 408 */
+/* 409 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53393,7 +53485,7 @@ exports['default'] = function (cssText) {
 };
 
 /***/ }),
-/* 409 */
+/* 410 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53527,7 +53619,7 @@ function jssExtend() {
 }
 
 /***/ }),
-/* 410 */
+/* 411 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53615,7 +53707,7 @@ function jssCompose() {
 }
 
 /***/ }),
-/* 411 */
+/* 412 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53629,7 +53721,7 @@ var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol
 
 exports.default = jssExpand;
 
-var _props = __webpack_require__(412);
+var _props = __webpack_require__(413);
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -53801,7 +53893,7 @@ function jssExpand() {
 }
 
 /***/ }),
-/* 412 */
+/* 413 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53975,7 +54067,7 @@ var propArray = exports.propArray = {
 };
 
 /***/ }),
-/* 413 */
+/* 414 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -53993,7 +54085,7 @@ var _react = __webpack_require__(0);
 
 var _propTypes = __webpack_require__(1);
 
-var _jss = __webpack_require__(414);
+var _jss = __webpack_require__(415);
 
 var _ns = __webpack_require__(96);
 
@@ -54102,7 +54194,7 @@ JssProvider.contextTypes = _contextTypes2['default'];
 exports['default'] = JssProvider;
 
 /***/ }),
-/* 414 */
+/* 415 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54140,7 +54232,7 @@ Object.defineProperty(exports, 'createGenerateClassNameDefault', {
   }
 });
 
-var _jssPresetDefault = __webpack_require__(403);
+var _jssPresetDefault = __webpack_require__(404);
 
 var _jssPresetDefault2 = _interopRequireDefault(_jssPresetDefault);
 
@@ -54149,7 +54241,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'd
 exports['default'] = (0, _jss.create)((0, _jssPresetDefault2['default'])());
 
 /***/ }),
-/* 415 */
+/* 416 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54196,7 +54288,8 @@ var config = {
             title: 'Size',
             value: 5,
             maximum: 10,
-            minimum: 3
+            minimum: 3,
+            multipleOf: 3
         },
         type: {
             type: 'enum',
@@ -54313,7 +54406,7 @@ exports.default = withStyles_1.default({
 
 
 /***/ }),
-/* 416 */
+/* 417 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -54361,7 +54454,7 @@ function createBroadcast (initialState) {
 
 
 /***/ }),
-/* 417 */
+/* 418 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54371,7 +54464,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _Reboot = __webpack_require__(418);
+var _Reboot = __webpack_require__(419);
 
 Object.defineProperty(exports, 'default', {
   enumerable: true,
@@ -54383,7 +54476,7 @@ Object.defineProperty(exports, 'default', {
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ }),
-/* 418 */
+/* 419 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54421,7 +54514,7 @@ var _propTypes = __webpack_require__(1);
 
 var _propTypes2 = _interopRequireDefault(_propTypes);
 
-var _styles = __webpack_require__(419);
+var _styles = __webpack_require__(420);
 
 var _exactProp = __webpack_require__(95);
 
@@ -54495,7 +54588,7 @@ Reboot.defaultProps = {
 exports.default = (0, _styles.withStyles)(styles, { name: 'MuiReboot' })(Reboot);
 
 /***/ }),
-/* 419 */
+/* 420 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -54532,7 +54625,7 @@ Object.defineProperty(exports, 'jssPreset', {
   }
 });
 
-var _MuiThemeProvider = __webpack_require__(404);
+var _MuiThemeProvider = __webpack_require__(405);
 
 Object.defineProperty(exports, 'MuiThemeProvider', {
   enumerable: true,

@@ -3,6 +3,7 @@ import { IValue, IValueAttrs, IValueConfig } from './Value';
 export interface INumberAttrs extends IValueAttrs<number> {
     readonly minimum: number;
     readonly maximum: number;
+    readonly multipleOf: number;
 }
 
 export interface INumberConfig
