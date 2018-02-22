@@ -32,13 +32,21 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 import { Form } from './src';
 
 const config = {
-    title: 'Form',
+    title: 'Test Form',
     properties: {
         title: {
             type: 'string',
             title: 'Title',
             value: 'sk',
             minLength: 5
+        },
+        ipv4: {
+            type: 'string',
+            title: 'ipv4',
+            minLength: 5,
+            maxLength: 20,
+            pattern:
+                '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'
         },
         color: {
             type: 'color',
@@ -49,7 +57,8 @@ const config = {
             title: 'Size',
             value: 5,
             maximum: 10,
-            minimum: 3
+            minimum: 3,
+            multipleOf: 3
         },
         type: {
             type: 'enum',
@@ -72,10 +81,11 @@ const config = {
         },
         {
             title: 'Others',
-            layout: ['type', 'agree']
+            layout: ['ipv4', 'type', 'agree']
         }
     ]
 };
+
 
 const onSubmit = values => {
     window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
