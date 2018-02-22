@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import Base from './Base';
 
 import FormControlLabel from 'material-ui/Form/FormControlLabel';
+import FormHelperText from 'material-ui/Form/FormHelperText';
 
 import Switch from 'material-ui/Switch';
 
@@ -40,6 +41,11 @@ export default class Boolean extends Base<
                         />
                     }
                 />
+                {!field.valid && (
+                    <FormHelperText error>
+                        {field.errors.join('\n')}
+                    </FormHelperText>
+                )}
             </>
         );
     }
