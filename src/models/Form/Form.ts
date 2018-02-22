@@ -26,8 +26,9 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .volatile(it => ({ _validating: false }))
     .actions(it => ({
         afterCreate() {
-            const { properties, layout } = it;
-            const items = flatArray<string>(layout);
+            const { properties, layout, sections } = it;
+            const layouts = sections.map(section => section.layout);
+            const items = flatArray<string>([...layout, ...layouts]);
             const invalids = items.filter(item => !properties.has(item));
 
             if (invalids.length) {

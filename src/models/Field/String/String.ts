@@ -4,22 +4,32 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IStringConfig, IString } from '@root/types';
+
 import create from '../Value';
-import { regex, MAX_SAFE_INTEGER, MIN_SAFE_INTEGER } from '../../../utils';
+import { regex } from '../../../utils';
+
+import { matchers } from './matchers';
 
 export const String: IModelType<Partial<IStringConfig>, IString> = types
     .compose(
         'String',
         create<string>('string', types.string, ''),
         types.model({
-            pattern: types.maybe(types.string),
             minLength: types.maybe(types.number),
-            maxLength: types.maybe(types.number)
+            maxLength: types.maybe(types.number),
+            pattern: types.maybe(types.string),
+            format: types.maybe(
+                types.union(
+                    ...Object.keys(matchers).map(format =>
+                        types.literal(format)
+                    )
+                )
+            )
         })
     )
     .actions(it => ({
         afterCreate() {
-            if (it.pattern && !regex(it.pattern)) {
+            if (it.pattern != null && !regex(it.pattern)) {
                 throw new TypeError(`pattern '${it.pattern}' is invalid.`);
             }
         }
@@ -39,6 +49,9 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
             }
             if (it.pattern !== null && !it.value.match(regex(it.pattern)!)) {
                 errors.push(`should match pattern ${it.pattern}`);
+            }
+            if (it.format != null && !matchers[it.format](it.value)) {
+                errors.push(`should match format ${it.format}`);
             }
             return errors;
         }

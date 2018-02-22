@@ -6,9 +6,9 @@ export type __IModelType = IModelType<any, any>;
 import { IValueConfig, IValue } from '@root/types';
 
 export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
-    const TypeField: IModelType<Partial<IValueConfig<T>>, IValue<T>> = types
-        .model('TypeField', {
-            title: types.string,
+    const Value: IModelType<Partial<IValueConfig<T>>, IValue<T>> = types
+        .model('Value', {
+            title: types.maybe(types.string),
             type: types.literal(type),
             value: types.optional(kind, defaultv),
             default: types.optional(kind, defaultv),
@@ -21,16 +21,16 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             name: types.optional(types.string, ''),
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
-            visible: types.optional(types.boolean, true)
+            visible: types.optional(types.boolean, true),
+            errors: types.optional(types.array(types.string), [])
         })
         .volatile(it => ({
-            errors: [] as Array<string>,
             validating: false,
             syncing: false
         }))
         .actions(it => ({
             afterCreate() {
-                if (it.name === '') {
+                if (it.name === '' && it.title) {
                     const { title } = it;
                     it.name = title.toLowerCase().replace(' ', '-');
                 }
@@ -140,5 +140,5 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             }
         }));
 
-    return TypeField;
+    return Value;
 }

@@ -27,8 +27,7 @@ const config: IFormConfig = {
             title: 'ipv4',
             minLength: 5,
             maxLength: 20,
-            pattern:
-                '/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?).){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/'
+            format: 'ipv4'
         },
         color: {
             type: 'color',

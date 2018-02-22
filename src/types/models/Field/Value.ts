@@ -1,4 +1,5 @@
 export interface IValueAttrs<T> {
+    readonly title?: string | null;
     readonly value: T;
     readonly default?: T;
     readonly name: string;
@@ -12,12 +13,10 @@ export interface IValueAttrs<T> {
 
 export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
     readonly type: string;
-    readonly title: string;
 }
 
 export interface IValue<T> extends IValueAttrs<T> {
     readonly type: string;
-    readonly title: string;
     readonly modified: boolean;
     readonly validating: boolean;
     readonly syncing: boolean;
