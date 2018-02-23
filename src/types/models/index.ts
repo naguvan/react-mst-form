@@ -1,2 +1,2 @@
-export * from './Field';
+export * from './Type';
 export * from './Form';

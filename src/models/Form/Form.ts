@@ -3,17 +3,17 @@ import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IFieldConfig, IField } from '@root/types';
+import { ITypeConfig, IType } from '@root/types';
 import { IFormConfig, IForm } from '@root/types';
 
-import Field from '../Field';
+import Type from '../Type';
 
 import { flatArray } from '../../utils';
 
 export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .model('Form', {
         title: types.string,
-        properties: types.map(Field),
+        properties: types.map(Type),
         errors: types.optional(types.array(types.string), []),
         layout: types.optional(types.frozen, []),
         sections: types.optional(
@@ -51,7 +51,7 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         }
     }))
     .views(it => ({
-        get fields(): Array<IField> {
+        get fields(): Array<IType> {
             return it.properties.values();
         },
         get values(): { [key: string]: any } {
@@ -65,7 +65,7 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
                 }
             );
         },
-        get(key: string): IField | undefined {
+        get(key: string): IType | undefined {
             return it.properties.get(key);
         },
         get fieldErrors(): { [key: string]: Array<string> } {

@@ -1,14 +1,14 @@
 import { Form } from './Form';
-import { IFieldConfig, IField } from '@root/types';
+import { ITypeConfig, IType } from '@root/types';
 import { IStringConfig, IString } from '@root/types';
 import { INumberConfig, INumber } from '@root/types';
 import { IBooleanConfig, IBoolean } from '@root/types';
 import { getSnapshot } from 'mobx-state-tree';
 import { IFormConfig, IForm } from '@root/types';
 
-import { String } from '../Field/String/String';
-import { Number } from '../Field/Number/Number';
-import { Boolean } from '../Field/Boolean/Boolean';
+import { String } from '../Type/String/String';
+import { Number } from '../Type/Number/Number';
+import { Boolean } from '../Type/Boolean/Boolean';
 
 const name: IStringConfig = {
     title: 'Name',

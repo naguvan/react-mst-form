@@ -1,6 +1,6 @@
 import FormView from './components/Form';
 import FormSubmit from './components/Submit';
-import { renderer as FieldRenderer } from './components/Field';
+import { renderer as FieldRenderer } from './components/Type';
 import FormModel from './models/Form';
 import Form from './Form';
 

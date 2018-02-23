@@ -7880,11 +7880,11 @@ var Base = /** @class */ (function (_super) {
         return _super.call(this, props, context) || this;
     }
     Base.prototype.render = function () {
-        var field = this.props.field;
-        var visible = field.visible, name = field.name;
+        var type = this.props.type;
+        var visible = type.visible, name = type.name;
         return visible ? (React.createElement("div", { key: name, style: {
                 width: '100%'
-            } }, this.renderField(field))) : null;
+            } }, this.renderType(type))) : null;
     };
     return Base;
 }(react_1.Component));
@@ -18331,8 +18331,8 @@ var Form_1 = __webpack_require__(100);
 exports.FormView = Form_1.default;
 var Submit_1 = __webpack_require__(144);
 exports.FormSubmit = Submit_1.default;
-var Field_1 = __webpack_require__(145);
-exports.FieldRenderer = Field_1.renderer;
+var Type_1 = __webpack_require__(145);
+exports.FieldRenderer = Type_1.renderer;
 var Form_2 = __webpack_require__(158);
 exports.FormModel = Form_2.default;
 var Form_3 = __webpack_require__(401);
@@ -44967,17 +44967,17 @@ var String_1 = __webpack_require__(328);
 var Number_1 = __webpack_require__(372);
 var Boolean_1 = __webpack_require__(377);
 var Color_1 = __webpack_require__(385);
-function renderer(field, form) {
-    switch (field.type) {
+function renderer(type, form) {
+    switch (type.type) {
         case 'number':
-            return React.createElement(Number_1.default, { field: field, form: form });
+            return React.createElement(Number_1.default, { type: type, form: form });
         case 'boolean':
-            return React.createElement(Boolean_1.default, { field: field, form: form });
+            return React.createElement(Boolean_1.default, { type: type, form: form });
         case 'color':
-            return React.createElement(Color_1.default, { field: field, form: form });
+            return React.createElement(Color_1.default, { type: type, form: form });
         case 'string':
         default:
-            return React.createElement(String_1.default, { field: field, form: form });
+            return React.createElement(String_1.default, { type: type, form: form });
     }
 }
 exports.renderer = renderer;
@@ -45016,12 +45016,12 @@ var String = /** @class */ (function (_super) {
     function String(props, context) {
         return _super.call(this, props, context) || this;
     }
-    String.prototype.renderField = function (field) {
-        var select = !!field.enum && field.enum.length > 0;
+    String.prototype.renderType = function (type) {
+        var select = !!type.enum && type.enum.length > 0;
         return (React.createElement(React.Fragment, null,
-            React.createElement(TextField_1.default, { select: select, key: field.name, type: 'text', margin: 'normal', fullWidth: true, name: field.name, id: field.name, value: field.value || '', disabled: field.disabled, error: !field.valid, label: field.title, helperText: field.errors.join('\n'), 
+            React.createElement(TextField_1.default, { select: select, key: type.name, type: 'text', margin: 'normal', fullWidth: true, name: type.name, id: type.name, value: type.value || '', disabled: type.disabled, error: !type.valid, label: type.title, helperText: type.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
-                onChange: function (e) { return field.setValue(e.target.value); } }, field.options && field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
+                onChange: function (e) { return type.setValue(e.target.value); } }, type.options && type.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
     };
     String = __decorate([
         mobx_react_1.observer
@@ -51182,15 +51182,15 @@ var Number = /** @class */ (function (_super) {
     function Number(props, context) {
         return _super.call(this, props, context) || this;
     }
-    Number.prototype.renderField = function (field) {
-        var select = !!field.enum && field.enum.length > 0;
+    Number.prototype.renderType = function (type) {
+        var select = !!type.enum && type.enum.length > 0;
         return (React.createElement(React.Fragment, null,
-            React.createElement(TextField_1.default, { select: select, key: field.name, type: 'number', margin: 'normal', fullWidth: true, name: field.name, id: field.name, value: field.value || '', disabled: field.disabled, error: !field.valid, label: field.title, helperText: field.errors.join('\n'), 
+            React.createElement(TextField_1.default, { select: select, key: type.name, type: 'number', margin: 'normal', fullWidth: true, name: type.name, id: type.name, value: type.value || '', disabled: type.disabled, error: !type.valid, label: type.title, helperText: type.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
                 onChange: function (e) {
-                    return field.setValue(utils_1.toNumber(e.target.value, field.value));
-                } }, field.options &&
-                field.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
+                    return type.setValue(utils_1.toNumber(e.target.value, type.value));
+                } }, type.options &&
+                type.options.map(function (option) { return (React.createElement(MenuItem_1.default, { key: option.value, value: option.value }, option.label)); }))));
     };
     Number = __decorate([
         mobx_react_1.observer
@@ -51305,12 +51305,12 @@ var Boolean = /** @class */ (function (_super) {
     function Boolean(props, context) {
         return _super.call(this, props, context) || this;
     }
-    Boolean.prototype.renderField = function (field) {
+    Boolean.prototype.renderType = function (type) {
         return (React.createElement(React.Fragment, null,
-            React.createElement(FormControlLabel_1.default, { label: field.title, disabled: field.disabled, control: React.createElement(Switch_1.default, { key: field.name, name: field.name, checked: field.value, color: 'primary', disabled: field.disabled, 
+            React.createElement(FormControlLabel_1.default, { label: type.title, disabled: type.disabled, control: React.createElement(Switch_1.default, { key: type.name, name: type.name, checked: type.value, color: 'primary', disabled: type.disabled, 
                     // tslint:disable-next-line:jsx-no-lambda
-                    onChange: function (e) { return field.setValue(e.target.checked); } }) }),
-            !field.valid && (React.createElement(FormHelperText_1.default, { error: true }, field.errors.join('\n')))));
+                    onChange: function (e) { return type.setValue(e.target.checked); } }) }),
+            !type.valid && (React.createElement(FormHelperText_1.default, { error: true }, type.errors.join('\n')))));
     };
     Boolean = __decorate([
         mobx_react_1.observer
@@ -52175,11 +52175,11 @@ var Color = /** @class */ (function (_super) {
     function Color(props, context) {
         return _super.call(this, props, context) || this;
     }
-    Color.prototype.renderField = function (field) {
+    Color.prototype.renderType = function (type) {
         return (React.createElement(React.Fragment, null,
-            React.createElement(TextField_1.default, { key: field.name, type: 'color', margin: 'normal', fullWidth: true, name: field.name, id: field.name, value: field.value || '#000000', disabled: field.disabled, error: !field.valid, label: field.title, helperText: field.errors.join('\n'), 
+            React.createElement(TextField_1.default, { key: type.name, type: 'color', margin: 'normal', fullWidth: true, name: type.name, id: type.name, value: type.value || '#000000', disabled: type.disabled, error: !type.valid, label: type.title, helperText: type.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
-                onChange: function (e) { return field.setValue(e.target.value); } }),
+                onChange: function (e) { return type.setValue(e.target.value); } }),
             React.createElement("br", null)));
     };
     Color = __decorate([
@@ -52225,12 +52225,12 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var mobx_state_tree_1 = __webpack_require__(26);
-var Field_1 = __webpack_require__(389);
+var Type_1 = __webpack_require__(389);
 var utils_1 = __webpack_require__(63);
 exports.Form = mobx_state_tree_1.types
     .model('Form', {
     title: mobx_state_tree_1.types.string,
-    properties: mobx_state_tree_1.types.map(Field_1.default),
+    properties: mobx_state_tree_1.types.map(Type_1.default),
     errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), []),
     layout: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.frozen, []),
     sections: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.model({ title: mobx_state_tree_1.types.string, layout: mobx_state_tree_1.types.frozen })), [])
@@ -52593,8 +52593,8 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Field_1 = __webpack_require__(390);
-exports.default = Field_1.Field;
+var Type_1 = __webpack_require__(390);
+exports.default = Type_1.Type;
 
 
 /***/ }),
@@ -52609,7 +52609,7 @@ var String_1 = __webpack_require__(391);
 var Number_1 = __webpack_require__(395);
 var Boolean_1 = __webpack_require__(397);
 var Color_1 = __webpack_require__(399);
-exports.Field = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Color_1.default);
+exports.Type = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Color_1.default);
 
 
 /***/ }),
@@ -53080,7 +53080,7 @@ var withStyles_1 = __webpack_require__(4);
 var classNames = __webpack_require__(5);
 var Form_1 = __webpack_require__(100);
 var Submit_1 = __webpack_require__(144);
-var Field_1 = __webpack_require__(145);
+var Type_1 = __webpack_require__(145);
 var Form_2 = __webpack_require__(158);
 var mobx_react_1 = __webpack_require__(27);
 var mobx_state_tree_1 = __webpack_require__(26);
@@ -53104,7 +53104,7 @@ var Form = /** @class */ (function (_super) {
         var _a = this.props, className = _a.className, classes = _a.classes, style = _a.style, onSubmit = _a.onSubmit, onErrors = _a.onErrors;
         var root = classNames(classes.root, className, classes.form);
         return (React.createElement(React.Fragment, null,
-            React.createElement(Form_1.default, { className: root, style: style, form: form, renderer: Field_1.renderer }),
+            React.createElement(Form_1.default, { className: root, style: style, form: form, renderer: Type_1.renderer }),
             React.createElement("div", { className: classes.submit },
                 React.createElement(Submit_1.default, __assign({}, { form: form, onSubmit: onSubmit, onErrors: onErrors })))));
     };
