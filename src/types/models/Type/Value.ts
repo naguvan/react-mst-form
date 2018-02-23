@@ -36,10 +36,13 @@ export interface IValue<T> extends IValueAttrs<T> {
     reset(): void;
     validate(): Promise<void>;
 
-    asyncValidate(): Promise<Array<string>>;
-    syncValidate(): Array<string>;
-    asyncValidateBase(): Promise<Array<string>>;
-    syncValidateBase(): Array<string>;
+    tryValue(value: Object): boolean;
+    tryValidate(value: Object | undefined | null): Promise<Array<string>>;
+
+    asyncValidate(value: T): Promise<Array<string>>;
+    syncValidate(value: T): Array<string>;
+    asyncValidateBase(value: T): Promise<Array<string>>;
+    syncValidateBase(value: T): Array<string>;
 
     // toJS(): T;
 }

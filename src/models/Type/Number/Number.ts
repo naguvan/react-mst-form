@@ -29,21 +29,21 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
         }
     }))
     .actions(it => ({
-        syncValidate(): Array<string> {
-            const errors: Array<string> = it.syncValidateBase();
-            if (it.minimum !== null && it.value < it.minimum) {
+        syncValidate(value: number): Array<string> {
+            const errors: Array<string> = it.syncValidateBase(value);
+            if (it.minimum !== null && value < it.minimum) {
                 errors.push(`should NOT be lesser than ${it.minimum}`);
             }
-            if (it.maximum !== null && it.value > it.maximum) {
+            if (it.maximum !== null && value > it.maximum) {
                 errors.push(`should NOT be greater than ${it.maximum}`);
             }
             if (it.multipleOf !== null && it.multipleOf > 1) {
                 const multiplier = Math.pow(
                     10,
-                    Math.max(decimals(it.value), decimals(it.multipleOf))
+                    Math.max(decimals(value), decimals(it.multipleOf))
                 );
                 if (
-                    Math.round(it.value * multiplier) %
+                    Math.round(value * multiplier) %
                         Math.round(it.multipleOf * multiplier) !==
                     0
                 ) {

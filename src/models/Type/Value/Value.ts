@@ -68,21 +68,24 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             },
             clearErrors(): void {
                 it.errors.length = 0;
+            },
+            tryValue(value: Object): boolean {
+                return kind.is(value);
             }
         }))
         .actions(it => ({
-            async asyncValidateBase(): Promise<Array<string>> {
+            async asyncValidateBase(value: T): Promise<Array<string>> {
                 return [];
             },
-            syncValidateBase(): Array<string> {
+            syncValidateBase(value: T): Array<string> {
                 const errors: Array<string> = [];
-                if (it.const !== null && it.value !== it.const) {
+                if (it.const !== null && value !== it.const) {
                     errors.push(`should be equal to ${it.const}`);
                 }
                 if (
                     it.enum != null &&
                     it.enum.length > 0 &&
-                    it.enum.findIndex(en => en === it.value) === -1
+                    it.enum.findIndex(en => en === value) === -1
                 ) {
                     errors.push(
                         `should be equal to one of the allowed values [${it.enum.slice(
@@ -93,12 +96,24 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 return errors;
             }
         }))
-        .actions(it => ({
-            async asyncValidate(): Promise<Array<string>> {
-                return await it.asyncValidateBase();
+        .volatile(it => ({
+            async asyncValidate(value: T): Promise<Array<string>> {
+                return await it.asyncValidateBase(value);
             },
-            syncValidate(): Array<string> {
-                return it.syncValidateBase();
+            syncValidate(value: T): Array<string> {
+                return it.syncValidateBase(value);
+            }
+        }))
+        .volatile(it => ({
+            async tryValidate(value: Object | undefined | null): Promise<Array<string>> {
+                const validities = kind.validate(value, []);
+                if (validities.length > 0) {
+                    return validities.map(validity => validity.message!);
+                }
+                const errors: Array<string> = [];
+                errors.push(...it.syncValidate(value as T));
+                errors.push(...(await it.asyncValidate(value as T)));
+                return errors;
             }
         }))
         .actions(it => ({
@@ -112,10 +127,7 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 }
                 it.clearErrors();
                 it.validating = true;
-                const errors: Array<string> = [];
-                errors.push(...it.syncValidate());
-                errors.push(...(yield it.asyncValidate()));
-                it.addErrors(errors);
+                it.addErrors(yield it.tryValidate(it.value));
                 it.validating = false;
             })
         }))

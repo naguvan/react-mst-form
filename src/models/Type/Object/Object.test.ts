@@ -1,5 +1,5 @@
 import create from './Object';
-import { ITypeConfig, IObjectConfig, IObject } from '@root/types';
+import { ITypeConfig, IObjectConfig, IObject, IType } from '@root/types';
 import { toJS } from 'mobx';
 import { keys } from '../../../utils';
 import { getSnapshot } from 'mobx-state-tree';
@@ -98,124 +98,201 @@ test('test invalid maxProperties configuration', () => {
     ).toThrowError(`maxProperties can not be negative`);
 });
 
-// test('validate minProperties valid', async () => {
-//     const type = NObject.create({ ...config, minProperties: 2 });
+test('validate minProperties valid', async () => {
+    const type = NObject.create({ ...config, minProperties: 2 });
 
-//     type.setValue({name: 'naguvan', age: 1});
-//     expect(toJS(type.value)).toEqual({ name: 'naguvan', age: 1 });
+    type.setValue({ name: 'naguvan', age: 1 });
+    expect(toJS(type.value)).toEqual({ name: 'naguvan', age: 1 });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(true);
-//     expect(type.errors.slice(0)).toEqual([]);
-// });
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
 
-// test('validate minimum invalid', async () => {
-//     const type = Object.create({ ...config, minimum: 10 });
+test('validate minProperties invalid', async () => {
+    const type = NObject.create({ ...config, minProperties: 2 });
 
-//     type.setValue(5);
-//     expect(type.value).toBe(5);
+    type.setValue({ name: 'naguvan' });
+    expect(toJS(type.value)).toEqual({ name: 'naguvan' });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(false);
-//     expect(type.errors.slice(0)).toEqual(['should NOT be lesser than 10']);
-// });
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        'should NOT have less than 2 properties'
+    ]);
+});
 
-// test('validate maximum valid', async () => {
-//     const type = Object.create({ ...config, maximum: 10 });
+test('validate maxProperties valid', async () => {
+    const type = NObject.create({ ...config, maxProperties: 1 });
 
-//     type.setValue(5);
-//     expect(type.value).toBe(5);
+    type.setValue({ name: 'naguvan' });
+    expect(toJS(type.value)).toEqual({ name: 'naguvan' });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(true);
-//     expect(type.errors.slice(0)).toEqual([]);
-// });
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
 
-// test('validate maximum invalid', async () => {
-//     const type = Object.create({ ...config, maximum: 10 });
+test('validate maxProperties invalid', async () => {
+    const type = NObject.create({ ...config, maxProperties: 1 });
 
-//     type.setValue(15);
-//     expect(type.value).toBe(15);
+    type.setValue({ name: 'naguvan', age: 1 });
+    expect(toJS(type.value)).toEqual({ name: 'naguvan', age: 1 });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(false);
-//     expect(type.errors.slice(0)).toEqual(['should NOT be greater than 10']);
-// });
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        'should NOT have more than 1 properties'
+    ]);
+});
 
-// test('validate multipleOf valid', async () => {
-//     const type = Object.create({ ...config, multipleOf: 3 });
+test('validate allowing additionalProperties', async () => {
+    const type = NObject.create({ ...config, additionalProperties: true });
 
-//     type.setValue(27);
-//     expect(type.value).toBe(27);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(true);
-//     expect(type.errors.slice(0)).toEqual([]);
-// });
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
 
-// test('validate multipleOf invalid', async () => {
-//     const type = Object.create({ ...config, multipleOf: 3 });
+test('validate not allowing additionalProperties', async () => {
+    const type = NObject.create({ ...config, additionalProperties: false });
 
-//     type.setValue(29);
-//     expect(type.value).toBe(29);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(false);
-//     expect(type.errors.slice(0)).toEqual(['should be multiple of 3']);
-// });
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        `should NOT have additional properties 'city, country'`
+    ]);
+});
 
-// test('validate const valid', async () => {
-//     const type = Object.create({ ...config, const: 5 });
+test('validate additionalProperties allowed types', async () => {
+    const type = NObject.create({
+        ...config,
+        additionalProperties: { type: 'string' }
+    });
 
-//     type.setValue(5);
-//     expect(type.value).toBe(5);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(true);
-//     expect(type.errors.slice(0)).toEqual([]);
-// });
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
 
-// test('validate const invalid', async () => {
-//     const type = Object.create({ ...config, const: 5 });
+test('validate additionalProperties not allowed types', async () => {
+    const type = NObject.create({
+        ...config,
+        additionalProperties: { type: 'number' }
+    });
 
-//     type.setValue(10);
-//     expect(type.value).toBe(10);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        city: 'chennai',
+        country: 'india'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(false);
-//     expect(type.errors.slice(0)).toEqual(['should be equal to 5']);
-// });
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        `additional property 'city' is not a number`,
+        `additional property 'country' is not a number`
+    ]);
+});
 
-// test('validate enum valid', async () => {
-//     const type = Object.create({ ...config, enum: [5, 10] });
+test('validate additionalProperties allowed types with valid format', async () => {
+    const type = NObject.create({
+        ...config,
+        additionalProperties: { type: 'string', format: 'email' }
+    });
 
-//     type.setValue(5);
-//     expect(type.value).toBe(5);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        contact: 'naguvan@sk.com'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        contact: 'naguvan@sk.com'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(true);
-//     expect(type.errors.slice(0)).toEqual([]);
-// });
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
 
-// test('validate enum invalid', async () => {
-//     const type = Object.create({ ...config, enum: [5, 20] });
+test('validate additionalProperties allowed types with invalid format', async () => {
+    const type = NObject.create({
+        ...config,
+        additionalProperties: { type: 'string', format: 'email' }
+    });
 
-//     type.setValue(10);
-//     expect(type.value).toBe(10);
+    type.setValue({
+        name: 'naguvan',
+        age: 1,
+        contact: 'naguvan0sk.com'
+    });
+    expect(toJS(type.value)).toEqual({
+        name: 'naguvan',
+        age: 1,
+        contact: 'naguvan0sk.com'
+    });
 
-//     await type.validate();
+    await type.validate();
 
-//     expect(type.valid).toBe(false);
-//     expect(type.errors.slice(0)).toEqual([
-//         'should be equal to one of the allowed values [5,20]'
-//     ]);
-// });
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        `additional property 'contact' should match format email`
+    ]);
+});

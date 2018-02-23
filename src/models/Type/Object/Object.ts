@@ -3,9 +3,11 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IObjectConfig, IObject } from '@root/types';
+import { IMap, toJS } from 'mobx';
+
+import { IObjectConfig, IObject, IType } from '@root/types';
 import createValue from '../Value';
-import { decimals } from '../../../utils';
+import { keys } from '../../../utils';
 import createType from '../Type';
 
 export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
@@ -27,6 +29,21 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 requiredx: types.maybe(types.array(types.string))
             })
         )
+        .volatile(it => ({
+            getAdditionals(value: IMap<string, object> | null): Array<string> {
+                if (value === null) {
+                    return [];
+                }
+                const props: Array<string> = [];
+                value.forEach((v, key) => props.push(key));
+                return props.filter(prop => !it.properties!.has(prop));
+            }
+        }))
+        .views(it => ({
+            get count() {
+                return it.properties != null ? it.properties.size : 0;
+            }
+        }))
         .actions(it => ({
             afterCreate() {
                 if (it.minProperties !== null && it.minProperties < 0) {
@@ -38,32 +55,76 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
             }
         }))
         .actions(it => ({
-            syncValidate(): Array<string> {
-                const errors: Array<string> = it.syncValidateBase();
-                // const value = it.value;
-                // if (it.minProperties !== null) {
-                //     errors.push(
-                //         `Object contains lesser than minimum properties ${
-                //             it.minProperties
-                //         }`
-                //     );
-                // }
-                //    if (it.maximum !== null && it.value > it.maximum) {
-                //        errors.push(`should NOT be greater than ${it.maximum}`);
-                //    }
-                //    if (it.multipleOf !== null && it.multipleOf > 1) {
-                //        const multiplier = Math.pow(
-                //            10,
-                //            Math.max(decimals(it.value), decimals(it.multipleOf))
-                //        );
-                //        if (
-                //            Math.round(it.value * multiplier) %
-                //                Math.round(it.multipleOf * multiplier) !==
-                //            0
-                //        ) {
-                //            errors.push(`should be multiple of ${it.multipleOf}`);
-                //        }
-                //    }
+            async asyncValidate(
+                value: IMap<string, object> | null
+            ): Promise<Array<string>> {
+                const errors = await it.asyncValidateBase(value);
+                if (value === null) {
+                    return errors;
+                }
+                if (
+                    it.additionalProperties !== null &&
+                    typeof toJS(it.additionalProperties) !== 'boolean'
+                ) {
+                    const additionals = it.getAdditionals(value);
+                    if (additionals.length > 0) {
+                        const extratype = it.additionalProperties as IType;
+                        for (const additional of additionals) {
+                            for (const error of await extratype.tryValidate(
+                                value.get(additional)
+                            )) {
+                                errors.push(
+                                    `additional property '${additional}' ${error.replace(
+                                        'Value ',
+                                        ''
+                                    )}`
+                                );
+                            }
+                        }
+                    }
+                }
+                return errors;
+            },
+            syncValidate(value: IMap<string, object> | null): Array<string> {
+                const errors: Array<string> = it.syncValidateBase(value);
+                if (value === null) {
+                    return errors;
+                }
+                if (
+                    it.minProperties !== null &&
+                    value.size < it.minProperties
+                ) {
+                    errors.push(
+                        `should NOT have less than ${
+                            it.minProperties
+                        } properties`
+                    );
+                }
+                if (
+                    it.maxProperties !== null &&
+                    value.size > it.maxProperties
+                ) {
+                    errors.push(
+                        `should NOT have more than ${
+                            it.maxProperties
+                        } properties`
+                    );
+                }
+                if (
+                    it.additionalProperties !== null &&
+                    typeof toJS(it.additionalProperties) === 'boolean'
+                ) {
+                    const additionals = it.getAdditionals(value);
+                    if (additionals.length > 0) {
+                        if (!it.additionalProperties) {
+                            errors.push(
+                                `should NOT have additional properties '${additionals.join(
+                                    ', '
+                                )}'`
+                            );
+                        }
+                    }
+                }
                 return errors;
             }
         }));

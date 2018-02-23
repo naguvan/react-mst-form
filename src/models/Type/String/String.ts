@@ -35,22 +35,22 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
         }
     }))
     .actions(it => ({
-        syncValidate(): Array<string> {
-            const errors: Array<string> = it.syncValidateBase();
-            if (it.minLength !== null && it.value.length < it.minLength) {
+        syncValidate(value: string): Array<string> {
+            const errors: Array<string> = it.syncValidateBase(value);
+            if (it.minLength !== null && value.length < it.minLength) {
                 errors.push(
                     `should NOT be shorter than ${it.minLength} characters`
                 );
             }
-            if (it.maxLength !== null && it.value.length > it.maxLength) {
+            if (it.maxLength !== null && value.length > it.maxLength) {
                 errors.push(
                     `should NOT be longer than ${it.maxLength} characters`
                 );
             }
-            if (it.pattern !== null && !it.value.match(regex(it.pattern)!)) {
+            if (it.pattern !== null && !value.match(regex(it.pattern)!)) {
                 errors.push(`should match pattern ${it.pattern}`);
             }
-            if (it.format != null && !matchers[it.format](it.value)) {
+            if (it.format != null && !matchers[it.format](value)) {
                 errors.push(`should match format ${it.format}`);
             }
             return errors;
