@@ -8,29 +8,23 @@ const config: IObjectConfig = {
     type: 'object',
     properties: {
         name: {
-            title: 'naguvan',
-            value: 50,
-            type: 'number'
+            title: 'name',
+            value: 'naguvan',
+            type: 'string'
         },
-        city: {
-            type: 'object',
-            properties: {
-                name: {
-                    title: 'name',
-                    value: 'chennai',
-                    type: 'string'
-                }
-            },
-            title: 'city'
+        age: {
+            title: 'age',
+            value: 1,
+            type: 'number'
         }
     },
     title: 'naguvan'
 };
 
-const Object = create();
+const NObject = create();
 
 test('create object type', () => {
-    const type = Object.create(config);
+    const type = NObject.create(config);
     expect(type.type).toBe('object');
     expect(type.title).toBe('naguvan');
     expect(type.value).toBeNull();
@@ -40,11 +34,38 @@ test('create object type', () => {
 
     expect(type.properties).not.toBeNull();
     expect(keys(toJS(type.properties!)).length).toBe(2);
-    expect(keys(toJS(type.properties!))).toEqual(['name', 'city']);
+    expect(keys(toJS(type.properties!))).toEqual(['name', 'age']);
 
-    expect(type.properties!.get('name')!.title).toBe('naguvan');
-    expect(type.properties!.get('name')!.value).toBe(50);
-    expect(type.properties!.get('name')!.type).toBe('number');
+    expect(type.properties!.get('name')!.title).toBe('name');
+    expect(type.properties!.get('name')!.value).toBe('naguvan');
+    expect(type.properties!.get('name')!.type).toBe('string');
+
+    expect(type.properties!.get('age')!.title).toBe('age');
+    expect(type.properties!.get('age')!.value).toBe(1);
+    expect(type.properties!.get('age')!.type).toBe('number');
+
+    // console.info(getSnapshot(type));
+    // console.info(getSnapshot(city));
+});
+
+test('nested object type', () => {
+    const type = NObject.create({
+        type: 'object',
+        properties: {
+            city: {
+                type: 'object',
+                properties: {
+                    name: {
+                        title: 'name',
+                        value: 'chennai',
+                        type: 'string'
+                    }
+                },
+                title: 'city'
+            }
+        },
+        title: 'naguvan'
+    });
 
     const city: IObject = type.properties!.get('city')! as IObject;
     expect(city).not.toBeNull();
@@ -52,26 +73,40 @@ test('create object type', () => {
     expect(city.properties!.get('name')!.title).toBe('name');
     expect(city.properties!.get('name')!.value).toBe('chennai');
     expect(city.properties!.get('name')!.type).toBe('string');
-
-    // console.info(getSnapshot(type));
-    // console.info(getSnapshot(city));
 });
 
-// test('change number name type', () => {
-//     const type = Object.create(config);
-//     type.setName('senthilnathan');
-//     expect(type.name).toBe('senthilnathan');
-// });
+test('validate null object value', async () => {
+    const type = NObject.create({ ...config, value: null });
+    expect(type.value).toBe(null);
+});
 
-// test('validate minimum valid', async () => {
-//     const type = Object.create({ ...config, minimum: 10 });
+test('test invalid minProperties configuration', () => {
+    expect(() =>
+        NObject.create({
+            ...config,
+            minProperties: -10
+        })
+    ).toThrowError(`minProperties can not be negative`);
+});
 
-//     type.setValue(12);
-//     expect(type.value).toBe(12);
+test('test invalid maxProperties configuration', () => {
+    expect(() =>
+        NObject.create({
+            ...config,
+            maxProperties: -10
+        })
+    ).toThrowError(`maxProperties can not be negative`);
+});
+
+// test('validate minProperties valid', async () => {
+//     const type = NObject.create({ ...config, minProperties: 2 });
+
+//     type.setValue({name: 'naguvan', age: 1});
+//     expect(toJS(type.value)).toEqual({ name: 'naguvan', age: 1 });
 
 //     await type.validate();
 
-//     // expect(type.valid).toBe(true);
+//     expect(type.valid).toBe(true);
 //     expect(type.errors.slice(0)).toEqual([]);
 // });
 
@@ -109,22 +144,6 @@ test('create object type', () => {
 
 //     expect(type.valid).toBe(false);
 //     expect(type.errors.slice(0)).toEqual(['should NOT be greater than 10']);
-// });
-
-// test('test invalid multipleOf configuration', () => {
-//     expect(() =>
-//         Object.create({
-//             ...config,
-//             multipleOf: 0
-//         })
-//     ).toThrowError(`multipleOf can not be zero`);
-
-//     expect(() =>
-//         Object.create({
-//             ...config,
-//             multipleOf: -10
-//         })
-//     ).toThrowError(`multipleOf can not be negative`);
 // });
 
 // test('validate multipleOf valid', async () => {

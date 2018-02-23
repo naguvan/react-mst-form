@@ -12,7 +12,11 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
     const Object: IModelType<Partial<IObjectConfig>, IObject> = types
         .compose(
             'Object',
-            createValue<object | null>('object', types.null, null),
+            createValue<object | null>(
+                'object',
+                types.union(types.map(types.frozen), types.null),
+                null
+            ),
             types.model({
                 properties: types.maybe(types.map(types.late(createType))),
                 minProperties: types.maybe(types.number),
@@ -25,28 +29,25 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
         )
         .actions(it => ({
             afterCreate() {
-                if (it.minProperties !== null && it.minProperties <= 0) {
-                    throw new TypeError(
-                        `minProperties can not be ${
-                            it.minProperties === 0 ? 'zero' : 'negative'
-                        }`
-                    );
+                if (it.minProperties !== null && it.minProperties < 0) {
+                    throw new TypeError(`minProperties can not be negative`);
                 }
-                if (it.maxProperties !== null && it.maxProperties <= 0) {
-                    throw new TypeError(
-                        `maxProperties can not be ${
-                            it.maxProperties === 0 ? 'zero' : 'negative'
-                        }`
-                    );
+                if (it.maxProperties !== null && it.maxProperties < 0) {
+                    throw new TypeError(`maxProperties can not be negative`);
                 }
             }
         }))
         .actions(it => ({
             syncValidate(): Array<string> {
                 const errors: Array<string> = it.syncValidateBase();
-                //    if (it.minimum !== null && it.value < it.minimum) {
-                //        errors.push(`should NOT be lesser than ${it.minimum}`);
-                //    }
+                // const value = it.value;
+                // if (it.minProperties !== null) {
+                //     errors.push(
+                //         `Object contains lesser than minimum properties ${
+                //             it.minProperties
+                //         }`
+                //     );
+                // }
                 //    if (it.maximum !== null && it.value > it.maximum) {
                 //        errors.push(`should NOT be greater than ${it.maximum}`);
                 //    }

@@ -52756,7 +52756,7 @@ var Value_1 = __webpack_require__(44);
 var Type_1 = __webpack_require__(392);
 function create() {
     var Object = mobx_state_tree_1.types
-        .compose('Object', Value_1.default('object', mobx_state_tree_1.types.null, null), mobx_state_tree_1.types.model({
+        .compose('Object', Value_1.default('object', mobx_state_tree_1.types.union(mobx_state_tree_1.types.map(mobx_state_tree_1.types.frozen), mobx_state_tree_1.types.null), null), mobx_state_tree_1.types.model({
         properties: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.map(mobx_state_tree_1.types.late(Type_1.default))),
         minProperties: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number),
         maxProperties: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.number),
@@ -52765,20 +52765,25 @@ function create() {
     }))
         .actions(function (it) { return ({
         afterCreate: function () {
-            if (it.minProperties !== null && it.minProperties <= 0) {
-                throw new TypeError("minProperties can not be " + (it.minProperties === 0 ? 'zero' : 'negative'));
+            if (it.minProperties !== null && it.minProperties < 0) {
+                throw new TypeError("minProperties can not be negative");
             }
-            if (it.maxProperties !== null && it.maxProperties <= 0) {
-                throw new TypeError("maxProperties can not be " + (it.maxProperties === 0 ? 'zero' : 'negative'));
+            if (it.maxProperties !== null && it.maxProperties < 0) {
+                throw new TypeError("maxProperties can not be negative");
             }
         }
     }); })
         .actions(function (it) { return ({
         syncValidate: function () {
             var errors = it.syncValidateBase();
-            //    if (it.minimum !== null && it.value < it.minimum) {
-            //        errors.push(`should NOT be lesser than ${it.minimum}`);
-            //    }
+            // const value = it.value;
+            // if (it.minProperties !== null) {
+            //     errors.push(
+            //         `Object contains lesser than minimum properties ${
+            //             it.minProperties
+            //         }`
+            //     );
+            // }
             //    if (it.maximum !== null && it.value > it.maximum) {
             //        errors.push(`should NOT be greater than ${it.maximum}`);
             //    }
