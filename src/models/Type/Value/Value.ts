@@ -22,12 +22,10 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             required: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
-            errors: types.optional(types.array(types.string), [])
+            errors: types.optional(types.array(types.string), []),
+            component: types.maybe(types.string)
         })
-        .volatile(it => ({
-            validating: false,
-            syncing: false
-        }))
+        .volatile(it => ({ validating: false, syncing: false }))
         .actions(it => ({
             afterCreate() {
                 if (it.name === '' && it.title) {

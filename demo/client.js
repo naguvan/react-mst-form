@@ -44973,9 +44973,10 @@ function renderer(type, form) {
             return React.createElement(Number_1.default, { type: type, form: form });
         case 'boolean':
             return React.createElement(Boolean_1.default, { type: type, form: form });
-        case 'color':
-            return React.createElement(Color_1.default, { type: type, form: form });
         case 'string':
+            if (type.component === 'color') {
+                return React.createElement(Color_1.default, { type: type, form: form });
+            }
         default:
             return React.createElement(String_1.default, { type: type, form: form });
     }
@@ -52179,8 +52180,7 @@ var Color = /** @class */ (function (_super) {
         return (React.createElement(React.Fragment, null,
             React.createElement(TextField_1.default, { key: type.name, type: 'color', margin: 'normal', fullWidth: true, name: type.name, id: type.name, value: type.value || '#000000', disabled: type.disabled, error: !type.valid, label: type.title, helperText: type.errors.join('\n'), 
                 // tslint:disable-next-line:jsx-no-lambda
-                onChange: function (e) { return type.setValue(e.target.value); } }),
-            React.createElement("br", null)));
+                onChange: function (e) { return type.setValue(e.target.value); } })));
     };
     Color = __decorate([
         mobx_react_1.observer
@@ -52608,8 +52608,8 @@ var mobx_state_tree_1 = __webpack_require__(26);
 var String_1 = __webpack_require__(391);
 var Number_1 = __webpack_require__(395);
 var Boolean_1 = __webpack_require__(397);
-var Color_1 = __webpack_require__(399);
-exports.Type = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Color_1.default);
+var Null_1 = __webpack_require__(399);
+exports.Type = mobx_state_tree_1.types.union(String_1.default, Number_1.default, Boolean_1.default, Null_1.default);
 
 
 /***/ }),
@@ -52728,12 +52728,10 @@ function create(type, kind, defaultv) {
         required: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
         disabled: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, false),
         visible: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.boolean, true),
-        errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), [])
+        errors: mobx_state_tree_1.types.optional(mobx_state_tree_1.types.array(mobx_state_tree_1.types.string), []),
+        component: mobx_state_tree_1.types.maybe(mobx_state_tree_1.types.string)
     })
-        .volatile(function (it) { return ({
-        validating: false,
-        syncing: false
-    }); })
+        .volatile(function (it) { return ({ validating: false, syncing: false }); })
         .actions(function (it) { return ({
         afterCreate: function () {
             if (it.name === '' && it.title) {
@@ -53023,8 +53021,8 @@ exports.Boolean = mobx_state_tree_1.types
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var Color_1 = __webpack_require__(400);
-exports.default = Color_1.Color;
+var Null_1 = __webpack_require__(400);
+exports.default = Null_1.Null;
 
 
 /***/ }),
@@ -53036,11 +53034,8 @@ exports.default = Color_1.Color;
 Object.defineProperty(exports, "__esModule", { value: true });
 var mobx_state_tree_1 = __webpack_require__(26);
 var Value_1 = __webpack_require__(64);
-exports.Color = mobx_state_tree_1.types
-    .compose('Color', Value_1.default('color', mobx_state_tree_1.types.string, ''), mobx_state_tree_1.types.model({}))
-    .actions(function (it) { return ({
-    afterCreate: function () { }
-}); });
+exports.Null = mobx_state_tree_1.types
+    .compose('Null', Value_1.default('null', mobx_state_tree_1.types.null, null), mobx_state_tree_1.types.model({}));
 
 
 /***/ }),
@@ -54322,8 +54317,10 @@ var config = {
             format: 'ipv4'
         },
         color: {
-            type: 'color',
-            title: 'In which color'
+            type: 'string',
+            title: 'In which color',
+            component: 'color',
+            format: 'color'
         },
         size: {
             type: 'number',

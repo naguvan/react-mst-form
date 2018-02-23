@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IColorProps, IColorStates } from '@root/types';
-import { IColor } from '@root/types';
+import { IStringProps, IStringStates } from '@root/types';
+import { IString } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -11,16 +11,12 @@ import Base from './Base';
 import TextField from 'material-ui/TextField';
 
 @observer
-export default class Color extends Base<
-    IColor,
-    IColorProps,
-    IColorStates
-> {
-    constructor(props: IColorProps, context: any) {
+export default class Color extends Base<IString, IStringProps, IStringStates> {
+    constructor(props: IStringProps, context: any) {
         super(props, context);
     }
 
-    protected renderType(type: IColor): ReactNode {
+    protected renderType(type: IString): ReactNode {
         return (
             <>
                 <TextField
@@ -38,7 +34,6 @@ export default class Color extends Base<
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e => type.setValue(e.target.value)}
                 />
-                <br />
             </>
         );
     }

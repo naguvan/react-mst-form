@@ -30,8 +30,10 @@ const config: IFormConfig = {
             format: 'ipv4'
         },
         color: {
-            type: 'color',
-            title: 'In which color'
+            type: 'string',
+            title: 'In which color',
+            component: 'color',
+            format: 'color'
         },
         size: {
             type: 'number',

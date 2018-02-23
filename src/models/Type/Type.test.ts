@@ -37,13 +37,13 @@ test('create boolean type ', () => {
     expect(type .value).toBe(true);
 });
 
-test('create color type ', () => {
+test('create null type ', () => {
     const type  = Type.create({
         title: 'naguvan',
-        value: '#EDFC',
-        type: 'color'
+        value: null,
+        type: 'null'
     });
-    expect(type .type).toBe('color');
+    expect(type .type).toBe('null');
     expect(type .title).toBe('naguvan');
-    expect(type .value).toBe('#EDFC');
+    expect(type .value).toBe(null);
 });

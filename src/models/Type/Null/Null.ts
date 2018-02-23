@@ -3,15 +3,12 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IColorConfig, IColor } from '@root/types';
+import { INullConfig, INull } from '@root/types';
 import create from '../Value';
 
-export const Color: IModelType<Partial<IColorConfig>, IColor> = types
+export const Null: IModelType<Partial<INullConfig>, INull> = types
     .compose(
-        'Color',
-        create<string>('color', types.string, ''),
+        'Null',
+        create<null>('null', types.null, null),
         types.model({})
-    )
-    .actions(it => ({
-        afterCreate() {}
-    }));
+    );

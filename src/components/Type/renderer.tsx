@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IType, IForm, IString } from '@root/types';
-import { INumber, IBoolean, IColor } from '@root/types';
+import { INumber, IBoolean, INull } from '@root/types';
 
 import String from './String';
 import Number from './Number';
@@ -15,9 +15,10 @@ export function renderer(type: IType, form: IForm): ReactNode {
             return <Number type={type as INumber} form={form} />;
         case 'boolean':
             return <Boolean type={type as IBoolean} form={form} />;
-        case 'color':
-            return <Color type={type as IColor} form={form} />;
         case 'string':
+            if (type.component === 'color') {
+                return <Color type={type as IString} form={form} />;
+            }
         default:
             return <String type={type as IString} form={form} />;
     }
