@@ -6,19 +6,23 @@ export type __IModelType = IModelType<any, any>;
 import { ITypeConfig, IType } from '@root/types';
 import { IFormConfig, IForm } from '@root/types';
 
-import Type from '../Type';
+import createType from '../Type';
+import createObject from '../Type/Object';
 
 import { flatArray } from '../../utils';
 
 export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .model('Form', {
         title: types.string,
-        properties: types.map(Type),
+        schema: types.late('Schema', createObject),
         errors: types.optional(types.array(types.string), []),
         layout: types.optional(types.frozen, []),
         sections: types.optional(
             types.array(
-                types.model({ title: types.string, layout: types.frozen })
+                types.model({
+                    title: types.string,
+                    layout: types.frozen
+                })
             ),
             []
         )
@@ -26,10 +30,12 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     .volatile(it => ({ _validating: false }))
     .actions(it => ({
         afterCreate() {
-            const { properties, layout, sections } = it;
+            const { schema, layout, sections } = it;
             const layouts = sections.map(section => section.layout);
             const items = flatArray<string>([...layout, ...layouts]);
-            const invalids = items.filter(item => !properties.has(item));
+            const invalids = items.filter(
+                item => !schema.properties!.has(item)
+            );
 
             if (invalids.length) {
                 throw new TypeError(
@@ -41,9 +47,9 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
                 );
             }
 
-            it.properties
-                .entries()
-                .forEach(([key, field]) => field.setName(key));
+            for (const [key, field] of it.schema.properties!.entries()) {
+                field.setName(key);
+            }
 
             // if (!hasParent(it)) {
             //     unprotect(it);
@@ -52,10 +58,10 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     }))
     .views(it => ({
         get fields(): Array<IType> {
-            return it.properties.values();
+            return Array.from(it.schema.properties!.values());
         },
         get values(): { [key: string]: any } {
-            return it.properties.entries().reduce(
+            return Array.from(it.schema.properties!.entries()).reduce(
                 (values, [key, field]) => {
                     values[key] = field.value;
                     return values;
@@ -66,10 +72,10 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
             );
         },
         get(key: string): IType | undefined {
-            return it.properties.get(key);
+            return it.schema.properties!.get(key);
         },
         get fieldErrors(): { [key: string]: Array<string> } {
-            return it.properties.entries().reduce(
+            return Array.from(it.schema.properties!.entries()).reduce(
                 (values, [key, field]) => {
                     values[key] = field.errors.slice(0);
                     return values;

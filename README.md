@@ -31,45 +31,53 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 
 import { Form } from './src';
 
-const config = {
+const config =  {
     title: 'Test Form',
-    properties: {
-        title: {
-            type: 'string',
-            title: 'Title',
-            value: 'sk',
-            minLength: 5
-        },
-        ipv4: {
-            type: 'string',
-            title: 'ipv4',
-            minLength: 5,
-            maxLength: 20,
-            format: 'ipv4'
-        },
-        color: {
-            type: 'color',
-            title: 'In which color'
-        },
-        size: {
-            type: 'number',
-            title: 'Size',
-            value: 5,
-            maximum: 10,
-            minimum: 3,
-            multipleOf: 3
-        },
-        type: {
-            type: 'number',
-            title: 'Select a type',
-            enum: [1, 2],
-            options: [{ label: 'One', value: 1 }, { label: 'Two', value: 2 }]
-        },
-        agree: {
-            type: 'boolean',
-            title: 'I agree with your terms',
-            value: false,
-            const: true
+    schema: {
+        type: 'object',
+        properties: {
+            title: {
+                type: 'string',
+                title: 'Title',
+                value: 'sk',
+                minLength: 5
+            },
+            ipv4: {
+                type: 'string',
+                title: 'ipv4',
+                minLength: 5,
+                maxLength: 20,
+                format: 'ipv4'
+            },
+            color: {
+                type: 'string',
+                title: 'In which color',
+                component: 'color',
+                format: 'color'
+            },
+            size: {
+                type: 'number',
+                title: 'Size',
+                value: 5,
+                maximum: 10,
+                minimum: 3,
+                multipleOf: 3
+            },
+            type: {
+                type: 'number',
+                title: 'Select a type',
+                enum: [1, 2],
+                options: [
+                    { label: 'One', value: 1 },
+                    { label: 'Two', value: 2 }
+                ]
+            },
+            agree: {
+                type: 'boolean',
+                title: 'I agree with your terms',
+                value: false,
+                const: true
+            }
         }
     },
     sections: [

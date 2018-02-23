@@ -1,5 +1,7 @@
-import { Type } from './Type';
+import create from './Type';
 import { IValue, IString, INumber } from '@root/types';
+
+const Type = create();
 
 test('create string type ', () => {
     const type  = Type.create({

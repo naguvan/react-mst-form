@@ -1,4 +1,4 @@
-import { ITypeConfig, IType } from './Type';
+import { IObjectConfig, IObject, IType } from './Type';
 import { ISimpleType, IComplexType } from 'mobx-state-tree';
 
 export type IFormLayout = Array<
@@ -12,13 +12,13 @@ export interface IFormSection {
 
 export interface IFormConfig {
     readonly title: string;
-    readonly properties: { [key: string]: ITypeConfig };
+    readonly schema: IObjectConfig;
     readonly layout?: IFormLayout;
     readonly sections?: Array<IFormSection>;
 }
 
 export interface IForm {
-    // properties: Map<string, IType>;
+    readonly schema: IObject;
     readonly title: string;
     readonly modified: boolean;
     readonly valid: boolean;

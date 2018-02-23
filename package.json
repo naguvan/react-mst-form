@@ -56,7 +56,7 @@
         "prepublish": "yarn run lint && yarn run test && yarn run bundle",
         "build": "tsc -p .",
         "lint": "tslint -p .",
-        "test": "jest",
+        "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest",
         "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
         "stats":
             "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod --profile --json > stats.json",

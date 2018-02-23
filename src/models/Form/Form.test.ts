@@ -3,12 +3,15 @@ import { ITypeConfig, IType } from '@root/types';
 import { IStringConfig, IString } from '@root/types';
 import { INumberConfig, INumber } from '@root/types';
 import { IBooleanConfig, IBoolean } from '@root/types';
+import { INullConfig, INull } from '@root/types';
+import { IObjectConfig, IObject } from '@root/types';
 import { getSnapshot } from 'mobx-state-tree';
 import { IFormConfig, IForm } from '@root/types';
 
-import { String } from '../Type/String/String';
-import { Number } from '../Type/Number/Number';
-import { Boolean } from '../Type/Boolean/Boolean';
+import String from '../Type/String';
+import Number from '../Type/Number';
+import Boolean from '../Type/Boolean';
+import Null from '../Type/Null';
 
 const name: IStringConfig = {
     title: 'Name',
@@ -34,10 +37,13 @@ const boy: IBooleanConfig = {
 test('create form', () => {
     const form = Form.create({
         title: 'Test Form',
-        properties: {
-            name,
-            age,
-            boy
+        schema: {
+            type: 'object',
+            properties: {
+                name,
+                age,
+                boy
+            }
         },
         layout: ['name', 'age', ['boy']],
         sections: [{ title: 'Basic', layout: ['name', 'age'] }]
@@ -79,8 +85,11 @@ test('test form layout single mis-configuration error', () => {
     expect(() =>
         Form.create({
             title: 'Test Form',
-            properties: {
-                name
+            schema: {
+                type: 'object',
+                properties: {
+                    name
+                }
             },
             layout: ['name', 'age']
         })
@@ -91,10 +100,13 @@ test('test form layout multi mis-configuration error', () => {
     expect(() =>
         Form.create({
             title: 'Test Form',
-            properties: {
-                name,
-                a: age,
-                b: boy
+            schema: {
+                type: 'object',
+                properties: {
+                    name,
+                    a: age,
+                    b: boy
+                }
             },
             layout: ['name', 'age', ['boy']]
         })
@@ -104,8 +116,11 @@ test('test form layout multi mis-configuration error', () => {
 test('test field modification', () => {
     const form = Form.create({
         title: 'Test Form',
-        properties: {
-            name
+        schema: {
+            type: 'object',
+            properties: {
+                name
+            }
         },
         layout: ['name']
     });
@@ -128,8 +143,11 @@ test('test field modification', () => {
 test('test field error', () => {
     const form = Form.create({
         title: 'Test Form',
-        properties: {
-            name
+        schema: {
+            type: 'object',
+            properties: {
+                name
+            }
         },
         layout: ['name']
     });
@@ -152,8 +170,11 @@ test('test field error', () => {
 test('test field validating', async () => {
     const form = Form.create({
         title: 'Test Form',
-        properties: {
-            name
+        schema: {
+            type: 'object',
+            properties: {
+                name
+            }
         },
         layout: ['name']
     });

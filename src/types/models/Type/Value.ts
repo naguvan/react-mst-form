@@ -40,4 +40,6 @@ export interface IValue<T> extends IValueAttrs<T> {
     syncValidate(): Array<string>;
     asyncValidateBase(): Promise<Array<string>>;
     syncValidateBase(): Array<string>;
+
+    // toJS(): T;
 }
