@@ -32,7 +32,7 @@ export default class Color extends Base<IString, IStringProps, IStringStates> {
                     label={type.title}
                     helperText={type.errors.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
-                    onChange={e => type.setValue(e.target.value)}
+                    onChange={e => type.sync(e.target.value)}
                 />
             </>
         );

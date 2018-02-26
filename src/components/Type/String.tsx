@@ -35,12 +35,13 @@ export default class String extends Base<IString, IStringProps, IStringStates> {
                     label={type.title}
                     helperText={type.errors.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
-                    onChange={e => type.setValue(e.target.value)}>
-                    {type.options && type.options.map(option => (
-                        <MenuItem key={option.value} value={option.value}>
-                            {option.label}
-                        </MenuItem>
-                    ))}
+                    onChange={e => type.sync(e.target.value)}>
+                    {type.options &&
+                        type.options.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                                {option.label}
+                            </MenuItem>
+                        ))}
                 </TextField>
             </>
         );

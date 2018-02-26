@@ -38,7 +38,7 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
                     helperText={type.errors.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e =>
-                        type.setValue(toNumber(e.target.value, type.value))
+                        type.sync(toNumber(e.target.value, type.value))
                     }>
                     {type.options &&
                         type.options.map(option => (

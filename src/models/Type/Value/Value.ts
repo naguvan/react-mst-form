@@ -71,6 +71,9 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             },
             tryValue(value: Object): boolean {
                 return kind.is(value);
+            },
+            setValue(value: T): void {
+                it.value = value;
             }
         }))
         .actions(it => ({
@@ -105,7 +108,9 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             }
         }))
         .volatile(it => ({
-            async tryValidate(value: Object | undefined | null): Promise<Array<string>> {
+            async tryValidate(
+                value: Object | undefined | null
+            ): Promise<Array<string>> {
                 const validities = kind.validate(value, []);
                 if (validities.length > 0) {
                     return validities.map(validity => validity.message!);
@@ -122,7 +127,7 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 it.clearErrors();
             },
             validate: flow<void>(function*() {
-                if (it.syncing || it.validating) {
+                if (it.syncing /*|| it.validating*/) {
                     return [];
                 }
                 it.clearErrors();
@@ -132,12 +137,12 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             })
         }))
         .actions(it => ({
-            setValue(value: T): void {
+            async sync(value: T): Promise<void> {
                 if (!it.syncing) {
                     it.syncing = true;
                     it.value = value;
                     it.syncing = false;
-                    it.validate();
+                    await it.validate();
                 }
             }
         }))

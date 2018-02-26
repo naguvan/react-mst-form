@@ -37,7 +37,7 @@ export default class Boolean extends Base<
                             color={'primary'}
                             disabled={type.disabled}
                             // tslint:disable-next-line:jsx-no-lambda
-                            onChange={e => type.setValue(e.target.checked)}
+                            onChange={e => type.sync(e.target.checked)}
                         />
                     }
                 />

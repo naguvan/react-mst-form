@@ -36,6 +36,8 @@ export interface IValue<T> extends IValueAttrs<T> {
     reset(): void;
     validate(): Promise<void>;
 
+    sync(value: T): Promise<void>;
+
     tryValue(value: Object): boolean;
     tryValidate(value: Object | undefined | null): Promise<Array<string>>;
 
