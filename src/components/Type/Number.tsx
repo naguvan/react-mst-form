@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { INumberProps, INumberStates } from '@root/types';
-import { INumber } from '@root/types';
+import { INumber, IForm } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -19,7 +19,7 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
         super(props, context);
     }
 
-    protected renderType(type: INumber): ReactNode {
+    protected renderType(type: INumber, form: IForm): ReactNode {
         const select: boolean = !!type.enum && type.enum.length > 0;
         return (
             <>
@@ -31,7 +31,7 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
                     fullWidth={true}
                     name={type.name}
                     id={type.name}
-                    value={type.value || ''}
+                    value={type.data || ''}
                     disabled={type.disabled}
                     error={!type.valid}
                     label={type.title}

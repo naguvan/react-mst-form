@@ -8,7 +8,7 @@ test('create boolean type', () => {
     });
     expect(type.type).toBe('boolean');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe(true);
+    expect(type.data).toBe(true);
 
 });
 

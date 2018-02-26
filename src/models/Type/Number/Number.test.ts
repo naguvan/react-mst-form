@@ -11,7 +11,7 @@ test('create number type', () => {
     const type = Number.create(config);
     expect(type.type).toBe('number');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe(50);
+    expect(type.data).toBe(50);
     expect(type.minimum).toBe(null);
     expect(type.maximum).toBe(null);
 });
@@ -26,7 +26,7 @@ test('validate minimum valid', async () => {
     const type = Number.create({ ...config, minimum: 10 });
 
     type.setValue(12);
-    expect(type.value).toBe(12);
+    expect(type.data).toBe(12);
 
     await type.validate();
 
@@ -38,7 +38,7 @@ test('validate minimum invalid', async () => {
     const type = Number.create({ ...config, minimum: 10 });
 
     type.setValue(5);
-    expect(type.value).toBe(5);
+    expect(type.data).toBe(5);
 
     await type.validate();
 
@@ -50,7 +50,7 @@ test('validate maximum valid', async () => {
     const type = Number.create({ ...config, maximum: 10 });
 
     type.setValue(5);
-    expect(type.value).toBe(5);
+    expect(type.data).toBe(5);
 
     await type.validate();
 
@@ -62,7 +62,7 @@ test('validate maximum invalid', async () => {
     const type = Number.create({ ...config, maximum: 10 });
 
     type.setValue(15);
-    expect(type.value).toBe(15);
+    expect(type.data).toBe(15);
 
     await type.validate();
 
@@ -90,7 +90,7 @@ test('validate multipleOf valid', async () => {
     const type = Number.create({ ...config, multipleOf: 3 });
 
     type.setValue(27);
-    expect(type.value).toBe(27);
+    expect(type.data).toBe(27);
 
     await type.validate();
 
@@ -102,7 +102,7 @@ test('validate multipleOf invalid', async () => {
     const type = Number.create({ ...config, multipleOf: 3 });
 
     type.setValue(29);
-    expect(type.value).toBe(29);
+    expect(type.data).toBe(29);
 
     await type.validate();
 
@@ -114,7 +114,7 @@ test('validate const valid', async () => {
     const type = Number.create({ ...config, const: 5 });
 
     type.setValue(5);
-    expect(type.value).toBe(5);
+    expect(type.data).toBe(5);
 
     await type.validate();
 
@@ -126,7 +126,7 @@ test('validate const invalid', async () => {
     const type = Number.create({ ...config, const: 5 });
 
     type.setValue(10);
-    expect(type.value).toBe(10);
+    expect(type.data).toBe(10);
 
     await type.validate();
 
@@ -138,7 +138,7 @@ test('validate enum valid', async () => {
     const type = Number.create({ ...config, enum: [5, 10] });
 
     type.setValue(5);
-    expect(type.value).toBe(5);
+    expect(type.data).toBe(5);
 
     await type.validate();
 
@@ -150,7 +150,7 @@ test('validate enum invalid', async () => {
     const type = Number.create({ ...config, enum: [5, 20] });
 
     type.setValue(10);
-    expect(type.value).toBe(10);
+    expect(type.data).toBe(10);
 
     await type.validate();
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IStringProps, IStringStates } from '@root/types';
-import { IString } from '@root/types';
+import { IString, IForm } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -17,7 +17,7 @@ export default class String extends Base<IString, IStringProps, IStringStates> {
         super(props, context);
     }
 
-    protected renderType(type: IString): ReactNode {
+    protected renderType(type: IString, form: IForm): ReactNode {
         const select: boolean = !!type.enum && type.enum.length > 0;
         return (
             <>
@@ -29,7 +29,7 @@ export default class String extends Base<IString, IStringProps, IStringStates> {
                     fullWidth={true}
                     name={type.name}
                     id={type.name}
-                    value={type.value || ''}
+                    value={type.data || ''}
                     disabled={type.disabled}
                     error={!type.valid}
                     label={type.title}

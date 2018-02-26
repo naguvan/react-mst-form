@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IStringProps, IStringStates } from '@root/types';
-import { IString } from '@root/types';
+import { IString, IForm } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -16,7 +16,7 @@ export default class Color extends Base<IString, IStringProps, IStringStates> {
         super(props, context);
     }
 
-    protected renderType(type: IString): ReactNode {
+    protected renderType(type: IString, form: IForm): ReactNode {
         return (
             <>
                 <TextField
@@ -26,7 +26,7 @@ export default class Color extends Base<IString, IStringProps, IStringStates> {
                     fullWidth={true}
                     name={type.name}
                     id={type.name}
-                    value={type.value || '#000000'}
+                    value={type.data || '#000000'}
                     disabled={type.disabled}
                     error={!type.valid}
                     label={type.title}

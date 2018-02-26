@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { ITypeProps, ITypeStates } from '@root/types';
+import { ITypeProps, ITypeStates, IForm } from '@root/types';
 import { IType } from '@root/types';
 
 export default abstract class Base<
@@ -14,7 +14,7 @@ export default abstract class Base<
     }
 
     public render(): ReactNode {
-        const { type } = this.props;
+        const { type, form } = this.props;
         const { visible, name } = type;
         return visible ? (
             <div
@@ -22,10 +22,10 @@ export default abstract class Base<
                 style={{
                     width: '100%'
                 }}>
-                {this.renderType(type)}
+                {this.renderType(type, form)}
             </div>
         ) : null;
     }
 
-    protected abstract renderType(type: T): ReactNode;
+    protected abstract renderType(type: T, form: IForm): ReactNode;
 }

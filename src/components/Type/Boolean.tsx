@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
 import { IBooleanProps, IBooleanStates } from '@root/types';
-import { IBoolean } from '@root/types';
+import { IBoolean, IForm } from '@root/types';
 
 import { observer } from 'mobx-react';
 
@@ -23,7 +23,7 @@ export default class Boolean extends Base<
         super(props, context);
     }
 
-    protected renderType(type: IBoolean): ReactNode {
+    protected renderType(type: IBoolean, form: IForm): ReactNode {
         return (
             <>
                 <FormControlLabel
@@ -33,7 +33,7 @@ export default class Boolean extends Base<
                         <Switch
                             key={type.name}
                             name={type.name}
-                            checked={type.value}
+                            checked={type.data}
                             color={'primary'}
                             disabled={type.disabled}
                             // tslint:disable-next-line:jsx-no-lambda

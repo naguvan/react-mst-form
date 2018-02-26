@@ -5,6 +5,8 @@ import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
+import 'tslib';
+
 import FormView from './components/Form';
 import FormSubmit from './components/Submit';
 import { renderer as FieldRenderer } from './components/Type';

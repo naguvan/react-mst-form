@@ -63,7 +63,7 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         get values(): { [key: string]: any } {
             return Array.from(it.schema.properties!.entries()).reduce(
                 (values, [key, field]) => {
-                    values[key] = field.value;
+                    values[key] = field.data;
                     return values;
                 },
                 {} as {

@@ -24,6 +24,7 @@ export interface IValue<T> extends IValueAttrs<T> {
     readonly valid: boolean;
     readonly errors: Array<string>;
     readonly initial: T;
+    readonly data: T;
     setValue(value: T): void;
     setName(name: string): void;
     setTitle(title: string): void;
@@ -45,6 +46,4 @@ export interface IValue<T> extends IValueAttrs<T> {
     syncValidate(value: T): Array<string>;
     asyncValidateBase(value: T): Promise<Array<string>>;
     syncValidateBase(value: T): Array<string>;
-
-    // toJS(): T;
 }

@@ -14,7 +14,7 @@ test('create string type', () => {
 
     expect(type.type).toBe('string');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe('sk.sk');
+    expect(type.data).toBe('sk.sk');
     expect(type.minLength).toBe(4);
 });
 
@@ -22,14 +22,14 @@ test('change string value', () => {
     const type = String.create(config);
 
     type.setValue('rust');
-    expect(type.value).toBe('rust');
+    expect(type.data).toBe('rust');
 });
 
 test('validate minLength valid', async () => {
     const type = String.create(config);
 
     type.setValue('java');
-    expect(type.value).toBe('java');
+    expect(type.data).toBe('java');
 
     await type.validate();
 
@@ -41,7 +41,7 @@ test('validate minLength invalid', async () => {
     const type = String.create(config);
 
     type.setValue('js');
-    expect(type.value).toBe('js');
+    expect(type.data).toBe('js');
 
     await type.validate();
 
@@ -55,7 +55,7 @@ test('validate maxLength valid', async () => {
     const type = String.create(config);
 
     type.setValue('java');
-    expect(type.value).toBe('java');
+    expect(type.data).toBe('java');
 
     await type.validate();
 
@@ -67,7 +67,7 @@ test('validate maxLength invalid', async () => {
     const type = String.create(config);
 
     type.setValue('typescript');
-    expect(type.value).toBe('typescript');
+    expect(type.data).toBe('typescript');
 
     await type.validate();
 
@@ -95,7 +95,7 @@ test('test valid pattern', async () => {
     });
 
     type.setValue('23:05:56');
-    expect(type.value).toBe('23:05:56');
+    expect(type.data).toBe('23:05:56');
 
     await type.validate();
 
@@ -112,7 +112,7 @@ test('test invalid pattern', async () => {
     });
 
     type.setValue('26:25:56');
-    expect(type.value).toBe('26:25:56');
+    expect(type.data).toBe('26:25:56');
 
     await type.validate();
 

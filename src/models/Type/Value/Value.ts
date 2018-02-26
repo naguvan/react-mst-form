@@ -4,6 +4,7 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IValueConfig, IValue } from '@root/types';
+import { toJS } from 'mobx';
 
 export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
     const Value: IModelType<Partial<IValueConfig<T>>, IValue<T>> = types
@@ -121,6 +122,17 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                 return errors;
             }
         }))
+        .views(it => ({
+            get modified(): boolean {
+                return it.value !== it.initial;
+            },
+            get valid(): boolean {
+                return it.errors.length === 0;
+            },
+            get data(): T {
+                return toJS(it.value);
+            }
+        }))
         .actions(it => ({
             reset(): void {
                 it.value = it.initial;
@@ -140,18 +152,10 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             async sync(value: T): Promise<void> {
                 if (!it.syncing) {
                     it.syncing = true;
-                    it.value = value;
+                    it.setValue(value);
                     it.syncing = false;
                     await it.validate();
                 }
-            }
-        }))
-        .views(it => ({
-            get modified(): boolean {
-                return it.value !== it.initial;
-            },
-            get valid(): boolean {
-                return it.errors.length === 0;
             }
         }));
 

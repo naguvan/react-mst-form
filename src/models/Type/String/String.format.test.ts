@@ -13,7 +13,7 @@ async function test_format(
         const type = String.create(config);
 
         type.setValue(value);
-        expect(type.value).toBe(value);
+        expect(type.data).toBe(value);
 
         await type.validate();
 

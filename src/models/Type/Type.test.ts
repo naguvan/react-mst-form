@@ -14,7 +14,7 @@ test('create string type ', () => {
     }) as IString;
     expect(type.type).toBe('string');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe('sk');
+    expect(type.data).toBe('sk');
     expect(type.minLength).toBe(4);
 });
 
@@ -26,7 +26,7 @@ test('create number type ', () => {
     }) as INumber;
     expect(type.type).toBe('number');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe(50);
+    expect(type.data).toBe(50);
 });
 
 test('create boolean type ', () => {
@@ -38,7 +38,7 @@ test('create boolean type ', () => {
     expect(type.type).toBe('boolean');
     expect(type.title).toBe('naguvan');
     expect(type.name).toBe(type.title);
-    expect(type.value).toBe(true);
+    expect(type.data).toBe(true);
 });
 
 test('create null type ', () => {
@@ -49,7 +49,7 @@ test('create null type ', () => {
     });
     expect(type.type).toBe('null');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBe(null);
+    expect(type.data).toBe(null);
 });
 
 test('create object type', () => {
@@ -67,7 +67,7 @@ test('create object type', () => {
     });
     expect(type.type).toBe('object');
     expect(type.title).toBe('naguvan');
-    expect(type.value).toBeNull();
+    expect(type.data).toEqual({name: 'naguvan'});
     expect(type.additionalProperties).toBeNull();
     expect(type.maxProperties).toBeNull();
     expect(type.minProperties).toBeNull();
@@ -78,6 +78,6 @@ test('create object type', () => {
     expect(keys(toJS(type.properties!))).toEqual(['name']);
 
     expect(type.properties!.get('name')!.title).toBe('name');
-    expect(type.properties!.get('name')!.value).toBe('naguvan');
+    expect(type.properties!.get('name')!.data).toBe('naguvan');
     expect(type.properties!.get('name')!.type).toBe('string');
 });

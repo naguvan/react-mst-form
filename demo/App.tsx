@@ -18,6 +18,23 @@ const config: IFormConfig = {
     schema: {
         type: 'object',
         properties: {
+            name: {
+                type: 'object',
+                properties: {
+                    first: {
+                        type: 'string',
+                        title: 'First',
+                        value: 'naguvan',
+                        minLength: 15
+                    },
+                    last: {
+                        type: 'string',
+                        title: 'Last',
+                        value: 'sk',
+                        minLength: 15
+                    }
+                }
+            },
             title: {
                 type: 'string',
                 title: 'Title',
@@ -65,7 +82,7 @@ const config: IFormConfig = {
     sections: [
         {
             title: 'Basic',
-            layout: ['title', ['size', 'color'], 'type', 'agree']
+            layout: ['name', 'title', ['size', 'color']]
         },
         {
             title: 'Others',

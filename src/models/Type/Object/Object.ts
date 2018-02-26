@@ -11,7 +11,7 @@ import { keys } from '../../../utils';
 import createType from '../Type';
 
 export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
-    const Object: IModelType<Partial<IObjectConfig>, IObject> = types
+    const Object = types
         .compose(
             'Object',
             createValue<object | null>(
@@ -37,6 +37,19 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 const props: Array<string> = [];
                 value.forEach((v, key) => props.push(key));
                 return props.filter(prop => !it.properties!.has(prop));
+            },
+
+            getProperties(): Array<string> {
+                if (it.properties) {
+                    return it.properties.keys().slice(0);
+                }
+                return [];
+            },
+
+            getProperty(property: string): IType | undefined {
+                return it.properties !== null
+                    ? it.properties!.get(property)
+                    : undefined;
             }
         }))
         .views(it => ({
@@ -59,10 +72,8 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 value: IMap<string, object> | null
             ): Promise<Array<string>> {
                 const errors = await it.asyncValidateBase(value);
-                if (value === null) {
-                    return errors;
-                }
                 if (
+                    value !== null &&
                     it.additionalProperties !== null &&
                     typeof toJS(it.additionalProperties) !== 'boolean'
                 ) {
@@ -83,6 +94,14 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                         }
                     }
                 }
+
+                await Promise.all(
+                    it.getProperties().map(async property => {
+                        const type = it.getProperty(property);
+                        await type!.validate();
+                    })
+                );
+
                 return errors;
             },
             syncValidate(value: IMap<string, object> | null): Array<string> {
@@ -126,8 +145,32 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     }
                 }
                 return errors;
+            },
+            setValue(value: object | null): void {
+                (it as any).value = value;
+                if (value) {
+                    keys(value).forEach(key => {
+                        const type = it.properties!.get(key);
+                        if (type) {
+                            return (type as any).setValue((value as any)[key]);
+                        }
+                    });
+                }
+            }
+        }))
+        .views(it => ({
+            get data(): object | null {
+                const properties = it.getProperties();
+                return properties.reduce(
+                    (data: any, key: string) => {
+                        const type = it.properties!.get(key);
+                        data[key] = type!.data;
+                        return data;
+                    },
+                    { ...toJS(it.value || {}) }
+                );
             }
         }));
 
-    return Object;
+    return Object as IModelType<Partial<IObjectConfig>, IObject>;
 }
