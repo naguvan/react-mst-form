@@ -10,8 +10,7 @@ import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
 import Tabs, { Tab } from 'material-ui/Tabs';
-
-import Layout from '../Layout';
+import Object from '../Type/Object';
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
@@ -81,21 +80,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     };
 
     protected renderForm(form: IForm, layout: IFormLayout): ReactNode {
-        const { classes } = this.props;
-        return (
-            <Layout
-                center
-                className={classes.layout}
-                classes={{ set: classes.set, item: classes.item }}
-                items={layout}
-                render={this.getFieldRenderer() as any}
-            />
-        );
-    }
-
-    protected getFieldRenderer(): (item: string) => ReactNode {
-        const { form, renderer } = this.props;
-        return item => renderer(form.get(item)!, form);
+        return <Object type={form.schema} form={form} layout={layout} />;
     }
 }
 

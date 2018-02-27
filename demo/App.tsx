@@ -25,15 +25,31 @@ const config: IFormConfig = {
                         type: 'string',
                         title: 'First',
                         value: 'naguvan',
-                        minLength: 15
+                        minLength: 15,
+                        sequence: 1
+                    },
+                    middle: {
+                        type: 'string',
+                        title: 'Middle',
+                        value: 'sk',
+                        minLength: 15,
+                        sequence: 1
                     },
                     last: {
                         type: 'string',
                         title: 'Last',
                         value: 'sk',
-                        minLength: 15
+                        minLength: 15,
+                        sequence: 2
+                    },
+                    age: {
+                        type: 'number',
+                        title: 'Age',
+                        value: 5,
+                        sequence: 2
                     }
-                }
+                },
+                layout: [['first', 'last'], 'middle', 'age']
             },
             title: {
                 type: 'string',

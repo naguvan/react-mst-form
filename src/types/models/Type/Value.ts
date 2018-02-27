@@ -10,6 +10,7 @@ export interface IValueAttrs<T> {
     readonly const?: T | null;
     readonly options?: Array<{ label: string; value: T }> | null;
     readonly component?: string | null;
+    readonly sequence?: number | null;
 }
 
 export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {

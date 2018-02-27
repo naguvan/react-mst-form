@@ -26,7 +26,8 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 additionalProperties: types.maybe(
                     types.union(types.boolean, types.late(createType))
                 ),
-                requiredx: types.maybe(types.array(types.string))
+                requiredx: types.maybe(types.array(types.string)),
+                layout: types.optional(types.frozen, [])
             })
         )
         .volatile(it => ({
@@ -55,6 +56,14 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
         .views(it => ({
             get count() {
                 return it.properties != null ? it.properties.size : 0;
+            },
+            get valid(): boolean {
+                return (
+                    it.errors.length === 0 &&
+                    it
+                        .getProperties()
+                        .every(property => it.getProperty(property)!.valid)
+                );
             }
         }))
         .actions(it => ({

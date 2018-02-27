@@ -382,6 +382,8 @@ test('nested object type validation', async () => {
 
     await type.validate();
 
+    expect(type.valid).toBe(false);
+
     expect(city.properties!.get('name')!.data).toBe('manamadurai');
     expect(city.properties!.get('name')!.valid).toBe(false);
     expect(toJS(city.properties!.get('name')!.errors)).toEqual([

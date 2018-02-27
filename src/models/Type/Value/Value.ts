@@ -24,7 +24,8 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
             errors: types.optional(types.array(types.string), []),
-            component: types.maybe(types.string)
+            component: types.maybe(types.string),
+            sequence: types.maybe(types.number)
         })
         .volatile(it => ({ validating: false, syncing: false }))
         .actions(it => ({

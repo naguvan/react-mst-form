@@ -1,11 +1,13 @@
 import { IValue, IValueAttrs, IValueConfig } from './Value';
 
 import { IType, ITypeConfig } from './Type';
+import { IFormLayout } from '../Form';
 
 export interface IObjectAttrs extends IValueAttrs<object | null> {
     readonly requiredx?: Array<string>; // TODO: fix it
     readonly minProperties?: number;
     readonly maxProperties?: number;
+    readonly layout?: IFormLayout;
 }
 
 export interface IObjectConfig

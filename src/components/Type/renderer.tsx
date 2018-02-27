@@ -13,7 +13,13 @@ import Object from './Object';
 export function renderer(type: IType, form: IForm): ReactNode {
     switch (type.type) {
         case 'object':
-            return <Object type={type as IObject} form={form} />;
+            return (
+                <Object
+                    type={type as IObject}
+                    form={form}
+                    layout={(type as IObject).layout!}
+                />
+            );
         case 'number':
             return <Number type={type as INumber} form={form} />;
         case 'boolean':
