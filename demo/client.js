@@ -54963,16 +54963,17 @@ var config = {
                 title: 'I agree with your terms',
                 value: false,
                 const: true
-            },
-            array: {
-                type: 'array',
-                title: 'Array',
-                items: {
-                    type: 'number',
-                    multipleOf: 2
-                },
-                value: [1, 2, 3]
             }
+            // ,
+            // array: {
+            //     type: 'array',
+            //     title: 'Array',
+            //     items: {
+            //         type: 'number',
+            //         multipleOf: 2
+            //     },
+            //     value: [1, 2, 3]
+            // }
         }
     },
     sections: [
@@ -54982,7 +54983,7 @@ var config = {
         },
         {
             title: 'Others',
-            layout: ['ipv4', 'type', 'agree', 'array']
+            layout: ['ipv4', 'type', 'agree' /*, 'array'*/]
         }
     ]
 };
