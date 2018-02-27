@@ -92,6 +92,15 @@ const config: IFormConfig = {
                 title: 'I agree with your terms',
                 value: false,
                 const: true
+            },
+            array: {
+                type: 'array',
+                title: 'Array',
+                items: {
+                    type: 'number',
+                    multipleOf: 2
+                },
+                value: [1, 2, 3]
             }
         }
     },
@@ -102,7 +111,7 @@ const config: IFormConfig = {
         },
         {
             title: 'Others',
-            layout: ['ipv4', 'type', 'agree']
+            layout: ['ipv4', 'type', 'agree', 'array']
         }
     ]
 };

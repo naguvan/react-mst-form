@@ -13,12 +13,12 @@ export interface IValueAttrs<T> {
     readonly sequence?: number | null;
 }
 
-export interface IValueConfig<T> extends Partial<IValueAttrs<T>> {
-    readonly type: string;
+export interface IValueConfig<T, X = string> extends Partial<IValueAttrs<T>> {
+    readonly type: X;
 }
 
-export interface IValue<T> extends IValueAttrs<T> {
-    readonly type: string;
+export interface IValue<T, X = string> extends IValueAttrs<T> {
+    readonly type: X;
     readonly modified: boolean;
     readonly validating: boolean;
     readonly syncing: boolean;

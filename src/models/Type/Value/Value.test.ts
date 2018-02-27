@@ -153,6 +153,6 @@ test('validate enum invalid', async () => {
 
     expect(type.valid).toBe(false);
     expect(type.errors.slice(0)).toEqual([
-        'should be equal to one of the allowed values [5,20]'
+        'should be equal to one of the allowed values [5, 20]'
     ]);
 });

@@ -6,8 +6,12 @@ export type __IModelType = IModelType<any, any>;
 import { IValueConfig, IValue } from '@root/types';
 import { toJS } from 'mobx';
 
-export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
-    const Value: IModelType<Partial<IValueConfig<T>>, IValue<T>> = types
+export function create<T, X = string>(
+    type: X,
+    kind: ISimpleType<T>,
+    defaultv: T
+) {
+    const Value: IModelType<Partial<IValueConfig<T, X>>, IValue<T, X>> = types
         .model('Value', {
             title: types.maybe(types.string),
             type: types.literal(type),
@@ -93,8 +97,8 @@ export function create<T>(type: string, kind: ISimpleType<T>, defaultv: T) {
                     it.enum.findIndex(en => en === value) === -1
                 ) {
                     errors.push(
-                        `should be equal to one of the allowed values [${it.enum.slice(
-                            0
+                        `should be equal to one of the allowed values [${it.enum.join(
+                            ', '
                         )}]`
                     );
                 }

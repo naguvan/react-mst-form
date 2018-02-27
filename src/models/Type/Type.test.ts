@@ -1,8 +1,8 @@
 import create from './Type';
 import { IValue, IString, INumber } from '@root/types';
+import { IType, IObject, IArray } from '@root/types';
 import { toJS } from 'mobx';
 import { keys } from '../../utils';
-import createObject from './Object';
 const Type = create();
 
 test('create string type ', () => {
@@ -53,8 +53,7 @@ test('create null type ', () => {
 });
 
 test('create object type', () => {
-    const NObject = createObject();
-    const type = NObject.create({
+    const type = Type.create({
         type: 'object',
         properties: {
             name: {
@@ -64,10 +63,10 @@ test('create object type', () => {
             }
         },
         title: 'naguvan'
-    });
+    }) as IObject;
     expect(type.type).toBe('object');
     expect(type.title).toBe('naguvan');
-    expect(type.data).toEqual({name: 'naguvan'});
+    expect(type.data).toEqual({ name: 'naguvan' });
     expect(type.additionalProperties).toBeNull();
     expect(type.maxProperties).toBeNull();
     expect(type.minProperties).toBeNull();
@@ -80,4 +79,24 @@ test('create object type', () => {
     expect(type.properties!.get('name')!.title).toBe('name');
     expect(type.properties!.get('name')!.data).toBe('naguvan');
     expect(type.properties!.get('name')!.type).toBe('string');
+});
+
+test('create array type', () => {
+    const type = Type.create({
+        type: 'array',
+        items: {
+            type: 'number'
+        },
+        title: 'naguvan'
+    }) as IArray;
+    expect(type.type).toBe('array');
+    expect(type.title).toBe('naguvan');
+    expect(type.data).toEqual([]);
+    expect(type.additionalItems).toBeNull();
+    expect(type.maxItems).toBeNull();
+    expect(type.minItems).toBeNull();
+    expect(type.uniqueItems).toBeNull();
+
+    expect(type.items).not.toBeNull();
+    expect((type.items as IType)!.type).toBe('number');
 });

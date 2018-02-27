@@ -4,3 +4,4 @@ export * from './Number';
 export * from './Boolean';
 export * from './Null';
 export * from './Object';
+export * from './Array';
