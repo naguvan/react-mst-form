@@ -5,7 +5,7 @@ export type __IModelType = IModelType<any, any>;
 
 import { IStringConfig, IString } from '@root/types';
 
-import create from '../Value';
+import createValue from '../Value';
 import { regex } from '../../../utils';
 
 import { matchers } from './matchers';
@@ -13,7 +13,7 @@ import { matchers } from './matchers';
 export const String: IModelType<Partial<IStringConfig>, IString> = types
     .compose(
         'String',
-        create<string>('string', types.string, ''),
+        createValue<string, 'string'>('string', types.string, ''),
         types.model({
             minLength: types.maybe(types.number),
             maxLength: types.maybe(types.number),

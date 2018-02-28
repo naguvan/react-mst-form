@@ -6,12 +6,12 @@ export type __IModelType = IModelType<any, any>;
 import { IValueConfig, IValue } from '@root/types';
 import { toJS } from 'mobx';
 
-export function create<T, X = string>(
-    type: X,
-    kind: ISimpleType<T>,
-    defaultv: T
+export function create<V, T>(
+    type: T,
+    kind: ISimpleType<V>,
+    defaultv: V
 ) {
-    const Value: IModelType<Partial<IValueConfig<T, X>>, IValue<T, X>> = types
+    const Value: IModelType<Partial<IValueConfig<V, T>>, IValue<V, T>> = types
         .model('Value', {
             title: types.maybe(types.string),
             type: types.literal(type),
@@ -78,15 +78,15 @@ export function create<T, X = string>(
             tryValue(value: Object): boolean {
                 return kind.is(value);
             },
-            setValue(value: T): void {
+            setValue(value: V): void {
                 it.value = value;
             }
         }))
         .actions(it => ({
-            async asyncValidateBase(value: T): Promise<Array<string>> {
+            async asyncValidateBase(value: V): Promise<Array<string>> {
                 return [];
             },
-            syncValidateBase(value: T): Array<string> {
+            syncValidateBase(value: V): Array<string> {
                 const errors: Array<string> = [];
                 if (it.const !== null && value !== it.const) {
                     errors.push(`should be equal to ${it.const}`);
@@ -106,10 +106,10 @@ export function create<T, X = string>(
             }
         }))
         .volatile(it => ({
-            async asyncValidate(value: T): Promise<Array<string>> {
+            async asyncValidate(value: V): Promise<Array<string>> {
                 return await it.asyncValidateBase(value);
             },
-            syncValidate(value: T): Array<string> {
+            syncValidate(value: V): Array<string> {
                 return it.syncValidateBase(value);
             }
         }))
@@ -122,8 +122,8 @@ export function create<T, X = string>(
                     return validities.map(validity => validity.message!);
                 }
                 const errors: Array<string> = [];
-                errors.push(...it.syncValidate(value as T));
-                errors.push(...(await it.asyncValidate(value as T)));
+                errors.push(...it.syncValidate(value as V));
+                errors.push(...(await it.asyncValidate(value as V)));
                 return errors;
             }
         }))
@@ -134,7 +134,7 @@ export function create<T, X = string>(
             get valid(): boolean {
                 return it.errors.length === 0;
             },
-            get data(): T {
+            get data(): V {
                 return toJS(it.value);
             }
         }))
@@ -154,7 +154,7 @@ export function create<T, X = string>(
             })
         }))
         .actions(it => ({
-            async sync(value: T): Promise<void> {
+            async sync(value: V): Promise<void> {
                 if (!it.syncing) {
                     it.syncing = true;
                     it.setValue(value);

@@ -40,9 +40,7 @@ export interface IStringAttrs extends IValueAttrs<string> {
 }
 
 export interface IStringConfig
-    extends IValueConfig<string>,
-        Partial<IStringAttrs> {
-    readonly type: 'string';
-}
+    extends IValueConfig<string, 'string'>,
+        Partial<IStringAttrs> {}
 
-export interface IString extends IStringAttrs, IValue<string> {}
+export interface IString extends IStringAttrs, IValue<string, 'string'> {}

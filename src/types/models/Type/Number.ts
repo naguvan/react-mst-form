@@ -7,9 +7,7 @@ export interface INumberAttrs extends IValueAttrs<number> {
 }
 
 export interface INumberConfig
-    extends IValueConfig<number>,
-        Partial<INumberAttrs> {
-    readonly type: 'number';
-}
+    extends IValueConfig<number, 'number'>,
+        Partial<INumberAttrs> {}
 
-export interface INumber extends INumberAttrs, IValue<number> {}
+export interface INumber extends INumberAttrs, IValue<number, 'number'> {}

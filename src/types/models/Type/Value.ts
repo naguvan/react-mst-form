@@ -1,32 +1,32 @@
-export interface IValueAttrs<T> {
+export interface IValueAttrs<V> {
     readonly title?: string | null;
-    readonly value: T;
-    readonly default?: T;
+    readonly value: V;
+    readonly default?: V;
     readonly name: string;
     readonly disabled: boolean;
     readonly visible: boolean;
     readonly required: boolean;
-    readonly enum?: Array<T> | null;
-    readonly const?: T | null;
-    readonly options?: Array<{ label: string; value: T }> | null;
+    readonly enum?: Array<V> | null;
+    readonly const?: V | null;
+    readonly options?: Array<{ label: string; value: V }> | null;
     readonly component?: string | null;
     readonly sequence?: number | null;
 }
 
-export interface IValueConfig<T, X = string> extends Partial<IValueAttrs<T>> {
-    readonly type: X;
+export interface IValueConfig<V, T> extends Partial<IValueAttrs<V>> {
+    readonly type: T;
 }
 
-export interface IValue<T, X = string> extends IValueAttrs<T> {
-    readonly type: X;
+export interface IValue<V, T> extends IValueAttrs<V> {
+    readonly type: T;
     readonly modified: boolean;
     readonly validating: boolean;
     readonly syncing: boolean;
     readonly valid: boolean;
     readonly errors: Array<string>;
-    readonly initial: T;
-    readonly data: T;
-    setValue(value: T): void;
+    readonly initial: V;
+    readonly data: V;
+    setValue(value: V): void;
     setName(name: string): void;
     setTitle(title: string): void;
     setRequired(required: boolean): void;
@@ -38,13 +38,13 @@ export interface IValue<T, X = string> extends IValueAttrs<T> {
     reset(): void;
     validate(): Promise<void>;
 
-    sync(value: T): Promise<void>;
+    sync(value: V): Promise<void>;
 
     tryValue(value: Object): boolean;
     tryValidate(value: Object | undefined | null): Promise<Array<string>>;
 
-    asyncValidate(value: T): Promise<Array<string>>;
-    syncValidate(value: T): Array<string>;
-    asyncValidateBase(value: T): Promise<Array<string>>;
-    syncValidateBase(value: T): Array<string>;
+    asyncValidate(value: V): Promise<Array<string>>;
+    syncValidate(value: V): Array<string>;
+    asyncValidateBase(value: V): Promise<Array<string>>;
+    syncValidateBase(value: V): Array<string>;
 }

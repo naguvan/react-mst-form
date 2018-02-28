@@ -4,7 +4,7 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { IBooleanConfig, IBoolean } from '@root/types';
-import create from '../Value';
+import createValue from '../Value';
 
 export const Boolean: IModelType<
     Partial<IBooleanConfig>,
@@ -12,7 +12,7 @@ export const Boolean: IModelType<
 > = types
     .compose(
         'Boolean',
-        create<boolean>('boolean', types.boolean, false),
+        createValue<boolean, 'boolean'>('boolean', types.boolean, false),
         types.model({})
     )
     .actions(it => ({

@@ -11,15 +11,13 @@ export interface IObjectAttrs extends IValueAttrs<object | null> {
 }
 
 export interface IObjectConfig
-    extends IValueConfig<object | null>,
+    extends IValueConfig<object | null, 'object'>,
         Partial<IObjectAttrs> {
-    readonly type: 'object';
     readonly properties?: { [key: string]: ITypeConfig };
     readonly additionalProperties?: boolean | ITypeConfig;
 }
 
-export interface IObject extends IObjectAttrs, IValue<object | null> {
-    readonly type: 'object';
+export interface IObject extends IObjectAttrs, IValue<object | null, 'object'> {
     readonly properties?: ReadonlyMap<string, IType> | null;
     readonly additionalProperties?: boolean | IType | null;
     getProperty(property: string): IType | undefined;

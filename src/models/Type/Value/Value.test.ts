@@ -2,13 +2,13 @@ import { types } from 'mobx-state-tree';
 import { IValueConfig, IValue } from '@root/types';
 import { create } from './Value';
 
-const config: IValueConfig<number> = {
+const config: IValueConfig<number, 'number'> = {
     title: 'naguvan',
     value: 10,
     type: 'number'
 };
 
-const Value = create<number>('number', types.number, 0);
+const Value = create<number, 'number'>('number', types.number, 0);
 
 test('create type type', () => {
     const type = Value.create(config);

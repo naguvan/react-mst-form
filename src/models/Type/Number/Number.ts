@@ -4,13 +4,13 @@ import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { INumberConfig, INumber } from '@root/types';
-import create from '../Value';
+import createValue from '../Value';
 import { decimals } from '../../../utils';
 
 export const Number: IModelType<Partial<INumberConfig>, INumber> = types
     .compose(
         'Number',
-        create<number>('number', types.number, 0),
+        createValue<number, 'number'>('number', types.number, 0),
         types.model({
             minimum: types.maybe(types.number),
             maximum: types.maybe(types.number),
