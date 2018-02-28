@@ -19,7 +19,7 @@ test('create type type', () => {
     expect(type.initial).toBe(10);
     expect(type.modified).toBe(false);
 
-    expect(type.required).toBe(false);
+    expect(type.mandatory).toBe(false);
     expect(type.disabled).toBe(false);
     expect(type.visible).toBe(true);
     expect(type.validating).toBe(false);
@@ -50,13 +50,13 @@ test('change type name', () => {
     expect(type.name).toBe('skclusive');
 });
 
-test('change required property', () => {
+test('change mandatory property', () => {
     const type = Value.create(config);
 
-    expect(type.required).toBe(false);
+    expect(type.mandatory).toBe(false);
 
-    type.setRequired(true);
-    expect(type.required).toBe(true);
+    type.setMandatory(true);
+    expect(type.mandatory).toBe(true);
 });
 
 test('change disabled property', () => {

@@ -5,7 +5,7 @@ export interface IValueAttrs<V> {
     readonly name: string;
     readonly disabled: boolean;
     readonly visible: boolean;
-    readonly required: boolean;
+    readonly mandatory: boolean;
     readonly enum?: Array<V> | null;
     readonly const?: V | null;
     readonly options?: Array<{ label: string; value: V }> | null;
@@ -29,7 +29,7 @@ export interface IValue<V, T> extends IValueAttrs<V> {
     setValue(value: V): void;
     setName(name: string): void;
     setTitle(title: string): void;
-    setRequired(required: boolean): void;
+    setMandatory(mandatory: boolean): void;
     setDisabled(disabled: boolean): void;
     setVisible(visible: boolean): void;
     addError(error: string): void;

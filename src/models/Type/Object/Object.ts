@@ -7,7 +7,7 @@ import { IMap, toJS } from 'mobx';
 
 import { IObjectConfig, IObject, IType } from '@root/types';
 import createValue from '../Value';
-import { keys } from '../../../utils';
+import { keys, unique } from '../../../utils';
 import createType from '../Type';
 
 let NObject: IModelType<Partial<IObjectConfig>, IObject>;
@@ -29,20 +29,27 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     additionalProperties: types.maybe(
                         types.union(types.boolean, types.late(createType))
                     ),
-                    requiredx: types.maybe(types.array(types.string)),
+                    required: types.maybe(types.array(types.string)),
                     layout: types.optional(types.frozen, [])
                 })
             )
             .volatile(it => ({
-                getAdditionals(
-                    value: IMap<string, object> | null
-                ): Array<string> {
+                getActuals(value: IMap<string, object> | null): Array<string> {
                     if (value === null) {
                         return [];
                     }
                     const props: Array<string> = [];
                     value.forEach((v, key) => props.push(key));
-                    return props.filter(prop => !it.properties!.has(prop));
+                    return props;
+                }
+            }))
+            .volatile(it => ({
+                getAdditionals(
+                    value: IMap<string, object> | null
+                ): Array<string> {
+                    return it
+                        .getActuals(value)
+                        .filter(prop => !it.properties!.has(prop));
                 },
 
                 getProperties(): Array<string> {
@@ -81,6 +88,14 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     if (it.maxProperties !== null && it.maxProperties < 0) {
                         throw new TypeError(
                             `maxProperties can not be negative`
+                        );
+                    }
+                    if (
+                        it.required !== null &&
+                        it.required.length !== unique(it.required).length
+                    ) {
+                        throw new TypeError(
+                            `required should not have duplicate properties`
                         );
                     }
                 }
@@ -145,6 +160,19 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             } properties`
                         );
                     }
+                    if (it.required !== null) {
+                        const actuals = it.getActuals(value);
+                        const requireds = it.required.filter(
+                            required => !actuals.includes(required)
+                        );
+                        if (requireds.length > 0) {
+                            errors.push(
+                                `should have required properties [${requireds.join(
+                                    ', '
+                                )}]`
+                            );
+                        }
+                    }
                     if (
                         it.additionalProperties !== null &&
                         typeof toJS(it.additionalProperties) === 'boolean'
@@ -153,9 +181,9 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                         if (additionals.length > 0) {
                             if (!it.additionalProperties) {
                                 errors.push(
-                                    `should NOT have additional properties '${additionals.join(
+                                    `should NOT have additional properties [${additionals.join(
                                         ', '
-                                    )}'`
+                                    )}]`
                                 );
                             }
                         }

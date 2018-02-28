@@ -100,6 +100,15 @@ test('test invalid maxProperties configuration', () => {
     ).toThrowError(`maxProperties can not be negative`);
 });
 
+test('test duplicate required properties configuration', () => {
+    expect(() =>
+        NObject.create({
+            ...config,
+            required: ['name', 'age', 'name']
+        })
+    ).toThrowError(`required should not have duplicate properties`);
+});
+
 test('validate minProperties valid', async () => {
     const type = NObject.create({ ...config, minProperties: 2 });
 
@@ -152,6 +161,63 @@ test('validate maxProperties invalid', async () => {
     ]);
 });
 
+test('validate required valid', async () => {
+    const type = NObject.create({
+        type: 'object',
+        properties: {
+            name: {
+                title: 'name',
+                value: 'naguvan',
+                type: 'string'
+            },
+            age: {
+                title: 'age',
+                value: 1,
+                type: 'number'
+            }
+        },
+        title: 'naguvan',
+        required: ['name', 'age']
+    });
+
+    type.setValue({ name: 'naguvan', age: 3 });
+    expect(type.data).toEqual({ name: 'naguvan', age: 3 });
+
+    await type.validate();
+
+    expect(type.valid).toBe(true);
+    expect(type.errors.slice(0)).toEqual([]);
+});
+
+test('validate missing required properties', async () => {
+    const type = NObject.create({
+        type: 'object',
+        properties: {
+            name: {
+                title: 'name',
+                value: 'naguvan',
+                type: 'string'
+            },
+            age: {
+                title: 'age',
+                type: 'number'
+            }
+        },
+        title: 'naguvan',
+        required: ['name', 'age']
+    });
+
+    type.setValue({ name: 'naguvan' });
+    expect(toJS(type.value)).toEqual({ name: 'naguvan' });
+
+    await type.validate();
+
+    expect(type.valid).toBe(false);
+    expect(type.errors.slice(0)).toEqual([
+        'should have required properties [age]'
+    ]);
+});
+
 test('validate allowing additionalProperties', async () => {
     const type = NObject.create({ ...config, additionalProperties: true });
 
@@ -194,7 +260,7 @@ test('validate not allowing additionalProperties', async () => {
 
     expect(type.valid).toBe(false);
     expect(type.errors.slice(0)).toEqual([
-        `should NOT have additional properties 'city, country'`
+        `should NOT have additional properties [city, country]`
     ]);
 });
 
@@ -415,7 +481,7 @@ test('nested object type modification and validation', async () => {
     expect(city).not.toBeNull();
     expect(city.title).toBe('city');
 
-    await city.sync({ name: 'manamadurai' } );
+    await city.sync({ name: 'manamadurai' });
 
     // await type.validate();
 

@@ -4,7 +4,7 @@ import { IType, ITypeConfig } from './Type';
 import { IFormLayout } from '../Form';
 
 export interface IObjectAttrs extends IValueAttrs<object | null> {
-    readonly requiredx?: Array<string>; // TODO: fix it
+    readonly required?: Array<string>;
     readonly minProperties?: number;
     readonly maxProperties?: number;
     readonly layout?: IFormLayout;

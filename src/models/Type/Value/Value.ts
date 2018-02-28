@@ -6,11 +6,7 @@ export type __IModelType = IModelType<any, any>;
 import { IValueConfig, IValue } from '@root/types';
 import { toJS } from 'mobx';
 
-export function create<V, T>(
-    type: T,
-    kind: ISimpleType<V>,
-    defaultv: V
-) {
+export function create<V, T>(type: T, kind: ISimpleType<V>, defaultv: V) {
     const Value: IModelType<Partial<IValueConfig<V, T>>, IValue<V, T>> = types
         .model('Value', {
             title: types.maybe(types.string),
@@ -24,7 +20,7 @@ export function create<V, T>(
             ),
             const: types.maybe(kind),
             name: types.optional(types.string, ''),
-            required: types.optional(types.boolean, false),
+            mandatory: types.optional(types.boolean, false),
             disabled: types.optional(types.boolean, false),
             visible: types.optional(types.boolean, true),
             errors: types.optional(types.array(types.string), []),
@@ -57,8 +53,8 @@ export function create<V, T>(
             setTitle(title: string): void {
                 it.title = title;
             },
-            setRequired(required: boolean): void {
-                it.required = required;
+            setMandatory(mandatory: boolean): void {
+                it.mandatory = mandatory;
             },
             setDisabled(disabled: boolean): void {
                 it.disabled = disabled;
