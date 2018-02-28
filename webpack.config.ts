@@ -3,9 +3,10 @@ import * as webpack from 'webpack';
 
 export default function configure(env: any): Array<webpack.Configuration> {
     const isDevBuild: boolean = !(env && env.prod);
-    const nodeEnv: string = process.env.NODE_ENV || 'development';
+    const mode: string = process.env.NODE_ENV || 'development';
     const clientBundleOutputDir: string = './'; // './dist';
-    const clientBundleConfig: webpack.Configuration = {
+    const clientBundleConfig: webpack.Configuration & { mode: string } = {
+        mode,
         stats: { modules: false },
         resolve: {
             extensions: ['.js', '.jsx', '.ts', '.tsx'],
@@ -56,21 +57,21 @@ export default function configure(env: any): Array<webpack.Configuration> {
                       new webpack.LoaderOptionsPlugin({
                           minimize: true,
                           debug: false
-                      }), // prod
-                      new webpack.optimize.UglifyJsPlugin({
-                          compress: {
-                              warnings: false
-                          },
-                          comments: false,
-                          sourceMap: false
-                      }) // prod
+                      }) // , // prod
+                      //   new webpack.optimize.UglifyJsPlugin({
+                      //       compress: {
+                      //           warnings: false
+                      //       },
+                      //       comments: false,
+                      //       sourceMap: false
+                      //   }) // prod
                   ]),
             new webpack.DefinePlugin({
                 process: {},
                 'process.env': {},
-                'process.env.NODE_ENV': JSON.stringify(nodeEnv),
-                __DEV__: nodeEnv === 'development',
-                __TEST__: nodeEnv === 'test'
+                'process.env.NODE_ENV': JSON.stringify(mode),
+                __DEV__: mode === 'development',
+                __TEST__: mode === 'test'
             }) // prod
         ]
     };
