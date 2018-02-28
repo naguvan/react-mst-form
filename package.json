@@ -43,7 +43,7 @@
         "tslint-react": "^3.5.1",
         "typescript": "^2.7.2",
         "webpack": "^4.0.1",
-        "webpack-bundle-analyzer": "^2.10.0",
+        "webpack-bundle-analyzer": "^2.11.0",
         "webpack-cli": "^2.0.9"
     },
     "jest": {
@@ -64,13 +64,13 @@
         ]
     },
     "scripts": {
-        "prepublish": "yarn run lint && yarn run test && yarn run bundle",
+        "prepublish": "yarn run lint && yarn run test && yarn run prod",
         "build": "tsc -p .",
         "lint": "tslint -p .",
         "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
         "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
         "stats": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod --profile --json > stats.json",
-        "bundle": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod",
+        "prod": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod",
         "dev": "cross-env NODE_ENV=development TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts",
         "demo": "ts-node --compilerOptions {\\\"module\\\":\\\"commonjs\\\"} ./demo/server.ts",
         "analyzer": "webpack-bundle-analyzer ./stats.json"
