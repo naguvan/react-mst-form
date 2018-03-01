@@ -25,20 +25,20 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
             <>
                 <TextField
                     select={select}
-                    key={type.name}
+                    key={type.name!}
                     type={'number'}
                     margin={'normal'}
                     fullWidth={true}
-                    name={type.name}
-                    id={type.name}
+                    name={type.name!}
+                    id={type.name!}
                     value={type.data || ''}
-                    disabled={type.disabled}
+                    disabled={type.disabled!}
                     error={!type.valid}
-                    label={type.title}
-                    helperText={type.errors.join('\n')}
+                    label={type.title!}
+                    helperText={type.errors!.join('\n')}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e =>
-                        type.sync(toNumber(e.target.value, type.value))
+                        type.sync(toNumber(e.target.value, type.value!))
                     }>
                     {type.options &&
                         type.options.map(option => (

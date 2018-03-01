@@ -1,9 +1,9 @@
 import { IValue, IValueAttrs, IValueConfig } from './Value';
 
 export interface INumberAttrs extends IValueAttrs<number> {
-    readonly minimum?: number;
-    readonly maximum?: number;
-    readonly multipleOf?: number;
+    readonly minimum?: number | null;
+    readonly maximum?: number | null;
+    readonly multipleOf?: number | null;
 }
 
 export interface INumberConfig

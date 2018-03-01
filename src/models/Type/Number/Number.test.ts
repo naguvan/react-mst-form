@@ -31,7 +31,7 @@ test('validate minimum valid', async () => {
     await type.validate();
 
     // expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate minimum invalid', async () => {
@@ -43,7 +43,7 @@ test('validate minimum invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual(['should NOT be lesser than 10']);
+    expect(type.errors!.slice(0)).toEqual(['should NOT be lesser than 10']);
 });
 
 test('validate maximum valid', async () => {
@@ -55,7 +55,7 @@ test('validate maximum valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate maximum invalid', async () => {
@@ -67,7 +67,7 @@ test('validate maximum invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual(['should NOT be greater than 10']);
+    expect(type.errors!.slice(0)).toEqual(['should NOT be greater than 10']);
 });
 
 test('test invalid multipleOf configuration', () => {
@@ -95,7 +95,7 @@ test('validate multipleOf valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate multipleOf invalid', async () => {
@@ -107,7 +107,7 @@ test('validate multipleOf invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual(['should be multiple of 3']);
+    expect(type.errors!.slice(0)).toEqual(['should be multiple of 3']);
 });
 
 test('validate const valid', async () => {
@@ -119,7 +119,7 @@ test('validate const valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate const invalid', async () => {
@@ -131,7 +131,7 @@ test('validate const invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual(['should be equal to 5']);
+    expect(type.errors!.slice(0)).toEqual(['should be equal to 5']);
 });
 
 test('validate enum valid', async () => {
@@ -143,7 +143,7 @@ test('validate enum valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate enum invalid', async () => {
@@ -155,7 +155,7 @@ test('validate enum invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         'should be equal to one of the allowed values [5, 20]'
     ]);
 });

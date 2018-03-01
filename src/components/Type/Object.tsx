@@ -33,11 +33,12 @@ export default class NObject extends Base<
                     items={layout.length > 0 ? layout : this.layout(type)}
                     render={this.getFieldRenderer() as any}
                 />
-                {!type.valid && (
-                    <FormHelperText error>
-                        {type.errors.join('\n')}
-                    </FormHelperText>
-                )}
+                {!type.valid &&
+                    type.errors!.length > 0 && (
+                        <FormHelperText error>
+                            {type.errors!.join('\n')}
+                        </FormHelperText>
+                    )}
             </>
         );
     }

@@ -27,7 +27,7 @@ test('create array type', () => {
     expect(type.uniqueItems).toBeNull();
 
     expect(type.items).not.toBeNull();
-    expect((type.items as IType)!.type).toBe('number');
+    expect((type.items as ITypeConfig)!.type).toBe('number');
 });
 
 test('validate array valid values', async () => {
@@ -46,16 +46,14 @@ test('validate array invalid values', async () => {
     const type = Array.create({ ...config });
     expect(type.type).toBe('array');
 
-    type.setValue([1, '2', 3, null]);
+    type.setValue([1, '2', 3, false]);
 
     await type.validate();
 
-    expect(type.data).toEqual([1, '2', 3, null]);
+    expect(type.data).toEqual([1, '2', 3, false]);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual([
-        'data[1] is not a number',
-        'data[3] is not a number'
-    ]);
+    expect(toJS(type.elements[1].errors!)).toEqual(['Value is not a number']);
+    expect(toJS(type.elements[3].errors!)).toEqual(['Value is not a number']);
 });
 
 test('validate array invalid values with range', async () => {
@@ -71,7 +69,9 @@ test('validate array invalid values with range', async () => {
 
     expect(type.data).toEqual([1, 4, 6]);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual(['data[2] should NOT be greater than 5']);
+    expect(toJS(type.elements[2].errors!)).toEqual([
+        'should NOT be greater than 5'
+    ]);
 });
 
 test('validate tuple valid values', async () => {
@@ -94,7 +94,7 @@ test('validate tuple valid values', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 'NW']);
     expect(type.valid).toBe(true);
-    expect(toJS(type.errors)).toEqual([]);
+    expect(toJS(type.errors!)).toEqual([]);
 });
 
 test('validate tuple invalid values', async () => {
@@ -117,15 +117,15 @@ test('validate tuple invalid values', async () => {
 
     expect(type.data).toEqual([7, 'naguvan', 'EF']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual([]);
+    expect(toJS(type.errors!)).toEqual([]);
 
-    expect(toJS((type.items! as Array<IType>)[0].errors)).toEqual([
+    expect(toJS(type.elements[0].errors!)).toEqual([
         'should NOT be greater than 5'
     ]);
-    expect(toJS((type.items! as Array<IType>)[1].errors)).toEqual([
+    expect(toJS(type.elements[1].errors!)).toEqual([
         'should NOT be longer than 5 characters'
     ]);
-    expect(toJS((type.items! as Array<IType>)[2].errors)).toEqual([
+    expect(toJS(type.elements[2].errors!)).toEqual([
         'should be equal to one of the allowed values [NW, NE, SW, SE]'
     ]);
 });
@@ -150,15 +150,15 @@ test('validate tuple invalid values', async () => {
 
     expect(type.data).toEqual([7, 'naguvan', 'EF']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual([]);
+    expect(toJS(type.errors!)).toEqual([]);
 
-    expect(toJS((type.items! as Array<IType>)[0].errors)).toEqual([
+    expect(toJS(type.elements[0].errors!)).toEqual([
         'should NOT be greater than 5'
     ]);
-    expect(toJS((type.items! as Array<IType>)[1].errors)).toEqual([
+    expect(toJS(type.elements[1].errors!)).toEqual([
         'should NOT be longer than 5 characters'
     ]);
-    expect(toJS((type.items! as Array<IType>)[2].errors)).toEqual([
+    expect(toJS(type.elements[2].errors!)).toEqual([
         'should be equal to one of the allowed values [NW, NE, SW, SE]'
     ]);
 });
@@ -181,15 +181,16 @@ test('validate tuple valid few items', async () => {
 
     await type.validate();
 
-    expect(type.data).toEqual([3, 'naguvan', '']);
+    expect(type.data).toEqual([3, 'naguvan', null]);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual([]);
+    expect(toJS(type.errors!)).toEqual([]);
 
-    expect(toJS((type.items! as Array<IType>)[0].errors)).toEqual([]);
-    expect(toJS((type.items! as Array<IType>)[1].errors)).toEqual([]);
-    expect(toJS((type.items! as Array<IType>)[2].errors)).toEqual([
-        'should be equal to one of the allowed values [NW, NE, SW, SE]'
-    ]);
+    expect(toJS(type.elements[0].errors!)).toEqual([]);
+    expect(toJS(type.elements[1].errors!)).toEqual([]);
+    // expect(toJS(type.elements[2].errors!)).toEqual([
+    //     'should be equal to one of the allowed values [NW, NE, SW, SE]'
+    // ]);
+    expect(toJS(type.elements[2].errors!)).toEqual(['Value is not a string']);
 });
 
 test('validate tuple valid more items', async () => {
@@ -212,11 +213,11 @@ test('validate tuple valid more items', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 'NE', 'extra']);
     expect(type.valid).toBe(true);
-    expect(toJS(type.errors)).toEqual([]);
+    expect(toJS(type.errors!)).toEqual([]);
 
-    expect(toJS((type.items! as Array<IType>)[0].errors)).toEqual([]);
-    expect(toJS((type.items! as Array<IType>)[1].errors)).toEqual([]);
-    expect(toJS((type.items! as Array<IType>)[2].errors)).toEqual([]);
+    expect(toJS(type.elements[0].errors!)).toEqual([]);
+    expect(toJS(type.elements[1].errors!)).toEqual([]);
+    expect(toJS(type.elements[2].errors!)).toEqual([]);
 });
 
 test('validate tuple valid not allowing additional items', async () => {
@@ -240,7 +241,7 @@ test('validate tuple valid not allowing additional items', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 'NE', 'extra']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual(['should NOT have additional items']);
+    expect(toJS(type.errors!)).toEqual(['should NOT have additional items']);
 });
 
 test('validate min items', async () => {
@@ -256,7 +257,7 @@ test('validate min items', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 'NE', 'extra']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual(['should NOT have less than 5 items']);
+    expect(toJS(type.errors!)).toEqual(['should NOT have less than 5 items']);
 });
 
 test('validate max items', async () => {
@@ -272,7 +273,7 @@ test('validate max items', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 'NE', 'extra']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual(['should NOT have more than 3 items']);
+    expect(toJS(type.errors!)).toEqual(['should NOT have more than 3 items']);
 });
 
 test('validate unique items', async () => {
@@ -288,7 +289,7 @@ test('validate unique items', async () => {
 
     expect(type.data).toEqual([3, 'naguvan', 3, 'NE', 'NE', 'extra']);
     expect(type.valid).toBe(false);
-    expect(toJS(type.errors)).toEqual(['should NOT have duplicate items']);
+    expect(toJS(type.errors!)).toEqual(['should NOT have duplicate items']);
 });
 
 test('validate value types', async () => {
@@ -309,6 +310,5 @@ test('validate value types', async () => {
     expect(type.data).toEqual([1, 2, 3]);
     expect(type.valid).toBe(true);
 
-    const types = type.types;
-    expect(types.length).toBe(3);
+    expect(type.elements.length).toBe(3);
 });

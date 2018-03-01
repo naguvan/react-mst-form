@@ -18,7 +18,7 @@ export default abstract class Base<
         const { visible, name } = type;
         return visible ? (
             <div
-                key={name}
+                key={name!}
                 style={{
                     width: '100%'
                 }}>

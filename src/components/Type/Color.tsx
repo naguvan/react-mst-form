@@ -20,17 +20,17 @@ export default class Color extends Base<IString, IStringProps, IStringStates> {
         return (
             <>
                 <TextField
-                    key={type.name}
+                    key={type.name!}
                     type={'color'}
                     margin={'normal'}
                     fullWidth={true}
-                    name={type.name}
-                    id={type.name}
+                    name={type.name!}
+                    id={type.name!}
                     value={type.data || '#000000'}
-                    disabled={type.disabled}
+                    disabled={type.disabled!}
                     error={!type.valid}
                     label={type.title}
-                    helperText={type.errors.join('\n')}
+                    helperText={type.errors!.join('\n')!}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e => type.sync(e.target.value)}
                 />

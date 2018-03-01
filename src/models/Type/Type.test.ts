@@ -1,5 +1,5 @@
 import create from './Type';
-import { IValue, IString, INumber } from '@root/types';
+import { IValue, IString, INumber, IObjectConfig } from '@root/types';
 import { IType, IObject, IArray } from '@root/types';
 import { toJS } from 'mobx';
 import { keys } from '../../utils';
@@ -60,21 +60,26 @@ test('create object type', () => {
                 title: 'name',
                 value: 'naguvan',
                 type: 'string'
+            },
+            age: {
+                title: 'age',
+                value: 1,
+                type: 'number'
             }
         },
         title: 'naguvan'
-    }) as IObject;
+    } as IObjectConfig) as IObject;
     expect(type.type).toBe('object');
     expect(type.title).toBe('naguvan');
-    expect(type.data).toEqual({ name: 'naguvan' });
+    expect(type.data).toEqual({ name: 'naguvan', age: 1 });
     expect(type.additionalProperties).toBeNull();
     expect(type.maxProperties).toBeNull();
     expect(type.minProperties).toBeNull();
 
     expect(type.properties).not.toBeNull();
 
-    expect(keys(toJS(type.properties!)).length).toBe(1);
-    expect(keys(toJS(type.properties!))).toEqual(['name']);
+    expect(keys(toJS(type.properties!)).length).toBe(2);
+    expect(keys(toJS(type.properties!))).toEqual(['name', 'age']);
 
     expect(type.properties!.get('name')!.title).toBe('name');
     expect(type.properties!.get('name')!.data).toBe('naguvan');
@@ -99,4 +104,53 @@ test('create array type', () => {
 
     expect(type.items).not.toBeNull();
     expect((type.items as IType)!.type).toBe('number');
+});
+
+test('test snapshot create', () => {
+    const config: IObjectConfig = {
+        title: 'snapshot',
+        type: 'object',
+        name: '',
+        mandatory: false,
+        disabled: false,
+        visible: true,
+        errors: [],
+        properties: {
+            name: {
+                title: 'name',
+                type: 'string',
+                value: '',
+                name: '',
+                mandatory: false,
+                disabled: false,
+                visible: true,
+                errors: [],
+                component: null,
+                sequence: null,
+                minLength: 3
+            },
+            age: {
+                title: 'age',
+                type: 'number',
+                value: 0,
+                default: 0,
+                initial: 0,
+                name: '',
+                mandatory: false,
+                disabled: false,
+                visible: true,
+                errors: [],
+                multipleOf: 2
+            }
+        },
+        minProperties: null,
+        maxProperties: null,
+        additionalProperties: null,
+        required: null,
+        layout: []
+    };
+
+    const type = Type.create(config) as IObject;
+    expect(type.type).toBe('object');
+    expect(type.title).toBe('snapshot');
 });

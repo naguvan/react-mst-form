@@ -16,9 +16,22 @@ import createArray from './Array';
 
 let Type: IMobxType<Partial<ITypeConfig>, IType>;
 
+const mappings: { [key: string]: IMobxType<any, any> } = {
+    number: Number,
+    string: String,
+    null: Null,
+    boolean: Boolean,
+    object: types.late('Object', createObject),
+    array: types.late('Array', createArray)
+};
+
 export default function create(): IMobxType<Partial<ITypeConfig>, IType> {
     if (!Type) {
         Type = types.union(
+            snapshot =>
+                snapshot && typeof snapshot === 'object' && 'type' in snapshot
+                    ? mappings[snapshot.type]
+                    : Null,
             String,
             Number,
             Boolean,

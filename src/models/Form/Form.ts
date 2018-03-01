@@ -77,7 +77,7 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
         get fieldErrors(): { [key: string]: Array<string> } {
             return Array.from(it.schema.properties!.entries()).reduce(
                 (values, [key, field]) => {
-                    values[key] = field.errors.slice(0);
+                    values[key] = field.errors!.slice(0);
                     return values;
                 },
                 {} as { [key: string]: Array<string> }

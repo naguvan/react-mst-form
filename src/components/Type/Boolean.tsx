@@ -27,15 +27,15 @@ export default class Boolean extends Base<
         return (
             <>
                 <FormControlLabel
-                    label={type.title}
-                    disabled={type.disabled}
+                    label={type.title!}
+                    disabled={type.disabled!}
                     control={
                         <Switch
-                            key={type.name}
-                            name={type.name}
+                            key={type.name!}
+                            name={type.name!}
                             checked={type.data}
                             color={'primary'}
-                            disabled={type.disabled}
+                            disabled={type.disabled!}
                             // tslint:disable-next-line:jsx-no-lambda
                             onChange={e => type.sync(e.target.checked)}
                         />
@@ -43,7 +43,7 @@ export default class Boolean extends Base<
                 />
                 {!type.valid && (
                     <FormHelperText error>
-                        {type.errors.join('\n')}
+                        {type.errors!.join('\n')}
                     </FormHelperText>
                 )}
             </>

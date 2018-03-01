@@ -14,6 +14,10 @@ import createType from '../../models/Type';
 
 import IconButton from 'material-ui/IconButton';
 import ActionAdd from 'material-ui-icons/Add';
+import FormLabel from 'material-ui/Form/FormLabel';
+import FormControl from 'material-ui/Form/FormControl';
+import FormControlLabel from 'material-ui/Form/FormControlLabel';
+import FormHelperText from 'material-ui/Form/FormHelperText';
 
 @observer
 export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
@@ -25,15 +29,35 @@ export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
         const Type = createType();
         return (
             <>
-                {type.types.map((item, index) => (
-                    <Fragment key={index}>
-                        {renderer(Type.create(item), form)}
-                    </Fragment>
-                ))}
-                <IconButton // tslint:disable-next-line:jsx-no-lambda
-                    onClick={e => type.add()}>
-                    <ActionAdd />
-                </IconButton>
+                <FormControl
+                    component={'fieldset'}
+                    error={!type.valid}
+                    style={{ width: '100%' }}>
+                    <FormLabel component={'legend'} style={{ paddingTop: 20 }}>
+                        {type.title}
+                    </FormLabel>
+                    {type.elements.map((element, index) => (
+                        <Fragment key={index}>
+                            {renderer(element, form)}
+                        </Fragment>
+                    ))}
+                    {type.pushable && (
+                        <IconButton
+                            style={{ float: 'right' }}
+                            onClick={
+                                // tslint:disable-next-line:jsx-no-lambda
+                                e => type.push()
+                            }>
+                            <ActionAdd />
+                        </IconButton>
+                    )}
+                    {!type.valid &&
+                        type.errors!.length > 0 && (
+                            <FormHelperText error>
+                                {type.errors!.join('\n')}
+                            </FormHelperText>
+                        )}
+                </FormControl>
             </>
         );
     }

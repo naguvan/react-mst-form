@@ -19,8 +19,8 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 'Object',
                 createValue<object | null, 'object'>(
                     'object',
-                    types.union(types.map(types.frozen), types.null),
-                    null
+                    types.map(types.frozen),
+                    {}
                 ),
                 types.model({
                     properties: types.maybe(types.map(types.late(createType))),
@@ -71,7 +71,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 },
                 get valid(): boolean {
                     return (
-                        it.errors.length === 0 &&
+                        it.errors!.length === 0 &&
                         it
                             .getProperties()
                             .every(property => it.getProperty(property)!.valid)

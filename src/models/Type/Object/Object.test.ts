@@ -78,7 +78,7 @@ test('nested object type', () => {
 });
 
 test('validate config object value', async () => {
-    const type = NObject.create({ ...config, value: null });
+    const type = NObject.create({ ...config });
     expect(type.data).toEqual({ age: 1, name: 'naguvan' });
 });
 
@@ -118,7 +118,7 @@ test('validate minProperties valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate minProperties invalid', async () => {
@@ -130,7 +130,7 @@ test('validate minProperties invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         'should NOT have less than 2 properties'
     ]);
 });
@@ -144,7 +144,7 @@ test('validate maxProperties valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate maxProperties invalid', async () => {
@@ -156,7 +156,7 @@ test('validate maxProperties invalid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         'should NOT have more than 1 properties'
     ]);
 });
@@ -186,7 +186,7 @@ test('validate required valid', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate missing required properties', async () => {
@@ -213,7 +213,7 @@ test('validate missing required properties', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         'should have required properties [age]'
     ]);
 });
@@ -237,7 +237,7 @@ test('validate allowing additionalProperties', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate not allowing additionalProperties', async () => {
@@ -259,7 +259,7 @@ test('validate not allowing additionalProperties', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         `should NOT have additional properties [city, country]`
     ]);
 });
@@ -286,7 +286,7 @@ test('validate additionalProperties allowed types', async () => {
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('validate additionalProperties not allowed types', async () => {
@@ -311,7 +311,7 @@ test('validate additionalProperties not allowed types', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors.slice(0)).toEqual([
+    expect(type.errors!.slice(0)).toEqual([
         `additional property 'city' is not a number`,
         `additional property 'country' is not a number`
     ]);
@@ -337,7 +337,7 @@ test('validate additionalProperties allowed types with valid format', async () =
     await type.validate();
 
     expect(type.valid).toBe(true);
-    expect(type.errors.slice(0)).toEqual([]);
+    expect(type.errors!.slice(0)).toEqual([]);
 });
 
 test('get configured property', async () => {

@@ -33,10 +33,10 @@ export type IFormat =
     | null;
 
 export interface IStringAttrs extends IValueAttrs<string> {
-    readonly minLength?: number;
-    readonly maxLength?: number;
-    readonly pattern?: string;
-    readonly format?: IFormat;
+    readonly minLength?: number | null;
+    readonly maxLength?: number | null;
+    readonly pattern?: string | null;
+    readonly format?: IFormat | null;
 }
 
 export interface IStringConfig

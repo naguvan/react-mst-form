@@ -31,11 +31,46 @@ import createMuiTheme from 'material-ui/styles/createMuiTheme';
 
 import { Form } from './src';
 
-const config =  {
+const config = {
     title: 'Test Form',
     schema: {
         type: 'object',
         properties: {
+            name: {
+                type: 'object',
+                properties: {
+                    first: {
+                        type: 'string',
+                        title: 'First',
+                        value: 'naguvan',
+                        minLength: 5,
+                        sequence: 1
+                    },
+                    middle: {
+                        type: 'string',
+                        title: 'Middle',
+                        value: 'sk',
+                        minLength: 5,
+                        sequence: 1
+                    },
+                    last: {
+                        type: 'string',
+                        title: 'Last',
+                        value: 'sk',
+                        minLength: 5,
+                        sequence: 2
+                    },
+                    age: {
+                        type: 'number',
+                        title: 'Age',
+                        value: 5,
+                        sequence: 2,
+                        maximum: 10,
+                        minimum: 3
+                    }
+                },
+                layout: [['first', 'last'], 'middle', 'age']
+            },
             title: {
                 type: 'string',
                 title: 'Title',
@@ -77,17 +112,39 @@ const config =  {
                 title: 'I agree with your terms',
                 value: false,
                 const: true
+            },
+            array: {
+                type: 'array',
+                title: 'Array',
+                items: {
+                    type: 'object',
+                    properties: {
+                        name: {
+                            type: 'string',
+                            title: 'name',
+                            minLength: 3
+                        },
+                        age: {
+                            type: 'number',
+                            title: 'age',
+                            multipleOf: 2,
+                            minimum: 2
+                        }
+                    }
+                },
+                minItems: 2,
+                maxItems: 4
             }
         }
     },
     sections: [
         {
             title: 'Basic',
-            layout: ['title', ['size', 'color'], 'type', 'agree']
+            layout: ['name', 'title', ['size', 'color']]
         },
         {
             title: 'Others',
-            layout: ['ipv4', 'type', 'agree']
+            layout: ['ipv4', 'type', 'agree', 'array']
         }
     ]
 };
@@ -111,7 +168,6 @@ render(
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
 ![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/demo/sections.png)
-
 
 And when the form has validation errors..
 

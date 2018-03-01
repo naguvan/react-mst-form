@@ -7,18 +7,18 @@ export interface IArrayAttrs extends IValueAttrs<Array<Object | null>> {
     readonly minItems?: number | null;
     readonly maxItems?: number | null;
     readonly uniqueItems?: boolean | null;
+    readonly items?: ITypeConfig | Array<ITypeConfig> | null;
 }
 
 export interface IArrayConfig
     extends IValueConfig<Array<Object | null>, 'array'>,
         Partial<IArrayAttrs> {
-    readonly items?: ITypeConfig | Array<ITypeConfig> | null;
 }
 
 export interface IArray
     extends IArrayAttrs,
         IValue<Array<Object | null>, 'array'> {
-    readonly items?: IType | Array<IType> | null;
-    readonly types: Array<ITypeConfig>;
-    add(): void;
+    readonly elements: Array<IType>;
+    push(): Promise<void>;
+    readonly pushable: boolean;
 }

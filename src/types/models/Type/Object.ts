@@ -4,17 +4,17 @@ import { IType, ITypeConfig } from './Type';
 import { IFormLayout } from '../Form';
 
 export interface IObjectAttrs extends IValueAttrs<object | null> {
-    readonly required?: Array<string>;
-    readonly minProperties?: number;
-    readonly maxProperties?: number;
-    readonly layout?: IFormLayout;
+    readonly required?: Array<string> | null;
+    readonly minProperties?: number | null;
+    readonly maxProperties?: number | null;
+    readonly layout?: IFormLayout | null;
 }
 
 export interface IObjectConfig
     extends IValueConfig<object | null, 'object'>,
         Partial<IObjectAttrs> {
     readonly properties?: { [key: string]: ITypeConfig };
-    readonly additionalProperties?: boolean | ITypeConfig;
+    readonly additionalProperties?: boolean | ITypeConfig | null;
 }
 
 export interface IObject extends IObjectAttrs, IValue<object | null, 'object'> {

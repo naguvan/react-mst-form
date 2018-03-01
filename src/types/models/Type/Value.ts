@@ -1,16 +1,18 @@
 export interface IValueAttrs<V> {
     readonly title?: string | null;
-    readonly value: V;
-    readonly default?: V;
-    readonly name: string;
-    readonly disabled: boolean;
-    readonly visible: boolean;
-    readonly mandatory: boolean;
+    readonly value: V | null;
+    readonly default?: V | null;
+    readonly initial?: V | null;
+    readonly name: string | null;
+    readonly disabled: boolean | null;
+    readonly visible: boolean | null;
+    readonly mandatory: boolean | null;
     readonly enum?: Array<V> | null;
     readonly const?: V | null;
     readonly options?: Array<{ label: string; value: V }> | null;
     readonly component?: string | null;
     readonly sequence?: number | null;
+    readonly errors?: Array<string> | null;
 }
 
 export interface IValueConfig<V, T> extends Partial<IValueAttrs<V>> {
@@ -23,8 +25,8 @@ export interface IValue<V, T> extends IValueAttrs<V> {
     readonly validating: boolean;
     readonly syncing: boolean;
     readonly valid: boolean;
-    readonly errors: Array<string>;
-    readonly initial: V;
+    // readonly errors: Array<string>;
+    // readonly initial: V;
     readonly data: V;
     setValue(value: V): void;
     setName(name: string): void;
