@@ -10,8 +10,11 @@ import withStyles from 'material-ui/styles/withStyles';
 import * as classNames from 'classnames';
 
 import { Form, IFormConfig } from '@root/index';
+import Flex from '@root/components/Flex';
 
 import Paper from 'material-ui/Paper';
+import TextField from 'material-ui/TextField';
+import Button from 'material-ui/Button';
 
 const config: IFormConfig = {
     title: 'Test Form',
@@ -131,10 +134,12 @@ const config: IFormConfig = {
     ]
 };
 
+import Schema from './Schema';
+
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     constructor(props: IAppProps & IAppStyleProps, context: {}) {
         super(props, context);
-        this.state = { width: 'auto', height: 'auto' };
+        this.state = { width: '100%', height: '100%', config };
     }
 
     containers: Array<HTMLDivElement> = [];
@@ -179,12 +184,12 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
         const width = `${Math.max(...widths)}px`;
         const height = `${Math.max(...heights)}px`;
 
-        this.setState(() => ({ width, height }));
+        // this.setState(() => ({ width, height }));
     }
 
     public render(): ReactNode {
         const { className, classes, style } = this.props;
-        const { width, height } = this.state;
+        const { width, height, config } = this.state;
         const root: string = classNames(classes!.root, className);
         return (
             <div className={root} style={style}>
@@ -192,20 +197,46 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
                     className={classes.container}
                     style={{ width, height }}
                     ref={this.addContainer}>
-                    <h1>Form</h1>
-                    <Paper square elevation={3} className={classes.paper}>
-                        <Form
-                            config={config}
-                            onSubmit={this.onSubmit}
-                            onErrors={this.onErrors}
-                            onPatch={this.onPatch}
-                            onSnapshot={this.onSnapshot}
-                        />
-                    </Paper>
+                    <Flex.Set
+                        direction={'row'}
+                        style={{ justifyContent: 'space-around' }}>
+                        <Flex.Item
+                            style={{
+                                flexDirection: 'column',
+                                flex: 0,
+                                minWidth: 400
+                            }}>
+                            <Schema config={config} onConfig={this.onConfig} />
+                        </Flex.Item>
+                        <Flex.Item
+                            style={{
+                                flexDirection: 'column',
+                                flex: 0,
+                                minWidth: 400
+                            }}>
+                            <h1>Form</h1>
+                            <Paper
+                                square
+                                elevation={3}
+                                className={classes.paper}>
+                                <Form
+                                    config={config}
+                                    onSubmit={this.onSubmit}
+                                    onErrors={this.onErrors}
+                                    onPatch={this.onPatch}
+                                    onSnapshot={this.onSnapshot}
+                                />
+                            </Paper>
+                        </Flex.Item>
+                    </Flex.Set>
                 </div>
             </div>
         );
     }
+
+    private onConfig = (config: IFormConfig) => {
+        this.setState(() => ({ config }));
+    };
 
     private onSubmit = (values: { [key: string]: any }) => {
         console.info(values);

@@ -1,4 +1,5 @@
 import { WithStyles } from 'material-ui';
+import { IFormConfig } from '@root/types';
 
 export interface IAppStyles {
     root: React.CSSProperties;
@@ -18,4 +19,5 @@ export interface IAppProps {
 export interface IAppStates {
     width: string;
     height: string;
+    config: IFormConfig;
 }

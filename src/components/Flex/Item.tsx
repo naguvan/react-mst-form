@@ -39,10 +39,12 @@ export default withStyles<keyof IFlexItemStyles>({
         marginLeft: 0,
         marginRight: 0,
         marginBottom: 0,
-        flex: '1 1'
+        flex: '1 1',
+        display: 'flex'
     },
     center: {
         height: '100%',
+        width: '100%',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

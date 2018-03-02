@@ -49,16 +49,28 @@ export interface IFormStates {
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     constructor(props: IFormProps & IFormStyleProps, context: any) {
         super(props, context);
+        const form = Form.getForm(props);
+        this.state = { form };
+    }
+
+    static getForm(props: Readonly<IFormProps & IFormStyleProps>): IForm {
         const { config, onPatch: _onPatch, onSnapshot: _onSnapshot } = props;
         const form = FormModel.create(config);
-        this.state = { form };
-
         if (_onSnapshot) {
             onSnapshot(form, snapshot => _onSnapshot(snapshot));
         }
         if (_onPatch) {
             onPatch(form, patch => _onPatch(patch));
         }
+        return form;
+    }
+
+    componentWillReceiveProps(
+        nextProps: Readonly<IFormProps & IFormStyleProps>,
+        nextContext: any
+    ): void {
+        const form = Form.getForm(nextProps);
+        this.setState(() => ({ form }));
     }
 
     public render(): ReactNode {
