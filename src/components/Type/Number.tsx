@@ -35,7 +35,7 @@ export default class Number extends Base<INumber, INumberProps, INumberStates> {
                     disabled={type.disabled!}
                     error={!type.valid}
                     label={type.title!}
-                    helperText={type.errors!.join('\n')}
+                    helperText={type.errors!.join(', ')}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e =>
                         type.sync(toNumber(e.target.value, type.value!))

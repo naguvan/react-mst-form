@@ -46,33 +46,17 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
                     } not configured.`
                 );
             }
-
-            for (const [key, field] of it.schema.properties!.entries()) {
-                field.setName(key);
-            }
-
-            // if (!hasParent(it)) {
-            //     unprotect(it);
-            // }
         }
     }))
     .views(it => ({
         get fields(): Array<IType> {
-            return Array.from(it.schema.properties!.values());
+            return it.schema.fields;
         },
         get values(): { [key: string]: any } {
-            return Array.from(it.schema.properties!.entries()).reduce(
-                (values, [key, field]) => {
-                    values[key] = field.data;
-                    return values;
-                },
-                {} as {
-                    [key: string]: any;
-                }
-            );
+            return it.schema.data!;
         },
         get(key: string): IType | undefined {
-            return it.schema.properties!.get(key);
+            return it.schema.getProperty(key);
         },
         get fieldErrors(): { [key: string]: Array<string> } {
             return Array.from(it.schema.properties!.entries()).reduce(
@@ -86,28 +70,26 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
     }))
     .views(it => ({
         get valid(): boolean {
-            return it.fields.every(field => field.valid);
+            return it.schema.valid;
         },
         get modified(): boolean {
-            return it.fields.some(field => field.modified);
+            return it.schema.modified;
         },
         get validating(): boolean {
-            return it._validating || it.fields.some(field => field.validating);
+            return it._validating || it.schema.validating;
         }
     }))
     .actions(it => ({
         reset(): void {
             it.errors.length = 0;
-            it.fields.forEach(field => field.reset());
+            it.schema.reset();
         },
         validate: flow<void>(function*() {
             if (it.validating) {
                 return [];
             }
             it._validating = true;
-            for (const field of it.fields) {
-                yield field.validate();
-            }
+            yield it.schema.validate();
             it._validating = false;
         })
     }));

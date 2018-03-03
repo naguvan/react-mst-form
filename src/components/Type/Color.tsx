@@ -30,7 +30,7 @@ export default class Color extends Base<IString, IStringProps, IStringStates> {
                     disabled={type.disabled!}
                     error={!type.valid}
                     label={type.title}
-                    helperText={type.errors!.join('\n')!}
+                    helperText={type.errors!.join(', ')!}
                     // tslint:disable-next-line:jsx-no-lambda
                     onChange={e => type.sync(e.target.value)}
                 />

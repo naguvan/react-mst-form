@@ -19,6 +19,7 @@ export interface IArray
     extends IArrayAttrs,
         IValue<Array<Object | null>, 'array'> {
     readonly elements: Array<IType>;
+    readonly dynamic: boolean;
     push(): Promise<void>;
-    readonly pushable: boolean;
+    remove(index: number): Promise<void>;
 }

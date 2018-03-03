@@ -20,6 +20,8 @@ export interface IObjectConfig
 export interface IObject extends IObjectAttrs, IValue<object | null, 'object'> {
     readonly properties?: ReadonlyMap<string, IType> | null;
     readonly additionalProperties?: boolean | IType | null;
+    readonly fields: Array<IType>;
+    readonly modified: boolean;
     getProperty(property: string): IType | undefined;
     getProperties(): Array<string>;
 }

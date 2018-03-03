@@ -43,7 +43,7 @@ export default class Boolean extends Base<
                 />
                 {!type.valid && (
                     <FormHelperText error>
-                        {type.errors!.join('\n')}
+                        {type.errors!.join(', ')}
                     </FormHelperText>
                 )}
             </>

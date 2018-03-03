@@ -76,6 +76,9 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             .getProperties()
                             .every(property => it.getProperty(property)!.valid)
                     );
+                },
+                get fields(): Array<IType> {
+                    return Array.from(it.properties!.values());
                 }
             }))
             .actions(it => ({
@@ -97,6 +100,22 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                         throw new TypeError(
                             `required should not have duplicate properties`
                         );
+                    }
+
+                    for (const [key, field] of it.properties!.entries()) {
+                        field.setName(key);
+                        if (!field.title) {
+                            field.setTitle(key);
+                        }
+                    }
+
+                    if (it.required !== null) {
+                        for (const required of it.required) {
+                            const property = it.getProperty(required);
+                            if (property) {
+                                property.setMandatory(true);
+                            }
+                        }
                     }
                 }
             }))
@@ -160,19 +179,20 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             } properties`
                         );
                     }
-                    if (it.required !== null) {
-                        const actuals = it.getActuals(value);
-                        const requireds = it.required.filter(
-                            required => !actuals.includes(required)
-                        );
-                        if (requireds.length > 0) {
-                            errors.push(
-                                `should have required properties [${requireds.join(
-                                    ', '
-                                )}]`
-                            );
-                        }
-                    }
+                    // required is handled in respective fields
+                    // if (it.required !== null) {
+                    //     const actuals = it.getActuals(value);
+                    //     const requireds = it.required.filter(
+                    //         required => !actuals.includes(required)
+                    //     );
+                    //     if (requireds.length > 0) {
+                    //         errors.push(
+                    //             `should have required properties [${requireds.join(
+                    //                 ', '
+                    //             )}]`
+                    //         );
+                    //     }
+                    // }
                     if (
                         it.additionalProperties !== null &&
                         typeof toJS(it.additionalProperties) === 'boolean'
@@ -202,10 +222,14 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             }
                         });
                     }
+                },
+                reset(): void {
+                    it.errors!.length = 0;
+                    it.fields.forEach(field => field.reset());
                 }
             }))
             .views(it => ({
-                get data(): object | null {
+                get data(): object {
                     const properties = it.getProperties();
                     return properties.reduce(
                         (data: any, key: string) => {
@@ -217,7 +241,17 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             ...toJS(it.value || {})
                         }
                     );
+                },
+                get modified(): boolean {
+                    return it.fields.some(field => field.modified);
                 }
+                // ,
+                // get validating(): boolean {
+                //     return (
+                //         it.validating ||
+                //         it.fields.some(field => field.validating)
+                //     );
+                // }
             }));
 
         NObject = Object as any;

@@ -14,6 +14,7 @@ import createType from '../../models/Type';
 
 import IconButton from 'material-ui/IconButton';
 import ActionAdd from 'material-ui-icons/Add';
+import ActionClear from 'material-ui-icons/Clear';
 import FormLabel from 'material-ui/Form/FormLabel';
 import FormControl from 'material-ui/Form/FormControl';
 import FormControlLabel from 'material-ui/Form/FormControlLabel';
@@ -38,10 +39,24 @@ export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
                     </FormLabel>
                     {type.elements.map((element, index) => (
                         <Fragment key={index}>
+                            {type.dynamic && (
+                                <IconButton
+                                    style={{
+                                        float: 'right',
+                                        marginTop: 10,
+                                        marginBottom: -10
+                                    }}
+                                    onClick={
+                                        // tslint:disable-next-line:jsx-no-lambda
+                                        e => type.remove(index)
+                                    }>
+                                    <ActionClear />
+                                </IconButton>
+                            )}
                             {renderer(element, form)}
                         </Fragment>
                     ))}
-                    {type.pushable && (
+                    {type.dynamic && (
                         <IconButton
                             style={{ float: 'right' }}
                             onClick={
@@ -54,7 +69,7 @@ export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
                     {!type.valid &&
                         type.errors!.length > 0 && (
                             <FormHelperText error>
-                                {type.errors!.join('\n')}
+                                {type.errors!.join(', ')}
                             </FormHelperText>
                         )}
                 </FormControl>

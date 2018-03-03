@@ -36,7 +36,7 @@ export default class NObject extends Base<
                 {!type.valid &&
                     type.errors!.length > 0 && (
                         <FormHelperText error>
-                            {type.errors!.join('\n')}
+                            {type.errors!.join(', ')}
                         </FormHelperText>
                     )}
             </>

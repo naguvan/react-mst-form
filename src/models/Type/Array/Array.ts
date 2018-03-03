@@ -1,5 +1,5 @@
 import { IModelType, types, unprotect, ISimpleType } from 'mobx-state-tree';
-import { getParent, hasParent, clone } from 'mobx-state-tree';
+import { getParent, hasParent, destroy, detach, clone } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
@@ -41,16 +41,20 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                 })
             )
             .views(it => ({
-                get pushable() {
+                get dynamic() {
                     return !isArray(it.items);
                 }
             }))
             .actions(it => ({
-                updateIndexValue(index: number, value: Object | null) {
+                updateIndexValue(index: number, value: Object | null): void {
                     // const values = [...it.value];
                     // values[index] = value;
                     // it.setValue(values);
                     it.value![index] = value;
+                },
+
+                removeIndexValue(index: number): void {
+                    it.value!.splice(index, 1);
                 }
             }))
             .actions(it => ({
@@ -109,11 +113,21 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                 },
 
                 async push(): Promise<void> {
-                    if (it.pushable) {
+                    if (it.dynamic) {
                         const value = (it.items as IType).default!;
                         const index = it.value!.length;
                         it.updateIndexValue(index, value);
                         it.elements.push(it.getConfig(value, index, it.items));
+                        await it.validate();
+                    }
+                },
+
+                async remove(index: number): Promise<void> {
+                    if (it.dynamic) {
+                        it.removeIndexValue(index);
+                        const element = it.elements![index];
+                        detach(element as any);
+                        // it.elements.splice(index, 1);
                         await it.validate();
                     }
                 }
