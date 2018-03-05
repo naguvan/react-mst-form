@@ -1,6 +1,6 @@
 {
     "name": "react-mst-form",
-    "version": "1.0.1",
+    "version": "1.0.3",
     "description": "react-mobx-state-tree-form",
     "main": "./dist/index.js",
     "typings": "./dist/index",
@@ -65,7 +65,6 @@
     },
     "scripts": {
         "prepublish": "yarn run lint && yarn run test && yarn run prod",
-        "build": "tsc -p .",
         "lint": "tslint -p .",
         "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
         "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",

@@ -213,9 +213,8 @@ test('validate missing required properties', async () => {
     await type.validate();
 
     expect(type.valid).toBe(false);
-    expect(type.errors!.slice(0)).toEqual([
-        'should have required properties [age]'
-    ]);
+    expect(type.errors!.slice(0)).toEqual([]);
+     expect(type.getProperty('age')!.errors!.slice(0)).toEqual(['Field is required']);
 });
 
 test('validate allowing additionalProperties', async () => {

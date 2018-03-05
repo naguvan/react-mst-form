@@ -234,6 +234,15 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                         it.errors!.length === 0 &&
                         it.elements.every(element => element!.valid)
                     );
+                },
+                get modified(): boolean {
+                    return it.elements.some(element => element.modified);
+                },
+                get validating(): boolean {
+                    return (
+                        (it as any)._validating ||
+                        it.elements.some(element => element.validating)
+                    );
                 }
             }));
 

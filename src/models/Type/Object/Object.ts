@@ -251,14 +251,13 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 },
                 get modified(): boolean {
                     return it.fields.some(field => field.modified);
+                },
+                get validating(): boolean {
+                    return (
+                        (it as any)._validating ||
+                        it.fields.some(field => field.validating)
+                    );
                 }
-                // ,
-                // get validating(): boolean {
-                //     return (
-                //         it.validating ||
-                //         it.fields.some(field => field.validating)
-                //     );
-                // }
             }));
 
         NObject = Object as any;

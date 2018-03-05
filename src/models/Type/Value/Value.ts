@@ -27,7 +27,7 @@ export function create<V, T>(type: T, kind: ISimpleType<V>, defaultv: V) {
             component: types.maybe(types.string),
             sequence: types.maybe(types.number)
         })
-        .volatile(it => ({ validating: false, syncing: false }))
+        .volatile(it => ({ _validating: false, syncing: false }))
         .actions(it => ({
             afterCreate() {
                 if (it.name === '' && it.title) {
@@ -139,6 +139,9 @@ export function create<V, T>(type: T, kind: ISimpleType<V>, defaultv: V) {
             },
             get data(): V {
                 return toJS(it.value);
+            },
+            get validating(): boolean {
+                return it._validating;
             }
         }))
         .actions(it => ({
@@ -151,9 +154,9 @@ export function create<V, T>(type: T, kind: ISimpleType<V>, defaultv: V) {
                     return [];
                 }
                 it.clearErrors();
-                it.validating = true;
+                it._validating = true;
                 it.addErrors(yield it.tryValidate(it.value));
-                it.validating = false;
+                it._validating = false;
             })
         }))
         .actions(it => ({
