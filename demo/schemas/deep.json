@@ -23,6 +23,14 @@
                     }
                 }
             }
+        },
+        "value": {
+            "friends": [
+                {
+                    "nick": "sk",
+                    "animals": ["cow", "dog", "cat"]
+                }
+            ]
         }
     },
     "layout": ["friends"]

@@ -3,6 +3,16 @@
     "schema": {
         "type": "object",
         "title": "Comment",
+        "value": {
+            "comments": [
+                {
+                    "name": "sk",
+                    "email": "sk@sk.com",
+                    "spam": true,
+                    "comment": "skskskks"
+                }
+            ]
+        },
         "required": ["comments"],
         "properties": {
             "comments": {

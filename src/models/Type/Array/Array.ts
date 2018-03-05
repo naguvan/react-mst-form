@@ -87,7 +87,7 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                 }
             }))
             .actions(it => ({
-                updateConfigs(values: Array<Object | null> | null) {
+                updateElements(values: Array<Object | null> | null) {
                     if (values != null && it.items !== null) {
                         it.elements.length = 0;
                         if (!isArray(it.items)) {
@@ -140,7 +140,7 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                     if (it.maxItems !== null && it.maxItems < 0) {
                         throw new TypeError(`maxItems can not be negative`);
                     }
-                    it.updateConfigs(it.value);
+                    it.updateElements(toJS(it.value));
                 }
             }))
             .actions(it => ({
@@ -216,7 +216,7 @@ export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
                     //         (element as any).setValue(value[index]);
                     //     }
                     // }
-                    it.updateConfigs(value);
+                    it.updateElements(toJS(value));
                 }
             }))
             .views(it => ({

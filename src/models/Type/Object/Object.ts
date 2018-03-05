@@ -33,6 +33,20 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     layout: types.optional(types.frozen, [])
                 })
             )
+            .actions(it => ({
+                updateProps(value: object | null) {
+                    if (value) {
+                        keys(value).forEach(key => {
+                            const type = it.properties!.get(key);
+                            if (type) {
+                                return (type as any).setValue(
+                                    (value as any)[key]
+                                );
+                            }
+                        });
+                    }
+                }
+            }))
             .volatile(it => ({
                 getActuals(value: IMap<string, object> | null): Array<string> {
                     if (value === null) {
@@ -117,6 +131,8 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                             }
                         }
                     }
+
+                    it.updateProps(toJS(it.value));
                 }
             }))
             .actions(it => ({
@@ -212,16 +228,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 },
                 setValue(value: object | null): void {
                     (it as any).value = value;
-                    if (value) {
-                        keys(value).forEach(key => {
-                            const type = it.properties!.get(key);
-                            if (type) {
-                                return (type as any).setValue(
-                                    (value as any)[key]
-                                );
-                            }
-                        });
-                    }
+                    it.updateProps(toJS(value));
                 },
                 reset(): void {
                     it.errors!.length = 0;
