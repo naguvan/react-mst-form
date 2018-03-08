@@ -1,11 +1,13 @@
 import * as path from 'path';
 import * as webpack from 'webpack';
+import { Configuration } from 'webpack';
 
 export default function configure(env: any): Array<webpack.Configuration> {
     const isDevBuild: boolean = !(env && env.prod);
-    const mode: string = process.env.NODE_ENV || 'development';
+    const mode: Configuration['mode'] =
+        (process.env.NODE_ENV as Configuration['mode']) || 'development';
     const clientBundleOutputDir: string = './'; // './dist';
-    const clientBundleConfig: webpack.Configuration & { mode: string } = {
+    const clientBundleConfig: webpack.Configuration = {
         mode,
         stats: { modules: false },
         resolve: {
@@ -71,7 +73,7 @@ export default function configure(env: any): Array<webpack.Configuration> {
                 'process.env': {},
                 'process.env.NODE_ENV': JSON.stringify(mode),
                 __DEV__: mode === 'development',
-                __TEST__: mode === 'test'
+                __TEST__: (mode as any) === 'test'
             }) // prod
         ]
     };
