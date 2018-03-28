@@ -3,7 +3,7 @@ import { Component, ReactNode } from 'react';
 
 import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 import 'tslib';
 

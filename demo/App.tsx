@@ -7,7 +7,7 @@ import { IAppStyleProps, IAppStyles } from './types';
 
 import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 import { Form, IFormConfig } from '@root/index';
 import Flex from '@root/components/Flex';

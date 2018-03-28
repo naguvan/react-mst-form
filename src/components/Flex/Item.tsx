@@ -6,7 +6,7 @@ import { IFlexItemStyleProps, IFlexItemStyles } from '@root/types';
 
 import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 export class Item extends Component<
     IFlexItemProps & IFlexItemStyleProps,

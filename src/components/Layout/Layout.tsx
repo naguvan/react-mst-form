@@ -6,7 +6,7 @@ import { ILayoutStyleProps, ILayoutStyles } from '@root/types';
 
 import { WithStyles, StyledComponentProps } from 'material-ui';
 import withStyles from 'material-ui/styles/withStyles';
-import * as classNames from 'classnames';
+import classNames from 'classnames';
 
 import Set from './Set';
 import { arrange } from './Config';

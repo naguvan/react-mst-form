@@ -1,6 +1,7 @@
 .vscode/
 node_modules/
 build
+lib
 .DS_Store
 *.tgz
 npm-debug.log*
