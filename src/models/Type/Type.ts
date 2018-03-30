@@ -1,4 +1,4 @@
-import { types, IModelType, IType as IMobxType } from 'mobx-state-tree';
+import { types, IModelType, IComplexType as IMobxType } from 'mobx-state-tree';
 
 import { IType, ITypeConfig } from '@root/types';
 import { IBoolean, IBooleanConfig } from '@root/types';

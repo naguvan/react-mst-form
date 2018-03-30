@@ -3,9 +3,9 @@ import { getParent, hasParent } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IMap, toJS } from 'mobx';
+import { toJS } from 'mobx';
 
-import { IObjectConfig, IObject, IType } from '@root/types';
+import { IObjectConfig, IObject, IType, ITypeConfig } from '@root/types';
 import createValue from '../Value';
 import { keys, unique } from '../../../utils';
 import createType from '../Type';
@@ -23,7 +23,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     {}
                 ),
                 types.model({
-                    properties: types.maybe(types.map(types.late(createType))),
+                    properties: types.maybe(types.map<any, IType>(types.late(createType))),
                     minProperties: types.maybe(types.number),
                     maxProperties: types.maybe(types.number),
                     additionalProperties: types.maybe(
@@ -48,7 +48,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 }
             }))
             .volatile(it => ({
-                getActuals(value: IMap<string, object> | null): Array<string> {
+                getActuals(value: Map<string, object> | null): Array<string> {
                     if (value === null) {
                         return [];
                     }
@@ -59,7 +59,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
             }))
             .volatile(it => ({
                 getAdditionals(
-                    value: IMap<string, object> | null
+                    value: Map<string, object> | null
                 ): Array<string> {
                     return it
                         .getActuals(value)
@@ -68,14 +68,14 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
 
                 getProperties(): Array<string> {
                     if (it.properties) {
-                        return it.properties.keys().slice(0);
+                        return Array.from(it.properties.keys()).slice(0);
                     }
                     return [];
                 },
 
                 getProperty(property: string): IType | undefined {
                     return it.properties !== null
-                        ? it.properties!.get(property)
+                        ? it.properties!.get(property) as IType
                         : undefined;
                 }
             }))
@@ -92,7 +92,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     );
                 },
                 get fields(): Array<IType> {
-                    return Array.from(it.properties!.values());
+                    return Array.from(it.properties!.values()) as Array<IType>;
                 }
             }))
             .actions(it => ({
@@ -137,7 +137,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
             }))
             .actions(it => ({
                 async asyncValidate(
-                    value: IMap<string, object> | null
+                    value: Map<string, object> | null
                 ): Promise<Array<string>> {
                     const errors = await it.asyncValidateBase(value);
                     if (
@@ -168,9 +168,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                     }
                     return errors;
                 },
-                syncValidate(
-                    value: IMap<string, object> | null
-                ): Array<string> {
+                syncValidate(value: Map<string, object> | null): Array<string> {
                     const errors: Array<string> = it.syncValidateBase(value);
                     if (value === null) {
                         return errors;

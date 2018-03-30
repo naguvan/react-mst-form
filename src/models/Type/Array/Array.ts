@@ -3,7 +3,7 @@ import { getParent, hasParent, destroy, detach, clone } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IMap, toJS, observe } from 'mobx';
+import { toJS, observe } from 'mobx';
 
 import { IArrayConfig, IArray, IType, ITypeConfig } from '@root/types';
 import createValue from '../Value';
