@@ -1,4 +1,4 @@
-declare module 'jss';
+/*declare module 'jss';*/
 
 declare module 'jss-preset-default';
 

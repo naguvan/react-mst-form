@@ -1,5 +1,5 @@
 /// <reference types="react" />
-import { WithStyles } from 'material-ui';
+import { WithStyles } from '@material-ui/core';
 export interface IAppStyles {
     root: React.CSSProperties;
     container: React.CSSProperties;

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react';
 
-import { WithStyles } from 'material-ui';
+import { WithStyles } from '@material-ui/core';
 
 export interface ILayoutItem<T> {
     value: T;

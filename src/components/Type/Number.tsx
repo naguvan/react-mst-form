@@ -8,8 +8,8 @@ import { observer } from 'mobx-react';
 
 import Base from './Base';
 
-import TextField from 'material-ui/TextField';
-import MenuItem from 'material-ui/Menu/MenuItem';
+import TextField from '@material-ui/core/TextField';
+import MenuItem from '@material-ui/core/MenuItem';
 
 import { toNumber } from '@root/utils';
 

@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { WithStyles } from 'material-ui';
+import { WithStyles } from '@material-ui/core';
 
 import { IForm } from '../models/Form';
 import { IType } from '../models/Type';

@@ -5,7 +5,7 @@ import { IForm, ISubmitProps, ISubmitStates } from '@root/types';
 
 import { observer } from 'mobx-react';
 
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 
 @observer
 export default class Submit extends Component<ISubmitProps, ISubmitStates> {

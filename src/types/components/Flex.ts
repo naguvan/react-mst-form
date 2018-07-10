@@ -1,4 +1,4 @@
-import { WithStyles } from 'material-ui';
+import { WithStyles } from '@material-ui/core';
 
 export interface IFlexItemStyles {
     root: React.CSSProperties;

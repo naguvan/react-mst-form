@@ -8,7 +8,7 @@ import { observer } from 'mobx-react';
 
 import Base from './Base';
 
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 
 @observer
 export default class Color extends Base<IString, IStringProps, IStringStates> {

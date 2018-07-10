@@ -5,16 +5,16 @@ import { findDOMNode } from 'react-dom';
 import { ISchemaProps, ISchemaStates } from './types';
 import { ISchemaStyleProps, ISchemaStyles } from './types';
 
-import { WithStyles, StyledComponentProps } from 'material-ui';
-import withStyles from 'material-ui/styles/withStyles';
+import { WithStyles, StyledComponentProps } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
 import { Form, IFormConfig } from '@root/index';
 import Flex from '@root/components/Flex';
 
-import Paper from 'material-ui/Paper';
-import TextField from 'material-ui/TextField';
-import Button from 'material-ui/Button';
+import Paper from '@material-ui/core/Paper';
+import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 
 export class Schema extends Component<
     ISchemaProps & ISchemaStyleProps,

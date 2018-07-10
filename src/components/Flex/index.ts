@@ -1,6 +1,6 @@
 import { ComponentClass, StatelessComponent } from 'react';
-import { WithStyles, StyledComponentProps } from 'material-ui';
-import { IFlexItemProps, IFlexSetProps } from '@root/types';
+import { WithStyles, StyledComponentProps } from '@material-ui/core';
+import { IFlexItemProps, IFlexSetStyleProps, IFlexItemStyleProps, IFlexSetProps } from '@root/types';
 
 import Set from './Set';
 

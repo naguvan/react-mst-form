@@ -5,11 +5,12 @@ import { observer } from 'mobx-react';
 import { IForm, IFormProps, IFormStates, IFormSection } from '@root/types';
 import { IFormStyleProps, IFormStyles, IFormLayout } from '@root/types';
 
-import { WithStyles, StyledComponentProps } from 'material-ui';
-import withStyles from 'material-ui/styles/withStyles';
+import { WithStyles, StyledComponentProps } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
-import Tabs, { Tab } from 'material-ui/Tabs';
+import Tabs from '@material-ui/core/Tabs';
+import Tab from '@material-ui/core/Tab';
 import Object from '../Type/Object';
 
 @observer

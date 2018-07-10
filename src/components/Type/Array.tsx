@@ -12,13 +12,13 @@ import { renderer } from './renderer';
 
 import createType from '../../models/Type';
 
-import IconButton from 'material-ui/IconButton';
-import ActionAdd from 'material-ui-icons/Add';
-import ActionClear from 'material-ui-icons/Clear';
-import FormLabel from 'material-ui/Form/FormLabel';
-import FormControl from 'material-ui/Form/FormControl';
-import FormControlLabel from 'material-ui/Form/FormControlLabel';
-import FormHelperText from 'material-ui/Form/FormHelperText';
+import IconButton from '@material-ui/core/IconButton';
+import ActionAdd from '@material-ui/icons/Add';
+import ActionClear from '@material-ui/icons/Clear';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 @observer
 export default class Array extends Base<IArray, IArrayProps, IArrayStates> {

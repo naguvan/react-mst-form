@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { WithStyles, StyledComponentProps } from 'material-ui';
-import withStyles from 'material-ui/styles/withStyles';
+import { WithStyles, StyledComponentProps } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
 import 'tslib';

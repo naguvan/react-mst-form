@@ -8,8 +8,8 @@ import { observer } from 'mobx-react';
 
 import Base from './Base';
 
-import FormControlLabel from 'material-ui/Form/FormControlLabel';
-import FormHelperText from 'material-ui/Form/FormHelperText';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormHelperText from '@material-ui/core/FormHelperText';
 
 import { renderer } from './renderer';
 import Layout from '../Layout';

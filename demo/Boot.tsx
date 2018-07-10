@@ -6,12 +6,12 @@ import preset from 'jss-preset-default';
 import JssProvider from 'react-jss/lib/JssProvider';
 
 import App from './App';
-import { Theme } from 'material-ui/styles';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import createMuiTheme from 'material-ui/styles/createMuiTheme';
-import createGenerateClassName from 'material-ui/styles/createGenerateClassName';
+import { Theme } from '@material-ui/core/styles';
+import MuiThemeProvider from '@material-ui/core/styles/MuiThemeProvider';
+import createMuiTheme from '@material-ui/core/styles/createMuiTheme';
+import createGenerateClassName from '@material-ui/core/styles/createGenerateClassName';
 
-import Reboot from 'material-ui/Reboot';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import { IBootProps, IBootStates } from './types';
 
@@ -35,7 +35,7 @@ export default class Boot extends Component<
         return (
             <JssProvider jss={jss} generateClassName={generateClassName}>
                 <MuiThemeProvider theme={this.getTheme(theme)}>
-                    <Reboot>{}</Reboot>
+                    <CssBaseline/>
                     <App />
                 </MuiThemeProvider>
             </JssProvider>

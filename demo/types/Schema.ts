@@ -1,4 +1,4 @@
-import { WithStyles } from 'material-ui';
+import { WithStyles } from '@material-ui/core';
 import { IFormConfig } from '@root/types';
 
 export interface ISchemaStyles {

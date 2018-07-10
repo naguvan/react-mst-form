@@ -4,8 +4,8 @@ import { Component, ReactNode } from 'react';
 import { IFlexSetProps, IFlexSetStates } from '@root/types';
 import { IFlexSetStyleProps, IFlexSetStyles } from '@root/types';
 
-import { WithStyles, StyledComponentProps } from 'material-ui';
-import withStyles from 'material-ui/styles/withStyles';
+import { WithStyles, StyledComponentProps } from '@material-ui/core';
+import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
 export class Set extends Component<
