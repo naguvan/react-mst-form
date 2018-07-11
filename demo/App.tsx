@@ -204,7 +204,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
                             style={{
                                 flexDirection: 'column',
                                 flex: 0,
-                                minWidth: 400
+                                minWidth: 450
                             }}>
                             <Schema config={config} onConfig={this.onConfig} />
                         </Flex.Item>
@@ -212,7 +212,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
                             style={{
                                 flexDirection: 'column',
                                 flex: 0,
-                                minWidth: 400
+                                minWidth: 450
                             }}>
                             <h1>Form</h1>
                             <Paper
@@ -268,7 +268,7 @@ export default withStyles<keyof IAppStyles>({
         margin: 20
     },
     container: {
-        minWidth: 400
+        minWidth: 450
     },
     paper: {
         backgroundColor: '#eeeeee'
