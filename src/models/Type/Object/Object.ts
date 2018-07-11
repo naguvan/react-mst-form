@@ -5,7 +5,7 @@ import { toJS } from 'mobx';
 
 import { IObjectConfig, IObject, IType } from '@root/types';
 import createValue from '../Value';
-import { keys, unique } from 'utils';
+import { keys, unique } from '../../../utils';
 import createType from '../Type';
 import mappings from '../Mappings';
 
