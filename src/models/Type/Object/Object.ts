@@ -1,20 +1,21 @@
-import { IModelType, types, unprotect, ISimpleType } from 'mobx-state-tree';
-import { getParent, hasParent } from 'mobx-state-tree';
-import { getSnapshot, applySnapshot } from 'mobx-state-tree';
+import { IModelType, types } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { toJS } from 'mobx';
 
-import { IObjectConfig, IObject, IType, ITypeConfig } from '@root/types';
+import { IObjectConfig, IObject, IType } from '@root/types';
 import createValue from '../Value';
-import { keys, unique } from '../../../utils';
+import { keys, unique } from 'utils';
 import createType from '../Type';
+import mappings from '../Mappings';
+
+mappings['object'] = types.late('Object', createObject);
 
 let NObject: IModelType<Partial<IObjectConfig>, IObject>;
 
-export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
+export default function createObject(): IModelType<Partial<IObjectConfig>, IObject> {
     if (!NObject) {
-        const Object = types
+        const XObject = types
             .compose(
                 'Object',
                 createValue<object | null, 'object'>(
@@ -258,7 +259,7 @@ export default function create(): IModelType<Partial<IObjectConfig>, IObject> {
                 }
             }));
 
-        NObject = Object as any;
+        NObject = XObject as any;
     }
     return NObject as IModelType<Partial<IObjectConfig>, IObject>;
 }

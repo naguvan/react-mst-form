@@ -1,10 +1,8 @@
 // tslint:disable:max-file-line-count
 
 import create from './Array';
-import { ITypeConfig, IArrayConfig, IArray, IType } from '@root/types';
+import { ITypeConfig, IArrayConfig } from '@root/types';
 import { toJS } from 'mobx';
-import { keys } from '../../../utils';
-import { getSnapshot } from 'mobx-state-tree';
 
 const config: IArrayConfig = {
     type: 'array',
@@ -14,10 +12,10 @@ const config: IArrayConfig = {
     title: 'naguvan'
 };
 
-const Array = create();
+const NArray = create();
 
 test('create array type', () => {
-    const type = Array.create(config);
+    const type = NArray.create(config);
     expect(type.type).toBe('array');
     expect(type.title).toBe('naguvan');
     expect(type.data).toEqual([]);
@@ -31,7 +29,7 @@ test('create array type', () => {
 });
 
 test('validate array valid values', async () => {
-    const type = Array.create({ ...config });
+    const type = NArray.create({ ...config });
     expect(type.type).toBe('array');
 
     type.setValue([1, 2, 3]);
@@ -43,7 +41,7 @@ test('validate array valid values', async () => {
 });
 
 test('validate array invalid values', async () => {
-    const type = Array.create({ ...config });
+    const type = NArray.create({ ...config });
     expect(type.type).toBe('array');
 
     type.setValue([1, '2', 3, false]);
@@ -57,7 +55,7 @@ test('validate array invalid values', async () => {
 });
 
 test('validate array invalid values with range', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         ...config,
         items: { type: 'number', maximum: 5 }
     });
@@ -75,7 +73,7 @@ test('validate array invalid values with range', async () => {
 });
 
 test('validate tuple valid values', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -98,7 +96,7 @@ test('validate tuple valid values', async () => {
 });
 
 test('validate tuple invalid values', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -131,7 +129,7 @@ test('validate tuple invalid values', async () => {
 });
 
 test('validate tuple invalid values', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -164,7 +162,7 @@ test('validate tuple invalid values', async () => {
 });
 
 test('validate tuple valid few items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -194,7 +192,7 @@ test('validate tuple valid few items', async () => {
 });
 
 test('validate tuple valid more items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -221,7 +219,7 @@ test('validate tuple valid more items', async () => {
 });
 
 test('validate tuple valid not allowing additional items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         items: [
             { type: 'number', maximum: 5, minimum: 2 },
@@ -245,7 +243,7 @@ test('validate tuple valid not allowing additional items', async () => {
 });
 
 test('validate min items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         minItems: 5
     });
@@ -261,7 +259,7 @@ test('validate min items', async () => {
 });
 
 test('validate max items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         maxItems: 3
     });
@@ -277,7 +275,7 @@ test('validate max items', async () => {
 });
 
 test('validate unique items', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         uniqueItems: true
     });
@@ -293,7 +291,7 @@ test('validate unique items', async () => {
 });
 
 test('validate value types', async () => {
-    const type = Array.create({
+    const type = NArray.create({
         type: 'array',
         title: 'Array',
         items: {

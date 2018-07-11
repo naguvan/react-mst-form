@@ -1,11 +1,10 @@
 import { IModelType, types, unprotect } from 'mobx-state-tree';
-import { getParent, hasParent } from 'mobx-state-tree';
-import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { INumberConfig, INumber } from '@root/types';
 import createValue from '../Value';
 import { decimals } from '../../../utils';
+import mappings from '../Mappings';
 
 export const Number: IModelType<Partial<INumberConfig>, INumber> = types
     .compose(
@@ -22,7 +21,7 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
             if (it.multipleOf !== null && it.multipleOf <= 0) {
                 throw new TypeError(
                     `multipleOf can not be ${
-                        it.multipleOf === 0 ? 'zero' : 'negative'
+                    it.multipleOf === 0 ? 'zero' : 'negative'
                     }`
                 );
             }
@@ -44,7 +43,7 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
                 );
                 if (
                     Math.round(value * multiplier) %
-                        Math.round(it.multipleOf * multiplier) !==
+                    Math.round(it.multipleOf * multiplier) !==
                     0
                 ) {
                     errors.push(`should be multiple of ${it.multipleOf}`);
@@ -53,3 +52,5 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
             return errors;
         }
     }));
+
+mappings['number'] = Number;

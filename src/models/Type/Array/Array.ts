@@ -1,18 +1,19 @@
-import { IModelType, types, unprotect, ISimpleType } from 'mobx-state-tree';
-import { getParent, hasParent, destroy, detach, clone } from 'mobx-state-tree';
-import { getSnapshot, applySnapshot } from 'mobx-state-tree';
+import { IModelType, types, detach } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
 import { toJS, observe } from 'mobx';
 
 import { IArrayConfig, IArray, IType, ITypeConfig } from '@root/types';
 import createValue from '../Value';
-import { keys, isArray, unique } from '../../../utils';
+import { isArray, unique } from '../../../utils';
 import createType from '../Type';
+import mappings from '../Mappings';
+
+mappings['array'] = types.late('Array', createArray);
 
 let NArray: IModelType<Partial<IArrayConfig>, IArray>;
 
-export default function create(): IModelType<Partial<IArrayConfig>, IArray> {
+export default function createArray(): IModelType<Partial<IArrayConfig>, IArray> {
     if (!NArray) {
         const Array: IModelType<Partial<IArrayConfig>, IArray> = types
             .compose(

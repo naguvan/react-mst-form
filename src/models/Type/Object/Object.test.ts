@@ -1,10 +1,9 @@
 // tslint:disable:max-file-line-count
 
 import create from './Object';
-import { ITypeConfig, IObjectConfig, IObject, IType } from '@root/types';
+import { IObjectConfig, IObject, IType } from '@root/types';
 import { toJS } from 'mobx';
 import { keys } from '../../../utils';
-import { getSnapshot } from 'mobx-state-tree';
 
 const config: IObjectConfig = {
     type: 'object',
