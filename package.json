@@ -72,7 +72,7 @@
         ]
     },
     "scripts": {
-        "prepare": "npm run lint && npm run test && npm run prod",
+        "prepare": "npm run lint && npm run test && npm run build",
         "lint": "tslint -p .",
         "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
         "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
