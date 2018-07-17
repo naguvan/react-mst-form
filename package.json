@@ -1,9 +1,9 @@
 {
     "name": "react-mst-form",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "description": "react-mobx-state-tree-form",
-    "main": "./dist/react-mst-form.js",
-    "typings": "./dist/index.d.ts",
+    "main": "./lib/index.js",
+    "typings": "./lib/index.d.ts",
     "repository": "https://github.com/naguvan/react-mst-form.git",
     "author": "naguvan <naguvan@outlook.com>",
     "license": "MIT",
@@ -12,7 +12,8 @@
         "url": "https://github.com/naguvan/react-mst-form/issues"
     },
     "files": [
-        "dist/"
+        "lib/",
+        "lib-esm/"
     ],
     "peerDependencies": {},
     "dependencies": {
@@ -45,7 +46,7 @@
         "tslint-config-prettier": "1.13.0",
         "tslint-loader": "3.6.0",
         "tslint-react": "3.6.0",
-        "typescript": "2.9.2",
+        "typescript": "3.0.0-rc",
         "webpack": "4.16.0",
         "webpack-bundle-analyzer": "2.13.1",
         "webpack-cli": "3.0.8"
@@ -80,7 +81,7 @@
         "dev": "cross-env NODE_ENV=development TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts",
         "demo": "ts-node --compilerOptions {\\\"module\\\":\\\"commonjs\\\"} ./demo/server.ts",
         "analyzer": "webpack-bundle-analyzer ./stats.json",
-        "tsc": "tsc",
-        "build": "npm run tsc"
+        "dev:tsc": "tsc && tsc -m es6 --outDir lib-esm",
+        "build": "npm run dev:tsc"
     }
 }

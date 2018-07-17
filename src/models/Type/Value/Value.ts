@@ -3,7 +3,7 @@ import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IValueConfig, IValue } from '@root/types';
+import { IValueConfig, IValue } from '../../../types';
 import { toJS } from 'mobx';
 
 export function create<V, T>(type: T, kind: ISimpleType<V>, defaultv: V) {

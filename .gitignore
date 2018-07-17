@@ -1,6 +1,7 @@
 node_modules/
 build
 lib
+lib-esm
 .DS_Store
 *.tgz
 npm-debug.log*

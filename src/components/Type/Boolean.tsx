@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Component, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { IBooleanProps, IBooleanStates } from '@root/types';
-import { IBoolean, IForm } from '@root/types';
+import { IBooleanProps, IBooleanStates } from '../../types';
+import { IBoolean, IForm } from '../../types';
 
 import { observer } from 'mobx-react';
 

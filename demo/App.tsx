@@ -9,8 +9,8 @@ import { WithStyles, StyledComponentProps } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
-import { Form, IFormConfig } from '@root/index';
-import Flex from '@root/components/Flex';
+import { Form, IFormConfig } from '../src/index';
+import Flex from '../src/components/Flex';
 
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';

@@ -1,6 +1,6 @@
 import { types, IComplexType as IMobxType } from 'mobx-state-tree';
 
-import { IType, ITypeConfig } from '@root/types';
+import { IType, ITypeConfig } from '../../types';
 
 let Type: IMobxType<Partial<ITypeConfig>, IType>;
 

@@ -1,6 +1,6 @@
 import create from './Type';
-import { IValue, IString, INumber, IObjectConfig } from '@root/types';
-import { IType, IObject, IArray } from '@root/types';
+import { IValue, IString, INumber, IObjectConfig } from '../../types';
+import { IType, IObject, IArray } from '../../types';
 import { toJS } from 'mobx';
 import { keys } from '../../utils';
 const Type = create();

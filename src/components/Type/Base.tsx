@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { ITypeProps, ITypeStates, IForm } from '@root/types';
-import { IType } from '@root/types';
+import { ITypeProps, ITypeStates, IForm } from '../../types';
+import { IType } from '../../types';
 
 export default abstract class Base<
     T extends IType,

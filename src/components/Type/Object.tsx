@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Component, ReactNode, Fragment } from 'react';
+import { ReactNode } from 'react';
 
-import { IObjectProps, IObjectStates } from '@root/types';
-import { IObject, IForm, IFormLayout } from '@root/types';
+import { IObjectProps, IObjectStates } from '../../types';
+import { IObject, IForm, IFormLayout } from '../../types';
 
 import { observer } from 'mobx-react';
 

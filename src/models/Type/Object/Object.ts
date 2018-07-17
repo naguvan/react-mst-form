@@ -3,7 +3,7 @@ export type __IModelType = IModelType<any, any>;
 
 import { toJS } from 'mobx';
 
-import { IObjectConfig, IObject, IType } from '@root/types';
+import { IObjectConfig, IObject, IType } from '../../../types';
 import createValue from '../Value';
 import { keys, unique } from '../../../utils';
 import createType from '../Type';

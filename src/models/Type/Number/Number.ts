@@ -1,7 +1,7 @@
 import { IModelType, types, unprotect } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { INumberConfig, INumber } from '@root/types';
+import { INumberConfig, INumber } from '../../../types';
 import createValue from '../Value';
 import { decimals } from '../../../utils';
 import mappings from '../Mappings';

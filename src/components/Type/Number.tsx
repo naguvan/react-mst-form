@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { Component, ReactNode } from 'react';
+import { ReactNode } from 'react';
 
-import { INumberProps, INumberStates } from '@root/types';
-import { INumber, IForm } from '@root/types';
+import { INumberProps, INumberStates } from '../../types';
+import { INumber, IForm } from '../../types';
 
 import { observer } from 'mobx-react';
 
@@ -11,7 +11,7 @@ import Base from './Base';
 import TextField from '@material-ui/core/TextField';
 import MenuItem from '@material-ui/core/MenuItem';
 
-import { toNumber } from '@root/utils';
+import { toNumber } from '../../utils';
 
 @observer
 export default class Number extends Base<INumber, INumberProps, INumberStates> {

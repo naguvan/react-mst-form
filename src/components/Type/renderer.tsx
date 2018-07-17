@@ -1,8 +1,8 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IType, IForm, IString, IObject } from '@root/types';
-import { INumber, IBoolean, INull, IArray } from '@root/types';
+import { IType, IForm, IString, IObject } from '../../types';
+import { INumber, IBoolean, INull, IArray } from '../../types';
 
 import String from './String';
 import Number from './Number';

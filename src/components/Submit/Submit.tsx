@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { IForm, ISubmitProps, ISubmitStates } from '@root/types';
+import { ISubmitProps, ISubmitStates } from '../../types';
 
 import { observer } from 'mobx-react';
 

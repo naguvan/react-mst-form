@@ -1,7 +1,7 @@
 import { IModelType, types } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { INullConfig, INull } from '@root/types';
+import { INullConfig, INull } from '../../../types';
 import createValue from '../Value';
 import mappings from '../Mappings';
 

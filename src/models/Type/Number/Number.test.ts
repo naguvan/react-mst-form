@@ -1,5 +1,5 @@
 import { Number } from './Number';
-import { INumberConfig } from '@root/types';
+import { INumberConfig } from '../../../types';
 
 const config: INumberConfig = {
     title: 'naguvan',

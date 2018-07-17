@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import { IForm } from '@root/types';
+import { IForm } from '../../types';
 
 export interface ISubmitProps {
     form: IForm;

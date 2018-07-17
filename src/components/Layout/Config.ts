@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { ILayoutSet, ILayoutItem } from '@root/types';
+import { ILayoutSet, ILayoutItem } from '../../types';
 
 export class Item<T> implements ILayoutItem<T> {
     constructor(public value: T, public style: React.CSSProperties = {}) {}
@@ -35,9 +35,9 @@ export class Set<T> implements ILayoutSet<T> {
 
 export function arrange<T>(items: Array<T | Array<T>>): ILayoutSet<T> {
     const container = Set.from(
-        ...items.map(item => {
+        ...items.map((item: any) => {
             return Array.isArray(item) ? arrange(item) : Item.from(item);
         })
     );
-    return container;
+    return container as ILayoutSet<T>;
 }

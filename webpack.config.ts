@@ -11,10 +11,7 @@ export default function configure(env: any): Array<webpack.Configuration> {
         mode,
         stats: { modules: false },
         resolve: {
-            extensions: ['.js', '.jsx', '.ts', '.tsx'],
-            alias: {
-                '@root': path.resolve('./src')
-            }
+            extensions: ['.js', '.jsx', '.ts', '.tsx']
         },
         entry: {
             'dist/index': './src/index.ts',

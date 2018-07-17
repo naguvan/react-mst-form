@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { Component, ReactNode } from 'react';
 
-import { ILayoutMixedProps, ILayoutMixedStates } from '@root/types';
-import { ILayoutMixedStyleProps, ILayoutMixedStyles } from '@root/types';
+import { ILayoutMixedProps, ILayoutMixedStates } from '../../types';
+import { ILayoutMixedStyleProps, ILayoutMixedStyles } from '../../types';
 
-import { WithStyles, StyledComponentProps } from '@material-ui/core';
 import withStyles from '@material-ui/core/styles/withStyles';
 import classNames from 'classnames';
 
-import { ILayoutSet, ILayoutItem } from '@root/types';
+import { ILayoutSet, ILayoutItem } from '../../types';
 
 import Item from './Item';
 import Set from './Set';

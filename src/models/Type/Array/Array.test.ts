@@ -1,7 +1,7 @@
 // tslint:disable:max-file-line-count
 
 import create from './Array';
-import { ITypeConfig, IArrayConfig } from '@root/types';
+import { ITypeConfig, IArrayConfig } from '../../../types';
 import { toJS } from 'mobx';
 
 const config: IArrayConfig = {

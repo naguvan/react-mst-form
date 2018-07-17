@@ -12,7 +12,7 @@ import FormSubmit from './components/Submit';
 import { renderer as FieldRenderer } from './components/Type';
 import FormModel from './models/Form';
 
-import { IFormConfig, IForm } from '@root/types';
+import { IFormConfig, IForm } from './types';
 
 import { observer } from 'mobx-react';
 import { onSnapshot, onPatch } from 'mobx-state-tree';

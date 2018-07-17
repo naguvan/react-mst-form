@@ -1,12 +1,12 @@
 import { Form } from './Form';
-import { ITypeConfig, IType } from '@root/types';
-import { IStringConfig, IString } from '@root/types';
-import { INumberConfig, INumber } from '@root/types';
-import { IBooleanConfig, IBoolean } from '@root/types';
-import { INullConfig, INull } from '@root/types';
-import { IObjectConfig, IObject } from '@root/types';
+import { ITypeConfig, IType } from '../../types';
+import { IStringConfig, IString } from '../../types';
+import { INumberConfig, INumber } from '../../types';
+import { IBooleanConfig, IBoolean } from '../../types';
+import { INullConfig, INull } from '../../types';
+import { IObjectConfig, IObject } from '../../types';
 import { getSnapshot } from 'mobx-state-tree';
-import { IFormConfig, IForm } from '@root/types';
+import { IFormConfig, IForm } from '../../types';
 
 import String from '../Type/String';
 import Number from '../Type/Number';

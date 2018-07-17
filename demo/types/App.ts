@@ -1,5 +1,5 @@
 import { WithStyles } from '@material-ui/core';
-import { IFormConfig } from '@root/types';
+import { IFormConfig } from '../../src/types';
 
 export interface IAppStyles {
     root: React.CSSProperties;

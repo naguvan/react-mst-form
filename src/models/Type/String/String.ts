@@ -1,7 +1,7 @@
 import { IModelType, types } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { IStringConfig, IString } from '@root/types';
+import { IStringConfig, IString } from '../../../types';
 
 import createValue from '../Value';
 import { regex } from '../../../utils';

@@ -1,5 +1,5 @@
 import { types } from 'mobx-state-tree';
-import { IValueConfig, IValue } from '@root/types';
+import { IValueConfig, IValue } from '../../../types';
 import { create } from './Value';
 
 const config: IValueConfig<number, 'number'> = {

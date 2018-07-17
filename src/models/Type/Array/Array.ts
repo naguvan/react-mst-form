@@ -3,7 +3,7 @@ export type __IModelType = IModelType<any, any>;
 
 import { toJS, observe } from 'mobx';
 
-import { IArrayConfig, IArray, IType, ITypeConfig } from '@root/types';
+import { IArrayConfig, IArray, IType, ITypeConfig } from '../../../types';
 import createValue from '../Value';
 import { isArray, unique } from '../../../utils';
 import createType from '../Type';

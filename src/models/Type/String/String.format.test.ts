@@ -1,7 +1,7 @@
 // tslint:disable:max-file-line-count
 
 import { String } from './String';
-import { IStringConfig } from '@root/types';
+import { IStringConfig } from '../../../types';
 
 async function test_format(
     title: string,

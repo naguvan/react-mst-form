@@ -3,8 +3,8 @@ import { getParent, hasParent, ISimpleType } from 'mobx-state-tree';
 import { getSnapshot, applySnapshot } from 'mobx-state-tree';
 export type __IModelType = IModelType<any, any>;
 
-import { ITypeConfig, IType } from '@root/types';
-import { IFormConfig, IForm } from '@root/types';
+import { ITypeConfig, IType } from '../../types';
+import { IFormConfig, IForm } from '../../types';
 
 import createType from '../Type';
 import createObject from '../Type/Object';

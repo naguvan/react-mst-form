@@ -1,5 +1,5 @@
 import { String } from './String';
-import { IStringConfig } from '@root/types';
+import { IStringConfig } from '../../../types';
 
 const config: IStringConfig = {
     title: 'naguvan',

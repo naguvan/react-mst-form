@@ -1,4 +1,4 @@
-import { IForm, IType } from '@root/types/models';
+import { IForm, IType } from '../../models';
 
 export interface ITypeProps<T extends IType> {
     type: T;
