@@ -14,10 +14,6 @@ export class Layout<T> extends Component<
   ILayoutProps<T> & ILayoutStyleProps,
   ILayoutStates
 > {
-  constructor(props: ILayoutProps<T> & ILayoutStyleProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { path = "0", items, render, center = false } = this.props;
     const { direction = "column" } = this.props;
@@ -35,7 +31,7 @@ export class Layout<T> extends Component<
   }
 }
 
-export default withStyles<keyof ILayoutStyles>({
+export default withStyles<keyof ILayoutStyles, {}>({
   root: {},
   set: {
     marginTop: 0,

@@ -1,11 +1,9 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
-import { findDOMNode } from "react-dom";
 
 import { IAppProps, IAppStates } from "./types";
 import { IAppStyleProps, IAppStyles } from "./types";
 
-import { WithStyles, StyledComponentProps } from "@material-ui/core";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
@@ -13,8 +11,6 @@ import { Form, IFormConfig } from "../src/index";
 import Flex from "../src/components/Flex";
 
 import Paper from "@material-ui/core/Paper";
-import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 
 const config: IFormConfig = {
   title: "Test Form",
@@ -134,10 +130,7 @@ const config: IFormConfig = {
 import Schema from "./Schema";
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
-  constructor(props: IAppProps & IAppStyleProps, context: {}) {
-    super(props, context);
-    this.state = { width: "100%", height: "100%", config };
-  }
+  state = { width: "100%", height: "100%", config };
 
   containers: Array<HTMLDivElement> = [];
 
@@ -259,7 +252,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
   };
 }
 
-export default withStyles<keyof IAppStyles>({
+export default withStyles<keyof IAppStyles, {}>({
   root: {
     display: "flex",
     justifyContent: "center",

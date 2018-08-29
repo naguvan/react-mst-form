@@ -23,10 +23,6 @@ const jss = create(preset());
 const generateClassName = createGenerateClassName();
 
 export default class Boot extends Component<IBootProps, IBootStates> {
-  constructor(props: IBootProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { theme } = this.props;
     return (

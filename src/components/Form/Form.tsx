@@ -14,10 +14,7 @@ import Object from "../Type/Object";
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
-  constructor(props: IFormProps & IFormStyleProps, context: {}) {
-    super(props, context);
-    this.state = { active: 0 };
-  }
+  state = { active: 0 };
 
   public render(): ReactNode {
     const { form } = this.props;
@@ -83,7 +80,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
   }
 }
 
-export default withStyles<keyof IFormStyles>(theme => ({
+export default withStyles<keyof IFormStyles, {}>(theme => ({
   root: {},
   layout: {},
   set: {},

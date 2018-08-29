@@ -11,10 +11,6 @@ export class Item extends Component<
   IFlexItemProps & IFlexItemStyleProps,
   IFlexItemStates
 > {
-  constructor(props: IFlexItemProps & IFlexItemStyleProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { center = false, fluid = false, children } = this.props;
     const extra = fluid && { flex: undefined };
@@ -28,7 +24,7 @@ export class Item extends Component<
   }
 }
 
-export default withStyles<keyof IFlexItemStyles>({
+export default withStyles<keyof IFlexItemStyles, {}>({
   root: {
     marginTop: 0,
     marginLeft: 0,

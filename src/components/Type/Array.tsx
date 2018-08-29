@@ -17,15 +17,10 @@ import ActionAdd from "@material-ui/icons/Add";
 import ActionClear from "@material-ui/icons/Clear";
 import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 @observer
 export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
-  constructor(props: IArrayProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: IArray, form: IForm): ReactNode {
     const Type = createType();
     return (

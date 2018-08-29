@@ -14,10 +14,6 @@ export class Set<T> extends Component<
   ILayoutSetProps<T> & ILayoutSetStyleProps,
   ILayoutSetStates
 > {
-  constructor(props: ILayoutSetProps<T> & ILayoutSetStyleProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { path, items, direction, center, render } = this.props;
     const { className, classes, style } = this.props;
@@ -45,7 +41,7 @@ export class Set<T> extends Component<
   }
 }
 
-export default withStyles<keyof ILayoutSetStyles>({
+export default withStyles<keyof ILayoutSetStyles, {}>({
   root: {},
   set: {},
   item: {}

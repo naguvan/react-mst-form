@@ -11,10 +11,6 @@ export class Set extends Component<
   IFlexSetProps & IFlexSetStyleProps,
   IFlexSetStates
 > {
-  constructor(props: IFlexSetProps & IFlexSetStyleProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { direction, children, fluid = false } = this.props;
     const extra = fluid && { flex: undefined };
@@ -31,7 +27,7 @@ export class Set extends Component<
   }
 }
 
-export default withStyles<keyof IFlexSetStyles>({
+export default withStyles<keyof IFlexSetStyles, {}>({
   root: {
     marginTop: 0,
     marginLeft: 0,

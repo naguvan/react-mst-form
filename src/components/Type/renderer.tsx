@@ -2,7 +2,7 @@ import * as React from "react";
 import { ReactNode } from "react";
 
 import { IType, IForm, IString, IObject } from "../../types";
-import { INumber, IBoolean, INull, IArray } from "../../types";
+import { INumber, IBoolean, IArray } from "../../types";
 
 import String from "./String";
 import Number from "./Number";

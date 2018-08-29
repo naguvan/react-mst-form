@@ -16,13 +16,6 @@ export class Mixed<T> extends Component<
   ILayoutMixedProps<T> & ILayoutMixedStyleProps,
   ILayoutMixedStates
 > {
-  constructor(
-    props: ILayoutMixedProps<T> & ILayoutMixedStyleProps,
-    context: {}
-  ) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { path, item, render, center, direction } = this.props;
     const { className, classes, style } = this.props;
@@ -46,7 +39,7 @@ export class Mixed<T> extends Component<
   }
 }
 
-export default withStyles<keyof ILayoutMixedStyles>({
+export default withStyles<keyof ILayoutMixedStyles, {}>({
   root: {},
   set: {},
   item: {}

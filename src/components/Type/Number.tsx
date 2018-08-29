@@ -15,10 +15,6 @@ import { toNumber } from "../../utils";
 
 @observer
 export default class Number extends Base<INumber, INumberProps, INumberStates> {
-  constructor(props: INumberProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: INumber, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (

@@ -14,9 +14,11 @@ export class Schema extends Component<
   ISchemaProps & ISchemaStyleProps,
   ISchemaStates
 > {
-  constructor(props: ISchemaProps & ISchemaStyleProps, context: {}) {
-    super(props, context);
-    this.state = Schema.getState(props);
+  static getDerivedStateFromProps(
+    props: Readonly<ISchemaProps & ISchemaStyleProps>,
+    state: ISchemaStates
+  ): Partial<ISchemaStates> {
+    return Schema.getState(props);
   }
 
   static getState(props: ISchemaProps & ISchemaStyleProps): ISchemaStates {
@@ -24,18 +26,11 @@ export class Schema extends Component<
     return { config: JSON.stringify(config, null, 2) };
   }
 
-  componentWillReceiveProps(
-    nextProps: Readonly<ISchemaProps & ISchemaStyleProps>,
-    nextContext: any
-  ): void {
-    this.setState(() => Schema.getState(nextProps));
-  }
-
   public render(): ReactNode {
     const { className, classes, style } = this.props;
     const { config } = this.state;
     return (
-      <>
+      <div {...{ className, style }}>
         <h1>Schema</h1>
         <Paper square elevation={3} className={classes.paper}>
           <TextField
@@ -54,7 +49,7 @@ export class Schema extends Component<
         >
           Render
         </Button>
-      </>
+      </div>
     );
   }
 
@@ -80,7 +75,7 @@ export class Schema extends Component<
   };
 }
 
-export default withStyles<keyof ISchemaStyles>({
+export default withStyles<keyof ISchemaStyles, {}>({
   paper: {
     backgroundColor: "#eeeeee"
   }

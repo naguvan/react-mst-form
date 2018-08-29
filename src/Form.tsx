@@ -47,13 +47,10 @@ export interface IFormStates {
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
-  constructor(props: IFormProps & IFormStyleProps, context: any) {
-    super(props, context);
-    const form = Form.getForm(props);
-    this.state = { form };
-  }
-
-  static getForm(props: Readonly<IFormProps & IFormStyleProps>): IForm {
+  static getDerivedStateFromPropsFix(
+    props: Readonly<IFormProps & IFormStyleProps>,
+    state?: IFormStates
+  ): IFormStates {
     const { config, onPatch: _onPatch, onSnapshot: _onSnapshot } = props;
     const form = FormModel.create(config);
     if (_onSnapshot) {
@@ -62,15 +59,18 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     if (_onPatch) {
       onPatch(form, patch => _onPatch(patch));
     }
-    return form;
+    return { form };
+  }
+
+  constructor(props: IFormProps & IFormStyleProps) {
+    super(props);
+    this.state = Form.getDerivedStateFromPropsFix(props);
   }
 
   componentWillReceiveProps(
-    nextProps: Readonly<IFormProps & IFormStyleProps>,
-    nextContext: any
+    nextProps: Readonly<IFormProps & IFormStyleProps>
   ): void {
-    const form = Form.getForm(nextProps);
-    this.setState(() => ({ form }));
+    this.setState(state => Form.getDerivedStateFromPropsFix(nextProps, state));
   }
 
   public render(): ReactNode {
@@ -93,7 +93,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
   }
 }
 
-export default withStyles<keyof IFormStyles>({
+export default withStyles<keyof IFormStyles, {}>({
   root: {},
   form: {
     padding: 10

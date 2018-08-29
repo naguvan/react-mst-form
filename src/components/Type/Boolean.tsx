@@ -19,10 +19,6 @@ export default class Boolean extends Base<
   IBooleanProps,
   IBooleanStates
 > {
-  constructor(props: IBooleanProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: IBoolean, form: IForm): ReactNode {
     return (
       <>

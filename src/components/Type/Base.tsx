@@ -9,10 +9,6 @@ export default abstract class Base<
   P extends ITypeProps<T>,
   S extends ITypeStates<T>
 > extends Component<P, S> {
-  constructor(props: P, context: any) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { type, form } = this.props;
     const { visible, name } = type;

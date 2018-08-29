@@ -9,10 +9,6 @@ import Button from "@material-ui/core/Button";
 
 @observer
 export default class Submit extends Component<ISubmitProps, ISubmitStates> {
-  constructor(props: ISubmitProps, context: any) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { form, label = "Submit" } = this.props;
     return (

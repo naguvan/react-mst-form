@@ -13,10 +13,6 @@ export class Item<T> extends Component<
   ILayoutItemProps<T> & ILayoutItemStyleProps,
   ILayoutItemStates
 > {
-  constructor(props: ILayoutItemProps<T> & ILayoutItemStyleProps, context: {}) {
-    super(props, context);
-  }
-
   public render(): ReactNode {
     const { path, center, item, render } = this.props;
     const children = render(item.value);
@@ -35,7 +31,7 @@ export class Item<T> extends Component<
   }
 }
 
-export default withStyles<keyof ILayoutItemStyles>({
+export default withStyles<keyof ILayoutItemStyles, {}>({
   root: {},
   item: {}
 })(Item);

@@ -8,7 +8,6 @@ import { observer } from "mobx-react";
 
 import Base from "./Base";
 
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { renderer } from "./renderer";
@@ -20,10 +19,6 @@ export default class NObject extends Base<
   IObjectProps,
   IObjectStates
 > {
-  constructor(props: IObjectProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: IObject, form: IForm): ReactNode {
     const { layout } = this.props;
     return (

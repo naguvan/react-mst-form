@@ -12,10 +12,6 @@ import TextField from "@material-ui/core/TextField";
 
 @observer
 export default class Color extends Base<IString, IStringProps, IStringStates> {
-  constructor(props: IStringProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: IString, form: IForm): ReactNode {
     return (
       <>

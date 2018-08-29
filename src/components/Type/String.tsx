@@ -13,10 +13,6 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 @observer
 export default class String extends Base<IString, IStringProps, IStringStates> {
-  constructor(props: IStringProps, context: any) {
-    super(props, context);
-  }
-
   protected renderType(type: IString, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (
