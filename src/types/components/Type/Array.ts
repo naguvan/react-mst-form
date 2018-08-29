@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from './Type';
+import { ITypeProps, ITypeStates } from "./Type";
 
-import { IArray } from '../../models/Type';
+import { IArray } from "../../models/Type";
 
 export interface IArrayProps extends ITypeProps<IArray> {}
 

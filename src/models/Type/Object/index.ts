@@ -1,3 +1,3 @@
-import create from './Object';
+import create from "./Object";
 
 export default create;

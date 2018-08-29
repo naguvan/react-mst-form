@@ -1,110 +1,106 @@
-import * as React from 'react';
-import { Component, ReactNode } from 'react';
+import * as React from "react";
+import { Component, ReactNode } from "react";
 
-import { WithStyles, StyledComponentProps } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
-import classNames from 'classnames';
+import { WithStyles } from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+import classNames from "classnames";
 
-import 'tslib';
+import "tslib";
 
-import FormView from './components/Form';
-import FormSubmit from './components/Submit';
-import { renderer as FieldRenderer } from './components/Type';
-import FormModel from './models/Form';
+import FormView from "./components/Form";
+import FormSubmit from "./components/Submit";
+import { renderer as FieldRenderer } from "./components/Type";
+import FormModel from "./models/Form";
 
-import { IFormConfig, IForm } from './types';
+import { IFormConfig, IForm } from "./types";
 
-import { observer } from 'mobx-react';
-import { onSnapshot, onPatch } from 'mobx-state-tree';
+import { observer } from "mobx-react";
+import { onSnapshot, onPatch } from "mobx-state-tree";
 
 export interface IFormStyles {
-    root: React.CSSProperties;
-    form: React.CSSProperties;
-    submit: React.CSSProperties;
+  root: React.CSSProperties;
+  form: React.CSSProperties;
+  submit: React.CSSProperties;
 }
 
 export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
 
 export interface IFormProps {
-    style?: React.CSSProperties;
-    className?: string;
-    config: IFormConfig;
-    onSubmit: (values: { [key: string]: any }) => void;
-    onErrors?: (errors: { [key: string]: Array<string> }) => void;
-    onPatch?: (
-        patch: {
-            op: 'replace' | 'add' | 'remove';
-            path: string;
-            value?: any;
-        }
-    ) => void;
-    onSnapshot?: (snapshot: {}) => void;
+  style?: React.CSSProperties;
+  className?: string;
+  config: IFormConfig;
+  onSubmit: (values: { [key: string]: any }) => void;
+  onErrors?: (errors: { [key: string]: Array<string> }) => void;
+  onPatch?: (
+    patch: {
+      op: "replace" | "add" | "remove";
+      path: string;
+      value?: any;
+    }
+  ) => void;
+  onSnapshot?: (snapshot: {}) => void;
 }
 
 export interface IFormStates {
-    form: IForm;
+  form: IForm;
 }
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
-    constructor(props: IFormProps & IFormStyleProps, context: any) {
-        super(props, context);
-        const form = Form.getForm(props);
-        this.state = { form };
-    }
+  constructor(props: IFormProps & IFormStyleProps, context: any) {
+    super(props, context);
+    const form = Form.getForm(props);
+    this.state = { form };
+  }
 
-    static getForm(props: Readonly<IFormProps & IFormStyleProps>): IForm {
-        const { config, onPatch: _onPatch, onSnapshot: _onSnapshot } = props;
-        const form = FormModel.create(config);
-        if (_onSnapshot) {
-            onSnapshot(form, snapshot => _onSnapshot(snapshot));
-        }
-        if (_onPatch) {
-            onPatch(form, patch => _onPatch(patch));
-        }
-        return form;
+  static getForm(props: Readonly<IFormProps & IFormStyleProps>): IForm {
+    const { config, onPatch: _onPatch, onSnapshot: _onSnapshot } = props;
+    const form = FormModel.create(config);
+    if (_onSnapshot) {
+      onSnapshot(form, snapshot => _onSnapshot(snapshot));
     }
+    if (_onPatch) {
+      onPatch(form, patch => _onPatch(patch));
+    }
+    return form;
+  }
 
-    componentWillReceiveProps(
-        nextProps: Readonly<IFormProps & IFormStyleProps>,
-        nextContext: any
-    ): void {
-        const form = Form.getForm(nextProps);
-        this.setState(() => ({ form }));
-    }
+  componentWillReceiveProps(
+    nextProps: Readonly<IFormProps & IFormStyleProps>,
+    nextContext: any
+  ): void {
+    const form = Form.getForm(nextProps);
+    this.setState(() => ({ form }));
+  }
 
-    public render(): ReactNode {
-        const { form } = this.state;
-        const { className, classes, style, onSubmit, onErrors } = this.props;
-        const root: string = classNames(
-            classes!.root,
-            className,
-            classes!.form
-        );
-        return (
-            <>
-                <FormView
-                    className={root}
-                    style={style}
-                    form={form}
-                    renderer={FieldRenderer}
-                />
-                <div className={classes.submit}>
-                    <FormSubmit {...{ form, onSubmit, onErrors }} />
-                </div>
-            </>
-        );
-    }
+  public render(): ReactNode {
+    const { form } = this.state;
+    const { className, classes, style, onSubmit, onErrors } = this.props;
+    const root: string = classNames(classes!.root, className, classes!.form);
+    return (
+      <>
+        <FormView
+          className={root}
+          style={style}
+          form={form}
+          renderer={FieldRenderer}
+        />
+        <div className={classes.submit}>
+          <FormSubmit {...{ form, onSubmit, onErrors }} />
+        </div>
+      </>
+    );
+  }
 }
 
 export default withStyles<keyof IFormStyles>({
-    root: {},
-    form: {
-        padding: 10
-    },
-    submit: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        padding: 10
-    }
+  root: {},
+  form: {
+    padding: 10
+  },
+  submit: {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: 10
+  }
 })(Form);

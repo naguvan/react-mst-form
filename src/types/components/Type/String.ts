@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from './Type';
+import { ITypeProps, ITypeStates } from "./Type";
 
-import { IString } from '../../models/Type';
+import { IString } from "../../models/Type";
 
 export interface IStringProps extends ITypeProps<IString> {}
 

@@ -1,9 +1,9 @@
-import { IValue, IValueAttrs, IValueConfig } from './Value';
+import { IValue, IValueAttrs, IValueConfig } from "./Value";
 
 export interface INullAttrs extends IValueAttrs<null> {}
 
 export interface INullConfig
-    extends IValueConfig<null, 'null'>,
-        Partial<INullAttrs> {}
+  extends IValueConfig<null, "null">,
+    Partial<INullAttrs> {}
 
-export interface INull extends INullAttrs, IValue<null, 'null'> {}
+export interface INull extends INullAttrs, IValue<null, "null"> {}

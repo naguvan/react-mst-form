@@ -1,14 +1,14 @@
-import { IModelType, types } from 'mobx-state-tree';
+import { IModelType, types } from "mobx-state-tree";
 export type __IModelType = IModelType<any, any>;
 
-import { INullConfig, INull } from '../../../types';
-import createValue from '../Value';
-import mappings from '../Mappings';
+import { INullConfig, INull } from "../../../types";
+import createValue from "../Value";
+import mappings from "../Mappings";
 
 export const Null: IModelType<Partial<INullConfig>, INull> = types.compose(
-    'Null',
-    createValue<null, 'null'>('null', types.null, null),
-    types.model({})
+  "Null",
+  createValue<null, "null">("null", types.null, null),
+  types.model({})
 );
 
-mappings['null'] = Null;
+mappings["null"] = Null;

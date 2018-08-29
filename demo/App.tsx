@@ -1,284 +1,282 @@
-import * as React from 'react';
-import { Component, ReactNode } from 'react';
-import { findDOMNode } from 'react-dom';
+import * as React from "react";
+import { Component, ReactNode } from "react";
+import { findDOMNode } from "react-dom";
 
-import { IAppProps, IAppStates } from './types';
-import { IAppStyleProps, IAppStyles } from './types';
+import { IAppProps, IAppStates } from "./types";
+import { IAppStyleProps, IAppStyles } from "./types";
 
-import { WithStyles, StyledComponentProps } from '@material-ui/core';
-import withStyles from '@material-ui/core/styles/withStyles';
-import classNames from 'classnames';
+import { WithStyles, StyledComponentProps } from "@material-ui/core";
+import withStyles from "@material-ui/core/styles/withStyles";
+import classNames from "classnames";
 
-import { Form, IFormConfig } from '../src/index';
-import Flex from '../src/components/Flex';
+import { Form, IFormConfig } from "../src/index";
+import Flex from "../src/components/Flex";
 
-import Paper from '@material-ui/core/Paper';
-import TextField from '@material-ui/core/TextField';
-import Button from '@material-ui/core/Button';
+import Paper from "@material-ui/core/Paper";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 
 const config: IFormConfig = {
-    title: 'Test Form',
-    schema: {
-        type: 'object',
+  title: "Test Form",
+  schema: {
+    type: "object",
+    properties: {
+      name: {
+        type: "object",
         properties: {
-            name: {
-                type: 'object',
-                properties: {
-                    first: {
-                        type: 'string',
-                        title: 'First',
-                        value: 'naguvan',
-                        minLength: 5,
-                        sequence: 1
-                    },
-                    middle: {
-                        type: 'string',
-                        title: 'Middle',
-                        value: 'sk',
-                        minLength: 5,
-                        sequence: 1
-                    },
-                    last: {
-                        type: 'string',
-                        title: 'Last',
-                        value: 'sk',
-                        minLength: 5,
-                        sequence: 2
-                    },
-                    age: {
-                        type: 'number',
-                        title: 'Age',
-                        value: 5,
-                        sequence: 2,
-                        maximum: 10,
-                        minimum: 3
-                    }
-                },
-                layout: [['first', 'last'], 'middle', 'age']
-            },
-            title: {
-                type: 'string',
-                title: 'Title',
-                value: 'sk',
-                minLength: 5
-            },
-            ipv4: {
-                type: 'string',
-                title: 'ipv4',
-                minLength: 5,
-                maxLength: 20,
-                format: 'ipv4'
-            },
-            color: {
-                type: 'string',
-                title: 'In which color',
-                component: 'color',
-                format: 'color'
-            },
-            size: {
-                type: 'number',
-                title: 'Size',
-                value: 5,
-                maximum: 10,
-                minimum: 3,
-                multipleOf: 3
-            },
-            type: {
-                type: 'number',
-                title: 'Select a type',
-                enum: [1, 2],
-                options: [
-                    { label: 'One', value: 1 },
-                    { label: 'Two', value: 2 }
-                ]
-            },
-            agree: {
-                type: 'boolean',
-                title: 'I agree with your terms',
-                value: false,
-                const: true
-            },
-            array: {
-                type: 'array',
-                title: 'Array',
-                items: {
-                    type: 'object',
-                    properties: {
-                        name: {
-                            type: 'string',
-                            title: 'name',
-                            minLength: 3
-                        },
-                        age: {
-                            type: 'number',
-                            title: 'age',
-                            multipleOf: 2,
-                            minimum: 2
-                        }
-                    }
-                },
-                minItems: 2,
-                maxItems: 4
-            }
-        }
-    },
-    sections: [
-        {
-            title: 'Basic',
-            layout: ['name', 'title', ['size', 'color']]
+          first: {
+            type: "string",
+            title: "First",
+            value: "naguvan",
+            minLength: 5,
+            sequence: 1
+          },
+          middle: {
+            type: "string",
+            title: "Middle",
+            value: "sk",
+            minLength: 5,
+            sequence: 1
+          },
+          last: {
+            type: "string",
+            title: "Last",
+            value: "sk",
+            minLength: 5,
+            sequence: 2
+          },
+          age: {
+            type: "number",
+            title: "Age",
+            value: 5,
+            sequence: 2,
+            maximum: 10,
+            minimum: 3
+          }
         },
-        {
-            title: 'Others',
-            layout: ['ipv4', 'type', 'agree', 'array']
-        }
-    ]
+        layout: [["first", "last"], "middle", "age"]
+      },
+      title: {
+        type: "string",
+        title: "Title",
+        value: "sk",
+        minLength: 5
+      },
+      ipv4: {
+        type: "string",
+        title: "ipv4",
+        minLength: 5,
+        maxLength: 20,
+        format: "ipv4"
+      },
+      color: {
+        type: "string",
+        title: "In which color",
+        component: "color",
+        format: "color"
+      },
+      size: {
+        type: "number",
+        title: "Size",
+        value: 5,
+        maximum: 10,
+        minimum: 3,
+        multipleOf: 3
+      },
+      type: {
+        type: "number",
+        title: "Select a type",
+        enum: [1, 2],
+        options: [{ label: "One", value: 1 }, { label: "Two", value: 2 }]
+      },
+      agree: {
+        type: "boolean",
+        title: "I agree with your terms",
+        value: false,
+        const: true
+      },
+      array: {
+        type: "array",
+        title: "Array",
+        items: {
+          type: "object",
+          properties: {
+            name: {
+              type: "string",
+              title: "name",
+              minLength: 3
+            },
+            age: {
+              type: "number",
+              title: "age",
+              multipleOf: 2,
+              minimum: 2
+            }
+          }
+        },
+        minItems: 2,
+        maxItems: 4
+      }
+    }
+  },
+  sections: [
+    {
+      title: "Basic",
+      layout: ["name", "title", ["size", "color"]]
+    },
+    {
+      title: "Others",
+      layout: ["ipv4", "type", "agree", "array"]
+    }
+  ]
 };
 
-import Schema from './Schema';
+import Schema from "./Schema";
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
-    constructor(props: IAppProps & IAppStyleProps, context: {}) {
-        super(props, context);
-        this.state = { width: '100%', height: '100%', config };
+  constructor(props: IAppProps & IAppStyleProps, context: {}) {
+    super(props, context);
+    this.state = { width: "100%", height: "100%", config };
+  }
+
+  containers: Array<HTMLDivElement> = [];
+
+  timeout: number = -1;
+
+  private addContainer = (container: HTMLDivElement): void => {
+    if (container) {
+      this.containers.push(container);
     }
+  };
 
-    containers: Array<HTMLDivElement> = [];
+  componentWillUpdate() {
+    this.containers.length = 0;
+  }
 
-    timeout: number = -1;
+  componentDidMount() {
+    this.adjustWidthHeight();
+  }
 
-    private addContainer = (container: HTMLDivElement): void => {
-        if (container) {
-            this.containers.push(container);
-        }
-    };
+  componentDidUpdate() {
+    this.adjustWidthHeight();
+  }
 
-    componentWillUpdate() {
-        this.containers.length = 0;
+  componentWillUnmount() {
+    window.clearTimeout(this.timeout);
+  }
+
+  adjustWidthHeight(): void {
+    window.clearTimeout(this.timeout);
+    const { width, height } = this.state;
+    if (width === "auto" || height === "auto") {
+      this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
     }
+  }
 
-    componentDidMount() {
-        this.adjustWidthHeight();
-    }
+  updateWidthHeight(): void {
+    const containers = this.containers.filter(container => !!container);
+    const widths = containers.map(container => container.offsetWidth);
+    const heights = containers.map(container => container.offsetHeight);
 
-    componentDidUpdate() {
-        this.adjustWidthHeight();
-    }
+    const width = `${Math.max(...widths)}px`;
+    const height = `${Math.max(...heights)}px`;
 
-    componentWillUnmount() {
-        window.clearTimeout(this.timeout);
-    }
+    // this.setState(() => ({ width, height }));
+  }
 
-    adjustWidthHeight(): void {
-        window.clearTimeout(this.timeout);
-        const { width, height } = this.state;
-        if (width === 'auto' || height === 'auto') {
-            this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
-        }
-    }
+  public render(): ReactNode {
+    const { className, classes, style } = this.props;
+    const { width, height, config } = this.state;
+    const root: string = classNames(classes!.root, className);
+    return (
+      <div className={root} style={style}>
+        <div
+          className={classes.container}
+          style={{ width, height }}
+          ref={this.addContainer}
+        >
+          <Flex.Set
+            direction={"row"}
+            style={{ justifyContent: "space-around" }}
+          >
+            <Flex.Item
+              style={{
+                flexDirection: "column",
+                flex: 0,
+                minWidth: 450
+              }}
+            >
+              <Schema config={config} onConfig={this.onConfig} />
+            </Flex.Item>
+            <Flex.Item
+              style={{
+                flexDirection: "column",
+                flex: 0,
+                minWidth: 450
+              }}
+            >
+              <h1>Form</h1>
+              <Paper square elevation={3} className={classes.paper}>
+                <Form
+                  config={config}
+                  onSubmit={this.onSubmit}
+                  onErrors={this.onErrors}
+                  onPatch={this.onPatch}
+                  onSnapshot={this.onSnapshot}
+                />
+              </Paper>
+            </Flex.Item>
+          </Flex.Set>
+        </div>
+      </div>
+    );
+  }
 
-    updateWidthHeight(): void {
-        const containers = this.containers.filter(container => !!container);
-        const widths = containers.map(container => container.offsetWidth);
-        const heights = containers.map(container => container.offsetHeight);
+  private onConfig = (config: IFormConfig) => {
+    this.setState(() => ({ config }));
+  };
 
-        const width = `${Math.max(...widths)}px`;
-        const height = `${Math.max(...heights)}px`;
+  private onSubmit = (values: { [key: string]: any }) => {
+    console.info(values);
+    window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
+  };
 
-        // this.setState(() => ({ width, height }));
-    }
+  private onErrors = (errors: { [key: string]: Array<string> }) => {
+    console.error(errors);
+    window.alert(`errors:\n\n${JSON.stringify(errors, null, 2)}`);
+  };
 
-    public render(): ReactNode {
-        const { className, classes, style } = this.props;
-        const { width, height, config } = this.state;
-        const root: string = classNames(classes!.root, className);
-        return (
-            <div className={root} style={style}>
-                <div
-                    className={classes.container}
-                    style={{ width, height }}
-                    ref={this.addContainer}>
-                    <Flex.Set
-                        direction={'row'}
-                        style={{ justifyContent: 'space-around' }}>
-                        <Flex.Item
-                            style={{
-                                flexDirection: 'column',
-                                flex: 0,
-                                minWidth: 450
-                            }}>
-                            <Schema config={config} onConfig={this.onConfig} />
-                        </Flex.Item>
-                        <Flex.Item
-                            style={{
-                                flexDirection: 'column',
-                                flex: 0,
-                                minWidth: 450
-                            }}>
-                            <h1>Form</h1>
-                            <Paper
-                                square
-                                elevation={3}
-                                className={classes.paper}>
-                                <Form
-                                    config={config}
-                                    onSubmit={this.onSubmit}
-                                    onErrors={this.onErrors}
-                                    onPatch={this.onPatch}
-                                    onSnapshot={this.onSnapshot}
-                                />
-                            </Paper>
-                        </Flex.Item>
-                    </Flex.Set>
-                </div>
-            </div>
-        );
-    }
+  private onPatch = (patch: {
+    op: "replace" | "add" | "remove";
+    path: string;
+    value?: any;
+  }): void => {
+    console.info(patch);
+  };
 
-    private onConfig = (config: IFormConfig) => {
-        this.setState(() => ({ config }));
-    };
-
-    private onSubmit = (values: { [key: string]: any }) => {
-        console.info(values);
-        window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
-    };
-
-    private onErrors = (errors: { [key: string]: Array<string> }) => {
-        console.error(errors);
-        window.alert(`errors:\n\n${JSON.stringify(errors, null, 2)}`);
-    };
-
-    private onPatch = (patch: {
-        op: 'replace' | 'add' | 'remove';
-        path: string;
-        value?: any;
-    }): void => {
-        console.info(patch);
-    };
-
-    private onSnapshot = (snapshot: {}): void => {
-        console.info(snapshot);
-    };
+  private onSnapshot = (snapshot: {}): void => {
+    console.info(snapshot);
+  };
 }
 
 export default withStyles<keyof IAppStyles>({
-    root: {
-        display: 'flex',
-        justifyContent: 'center',
-        margin: 20
-    },
-    container: {
-        minWidth: 450
-    },
-    paper: {
-        backgroundColor: '#eeeeee'
-    },
-    form: {
-        padding: 10
-    },
-    submit: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        padding: 10
-    }
+  root: {
+    display: "flex",
+    justifyContent: "center",
+    margin: 20
+  },
+  container: {
+    minWidth: 450
+  },
+  paper: {
+    backgroundColor: "#eeeeee"
+  },
+  form: {
+    padding: 10
+  },
+  submit: {
+    display: "flex",
+    justifyContent: "flex-end",
+    padding: 10
+  }
 })(App);

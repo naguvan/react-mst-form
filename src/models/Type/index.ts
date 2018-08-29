@@ -1,3 +1,3 @@
-import create from './Type';
+import create from "./Type";
 
 export default create;

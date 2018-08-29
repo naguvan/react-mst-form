@@ -1,11 +1,10 @@
-import { ReactNode } from 'react';
-import { IForm } from '../../types';
+import { IForm } from "../../types";
 
 export interface ISubmitProps {
-    form: IForm;
-    label?: string;
-    onSubmit?: (values: { [key: string]: any }) => void;
-    onErrors?: (errors: { [key: string]: Array<string> }) => void;
+  form: IForm;
+  label?: string;
+  onSubmit?: (values: { [key: string]: any }) => void;
+  onErrors?: (errors: { [key: string]: Array<string> }) => void;
 }
 
 export interface ISubmitStates {}

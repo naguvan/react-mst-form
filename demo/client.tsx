@@ -1,6 +1,6 @@
-import * as React from 'react';
-import { render } from 'react-dom';
+import * as React from "react";
+import { render } from "react-dom";
 
-import Boot from './Boot';
+import Boot from "./Boot";
 
-render(<Boot theme={'light'} />, document.getElementById('root'));
+render(<Boot theme={"light"} />, document.getElementById("root"));

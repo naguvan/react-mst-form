@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from './Type';
+import { ITypeProps, ITypeStates } from "./Type";
 
-import { INumber } from '../../models/Type';
+import { INumber } from "../../models/Type";
 
 export interface INumberProps extends ITypeProps<INumber> {}
 
