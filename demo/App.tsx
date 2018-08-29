@@ -14,6 +14,7 @@ import Paper from "@material-ui/core/Paper";
 
 const config: IFormConfig = {
   title: "Test Form",
+  submit: "Create",
   schema: {
     type: "object",
     properties: {

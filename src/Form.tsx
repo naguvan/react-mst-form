@@ -75,6 +75,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
 
   public render(): ReactNode {
     const { form } = this.state;
+    const { submit } = form;
     const { className, classes, style, onSubmit, onErrors } = this.props;
     const root: string = classNames(classes!.root, className, classes!.form);
     return (
@@ -86,7 +87,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
           renderer={FieldRenderer}
         />
         <div className={classes.submit}>
-          <FormSubmit {...{ form, onSubmit, onErrors }} />
+          <FormSubmit label={submit} {...{ form, onSubmit, onErrors }} />
         </div>
       </>
     );
