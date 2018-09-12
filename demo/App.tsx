@@ -262,9 +262,7 @@ export default withStyles<keyof IAppStyles, {}>({
   container: {
     minWidth: 450
   },
-  paper: {
-    backgroundColor: "#eeeeee"
-  },
+  paper: {},
   form: {
     padding: 10
   },

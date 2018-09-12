@@ -1,5 +1,7 @@
 export interface IBootProps {
-  theme: "dark" | "brown" | "light";
+  theme: "dark" | "light";
 }
 
-export interface IBootStates {}
+export interface IBootStates {
+  theme: "dark" | "light";
+}

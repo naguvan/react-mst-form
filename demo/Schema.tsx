@@ -76,7 +76,5 @@ export class Schema extends Component<
 }
 
 export default withStyles<keyof ISchemaStyles, {}>({
-  paper: {
-    backgroundColor: "#eeeeee"
-  }
+  paper: {}
 })(Schema);

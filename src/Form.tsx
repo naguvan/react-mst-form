@@ -70,7 +70,11 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
   componentWillReceiveProps(
     nextProps: Readonly<IFormProps & IFormStyleProps>
   ): void {
-    this.setState(state => Form.getDerivedStateFromPropsFix(nextProps, state));
+    if (this.props.config !== nextProps.config) {
+      this.setState(state =>
+        Form.getDerivedStateFromPropsFix(nextProps, state)
+      );
+    }
   }
 
   public render(): ReactNode {
