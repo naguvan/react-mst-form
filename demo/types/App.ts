@@ -1,18 +1,18 @@
-import { WithStyles } from "@material-ui/core";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import { IFormConfig } from "../../src/types";
 
 export interface IAppStyles {
-  root: React.CSSProperties;
-  container: React.CSSProperties;
-  form: React.CSSProperties;
-  paper: React.CSSProperties;
-  submit: React.CSSProperties;
+  root: CSSProperties;
+  container: CSSProperties;
+  form: CSSProperties;
+  paper: CSSProperties;
+  submit: CSSProperties;
 }
 
 export interface IAppStyleProps extends WithStyles<keyof IAppStyles> {}
 
 export interface IAppProps {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 }
 

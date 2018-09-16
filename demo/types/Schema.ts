@@ -1,14 +1,14 @@
-import { WithStyles } from "@material-ui/core";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import { IFormConfig } from "../../src/types";
 
 export interface ISchemaStyles {
-  paper: React.CSSProperties;
+  paper: CSSProperties;
 }
 
 export interface ISchemaStyleProps extends WithStyles<keyof ISchemaStyles> {}
 
 export interface ISchemaProps {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
   config: IFormConfig;
   onConfig(config: IFormConfig): void;

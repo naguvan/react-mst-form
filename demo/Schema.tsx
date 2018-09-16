@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, ChangeEvent, MouseEvent, ReactNode } from "react";
 
 import { ISchemaProps, ISchemaStates } from "./types";
 import { ISchemaStyleProps, ISchemaStyles } from "./types";
@@ -61,12 +61,12 @@ export class Schema extends Component<
     }
   }
 
-  private onChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+  private onChange = (event: ChangeEvent<HTMLInputElement>) => {
     const config = event.currentTarget.value;
     this.setState(() => ({ config }));
   };
 
-  private onSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
     const { config } = this.state;
     const { onConfig } = this.props;
     if (onConfig) {

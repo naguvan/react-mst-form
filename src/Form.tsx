@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { WithStyles } from "@material-ui/core";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
@@ -18,15 +18,15 @@ import { observer } from "mobx-react";
 import { onSnapshot, onPatch } from "mobx-state-tree";
 
 export interface IFormStyles {
-  root: React.CSSProperties;
-  form: React.CSSProperties;
-  submit: React.CSSProperties;
+  root: CSSProperties;
+  form: CSSProperties;
+  submit: CSSProperties;
 }
 
 export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
 
 export interface IFormProps {
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
   config: IFormConfig;
   onSubmit: (values: { [key: string]: any }) => void;

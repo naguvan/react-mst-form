@@ -1,8 +1,8 @@
-import { WithStyles } from "@material-ui/core";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 
 export interface IFlexItemStyles {
-  root: React.CSSProperties;
-  center: React.CSSProperties;
+  root: CSSProperties;
+  center: CSSProperties;
 }
 
 export interface IFlexItemStyleProps
@@ -11,15 +11,15 @@ export interface IFlexItemStyleProps
 export interface IFlexItemProps {
   center?: boolean;
   fluid?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 }
 
 export interface IFlexItemStates {}
 
 export interface IFlexSetStyles {
-  root: React.CSSProperties;
-  center: React.CSSProperties;
+  root: CSSProperties;
+  center: CSSProperties;
 }
 
 export interface IFlexSetStyleProps extends WithStyles<keyof IFlexSetStyles> {}
@@ -27,7 +27,7 @@ export interface IFlexSetStyleProps extends WithStyles<keyof IFlexSetStyles> {}
 export interface IFlexSetProps {
   direction: "row" | "column";
   fluid?: boolean;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 }
 

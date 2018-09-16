@@ -1,14 +1,15 @@
-import * as React from "react";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
+
 import { ILayoutSet, ILayoutItem } from "../../types";
 
 export class Item<T> implements ILayoutItem<T> {
-  constructor(public value: T, public style: React.CSSProperties = {}) {}
+  constructor(public value: T, public style: CSSProperties = {}) {}
 
   static from<T>(item: T): ILayoutItem<T> {
     return new Item(item);
   }
 
-  static styled<T>(style: React.CSSProperties, item: T): ILayoutItem<T> {
+  static styled<T>(style: CSSProperties, item: T): ILayoutItem<T> {
     return new Item(item, style);
   }
 }
@@ -16,7 +17,7 @@ export class Item<T> implements ILayoutItem<T> {
 export class Set<T> implements ILayoutSet<T> {
   constructor(
     public items: Array<ILayoutSet<T> | ILayoutItem<T>>,
-    public style: React.CSSProperties = {}
+    public style: CSSProperties = {}
   ) {}
 
   static from<T>(
@@ -26,7 +27,7 @@ export class Set<T> implements ILayoutSet<T> {
   }
 
   static styled<T>(
-    style: React.CSSProperties,
+    style: CSSProperties,
     ...items: Array<ILayoutSet<T> | ILayoutItem<T>>
   ): ILayoutSet<T> {
     return new Set(items, style);

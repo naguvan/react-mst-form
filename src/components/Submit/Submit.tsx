@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { Component, MouseEvent, ReactNode } from "react";
 
 import { ISubmitProps, ISubmitStates } from "../../types";
 
@@ -23,7 +23,7 @@ export default class Submit extends Component<ISubmitProps, ISubmitStates> {
     );
   }
 
-  private onSubmit = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
     const { form, onSubmit, onErrors } = this.props;
     await form.validate();
     if (form.valid) {

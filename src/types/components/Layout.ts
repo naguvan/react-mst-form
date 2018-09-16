@@ -1,15 +1,14 @@
 import { ReactNode } from "react";
-
-import { WithStyles } from "@material-ui/core";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 
 export interface ILayoutItem<T> {
   value: T;
-  style: React.CSSProperties;
+  style: CSSProperties;
 }
 
 export interface ILayoutSet<T> {
   items: Array<ILayoutSet<T> | ILayoutItem<T>>;
-  style: React.CSSProperties;
+  style: CSSProperties;
 }
 
 export interface ILayoutBaseProps<T> {
@@ -18,14 +17,14 @@ export interface ILayoutBaseProps<T> {
   center: boolean;
   direction: "row" | "column";
   //  styles: ILayoutStyles;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 }
 
 export interface ILayoutStyles {
-  root: React.CSSProperties;
-  set: React.CSSProperties;
-  item: React.CSSProperties;
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
 }
 
 export interface ILayoutStyleProps extends WithStyles<keyof ILayoutStyles> {}
@@ -37,15 +36,15 @@ export interface ILayoutProps<T> {
   // styles?: ILayoutStyles;
   render: (item: T) => ReactNode;
   items: ILayoutSet<T> | Array<T | Array<T>>;
-  style?: React.CSSProperties;
+  style?: CSSProperties;
   className?: string;
 }
 
 export interface ILayoutStates {}
 
 export interface ILayoutItemStyles {
-  root: React.CSSProperties;
-  item: React.CSSProperties;
+  root: CSSProperties;
+  item: CSSProperties;
 }
 
 export interface ILayoutItemStyleProps
@@ -58,9 +57,9 @@ export interface ILayoutItemProps<T> extends ILayoutBaseProps<T> {
 export interface ILayoutItemStates {}
 
 export interface ILayoutSetStyles {
-  root: React.CSSProperties;
-  set: React.CSSProperties;
-  item: React.CSSProperties;
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
 }
 
 export interface ILayoutSetStyleProps
@@ -73,9 +72,9 @@ export interface ILayoutSetProps<T> extends ILayoutBaseProps<T> {
 export interface ILayoutSetStates {}
 
 export interface ILayoutMixedStyles {
-  root: React.CSSProperties;
-  set: React.CSSProperties;
-  item: React.CSSProperties;
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
 }
 
 export interface ILayoutMixedStyleProps
