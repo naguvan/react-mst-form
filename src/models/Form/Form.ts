@@ -11,6 +11,7 @@ import { flatArray } from "../../utils";
 export const Form: IModelType<Partial<IFormConfig>, IForm> = types
   .model("Form", {
     title: types.string,
+    cancel: types.optional(types.string, "Cancel"),
     submit: types.optional(types.string, "Submit"),
     schema: types.late("Schema", createObject),
     errors: types.optional(types.array(types.string), []),

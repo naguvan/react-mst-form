@@ -11,6 +11,7 @@ export interface IFormSection {
 
 export interface IFormConfig {
   readonly title: string;
+  readonly cancel?: string;
   readonly submit?: string;
   readonly schema: IObjectConfig;
   readonly layout?: IFormLayout;
@@ -20,6 +21,7 @@ export interface IFormConfig {
 export interface IForm {
   readonly schema: IObject;
   readonly title: string;
+  readonly cancel: string;
   readonly submit: string;
   readonly modified: boolean;
   readonly valid: boolean;

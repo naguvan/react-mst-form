@@ -14,6 +14,7 @@ import Paper from "@material-ui/core/Paper";
 
 const config: IFormConfig = {
   title: "Test Form",
+  cancel: "Cancel",
   submit: "Create",
   schema: {
     type: "object",
@@ -213,6 +214,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
               <Paper square elevation={3} className={classes.paper}>
                 <Form
                   config={config}
+                  onCancel={this.onCancel}
                   onSubmit={this.onSubmit}
                   onErrors={this.onErrors}
                   onPatch={this.onPatch}
@@ -228,6 +230,10 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
 
   private onConfig = (config: IFormConfig) => {
     this.setState(() => ({ config }));
+  };
+
+  private onCancel = () => {
+    window.alert(`form cancelled`);
   };
 
   private onSubmit = (values: { [key: string]: any }) => {
