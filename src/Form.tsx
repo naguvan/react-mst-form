@@ -98,11 +98,12 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
           renderer={FieldRenderer}
         />
         <Grid className={classes.footer} container spacing={24}>
-          {onCancel && (
-            <Grid item xs={6} sm={3}>
-              <FormCancel label={cancel} {...{ form, onCancel }} />
-            </Grid>
-          )}
+          {onCancel &&
+            cancel && (
+              <Grid item xs={6} sm={3}>
+                <FormCancel label={cancel} {...{ form, onCancel }} />
+              </Grid>
+            )}
           <Grid item xs={6} sm={3}>
             <FormSubmit label={submit} {...{ form, onSubmit, onErrors }} />
           </Grid>

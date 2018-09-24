@@ -14,16 +14,27 @@ export class Schema extends Component<
   ISchemaProps & ISchemaStyleProps,
   ISchemaStates
 > {
-  static getDerivedStateFromProps(
+  static getDerivedStateFromPropsFix(
     props: Readonly<ISchemaProps & ISchemaStyleProps>,
-    state: ISchemaStates
-  ): Partial<ISchemaStates> {
-    return Schema.getState(props);
-  }
-
-  static getState(props: ISchemaProps & ISchemaStyleProps): ISchemaStates {
+    state?: ISchemaStates
+  ): ISchemaStates {
     const { config } = props;
     return { config: JSON.stringify(config, null, 2) };
+  }
+
+  constructor(props: ISchemaProps & ISchemaStyleProps) {
+    super(props);
+    this.state = Schema.getDerivedStateFromPropsFix(props);
+  }
+
+  componentWillReceiveProps(
+    nextProps: Readonly<ISchemaProps & ISchemaStyleProps>
+  ): void {
+    if (this.props.config !== nextProps.config) {
+      this.setState(state =>
+        Schema.getDerivedStateFromPropsFix(nextProps, state)
+      );
+    }
   }
 
   public render(): ReactNode {
