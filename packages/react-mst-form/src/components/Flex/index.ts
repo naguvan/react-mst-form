@@ -3,7 +3,7 @@ import {
   IFlexSetStyleProps,
   IFlexItemStyleProps,
   IFlexSetProps
-} from "../../../types";
+} from "../../types";
 
 import Set from "./Set";
 

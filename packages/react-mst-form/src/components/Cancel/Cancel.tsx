@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, MouseEvent, ReactNode } from "react";
 
-import { ICancelProps, ICancelStates } from "../../../types";
+import { ICancelProps, ICancelStates } from "../../types";
 
 import { observer } from "mobx-react";
 

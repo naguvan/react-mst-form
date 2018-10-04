@@ -2,8 +2,8 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { observer } from "mobx-react";
 
-import { IForm, IFormProps, IFormStates, IFormSection } from "../../../types";
-import { IFormStyleProps, IFormStyles, IFormLayout } from "../../../types";
+import { IForm, IFormProps, IFormStates, IFormSection } from "../../types";
+import { IFormStyleProps, IFormStyles, IFormLayout } from "../../types";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";

@@ -1,8 +1,8 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import { IStringProps, IStringStates } from "../../../types";
-import { IString, IForm } from "../../../types";
+import { IStringProps, IStringStates } from "../../types";
+import { IString, IForm } from "../../types";
 
 import { observer } from "mobx-react";
 

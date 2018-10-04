@@ -1,6 +1,6 @@
 import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
-import { ILayoutSet, ILayoutItem } from "../../../types";
+import { ILayoutSet, ILayoutItem } from "../../types";
 
 export class Item<T> implements ILayoutItem<T> {
   constructor(public value: T, public style: CSSProperties = {}) {}

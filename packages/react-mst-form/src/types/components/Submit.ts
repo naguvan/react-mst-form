@@ -1,4 +1,4 @@
-import { IForm } from "../../../types";
+import { IForm } from "../../types";
 
 export interface ISubmitProps {
   form: IForm;

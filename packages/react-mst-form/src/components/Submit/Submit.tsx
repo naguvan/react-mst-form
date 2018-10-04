@@ -1,7 +1,7 @@
 import * as React from "react";
 import { Component, MouseEvent, ReactNode } from "react";
 
-import { ISubmitProps, ISubmitStates } from "../../../types";
+import { ISubmitProps, ISubmitStates } from "../../types";
 
 import { observer } from "mobx-react";
 

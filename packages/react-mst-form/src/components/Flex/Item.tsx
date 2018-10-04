@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { IFlexItemProps, IFlexItemStates } from "../../../types";
-import { IFlexItemStyleProps, IFlexItemStyles } from "../../../types";
+import { IFlexItemProps, IFlexItemStates } from "../../types";
+import { IFlexItemStyleProps, IFlexItemStyles } from "../../types";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";

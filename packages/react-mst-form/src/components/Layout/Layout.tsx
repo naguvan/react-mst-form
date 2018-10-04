@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { ILayoutStyleProps, ILayoutStyles } from "../../../types";
-import { ILayoutProps, ILayoutStates } from "../../../types";
+import { ILayoutStyleProps, ILayoutStyles } from "../../types";
+import { ILayoutProps, ILayoutStates } from "../../types";
 
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
