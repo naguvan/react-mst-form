@@ -1,0 +1,11 @@
+node_modules/
+build
+lib
+lib-esm
+.DS_Store
+*.tgz
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+dist
+stats.json

@@ -1,0 +1,100 @@
+{
+  "name": "react-mst-form",
+  "version": "1.5.0",
+  "description": "react-mobx-state-tree-form",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "repository": "https://github.com/naguvan/react-mst-form.git",
+  "author": "naguvan <naguvan@outlook.com>",
+  "license": "MIT",
+  "private": false,
+  "bugs": {
+    "url": "https://github.com/naguvan/react-mst-form/issues"
+  },
+  "files": [
+    "lib/",
+    "lib-esm/"
+  ],
+  "peerDependencies": {
+    "mobx": "^5.1.0",
+    "mobx-react": "^5.2.5",
+    "mobx-state-tree": "^2.2.0",
+    "react": "^16.4.2",
+    "react-dom": "^16.4.2"
+  },
+  "dependencies": {
+    "@material-ui/core": "3.1.2",
+    "@material-ui/icons": "3.0.1",
+    "classnames": "2.2.6",
+    "jss": "9.8.7",
+    "jss-preset-default": "4.5.0",
+    "mobx": "5.5.0",
+    "mobx-react": "5.2.8",
+    "mobx-state-tree": "2.2.0",
+    "react": "16.5.2",
+    "react-dom": "16.5.2"
+  },
+  "devDependencies": {
+    "@types/classnames": "2.2.6",
+    "@types/express": "4.16.0",
+    "@types/jest": "23.3.3",
+    "@types/node": "10.11.4",
+    "@types/react": "16.4.14",
+    "@types/react-dom": "16.0.8",
+    "@types/webpack": "4.4.14",
+    "cross-env": "5.2.0",
+    "husky": "0.14.3",
+    "jest": "23.6.0",
+    "lerna": "^3.4.0",
+    "prettier": "1.14.3",
+    "pretty-quick": "1.7.0",
+    "ts-jest": "23.10.3",
+    "ts-loader": "5.2.1",
+    "ts-node": "7.0.1",
+    "tslint": "5.11.0",
+    "tslint-config-prettier": "1.15.0",
+    "tslint-loader": "3.6.0",
+    "tslint-react": "3.6.0",
+    "typescript": "3.1.1"
+  },
+  "keywords": [
+    "react",
+    "form",
+    "mobx-state-tree",
+    "mst",
+    "mobx",
+    "json",
+    "schema",
+    "typescript"
+  ],
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "roots": [
+      "<rootDir>/src/"
+    ]
+  },
+  "scripts": {
+    "prepare": "npm run lint && npm run test && npm run build",
+    "lint": "tslint -p .",
+    "precommit": "npm run lint && pretty-quick --staged",
+    "pretty": "prettier --write '{src}/**/*.{ts,tsx}'",
+    "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
+    "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
+    "dev:tsc": "tsc && tsc -m es6 --outDir lib-esm",
+    "build": "npm run dev:tsc"
+  }
+}
