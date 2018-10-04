@@ -2,12 +2,10 @@ import { IModelType, types } from "mobx-state-tree";
 
 import { regex } from "../utils";
 
-import createValue from "../Value";
-
 import { mappings } from "../Common";
 import { matchers } from "./matchers";
 
-import { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 export type IFormat =
   | "date"
@@ -97,3 +95,7 @@ export const String: IModelType<Partial<IStringConfig>, IString> = types
   }));
 
 mappings.string = String;
+
+export function createString(): IModelType<Partial<IStringConfig>, IString> {
+  return String;
+}

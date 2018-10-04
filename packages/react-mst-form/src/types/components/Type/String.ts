@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from "./Type";
+import { IString } from "reactive-json-schema";
 
-import { IString } from "../../models/Type";
+import { ITypeProps, ITypeStates } from "./Type";
 
 export interface IStringProps extends ITypeProps<IString> {}
 

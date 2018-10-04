@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from "./Type";
+import { INull } from "reactive-json-schema";
 
-import { INull } from "../../models/Type";
+import { ITypeProps, ITypeStates } from "./Type";
 
 export interface INullProps extends ITypeProps<INull> {}
 

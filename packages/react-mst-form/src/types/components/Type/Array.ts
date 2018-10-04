@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from "./Type";
+import { IArray } from "reactive-json-schema";
 
-import { IArray } from "../../models/Type";
+import { ITypeProps, ITypeStates } from "./Type";
 
 export interface IArrayProps extends ITypeProps<IArray> {}
 

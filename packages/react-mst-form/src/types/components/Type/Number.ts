@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from "./Type";
+import { INumber } from "reactive-json-schema";
 
-import { INumber } from "../../models/Type";
+import { ITypeProps, ITypeStates } from "./Type";
 
 export interface INumberProps extends ITypeProps<INumber> {}
 

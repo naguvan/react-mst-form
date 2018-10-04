@@ -1,8 +1,16 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import { IType, IForm, IString, IObject } from "../../types";
-import { INumber, IBoolean, IArray } from "../../types";
+import {
+  IArray,
+  IBoolean,
+  INumber,
+  IObject,
+  IString,
+  IType
+} from "reactive-json-schema";
+
+import { IForm } from "../../types";
 
 import String from "./String";
 import Number from "./Number";
@@ -18,7 +26,9 @@ export function renderer(type: IType, form: IForm): ReactNode {
         <Object
           type={type as IObject}
           form={form}
-          layout={(type as IObject).layout!}
+          layout={[]}
+          // TODO: find alternate configuration
+          // layout={(type as IObject).layout!}
         />
       );
     case "number":

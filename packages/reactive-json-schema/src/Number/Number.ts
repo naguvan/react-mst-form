@@ -2,9 +2,8 @@ import { IModelType, types } from "mobx-state-tree";
 
 import { mappings } from "../Common";
 import { decimals } from "../utils";
-import createValue from "../Value";
 
-import { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 export interface INumberAttrs extends IValueAttrs<number> {
   readonly minimum?: number | null;
@@ -65,3 +64,7 @@ export const Number: IModelType<Partial<INumberConfig>, INumber> = types
   }));
 
 mappings.number = Number;
+
+export function createNumber(): IModelType<Partial<INumberConfig>, INumber> {
+  return Number;
+}

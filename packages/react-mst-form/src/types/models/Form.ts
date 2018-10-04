@@ -1,4 +1,4 @@
-import { IObjectConfig, IObject, IType } from "./Type";
+import { IObjectConfig, IObject, IType } from "reactive-json-schema";
 
 export type IFormLayout = Array<
   string | Array<string | Array<string | Array<string>>>

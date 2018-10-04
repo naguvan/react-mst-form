@@ -51,8 +51,8 @@ const config: IFormConfig = {
             maximum: 10,
             minimum: 3
           }
-        },
-        layout: [["first", "last"], "middle", "age"]
+        } // ,
+        // layout: [["first", "last"], "middle", "age"]
       },
       title: {
         type: "string",

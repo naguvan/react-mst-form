@@ -1,8 +1,10 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
+import { INumber } from "reactive-json-schema";
+
 import { INumberProps, INumberStates } from "../../types";
-import { INumber, IForm } from "../../types";
+import { IForm } from "../../types";
 
 import { observer } from "mobx-react";
 

@@ -1,4 +1,6 @@
-import { IForm, IType } from "../../models";
+import { IType } from "reactive-json-schema";
+
+import { IForm } from "../../models";
 
 export interface ITypeProps<T extends IType> {
   type: T;

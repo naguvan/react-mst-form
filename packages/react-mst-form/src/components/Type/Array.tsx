@@ -1,16 +1,16 @@
 import * as React from "react";
 import { ReactNode, Fragment } from "react";
 
+import { createType, IArray } from "reactive-json-schema";
+
 import { IArrayProps, IArrayStates } from "../../types";
-import { IArray, IForm } from "../../types";
+import { IForm } from "../../types";
 
 import { observer } from "mobx-react";
 
 import Base from "./Base";
 
 import { renderer } from "./renderer";
-
-import createType from "../../models/Type";
 
 import IconButton from "@material-ui/core/IconButton";
 import ActionAdd from "@material-ui/icons/Add";

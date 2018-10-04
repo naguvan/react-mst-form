@@ -1,8 +1,10 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
+import { IObject } from "reactive-json-schema";
+
 import { IObjectProps, IObjectStates } from "../../types";
-import { IObject, IForm, IFormLayout } from "../../types";
+import { IForm, IFormLayout } from "../../types";
 
 import { observer } from "mobx-react";
 

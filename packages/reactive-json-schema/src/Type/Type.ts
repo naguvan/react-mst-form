@@ -21,7 +21,7 @@ let Type: IMobxType<Partial<ITypeConfig>, IType>;
 
 import { mappings } from "../Common";
 
-export default function createType(): IMobxType<Partial<ITypeConfig>, IType> {
+export function createType(): IMobxType<Partial<ITypeConfig>, IType> {
   if (!Type) {
     Type = types.union(
       snapshot =>

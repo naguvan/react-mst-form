@@ -4,7 +4,7 @@ import { IObject, IObjectConfig } from "../Object";
 import { IString } from "../String";
 import { IType } from "./Type";
 
-import createType from "./Type";
+import { createType } from "./Type";
 
 import { toJS } from "mobx";
 import { keys } from "../utils";

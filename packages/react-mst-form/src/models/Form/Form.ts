@@ -1,10 +1,9 @@
 import { IModelType, types, flow } from "mobx-state-tree";
 export type __IModelType = IModelType<any, any>;
 
-import { IType } from "../../types";
-import { IFormConfig, IForm } from "../../types";
+import { createObject, IType } from "reactive-json-schema";
 
-import createObject from "../Type/Object";
+import { IFormConfig, IForm } from "../../types";
 
 import { flatArray } from "../../utils";
 

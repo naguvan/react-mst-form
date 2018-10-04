@@ -1,6 +1,6 @@
 // tslint:disable:max-file-line-count
 
-import create from "./Object";
+import { createObject } from "./Object";
 
 import { IObject, IObjectConfig } from "./Object";
 
@@ -24,7 +24,7 @@ const config: IObjectConfig = {
   type: "object"
 };
 
-const NObject = create();
+const NObject = createObject();
 
 test("create object type", () => {
   const type = NObject.create(config);

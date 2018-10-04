@@ -1,9 +1,8 @@
 import { IModelType, types } from "mobx-state-tree";
 
 import { mappings } from "../Common";
-import createValue from "../Value";
 
-import { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 export interface IBooleanAttrs extends IValueAttrs<boolean> {}
 
@@ -24,3 +23,7 @@ export const Boolean: IModelType<
 );
 
 mappings.boolean = Boolean;
+
+export function createBoolean(): IModelType<Partial<IBooleanConfig>, IBoolean> {
+  return Boolean;
+}

@@ -1,8 +1,10 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
+import { IString } from "reactive-json-schema";
+
 import { IStringProps, IStringStates } from "../../types";
-import { IString, IForm } from "../../types";
+import { IForm } from "../../types";
 
 import { observer } from "mobx-react";
 

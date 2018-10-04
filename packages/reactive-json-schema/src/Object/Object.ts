@@ -2,15 +2,13 @@ import { IModelType, types } from "mobx-state-tree";
 
 import { toJS } from "mobx";
 
-import createValue from "../Value";
-
 import { keys, unique } from "../utils";
 
 import { mappings } from "../Common";
 
-import createType from "../Type";
+import { createType } from "../Type";
 
-import { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 import { IType, ITypeConfig } from "../Type";
 
@@ -40,10 +38,7 @@ mappings.object = types.late("Object", createObject);
 
 let NObject: IModelType<Partial<IObjectConfig>, IObject>;
 
-export default function createObject(): IModelType<
-  Partial<IObjectConfig>,
-  IObject
-> {
+export function createObject(): IModelType<Partial<IObjectConfig>, IObject> {
   if (!NObject) {
     const XObject = types
       .compose(

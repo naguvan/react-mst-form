@@ -1,6 +1,6 @@
 // tslint:disable:max-file-line-count
 
-import create from "./Array";
+import { createArray } from "./Array";
 
 import { IArrayConfig } from "./Array";
 
@@ -16,7 +16,7 @@ const config: IArrayConfig = {
   type: "array"
 };
 
-const NArray = create();
+const NArray = createArray();
 
 test("create array type", () => {
   const type = NArray.create(config);

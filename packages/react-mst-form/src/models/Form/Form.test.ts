@@ -1,11 +1,15 @@
 import { Form } from "./Form";
-import { IStringConfig, IString } from "../../types";
-import { INumberConfig } from "../../types";
-import { IBooleanConfig } from "../../types";
+import {
+  IBooleanConfig,
+  INumberConfig,
+  IStringConfig,
+  IString
+} from "reactive-json-schema";
 
-import String from "../Type/String";
-import Number from "../Type/Number";
-import Boolean from "../Type/Boolean";
+import { Boolean, Number, String } from "reactive-json-schema";
+
+import {} from "../../types";
+import {} from "../../types";
 
 const name: IStringConfig = {
   title: "Name",

@@ -3,9 +3,9 @@ import { detach, IModelType, types } from "mobx-state-tree";
 import { observe, toJS } from "mobx";
 
 import { IAnything, mappings } from "../Common";
-import createType, { IType, ITypeConfig } from "../Type";
+import { createType, IType, ITypeConfig } from "../Type";
 import { isArray, unique } from "../utils";
-import createValue, { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 export interface IArrayAttrs extends IValueAttrs<Array<IAnything | null>> {
   readonly additionalItems?: boolean | null;
@@ -32,10 +32,7 @@ mappings.array = types.late("Array", createArray);
 
 let NArray: IModelType<Partial<IArrayConfig>, IArray>;
 
-export default function createArray(): IModelType<
-  Partial<IArrayConfig>,
-  IArray
-> {
+export function createArray(): IModelType<Partial<IArrayConfig>, IArray> {
   if (!NArray) {
     const Array: IModelType<Partial<IArrayConfig>, IArray> = types
       .compose(

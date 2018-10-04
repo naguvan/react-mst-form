@@ -32,7 +32,8 @@
     "mobx-react": "5.2.8",
     "mobx-state-tree": "2.2.0",
     "react": "16.5.2",
-    "react-dom": "16.5.2"
+    "react-dom": "16.5.2",
+    "reactive-json-schema": "1.0.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",

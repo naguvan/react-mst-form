@@ -1,6 +1,6 @@
-import { ITypeProps, ITypeStates } from "./Type";
+import { IBoolean } from "reactive-json-schema";
 
-import { IBoolean } from "../../models/Type";
+import { ITypeProps, ITypeStates } from "./Type";
 
 export interface IBooleanProps extends ITypeProps<IBoolean> {}
 

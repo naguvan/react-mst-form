@@ -1,8 +1,9 @@
 import { ReactNode } from "react";
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 
+import { IType } from "reactive-json-schema";
+
 import { IForm } from "../models/Form";
-import { IType } from "../models/Type";
 
 export interface IFormStyles {
   root: CSSProperties;

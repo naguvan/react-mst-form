@@ -1,10 +1,8 @@
 import { IModelType, types } from "mobx-state-tree";
 
-import createValue from "../Value";
-
 import { mappings } from "../Common";
 
-import { IValue, IValueAttrs, IValueConfig } from "../Value";
+import { createValue, IValue, IValueAttrs, IValueConfig } from "../Value";
 
 export interface INullAttrs extends IValueAttrs<null> {}
 
@@ -21,3 +19,7 @@ export const Null: IModelType<Partial<INullConfig>, INull> = types.compose(
 );
 
 mappings.null = Null;
+
+export function createNull(): IModelType<Partial<INullConfig>, INull> {
+  return Null;
+}
