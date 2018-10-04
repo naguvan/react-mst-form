@@ -19,12 +19,32 @@
     "schema",
     "typescript"
   ],
+  "jest": {
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ],
+    "modulePaths": [
+      "<rootDir>/src/"
+    ],
+    "roots": [
+      "<rootDir>/src/"
+    ]
+  },
   "scripts": {
     "prepare": "npm run lint && npm run build",
     "prebuild": "rimraf {lib,lib-esm}",
     "lint": "tslint -p .",
     "precommit": "npm run lint && pretty-quick --staged",
-    "pretty": "prettier --write '{src}/**/*.{ts,tsx}'",
+    "pretty": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
     "dev:tsc": "tsc && tsc -m es6 --outDir lib-esm",
     "build": "npm run dev:tsc"
@@ -34,6 +54,7 @@
     "mobx-state-tree": "2.2.0"
   },
   "devDependencies": {
+    "@types/jest": "23.3.3",
     "cross-env": "5.2.0",
     "husky": "0.14.3",
     "jest": "23.6.0",

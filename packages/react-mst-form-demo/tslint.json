@@ -9,7 +9,7 @@
     "no-trailing-whitespace": true,
     "no-var-keyword": true,
     "one-line": [true, "check-open-brace", "check-whitespace"],
-    "quotemark": [true, "single", "jsx-double"],
+    "quotemark": [true, "double", "jsx-double"],
     "semicolon": [false],
     "triple-equals": [true, "allow-null-check"],
     "typedef-whitespace": [

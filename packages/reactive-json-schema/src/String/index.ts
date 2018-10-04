@@ -1,0 +1,5 @@
+export * from "./String";
+
+import { String } from "./String";
+
+export default String;
