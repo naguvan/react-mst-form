@@ -1,14 +1,35 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { ILayoutStyleProps, ILayoutStyles } from "../../types";
-import { ILayoutProps, ILayoutStates } from "../../types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
 import Set from "./Set";
 import { arrange } from "./Config";
+
+import { ILayoutSet } from "./Common";
+
+export interface ILayoutStyles {
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
+}
+
+export interface ILayoutStyleProps extends WithStyles<keyof ILayoutStyles> {}
+
+export interface ILayoutProps<T> {
+  path?: string;
+  center?: boolean;
+  direction?: "row" | "column";
+  // styles?: ILayoutStyles;
+  render: (item: T) => ReactNode;
+  items: ILayoutSet<T> | Array<T | Array<T>>;
+  style?: CSSProperties;
+  className?: string;
+}
+
+export interface ILayoutStates {}
 
 export class Layout<T> extends Component<
   ILayoutProps<T> & ILayoutStyleProps,

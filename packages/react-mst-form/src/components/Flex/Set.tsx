@@ -1,11 +1,25 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { IFlexSetProps, IFlexSetStates } from "../../types";
-import { IFlexSetStyleProps, IFlexSetStyles } from "../../types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
+
+export interface IFlexSetStyles {
+  root: CSSProperties;
+  center: CSSProperties;
+}
+
+export interface IFlexSetStyleProps extends WithStyles<keyof IFlexSetStyles> {}
+
+export interface IFlexSetProps {
+  direction: "row" | "column";
+  fluid?: boolean;
+  style?: CSSProperties;
+  className?: string;
+}
+
+export interface IFlexSetStates {}
 
 export class Set extends Component<
   IFlexSetProps & IFlexSetStyleProps,

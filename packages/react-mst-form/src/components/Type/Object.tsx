@@ -3,20 +3,25 @@ import { ReactNode } from "react";
 
 import { IObject } from "reactive-json-schema";
 
-import { IObjectProps, IObjectStates } from "../../types";
-import { IForm, IFormLayout } from "../../types";
+import { IForm, IFormLayout } from "../../models/Form";
 
 import { observer } from "mobx-react";
 
-import Base from "./Base";
+import Type, { ITypeProps, ITypeStates } from "./Type";
 
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { renderer } from "./renderer";
 import Layout from "../Layout";
 
+export interface IObjectProps extends ITypeProps<IObject> {
+  layout: IFormLayout;
+}
+
+export interface IObjectStates extends ITypeStates<IObject> {}
+
 @observer
-export default class NObject extends Base<
+export default class NObject extends Type<
   IObject,
   IObjectProps,
   IObjectStates

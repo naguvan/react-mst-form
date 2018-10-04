@@ -1,11 +1,26 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { IFlexItemProps, IFlexItemStates } from "../../types";
-import { IFlexItemStyleProps, IFlexItemStyles } from "../../types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
+
+export interface IFlexItemStyles {
+  root: CSSProperties;
+  center: CSSProperties;
+}
+
+export interface IFlexItemStyleProps
+  extends WithStyles<keyof IFlexItemStyles> {}
+
+export interface IFlexItemProps {
+  center?: boolean;
+  fluid?: boolean;
+  style?: CSSProperties;
+  className?: string;
+}
+
+export interface IFlexItemStates {}
 
 export class Item extends Component<
   IFlexItemProps & IFlexItemStyleProps,

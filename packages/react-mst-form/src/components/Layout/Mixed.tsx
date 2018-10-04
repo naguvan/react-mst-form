@@ -1,16 +1,29 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { ILayoutMixedProps, ILayoutMixedStates } from "../../types";
-import { ILayoutMixedStyleProps, ILayoutMixedStyles } from "../../types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import { ILayoutSet, ILayoutItem } from "../../types";
-
 import Item from "./Item";
 import Set from "./Set";
+
+import { ILayoutBaseProps, ILayoutSet, ILayoutItem } from "./Common";
+
+export interface ILayoutMixedStyles {
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
+}
+
+export interface ILayoutMixedStyleProps
+  extends WithStyles<keyof ILayoutMixedStyles> {}
+
+export interface ILayoutMixedProps<T> extends ILayoutBaseProps<T> {
+  item: ILayoutItem<T> | ILayoutSet<T>;
+}
+
+export interface ILayoutMixedStates {}
 
 export class Mixed<T> extends Component<
   ILayoutMixedProps<T> & ILayoutMixedStyleProps,

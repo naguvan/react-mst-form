@@ -1,11 +1,19 @@
 import * as React from "react";
 import { Component, MouseEvent, ReactNode } from "react";
 
-import { ICancelProps, ICancelStates } from "../../types";
-
 import { observer } from "mobx-react";
 
 import Button from "@material-ui/core/Button";
+
+import { IForm } from "../../models/Form";
+
+export interface ICancelProps {
+  form: IForm;
+  label?: string;
+  onCancel: (form?: IForm) => void;
+}
+
+export interface ICancelStates {}
 
 @observer
 export default class Cancel extends Component<ICancelProps, ICancelStates> {

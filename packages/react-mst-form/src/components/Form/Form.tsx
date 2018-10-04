@@ -2,15 +2,38 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 import { observer } from "mobx-react";
 
-import { IForm, IFormProps, IFormStates, IFormSection } from "../../types";
-import { IFormStyleProps, IFormStyles, IFormLayout } from "../../types";
+import { IType } from "reactive-json-schema";
 
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 import Object from "../Type/Object";
+
+import { IForm, IFormLayout, IFormSection } from "../../models/Form";
+
+export interface IFormStyles {
+  root: CSSProperties;
+  layout: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
+  secondary: CSSProperties;
+}
+
+export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
+
+export interface IFormProps {
+  form: IForm;
+  style?: CSSProperties;
+  className?: string;
+  renderer(type: IType, form: IForm): ReactNode;
+}
+
+export interface IFormStates {
+  active: number;
+}
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {

@@ -3,12 +3,11 @@ import { ReactNode, Fragment } from "react";
 
 import { createType, IArray } from "reactive-json-schema";
 
-import { IArrayProps, IArrayStates } from "../../types";
-import { IForm } from "../../types";
+import { IForm } from "../../models/Form";
 
 import { observer } from "mobx-react";
 
-import Base from "./Base";
+import Type, { ITypeProps, ITypeStates } from "./Type";
 
 import { renderer } from "./renderer";
 
@@ -19,8 +18,12 @@ import FormLabel from "@material-ui/core/FormLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
+export interface IArrayProps extends ITypeProps<IArray> {}
+
+export interface IArrayStates extends ITypeStates<IArray> {}
+
 @observer
-export default class Array extends Base<IArray, IArrayProps, IArrayStates> {
+export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
   protected renderType(type: IArray, form: IForm): ReactNode {
     const Type = createType();
     return (

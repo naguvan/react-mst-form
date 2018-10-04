@@ -3,20 +3,23 @@ import { ReactNode } from "react";
 
 import { IBoolean } from "reactive-json-schema";
 
-import { IBooleanProps, IBooleanStates } from "../../types";
-import { IForm } from "../../types";
+import { IForm } from "../../models/Form";
 
 import { observer } from "mobx-react";
 
-import Base from "./Base";
+import Type, { ITypeProps, ITypeStates } from "./Type";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormHelperText from "@material-ui/core/FormHelperText";
 
 import Switch from "@material-ui/core/Switch";
 
+export interface IBooleanProps extends ITypeProps<IBoolean> {}
+
+export interface IBooleanStates extends ITypeStates<IBoolean> {}
+
 @observer
-export default class Boolean extends Base<
+export default class Boolean extends Type<
   IBoolean,
   IBooleanProps,
   IBooleanStates

@@ -8,15 +8,13 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import Grid from "@material-ui/core/Grid";
 
-import "tslib";
-
 import FormCancel from "./components/Cancel";
 import FormView from "./components/Form";
 import FormSubmit from "./components/Submit";
 import { renderer as FieldRenderer } from "./components/Type";
 import FormModel from "./models/Form";
 
-import { IFormConfig, IForm } from "./types";
+import { IFormConfig, IForm } from "./models/Form";
 
 import { observer } from "mobx-react";
 import { onSnapshot, onPatch } from "mobx-state-tree";

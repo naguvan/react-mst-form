@@ -1,14 +1,29 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { ILayoutSetProps, ILayoutSetStates } from "../../types";
-import { ILayoutSetStyleProps, ILayoutSetStyles } from "../../types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
 import Flex from "../Flex";
 import Mixed from "./Mixed";
+
+import { ILayoutBaseProps, ILayoutSet } from "./Common";
+
+export interface ILayoutSetStyles {
+  root: CSSProperties;
+  set: CSSProperties;
+  item: CSSProperties;
+}
+
+export interface ILayoutSetStyleProps
+  extends WithStyles<keyof ILayoutSetStyles> {}
+
+export interface ILayoutSetProps<T> extends ILayoutBaseProps<T> {
+  items: ILayoutSet<T>;
+}
+
+export interface ILayoutSetStates {}
 
 export class Set<T> extends Component<
   ILayoutSetProps<T> & ILayoutSetStyleProps,

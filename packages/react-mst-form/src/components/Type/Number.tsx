@@ -3,20 +3,23 @@ import { ReactNode } from "react";
 
 import { INumber } from "reactive-json-schema";
 
-import { INumberProps, INumberStates } from "../../types";
-import { IForm } from "../../types";
+import { IForm } from "../../models/Form";
 
 import { observer } from "mobx-react";
 
-import Base from "./Base";
+import Type, { ITypeProps, ITypeStates } from "./Type";
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 import { toNumber } from "../../utils";
 
+export interface INumberProps extends ITypeProps<INumber> {}
+
+export interface INumberStates extends ITypeStates<INumber> {}
+
 @observer
-export default class Number extends Base<INumber, INumberProps, INumberStates> {
+export default class Number extends Type<INumber, INumberProps, INumberStates> {
   protected renderType(type: INumber, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (

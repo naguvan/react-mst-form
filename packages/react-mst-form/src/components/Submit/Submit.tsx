@@ -1,11 +1,20 @@
 import * as React from "react";
 import { Component, MouseEvent, ReactNode } from "react";
 
-import { ISubmitProps, ISubmitStates } from "../../types";
-
 import { observer } from "mobx-react";
 
 import Button from "@material-ui/core/Button";
+
+import { IForm } from "../../models/Form";
+
+export interface ISubmitProps {
+  form: IForm;
+  label?: string;
+  onSubmit?: (values: { [key: string]: any }) => void;
+  onErrors?: (errors: { [key: string]: Array<string> }) => void;
+}
+
+export interface ISubmitStates {}
 
 @observer
 export default class Submit extends Component<ISubmitProps, ISubmitStates> {

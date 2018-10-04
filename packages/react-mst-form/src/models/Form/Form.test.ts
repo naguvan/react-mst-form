@@ -8,9 +8,6 @@ import {
 
 import { Boolean, Number, String } from "reactive-json-schema";
 
-import {} from "../../types";
-import {} from "../../types";
-
 const name: IStringConfig = {
   title: "Name",
   value: "sk",

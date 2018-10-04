@@ -10,7 +10,7 @@ import {
   IType
 } from "reactive-json-schema";
 
-import { IForm } from "../../types";
+import { IForm } from "../../models/Form";
 
 import String from "./String";
 import Number from "./Number";

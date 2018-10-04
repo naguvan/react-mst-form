@@ -1,21 +1,23 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import { IStringProps, IStringStates } from "../../types";
-
 import { IString } from "reactive-json-schema";
 
-import { IForm } from "../../types";
+import { IForm } from "../../models/Form";
 
 import { observer } from "mobx-react";
 
-import Base from "./Base";
+import Type, { ITypeProps, ITypeStates } from "./Type";
 
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
+export interface IStringProps extends ITypeProps<IString> {}
+
+export interface IStringStates extends ITypeStates<IString> {}
+
 @observer
-export default class String extends Base<IString, IStringProps, IStringStates> {
+export default class String extends Type<IString, IStringProps, IStringStates> {
   protected renderType(type: IString, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (
