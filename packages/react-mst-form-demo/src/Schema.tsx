@@ -1,14 +1,31 @@
 import * as React from "react";
 import { Component, ChangeEvent, MouseEvent, ReactNode } from "react";
 
-import { ISchemaProps, ISchemaStates } from "./types";
-import { ISchemaStyleProps, ISchemaStyles } from "./types";
-
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
+
+import { IFormConfig } from "react-mst-form";
+
+export interface ISchemaStyles {
+  paper: CSSProperties;
+}
+
+export interface ISchemaStyleProps extends WithStyles<keyof ISchemaStyles> {}
+
+export interface ISchemaProps {
+  style?: CSSProperties;
+  className?: string;
+  config: IFormConfig;
+  onConfig(config: IFormConfig): void;
+}
+
+export interface ISchemaStates {
+  config: string;
+}
 
 export class Schema extends Component<
   ISchemaProps & ISchemaStyleProps,

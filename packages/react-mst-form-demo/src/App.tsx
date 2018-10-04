@@ -1,16 +1,37 @@
+// tslint:disable:max-file-line-count
+
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import { IAppProps, IAppStates } from "./types";
-import { IAppStyleProps, IAppStyles } from "./types";
-
+import Paper from "@material-ui/core/Paper";
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
 import { Form, IFormConfig } from "react-mst-form";
 import Flex from "react-mst-form/lib/components/Flex";
+import Theme from "./Theme";
 
-import Paper from "@material-ui/core/Paper";
+export interface IAppStyles {
+  root: CSSProperties;
+  container: CSSProperties;
+  form: CSSProperties;
+  paper: CSSProperties;
+  submit: CSSProperties;
+}
+
+export interface IAppStyleProps extends WithStyles<keyof IAppStyles> {}
+
+export interface IAppProps {
+  style?: CSSProperties;
+  className?: string;
+}
+
+export interface IAppStates {
+  width: string;
+  height: string;
+  config: IFormConfig;
+}
 
 const config: IFormConfig = {
   title: "Test Form",
@@ -184,47 +205,49 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     const { width, height, config } = this.state;
     const root: string = classNames(classes!.root, className);
     return (
-      <div className={root} style={style}>
-        <div
-          className={classes.container}
-          style={{ width, height }}
-          ref={this.addContainer}
-        >
-          <Flex.Set
-            direction={"row"}
-            style={{ justifyContent: "space-around" }}
+      <Theme theme="light">
+        <div className={root} style={style}>
+          <div
+            className={classes.container}
+            style={{ width, height }}
+            ref={this.addContainer}
           >
-            <Flex.Item
-              style={{
-                flexDirection: "column",
-                flex: 0,
-                minWidth: 450
-              }}
+            <Flex.Set
+              direction={"row"}
+              style={{ justifyContent: "space-around" }}
             >
-              <Schema config={config} onConfig={this.onConfig} />
-            </Flex.Item>
-            <Flex.Item
-              style={{
-                flexDirection: "column",
-                flex: 0,
-                minWidth: 450
-              }}
-            >
-              <h1>Form</h1>
-              <Paper square elevation={3} className={classes.paper}>
-                <Form
-                  config={config}
-                  onCancel={this.onCancel}
-                  onSubmit={this.onSubmit}
-                  onErrors={this.onErrors}
-                  onPatch={this.onPatch}
-                  onSnapshot={this.onSnapshot}
-                />
-              </Paper>
-            </Flex.Item>
-          </Flex.Set>
+              <Flex.Item
+                style={{
+                  flexDirection: "column",
+                  flex: 0,
+                  minWidth: 450
+                }}
+              >
+                <Schema config={config} onConfig={this.onConfig} />
+              </Flex.Item>
+              <Flex.Item
+                style={{
+                  flexDirection: "column",
+                  flex: 0,
+                  minWidth: 450
+                }}
+              >
+                <h1>Form</h1>
+                <Paper square elevation={3} className={classes.paper}>
+                  <Form
+                    config={config}
+                    onCancel={this.onCancel}
+                    onSubmit={this.onSubmit}
+                    onErrors={this.onErrors}
+                    onPatch={this.onPatch}
+                    onSnapshot={this.onSnapshot}
+                  />
+                </Paper>
+              </Flex.Item>
+            </Flex.Set>
+          </div>
         </div>
-      </div>
+      </Theme>
     );
   }
 
