@@ -1,0 +1,27 @@
+{
+  "title": "Test Form",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "mandatory": true
+      },
+      "email": {
+        "title": "Email",
+        "type": "string",
+        "format": "email",
+        "description": "Email will be used for evil."
+      },
+      "comment": {
+        "title": "Comment",
+        "type": "string",
+        "maxLength": 20,
+        "minLength": 3,
+        "validationMessage": "Don't be greedy!"
+      }
+    },
+    "required": ["name", "email", "comment"]
+  }
+}
