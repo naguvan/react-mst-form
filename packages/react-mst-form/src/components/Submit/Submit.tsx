@@ -3,11 +3,25 @@ import { Component, MouseEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 
+import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
+import withStyles from "@material-ui/core/styles/withStyles";
+import classNames from "classnames";
+
 import Button from "@material-ui/core/Button";
+
+import { IButtonProps } from "../../material";
 
 import { IForm } from "../../models/Form";
 
+export interface ISubmitStyles {
+  root: CSSProperties;
+}
+
+export interface ISubmitStyleProps extends WithStyles<keyof ISubmitStyles> {}
+
 export interface ISubmitProps {
+  style?: CSSProperties;
+  className?: string;
   form: IForm;
   label?: string;
   onSubmit?: (values: { [key: string]: any }) => void;
@@ -17,17 +31,30 @@ export interface ISubmitProps {
 export interface ISubmitStates {}
 
 @observer
-export default class Submit extends Component<ISubmitProps, ISubmitStates> {
+export class Submit extends Component<
+  ISubmitProps & ISubmitStyleProps & IButtonProps,
+  ISubmitStates
+> {
   public render(): ReactNode {
-    const { form, label = "Submit" } = this.props;
+    const {
+      className: clazz,
+      classes,
+      form,
+      label,
+      variant = "raised",
+      color = "primary",
+      onErrors,
+      onSubmit,
+      ...others
+    } = this.props;
+    const onClick = this.onSubmit;
+    const className: string = classNames(classes!.root, clazz);
     return (
       <Button
-        variant={"raised"}
-        color={"primary"}
+        {...{ className, variant, color, ...others, onClick }}
         disabled={!form.valid}
-        onClick={this.onSubmit}
       >
-        {label}
+        {label || form.submit || "Submit"}
       </Button>
     );
   }
@@ -44,3 +71,7 @@ export default class Submit extends Component<ISubmitProps, ISubmitStates> {
     }
   };
 }
+
+export default withStyles<keyof ISubmitStyles, {}>({
+  root: {}
+})(Submit);

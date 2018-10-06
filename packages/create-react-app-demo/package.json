@@ -5,8 +5,9 @@
   "author": "naguvan <naguvan@outlook.com>",
   "license": "ISC",
   "scripts": {
-    "prepare": "npm run lint && npm run build",
-    "prebuild": "rimraf build",
+    "prepare": "npm run build",
+    "prebuild": "npm run lint && npm run clean",
+    "clean": "rimraf build",
     "start": "react-scripts-ts start",
     "build": "react-scripts-ts build",
     "test": "react-scripts-ts test --env=jsdom",
@@ -16,12 +17,12 @@
     "pretty": "prettier --write src/**/*.{ts,tsx}"
   },
   "dependencies": {
-    "@material-ui/core": "3.1.1",
+    "@material-ui/core": "3.1.2",
     "classnames": "2.2.6",
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "reflect-metadata": "0.1.12",
-    "react-mst-form": "1.5.0"
+    "react-mst-form": "1.5.5"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
@@ -41,7 +42,7 @@
     "tslint-config-prettier": "1.15.0",
     "tslint-loader": "3.6.0",
     "tslint-react": "3.6.0",
-    "typescript": "3.0.3",
+    "typescript": "3.1.1",
     "react-scripts-ts": "2.17.0"
   }
 }

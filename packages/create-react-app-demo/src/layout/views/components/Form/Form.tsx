@@ -194,6 +194,6 @@ export class FormComponent extends Component<
 export default withStyles<keyof IFormStyles, {}>({
   root: {
     margin: "0 auto",
-    width: 350
+    width: 500
   }
 })(FormComponent);

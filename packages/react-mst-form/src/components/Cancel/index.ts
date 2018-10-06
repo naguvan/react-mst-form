@@ -1,3 +1,2 @@
-import Cancel from "./Cancel";
-
-export default Cancel;
+export * from "./Cancel";
+export { default } from "./Cancel";

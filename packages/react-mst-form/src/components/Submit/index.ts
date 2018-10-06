@@ -1,3 +1,2 @@
-import Submit from "./Submit";
-
-export default Submit;
+export * from "./Submit";
+export { default } from "./Submit";

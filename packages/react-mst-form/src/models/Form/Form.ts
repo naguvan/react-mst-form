@@ -46,7 +46,7 @@ export interface IForm {
   validate(): Promise<void>;
 }
 
-export const Form: IModelType<Partial<IFormConfig>, IForm> = types
+const Form: IModelType<Partial<IFormConfig>, IForm> = types
   .model("Form", {
     title: types.string,
     cancel: types.optional(types.string, ""),
@@ -128,3 +128,5 @@ export const Form: IModelType<Partial<IFormConfig>, IForm> = types
       it._validating = false;
     })
   }));
+
+export default Form;

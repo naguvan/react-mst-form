@@ -1,6 +1,6 @@
 {
   "name": "react-mst-form",
-  "version": "1.5.0",
+  "version": "1.5.5",
   "description": "react-mobx-state-tree-form",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -19,15 +19,13 @@
     "mobx": "^5.1.0",
     "mobx-react": "^5.2.5",
     "mobx-state-tree": "^2.2.0",
-    "react": "^16.4.2",
-    "react-dom": "^16.4.2"
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
   },
   "dependencies": {
     "@material-ui/core": "3.1.2",
     "@material-ui/icons": "3.0.1",
     "classnames": "2.2.6",
-    "jss": "9.8.7",
-    "jss-preset-default": "4.5.0",
     "mobx": "5.5.0",
     "mobx-react": "5.2.8",
     "mobx-state-tree": "2.2.0",
@@ -49,6 +47,7 @@
     "lerna": "^3.4.0",
     "prettier": "1.14.3",
     "pretty-quick": "1.7.0",
+    "rimraf": "2.6.2",
     "ts-jest": "23.10.3",
     "ts-loader": "5.2.1",
     "ts-node": "7.0.1",
@@ -89,10 +88,12 @@
     ]
   },
   "scripts": {
-    "prepare": "npm run lint && npm run test && npm run build",
+    "prepare": "npm run build",
+    "prebuild": "npm run lint && npm run test && npm run clean",
+    "clean": "rimraf {lib,lib-esm}",
     "lint": "tslint -p .",
     "precommit": "npm run lint && pretty-quick --staged",
-    "pretty": "prettier --write '{src}/**/*.{ts,tsx}'",
+    "pretty": "prettier --write 'src/**/*.{ts,tsx}'",
     "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
     "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
     "dev:tsc": "tsc && tsc -m es6 --outDir lib-esm",
