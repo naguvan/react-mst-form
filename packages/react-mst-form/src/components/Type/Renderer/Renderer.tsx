@@ -12,19 +12,19 @@ import {
 
 import { IForm } from "../../../models/Form";
 
-import String from "../String";
-import Number from "../Number";
+import Array from "../Array";
 import Boolean from "../Boolean";
 import Color from "../Color";
+import Number from "../Number";
 import Object from "../Object";
-import Array from "../Array";
+import String from "../String";
 
 export interface IRenderer {
   render(type: IType, form: IForm): ReactNode;
 }
 
 export default class Renderer implements IRenderer {
-  render(type: IType, form: IForm): ReactNode {
+  public render(type: IType, form: IForm): ReactNode {
     switch (type.type) {
       case "object":
         return (

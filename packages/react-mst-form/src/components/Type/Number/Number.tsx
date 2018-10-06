@@ -9,8 +9,8 @@ import { observer } from "mobx-react";
 
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
-import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
+import TextField from "@material-ui/core/TextField";
 
 import { toNumber } from "../../../utils";
 

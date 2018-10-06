@@ -10,10 +10,10 @@ import FormContent from "../Content";
 import FormFooter from "../Footer";
 import Renderer, { IRenderer } from "../Type/Renderer";
 
-import FormModel, { IFormConfig, IForm } from "../../models/Form";
+import FormModel, { IForm, IFormConfig } from "../../models/Form";
 
 import { observer } from "mobx-react";
-import { onSnapshot, onPatch } from "mobx-state-tree";
+import { onPatch, onSnapshot } from "mobx-state-tree";
 
 export interface IFormStyles {
   root: CSSProperties;
@@ -30,7 +30,7 @@ export interface IFormProps {
   renderer?: IRenderer;
   onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: Array<string> }) => void;
+  onErrors?: (errors: { [key: string]: string[] }) => void;
   onPatch?: (
     patch: {
       op: "replace" | "add" | "remove";
@@ -47,17 +47,17 @@ export interface IFormStates {
 
 @observer
 export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
-  static getDerivedStateFromPropsFix(
+  private static getDerivedStateFromPropsFix(
     props: Readonly<IFormProps & IFormStyleProps>,
     state?: IFormStates
   ): IFormStates {
-    const { config, onPatch: _onPatch, onSnapshot: _onSnapshot } = props;
+    const { config, onPatch: xonPatch, onSnapshot: xonSnapshot } = props;
     const form = FormModel.create(config);
-    if (_onSnapshot) {
-      onSnapshot(form, snapshot => _onSnapshot(snapshot));
+    if (xonSnapshot) {
+      onSnapshot(form, snapshot => xonSnapshot(snapshot));
     }
-    if (_onPatch) {
-      onPatch(form, patch => _onPatch(patch));
+    if (xonPatch) {
+      onPatch(form, patch => xonPatch(patch));
     }
     return { form };
   }
@@ -67,7 +67,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     this.state = Form.getDerivedStateFromPropsFix(props);
   }
 
-  componentWillReceiveProps(
+  public componentWillReceiveProps(
     nextProps: Readonly<IFormProps & IFormStyleProps>
   ): void {
     if (this.props.config !== nextProps.config) {
@@ -100,13 +100,13 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
 }
 
 export default withStyles<keyof IFormStyles, {}>({
-  root: {
-    padding: 10
-  },
   content: {
     padding: 10
   },
   footer: {
+    padding: 10
+  },
+  root: {
     padding: 10
   }
 })(Form);

@@ -25,9 +25,10 @@ export interface ISubmitProps {
   form: IForm;
   label?: string;
   onSubmit?: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: Array<string> }) => void;
+  onErrors?: (errors: { [key: string]: string[] }) => void;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ISubmitStates {}
 
 @observer

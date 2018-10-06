@@ -28,6 +28,7 @@ export interface ICancelProps {
   onCancel: (form?: IForm) => void;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ICancelStates {}
 
 @observer

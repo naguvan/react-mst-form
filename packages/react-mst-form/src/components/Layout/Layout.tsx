@@ -5,8 +5,8 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import Set from "./Set";
 import { arrange } from "./Config";
+import Set from "./Set";
 
 import { ILayoutSet } from "./Common";
 
@@ -24,11 +24,12 @@ export interface ILayoutProps<T> {
   direction?: "row" | "column";
   // styles?: ILayoutStyles;
   render: (item: T) => ReactNode;
-  items: ILayoutSet<T> | Array<T | Array<T>>;
+  items: ILayoutSet<T> | Array<T | T[]>;
   style?: CSSProperties;
   className?: string;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ILayoutStates {}
 
 export class Layout<T> extends Component<
@@ -53,26 +54,26 @@ export class Layout<T> extends Component<
 }
 
 export default withStyles<keyof ILayoutStyles, {}>({
+  item: {
+    flex: 1,
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0
+  },
   root: {},
   set: {
-    marginTop: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
-    paddingTop: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-    paddingBottom: 0,
-    listStyle: "none",
     display: "flex",
     flex: 1,
-    justifyContent: "space-between"
-  },
-  item: {
-    marginTop: 0,
+    justifyContent: "space-between",
+    listStyle: "none",
+    marginBottom: 0,
     marginLeft: 0,
     marginRight: 0,
-    marginBottom: 0,
-    flex: 1
+    marginTop: 0,
+    paddingBottom: 0,
+    paddingLeft: 0,
+    paddingRight: 0,
+    paddingTop: 0
   }
 })(Layout);

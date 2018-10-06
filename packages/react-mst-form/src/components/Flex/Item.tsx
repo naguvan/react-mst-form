@@ -20,6 +20,7 @@ export interface IFlexItemProps {
   className?: string;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface IFlexItemStates {}
 
 export class Item extends Component<
@@ -40,21 +41,21 @@ export class Item extends Component<
 }
 
 export default withStyles<keyof IFlexItemStyles, {}>({
-  root: {
-    marginTop: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
-    flex: "1 1",
-    display: "flex"
-  },
   center: {
-    height: "100%",
-    width: "100%",
-    display: "flex",
     alignItems: "center",
+    display: "flex",
+    height: "100%",
     justifyContent: "center",
     paddingLeft: 5,
-    paddingRight: 5
+    paddingRight: 5,
+    width: "100%"
+  },
+  root: {
+    display: "flex",
+    flex: "1 1",
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0
   }
 })(Item);

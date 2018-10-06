@@ -1,5 +1,9 @@
 // tslint:disable:max-file-line-count
 
+// tslint:disable:object-literal-sort-keys
+
+// tslint:disable:no-console
+
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
@@ -153,55 +157,31 @@ const config: IFormConfig = {
 import Schema from "./Schema";
 
 export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
-  state = { width: "100%", height: "100%", config };
+  public state = { width: "100%", height: "100%", config };
 
-  containers: Array<HTMLDivElement> = [];
+  private containers: HTMLDivElement[] = [];
 
-  timeout: number = -1;
+  private timeout: number = -1;
 
-  private addContainer = (container: HTMLDivElement): void => {
-    if (container) {
-      this.containers.push(container);
-    }
-  };
-
-  componentWillUpdate() {
+  public componentWillUpdate() {
     this.containers.length = 0;
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.adjustWidthHeight();
   }
 
-  componentDidUpdate() {
+  public componentDidUpdate() {
     this.adjustWidthHeight();
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     window.clearTimeout(this.timeout);
-  }
-
-  adjustWidthHeight(): void {
-    window.clearTimeout(this.timeout);
-    const { width, height } = this.state;
-    if (width === "auto" || height === "auto") {
-      this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
-    }
-  }
-
-  updateWidthHeight(): void {
-    const containers = this.containers.filter(container => !!container);
-    const widths = containers.map(container => container.offsetWidth);
-    const heights = containers.map(container => container.offsetHeight);
-
-    const width = `${Math.max(...widths)}px`;
-    const height = `${Math.max(...heights)}px`;
-
-    // this.setState(() => ({ width, height }));
   }
 
   public render(): ReactNode {
     const { className, classes, style } = this.props;
+    // tslint:disable-next-line:no-shadowed-variable
     const { width, height, config } = this.state;
     const root: string = classNames(classes!.root, className);
     return (
@@ -251,6 +231,32 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     );
   }
 
+  private addContainer = (container: HTMLDivElement): void => {
+    if (container) {
+      this.containers.push(container);
+    }
+  };
+
+  private adjustWidthHeight(): void {
+    window.clearTimeout(this.timeout);
+    const { width, height } = this.state;
+    if (width === "auto" || height === "auto") {
+      this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
+    }
+  }
+
+  private updateWidthHeight(): void {
+    const containers = this.containers.filter(container => !!container);
+    const widths = containers.map(container => container.offsetWidth);
+    const heights = containers.map(container => container.offsetHeight);
+
+    const width = `${Math.max(...widths)}px`;
+    const height = `${Math.max(...heights)}px`;
+
+    // this.setState(() => ({ width, height }));
+  }
+
+  // tslint:disable-next-line:no-shadowed-variable
   private onConfig = (config: IFormConfig) => {
     this.setState(() => ({ config }));
   };
@@ -264,7 +270,7 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
     window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
   };
 
-  private onErrors = (errors: { [key: string]: Array<string> }) => {
+  private onErrors = (errors: { [key: string]: string[] }) => {
     console.error(errors);
     window.alert(`errors:\n\n${JSON.stringify(errors, null, 2)}`);
   };

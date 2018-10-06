@@ -41,7 +41,7 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "prebuild": "npm run lint && npm run clean",
+    "prebuild": "npm run lint && npm run test && npm run clean",
     "clean": "rimraf {lib,lib-esm}",
     "lint": "tslint -p .",
     "precommit": "npm run lint && pretty-quick --staged",

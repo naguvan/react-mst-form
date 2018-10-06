@@ -23,6 +23,7 @@ export interface ILayoutSetProps<T> extends ILayoutBaseProps<T> {
   items: ILayoutSet<T>;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ILayoutSetStates {}
 
 export class Set<T> extends Component<
@@ -57,7 +58,7 @@ export class Set<T> extends Component<
 }
 
 export default withStyles<keyof ILayoutSetStyles, {}>({
+  item: {},
   root: {},
-  set: {},
-  item: {}
+  set: {}
 })(Set);

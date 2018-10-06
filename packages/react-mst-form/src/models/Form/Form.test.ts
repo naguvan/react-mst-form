@@ -1,47 +1,48 @@
 import Form from "./Form";
+
 import {
   IBooleanConfig,
   INumberConfig,
-  IStringConfig,
-  IString
+  IString,
+  IStringConfig
 } from "reactive-json-schema";
 
 import { Boolean, Number, String } from "reactive-json-schema";
 
 const name: IStringConfig = {
+  minLength: 5,
   title: "Name",
-  value: "sk",
   type: "string",
-  minLength: 5
+  value: "sk"
 };
 
 const age: INumberConfig = {
-  title: "Age",
-  value: 1,
-  type: "number",
   maximum: 10,
-  minimum: 0
+  minimum: 0,
+  title: "Age",
+  type: "number",
+  value: 1
 };
 
 const boy: IBooleanConfig = {
   title: "Boy?",
-  value: true,
-  type: "boolean"
+  type: "boolean",
+  value: true
 };
 
 test("create form", () => {
   const form = Form.create({
-    title: "Test Form",
-    schema: {
-      type: "object",
-      properties: {
-        name,
-        age,
-        boy
-      }
-    },
     layout: ["name", "age", ["boy"]],
-    sections: [{ title: "Basic", layout: ["name", "age"] }]
+    schema: {
+      properties: {
+        age,
+        boy,
+        name
+      },
+      type: "object"
+    },
+    sections: [{ title: "Basic", layout: ["name", "age"] }],
+    title: "Test Form"
   });
 
   // console.info(getSnapshot(form));
@@ -79,14 +80,14 @@ test("create form", () => {
 test("test form layout single mis-configuration error", () => {
   expect(() =>
     Form.create({
-      title: "Test Form",
+      layout: ["name", "age"],
       schema: {
-        type: "object",
         properties: {
           name
-        }
+        },
+        type: "object"
       },
-      layout: ["name", "age"]
+      title: "Test Form"
     })
   ).toThrowError(`['age'] layout field is not configured.`);
 });
@@ -94,30 +95,30 @@ test("test form layout single mis-configuration error", () => {
 test("test form layout multi mis-configuration error", () => {
   expect(() =>
     Form.create({
-      title: "Test Form",
+      layout: ["name", "age", ["boy"]],
       schema: {
-        type: "object",
         properties: {
-          name,
           a: age,
-          b: boy
-        }
+          b: boy,
+          name
+        },
+        type: "object"
       },
-      layout: ["name", "age", ["boy"]]
+      title: "Test Form"
     })
   ).toThrowError(`['age', 'boy'] layout fields are not configured.`);
 });
 
 test("test field modification", () => {
   const form = Form.create({
-    title: "Test Form",
+    layout: ["name"],
     schema: {
-      type: "object",
       properties: {
         name
-      }
+      },
+      type: "object"
     },
-    layout: ["name"]
+    title: "Test Form"
   });
 
   expect(form.title).toBe("Test Form");
@@ -137,14 +138,14 @@ test("test field modification", () => {
 
 test("test field error", () => {
   const form = Form.create({
-    title: "Test Form",
+    layout: ["name"],
     schema: {
-      type: "object",
       properties: {
         name
-      }
+      },
+      type: "object"
     },
-    layout: ["name"]
+    title: "Test Form"
   });
 
   expect(form.title).toBe("Test Form");
@@ -164,14 +165,14 @@ test("test field error", () => {
 
 test("test field validating", async () => {
   const form = Form.create({
-    title: "Test Form",
+    layout: ["name"],
     schema: {
-      type: "object",
       properties: {
         name
-      }
+      },
+      type: "object"
     },
-    layout: ["name"]
+    title: "Test Form"
   });
 
   expect(form.title).toBe("Test Form");

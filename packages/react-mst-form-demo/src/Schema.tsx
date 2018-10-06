@@ -1,12 +1,12 @@
 import * as React from "react";
-import { Component, ChangeEvent, MouseEvent, ReactNode } from "react";
+import { ChangeEvent, Component, MouseEvent, ReactNode } from "react";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
-import Button from "@material-ui/core/Button";
 
 import { IFormConfig } from "react-mst-form";
 
@@ -31,7 +31,7 @@ export class Schema extends Component<
   ISchemaProps & ISchemaStyleProps,
   ISchemaStates
 > {
-  static getDerivedStateFromPropsFix(
+  private static getDerivedStateFromPropsFix(
     props: Readonly<ISchemaProps & ISchemaStyleProps>,
     state?: ISchemaStates
   ): ISchemaStates {
@@ -44,7 +44,7 @@ export class Schema extends Component<
     this.state = Schema.getDerivedStateFromPropsFix(props);
   }
 
-  componentWillReceiveProps(
+  public componentWillReceiveProps(
     nextProps: Readonly<ISchemaProps & ISchemaStyleProps>
   ): void {
     if (this.props.config !== nextProps.config) {

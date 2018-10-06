@@ -8,7 +8,7 @@ import classNames from "classnames";
 import Item from "./Item";
 import Set from "./Set";
 
-import { ILayoutBaseProps, ILayoutSet, ILayoutItem } from "./Common";
+import { ILayoutBaseProps, ILayoutItem, ILayoutSet } from "./Common";
 
 export interface ILayoutMixedStyles {
   root: CSSProperties;
@@ -23,6 +23,7 @@ export interface ILayoutMixedProps<T> extends ILayoutBaseProps<T> {
   item: ILayoutItem<T> | ILayoutSet<T>;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ILayoutMixedStates {}
 
 export class Mixed<T> extends Component<
@@ -53,7 +54,7 @@ export class Mixed<T> extends Component<
 }
 
 export default withStyles<keyof ILayoutMixedStyles, {}>({
+  item: {},
   root: {},
-  set: {},
-  item: {}
+  set: {}
 })(Mixed);

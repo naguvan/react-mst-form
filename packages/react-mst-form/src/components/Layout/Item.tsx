@@ -21,6 +21,7 @@ export interface ILayoutItemProps<T> extends ILayoutBaseProps<T> {
   item: ILayoutItem<T>;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface ILayoutItemStates {}
 
 export class Item<T> extends Component<
@@ -46,6 +47,6 @@ export class Item<T> extends Component<
 }
 
 export default withStyles<keyof ILayoutItemStyles, {}>({
-  root: {},
-  item: {}
+  item: {},
+  root: {}
 })(Item);

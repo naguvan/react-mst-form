@@ -1,15 +1,16 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
+
 import { observer } from "mobx-react";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-import Object from "../Type/Object";
+import Tabs from "@material-ui/core/Tabs";
 
+import Object from "../Type/Object";
 import { IRenderer } from "../Type/Renderer";
 
 import { IForm, IFormLayout, IFormSection } from "../../models/Form";
@@ -68,13 +69,13 @@ export class Content extends Component<
           value={active}
           onChange={this.handleChange}
         >
-          {form.sections.map((section, index: number) => (
+          {form.sections.map((sectionx, index: number) => (
             <Tab
-              key={section.title}
-              label={section.title}
+              key={sectionx.title}
+              label={sectionx.title}
               value={index}
               className={
-                this.hasSectionError(section, form) ? classes.secondary : ""
+                this.hasSectionError(sectionx, form) ? classes.secondary : ""
               }
             />
           ))}
@@ -114,11 +115,11 @@ export class Content extends Component<
 }
 
 export default withStyles<keyof IContentStyles, {}>(theme => ({
-  root: {},
-  layout: {},
-  set: {},
   item: {},
+  layout: {},
+  root: {},
   secondary: {
     color: theme.palette.secondary.main
-  }
+  },
+  set: {}
 }))(Content);

@@ -8,11 +8,11 @@ export function toString(value: any): string {
   return Object.prototype.toString.call(value);
 }
 
-export function keys(value: object): Array<string> {
+export function keys(value: object): string[] {
   return Object.keys(value);
 }
 
-export function values<T = any>(object: T): Array<T> {
+export function values<T = any>(object: T): T[] {
   return Object.values(object);
 }
 
@@ -40,7 +40,7 @@ export function isDate(value: any): value is Date {
   return toString(value) === "[object Date]";
 }
 
-export function isArray(value: any): value is Array<any> {
+export function isArray(value: any): value is any[] {
   return toString(value) === "[object Array]";
 }
 
@@ -76,6 +76,7 @@ export function isObject(value: any): value is object {
   return value != null && (type === "object" || type === "function");
 }
 
+// tslint:disable-next-line:ban-types
 export function isFunction(value: any): value is Function {
   if (!isObject(value)) {
     return false;
@@ -123,17 +124,14 @@ export function isEmpty(value: any): boolean {
 
 export function toPromise<T>(
   promises: Array<Promise<T>>,
-  resolver: (values: Array<T>) => T
+  resolver: (values: T[]) => T
 ): Promise<T> {
-  return new Promise((resolve, reject) => {
-    Promise.all(promises).then((values: Array<T>) => {
-      resolve(resolver(values));
-    }, reject);
-  });
+  return Promise.all(promises).then(resolver);
 }
 
+// tslint:disable-next-line:ban-types
 export function conditional(condition: Function, fn: Function) {
-  return function(this: any, ...args: Array<any>) {
+  return function(this: any, ...args: any[]) {
     return condition.apply(this, args) ? fn.apply(this, args) : void 0;
   };
 }

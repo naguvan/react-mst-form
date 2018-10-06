@@ -1,16 +1,16 @@
-import { IModelType, types, flow } from "mobx-state-tree";
+import { flow, IModelType, types } from "mobx-state-tree";
 
 import {
   createObject,
-  IObjectConfig,
   IObject,
+  IObjectConfig,
   IType
 } from "reactive-json-schema";
 
 import { flatArray } from "../../utils";
 
 export type IFormLayout = Array<
-  string | Array<string | Array<string | Array<string>>>
+  string | Array<string | Array<string | string[]>>
 >;
 
 export interface IFormSection {
@@ -24,7 +24,7 @@ export interface IFormConfig {
   readonly submit?: string;
   readonly schema: IObjectConfig;
   readonly layout?: IFormLayout;
-  readonly sections?: Array<IFormSection>;
+  readonly sections?: IFormSection[];
 }
 
 export interface IForm {
@@ -35,12 +35,12 @@ export interface IForm {
   readonly modified: boolean;
   readonly valid: boolean;
   readonly validating: boolean;
-  readonly fields: Array<IType>;
-  readonly errors: Array<string>;
+  readonly fields: IType[];
+  readonly errors: string[];
   readonly values: { [key: string]: any };
   readonly layout: IFormLayout;
-  readonly sections: Array<IFormSection>;
-  readonly fieldErrors: { [key: string]: Array<string> };
+  readonly sections: IFormSection[];
+  readonly fieldErrors: { [key: string]: string[] };
   get(key: string): IType | undefined;
   reset(): void;
   validate(): Promise<void>;
@@ -48,28 +48,28 @@ export interface IForm {
 
 const Form: IModelType<Partial<IFormConfig>, IForm> = types
   .model("Form", {
-    title: types.string,
     cancel: types.optional(types.string, ""),
-    submit: types.optional(types.string, "Submit"),
-    schema: types.late("Schema", createObject),
     errors: types.optional(types.array(types.string), []),
     layout: types.optional(types.frozen, []),
+    schema: types.late("Schema", createObject),
     sections: types.optional(
       types.array(
         types.model({
-          title: types.string,
-          layout: types.frozen
+          layout: types.frozen,
+          title: types.string
         })
       ),
       []
-    )
+    ),
+    submit: types.optional(types.string, "Submit"),
+    title: types.string
   })
   .volatile(it => ({ _validating: false }))
   .actions(it => ({
     afterCreate() {
       const { schema, layout, sections } = it;
       const layouts = sections.map(section => section.layout);
-      const items = flatArray<string>([...layout, ...layouts]);
+      const items = flatArray([...layout, ...layouts]);
       const invalids = items.filter(item => !schema.properties!.has(item));
 
       if (invalids.length) {
@@ -84,7 +84,7 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
     }
   }))
   .views(it => ({
-    get fields(): Array<IType> {
+    get fields(): IType[] {
       return it.schema.fields;
     },
     get values(): { [key: string]: any } {
@@ -93,13 +93,13 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
     get(key: string): IType | undefined {
       return it.schema.getProperty(key);
     },
-    get fieldErrors(): { [key: string]: Array<string> } {
+    get fieldErrors(): { [key: string]: string[] } {
       return Array.from(it.schema.properties!.entries()).reduce(
         (values, [key, field]) => {
           values[key] = field.errors!.slice(0);
           return values;
         },
-        {} as { [key: string]: Array<string> }
+        {} as { [key: string]: string[] }
       );
     }
   }))

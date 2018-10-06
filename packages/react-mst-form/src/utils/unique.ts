@@ -1,9 +1,6 @@
 export type Indexer<T> = (i: T) => (item: T) => boolean;
 
-export function unique<T>(
-  items: Array<T>,
-  indexer: Indexer<T> | null = null
-): Array<T> {
+export function unique<T>(items: T[], indexer: Indexer<T> | null = null): T[] {
   const indexOf =
     indexer === null
       ? (item: T) => items.indexOf(item)

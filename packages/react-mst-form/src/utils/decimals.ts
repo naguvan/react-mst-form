@@ -1,6 +1,7 @@
 export function decimals(value: number): number {
   const parts = value.toString().split("e");
 
+  // tslint:disable-next-line:no-shadowed-variable
   let decimals = 0;
 
   const [left, right] = parts;

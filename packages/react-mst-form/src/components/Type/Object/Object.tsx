@@ -67,8 +67,9 @@ export default class NObject extends Type<
             ? 1
             : -1
     );
-    const mappings = new Map<number, Array<string>>();
+    const mappings = new Map<number, string[]>();
     for (const { property, sequence } of sequences) {
+      // tslint:disable-next-line:no-shadowed-variable
       let layout = mappings.get(sequence);
       if (!layout) {
         mappings.set(sequence, (layout = []));

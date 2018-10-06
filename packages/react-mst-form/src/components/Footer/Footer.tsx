@@ -27,9 +27,10 @@ export interface IFooterProps {
   form: IForm;
   onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: Array<string> }) => void;
+  onErrors?: (errors: { [key: string]: string[] }) => void;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface IFooterStates {}
 
 @observer

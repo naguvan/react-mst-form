@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactNode, Fragment } from "react";
+import { Fragment, ReactNode } from "react";
 
 import { IArray } from "reactive-json-schema";
 
@@ -11,12 +11,12 @@ import { observer } from "mobx-react";
 
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
+import FormControl from "@material-ui/core/FormControl";
+import FormHelperText from "@material-ui/core/FormHelperText";
+import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import ActionAdd from "@material-ui/icons/Add";
 import ActionClear from "@material-ui/icons/Clear";
-import FormLabel from "@material-ui/core/FormLabel";
-import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 
 export interface IArrayProps extends ITypeProps<IArray> {
   renderer: IRenderer;
@@ -43,8 +43,8 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
                 <IconButton
                   style={{
                     float: "right",
-                    marginTop: 10,
-                    marginBottom: -10
+                    marginBottom: -10,
+                    marginTop: 10
                   }}
                   onClick={
                     // tslint:disable-next-line:jsx-no-lambda

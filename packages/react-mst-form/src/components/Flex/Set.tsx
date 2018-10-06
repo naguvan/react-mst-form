@@ -19,6 +19,7 @@ export interface IFlexSetProps {
   className?: string;
 }
 
+// tslint:disable-next-line:no-empty-interface
 export interface IFlexSetStates {}
 
 export class Set extends Component<
@@ -42,20 +43,20 @@ export class Set extends Component<
 }
 
 export default withStyles<keyof IFlexSetStyles, {}>({
-  root: {
-    marginTop: 0,
-    marginLeft: 0,
-    marginRight: 0,
-    marginBottom: 0,
-    flex: "1 1",
-    display: "flex"
-  },
   center: {
-    height: "100%",
-    display: "flex",
     alignSets: "center",
+    display: "flex",
+    height: "100%",
     justifyContent: "center",
     paddingLeft: 5,
     paddingRight: 5
+  },
+  root: {
+    display: "flex",
+    flex: "1 1",
+    marginBottom: 0,
+    marginLeft: 0,
+    marginRight: 0,
+    marginTop: 0
   }
 })(Set);
