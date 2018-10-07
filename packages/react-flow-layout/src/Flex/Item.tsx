@@ -23,7 +23,7 @@ export interface IFlexItemProps {
 // tslint:disable-next-line:no-empty-interface
 export interface IFlexItemStates {}
 
-export class Item extends Component<
+export class FlexItem extends Component<
   IFlexItemProps & IFlexItemStyleProps,
   IFlexItemStates
 > {
@@ -58,4 +58,4 @@ export default withStyles<keyof IFlexItemStyles, {}>({
     marginRight: 0,
     marginTop: 0
   }
-})(Item);
+})(FlexItem);

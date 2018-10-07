@@ -1,7 +1,7 @@
 {
-  "name": "react-mst-form",
-  "version": "1.5.3",
-  "description": "react-mobx-state-tree-form",
+  "name": "react-flow-layout",
+  "version": "1.0.0",
+  "description": "react-flow-layout",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
   "repository": "https://github.com/naguvan/react-mst-form.git",
@@ -17,33 +17,21 @@
   ],
   "peerDependencies": {
     "@material-ui/core": "^3.1.2",
-    "@material-ui/icons": "^3.0.1",
-    "mobx": "^4.5.0",
-    "mobx-react": "^5.2.5",
-    "mobx-state-tree": "^2.2.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2"
   },
   "dependencies": {
     "@material-ui/core": "3.1.2",
-    "@material-ui/icons": "3.0.1",
     "classnames": "2.2.6",
-    "mobx": "4.5.0",
-    "mobx-react": "5.2.8",
-    "mobx-state-tree": "2.2.0",
     "react": "16.5.2",
-    "react-dom": "16.5.2",
-    "react-flow-layout": "1.0.0",
-    "reactive-json-schema": "1.0.1"
+    "react-dom": "16.5.2"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
-    "@types/express": "4.16.0",
     "@types/jest": "23.3.3",
     "@types/node": "10.11.4",
     "@types/react": "16.4.15",
     "@types/react-dom": "16.0.8",
-    "@types/webpack": "4.4.14",
     "cross-env": "5.2.0",
     "husky": "0.14.3",
     "jest": "23.6.0",
@@ -62,12 +50,8 @@
   },
   "keywords": [
     "react",
-    "form",
-    "mobx-state-tree",
-    "mst",
-    "mobx",
-    "json",
-    "schema",
+    "flow",
+    "layout",
     "typescript"
   ],
   "jest": {
@@ -92,7 +76,7 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "prebuild": "npm run lint && npm run test && npm run clean",
+    "prebuild": "npm run lint && npm run clean",
     "clean": "rimraf {lib,lib-esm}",
     "lint": "tslint -p .",
     "precommit": "npm run lint && pretty-quick --staged",

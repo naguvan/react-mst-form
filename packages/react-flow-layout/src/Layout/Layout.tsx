@@ -5,10 +5,9 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import { arrange } from "./Config";
 import Set from "./Set";
 
-import { ILayoutSet } from "./Common";
+import { ILayoutSet, LayoutSet } from "../Model/Set";
 
 export interface ILayoutStyles {
   root: CSSProperties;
@@ -39,15 +38,15 @@ export class Layout<T> extends Component<
   public render(): ReactNode {
     const { path = "0", items, render, center = false } = this.props;
     const { direction = "column" } = this.props;
-    const { className, classes, style } = this.props;
-    const root: string = classNames(classes!.root, className);
-    const props = { path, direction, center, className: root };
+    const { className: clazz, classes, style } = this.props;
+    const className: string = classNames(classes!.root, clazz);
+    const props = { path, direction, center, className, style };
     return (
       <Set
         {...props}
         classes={{ set: classes.set, item: classes.item }}
         render={render as any}
-        items={Array.isArray(items) ? arrange(items) : items}
+        items={Array.isArray(items) ? LayoutSet.create(items) : items}
       />
     );
   }

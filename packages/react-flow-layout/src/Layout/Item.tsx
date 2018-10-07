@@ -7,7 +7,9 @@ import classNames from "classnames";
 
 import Flex from "../Flex";
 
-import { ILayoutBaseProps, ILayoutItem } from "./Common";
+import { ILayoutBaseProps } from "./Base";
+
+import { ILayoutItem } from "../Model/Item";
 
 export interface ILayoutItemStyles {
   root: CSSProperties;
@@ -31,11 +33,11 @@ export class Item<T> extends Component<
   public render(): ReactNode {
     const { path, center, item, render } = this.props;
     const children = render(item.value);
-    const { className, classes, style } = this.props;
-    const root: string = classNames(classes!.root, className, classes!.item);
+    const { className: clazz, classes, style } = this.props;
+    const className: string = classNames(classes!.root, clazz, classes!.item);
     return (
       <Flex.Item
-        className={root}
+        className={className}
         key={path}
         style={{ ...item.style, ...style }}
         center={center}

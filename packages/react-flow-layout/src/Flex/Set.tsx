@@ -22,7 +22,7 @@ export interface IFlexSetProps {
 // tslint:disable-next-line:no-empty-interface
 export interface IFlexSetStates {}
 
-export class Set extends Component<
+export class FlexSet extends Component<
   IFlexSetProps & IFlexSetStyleProps,
   IFlexSetStates
 > {
@@ -59,4 +59,4 @@ export default withStyles<keyof IFlexSetStyles, {}>({
     marginRight: 0,
     marginTop: 0
   }
-})(Set);
+})(FlexSet);

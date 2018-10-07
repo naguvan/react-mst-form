@@ -1,19 +1,17 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
+import { observer } from "mobx-react";
+import Layout from "react-flow-layout";
 import { IObject } from "reactive-json-schema";
+
+import FormHelperText from "@material-ui/core/FormHelperText";
 
 import { IForm, IFormLayout } from "../../../models/Form";
 
 import { IRenderer } from "../Renderer";
 
-import { observer } from "mobx-react";
-
 import Type, { ITypeProps, ITypeStates } from "../Type";
-
-import FormHelperText from "@material-ui/core/FormHelperText";
-
-import Layout from "../../Layout";
 
 export interface IObjectProps extends ITypeProps<IObject> {
   layout: IFormLayout;

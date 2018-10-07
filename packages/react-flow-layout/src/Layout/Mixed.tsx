@@ -8,7 +8,10 @@ import classNames from "classnames";
 import Item from "./Item";
 import Set from "./Set";
 
-import { ILayoutBaseProps, ILayoutItem, ILayoutSet } from "./Common";
+import { ILayoutBaseProps } from "./Base";
+
+import { ILayoutItem } from "../Model/Item";
+import { ILayoutSet } from "../Model/Set";
 
 export interface ILayoutMixedStyles {
   root: CSSProperties;
@@ -32,9 +35,9 @@ export class Mixed<T> extends Component<
 > {
   public render(): ReactNode {
     const { path, item, render, center, direction } = this.props;
-    const { className, classes, style } = this.props;
-    const root: string = classNames(classes!.root, className);
-    const props = { center, path, direction, className: root };
+    const { className: clazz, classes, style } = this.props;
+    const className: string = classNames(classes!.root, clazz);
+    const props = { center, path, direction, className, style };
     return Array.isArray((item as ILayoutSet<T>).items) ? (
       <Set
         {...props}

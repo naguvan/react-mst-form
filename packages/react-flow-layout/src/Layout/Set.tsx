@@ -8,7 +8,9 @@ import classNames from "classnames";
 import Flex from "../Flex";
 import Mixed from "./Mixed";
 
-import { ILayoutBaseProps, ILayoutSet } from "./Common";
+import { ILayoutBaseProps } from "./Base";
+
+import { ILayoutSet } from "../Model/Set";
 
 export interface ILayoutSetStyles {
   root: CSSProperties;
@@ -32,11 +34,11 @@ export class Set<T> extends Component<
 > {
   public render(): ReactNode {
     const { path, items, direction, center, render } = this.props;
-    const { className, classes, style } = this.props;
-    const root: string = classNames(classes.root, className, classes.set);
+    const { className: clazz, classes, style } = this.props;
+    const className: string = classNames(classes.root, clazz, classes.set);
     return (
       <Flex.Set
-        className={root}
+        className={className}
         key={path}
         direction={direction}
         style={{ ...items.style, ...style }}
