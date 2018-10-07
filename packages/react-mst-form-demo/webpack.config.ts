@@ -1,8 +1,10 @@
+// tslint:disable:object-literal-sort-keys
+
 import * as path from "path";
 import * as webpack from "webpack";
 import { Configuration } from "webpack";
 
-export default function configure(env: any): Array<webpack.Configuration> {
+export default function configure(env: any): webpack.Configuration[] {
   const isDevBuild: boolean = !(env && env.prod);
   const mode: Configuration["mode"] =
     (process.env.NODE_ENV as Configuration["mode"]) || "development";

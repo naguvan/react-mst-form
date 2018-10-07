@@ -22,7 +22,7 @@
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "reflect-metadata": "0.1.12",
-    "react-mst-form": "1.5.5"
+    "react-mst-form": "1.5.1"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",

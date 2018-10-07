@@ -1,6 +1,6 @@
 {
   "name": "reactive-json-schema",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "reactive json schema validator using mobx-state-tree",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
