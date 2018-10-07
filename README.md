@@ -2,18 +2,18 @@
 
 Library for generating React forms from [JSON schema](https://json-schema.org/) using the [react](https://github.com/facebook/react), [material-ui](https://github.com/mui-org/material-ui), [mobx](https://github.com/mobxjs/mobx) and [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree).
 
-**https://naguvan.github.io/packages/react-mst-form-demo/src/index.html**
+**https://naguvan.github.io/react-mst-form/packages/react-mst-form-demo/src/index.html**
 
 # Running the demo
 
 To run the `demo`, clone this repository, then run:
 
 ```bash
-yarn install
+lerna bootstrap
 
-yarn run dev
+cd packages/react-mst-form-demo
 
-yarn run demo
+npm run start
 ```
 
 # Basic usage
@@ -29,7 +29,7 @@ import JssProvider from "react-jss/lib/JssProvider";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import createMuiTheme from "material-ui/styles/createMuiTheme";
 
-import { Form } from "./src";
+import { Form } from "react-mst-form";
 
 const config = {
   title: "Test Form",
@@ -69,8 +69,7 @@ const config = {
             maximum: 10,
             minimum: 3
           }
-        },
-        layout: [["first", "last"], "middle", "age"]
+        }
       },
       title: {
         type: "string",
@@ -165,8 +164,8 @@ render(
 
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
-![](https://raw.githubusercontent.com/naguvan/packages/react-mst-form-demo/master/demo/sections.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form-demo/demo/sections.png)
 
 And when the form has validation errors..
 
-![](https://raw.githubusercontent.com/naguvan/packages/react-mst-form-demo/master/demo/form-validation.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form-demo/demo/form-validation.png)
