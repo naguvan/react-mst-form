@@ -51,7 +51,7 @@
     "build": "npm run dev:tsc"
   },
   "dependencies": {
-    "mobx": "5.5.0",
+    "mobx": "4.5.0",
     "mobx-state-tree": "2.2.0"
   },
   "devDependencies": {

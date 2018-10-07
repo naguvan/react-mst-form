@@ -22,7 +22,7 @@
     "classnames": "2.2.6",
     "jss": "9.8.7",
     "jss-preset-default": "4.5.0",
-    "mobx": "5.5.0",
+    "mobx": "4.5.0",
     "mobx-react": "5.2.8",
     "mobx-state-tree": "2.2.0",
     "react": "16.5.2",
