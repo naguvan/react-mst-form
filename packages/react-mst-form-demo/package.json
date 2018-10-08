@@ -1,10 +1,10 @@
 {
   "name": "react-mst-form-demo",
-  "version": "1.0.10",
-  "description": "react-mobx-state-tree-form-demo",
-  "main": "./dist/index.js",
-  "typings": "./dist/index.d.ts",
-  "repository": "https://github.com/naguvan/react-mst-form-demo.git",
+  "version": "1.0.1",
+  "description": "react-mst-form-demo",
+  "main": "./lib/index.js",
+  "typings": "./lib/index.d.ts",
+  "repository": "https://github.com/naguvan/react-mst-form.git",
   "author": "naguvan <naguvan@outlook.com>",
   "license": "MIT",
   "private": false,
@@ -15,30 +15,32 @@
     "lib/",
     "lib-esm/"
   ],
-  "peerDependencies": {},
+  "peerDependencies": {
+    "@material-ui/core": "^3.1.2",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2"
+  },
   "dependencies": {
-    "@material-ui/core": "3.1.2",
-    "@material-ui/icons": "3.0.1",
+    "@material-ui/core": "3.2.0",
     "classnames": "2.2.6",
-    "jss": "9.8.7",
-    "jss-preset-default": "4.5.0",
-    "mobx": "4.5.0",
-    "mobx-react": "5.2.8",
-    "mobx-state-tree": "2.2.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",
-    "react-mst-form": "1.5.1"
+    "react-mst-form": "1.5.4",
+    "react-flow-layout": "1.0.1"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
-    "@types/express": "4.16.0",
     "@types/jest": "23.3.3",
     "@types/node": "10.11.4",
-    "@types/react": "16.4.15",
+    "@types/react": "16.4.16",
     "@types/react-dom": "16.0.8",
-    "@types/webpack": "4.4.14",
+    "@types/react-transition-group": "2.0.14",
     "cross-env": "5.2.0",
+    "husky": "0.14.3",
     "jest": "23.6.0",
+    "lerna": "^3.4.0",
+    "prettier": "1.14.3",
+    "pretty-quick": "1.7.0",
     "rimraf": "2.6.2",
     "ts-jest": "23.10.3",
     "ts-loader": "5.2.1",
@@ -47,11 +49,14 @@
     "tslint-config-prettier": "1.15.0",
     "tslint-loader": "3.6.0",
     "tslint-react": "3.6.0",
-    "typescript": "3.1.1",
-    "webpack": "4.20.2",
-    "webpack-bundle-analyzer": "3.0.2",
-    "webpack-cli": "3.1.2"
+    "typescript": "3.1.1"
   },
+  "keywords": [
+    "react",
+    "flow",
+    "layout",
+    "typescript"
+  ],
   "jest": {
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
@@ -73,15 +78,15 @@
     ]
   },
   "scripts": {
-    "start": "npm run demo",
     "prepare": "npm run build",
-    "prebuild": "npm run lint && npm run test && npm run clean",
-    "clean": "rimraf lib",
+    "prebuild": "npm run lint && npm run clean",
+    "clean": "rimraf {lib,lib-esm}",
     "lint": "tslint -p .",
-    "build": "npm run dev",
+    "precommit": "npm run lint && pretty-quick --staged",
+    "pretty": "prettier --write 'src/**/*.{ts,tsx}'",
+    "test": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\",\\\"declaration\\\":false} jest --runInBand",
     "env": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"}",
-    "prod": "cross-env NODE_ENV=production TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts --env.prod",
-    "dev": "cross-env NODE_ENV=development TS_NODE_COMPILER_OPTIONS={\\\"module\\\":\\\"commonjs\\\"} webpack --config webpack.config.ts",
-    "demo": "ts-node --compilerOptions {\\\"module\\\":\\\"commonjs\\\"} ./src/server.ts"
+    "dev:tsc": "tsc && tsc -m es6 --outDir lib-esm",
+    "build": "npm run dev:tsc"
   }
 }

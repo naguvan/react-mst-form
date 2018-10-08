@@ -1,9 +1,8 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import Paper from "@material-ui/core/Paper";
+import { Designer } from "react-mst-form-demo";
 
-import Form from "../Form";
 import Theme from "../Theme";
 
 // tslint:disable-next-line:no-empty-interface
@@ -16,9 +15,7 @@ export default class App extends Component<IAppProps, IAppStates> {
   public render(): ReactNode {
     return (
       <Theme theme="light">
-        <Paper square={true} elevation={3}>
-          <Form />
-        </Paper>
+        <Designer />
       </Theme>
     );
   }
