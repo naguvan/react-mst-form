@@ -7,6 +7,7 @@
 import * as React from "react";
 import { Component, ReactNode } from "react";
 
+import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -38,6 +39,7 @@ export interface IDesignerStates {
   width: string;
   height: string;
   config: IFormConfig;
+  open: boolean;
 }
 
 const config: IFormConfig = {
@@ -161,7 +163,12 @@ export class Designer extends Component<
   IDesignerProps & IDesignerStyleProps,
   IDesignerStates
 > {
-  public state = { width: "100%", height: "100%", config };
+  public state = {
+    width: "100%",
+    height: "100%",
+    config,
+    open: false
+  };
 
   private containers: HTMLDivElement[] = [];
 
@@ -186,7 +193,7 @@ export class Designer extends Component<
   public render(): ReactNode {
     const { className: clazz, classes, style } = this.props;
     // tslint:disable-next-line:no-shadowed-variable
-    const { width, height, config } = this.state;
+    const { width, height, config, open } = this.state;
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
@@ -195,6 +202,7 @@ export class Designer extends Component<
           style={{ width, height }}
           ref={this.addContainer}
         >
+          <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>
           <Flex.Set direction={"row"} className={classes.designer}>
             <Flex.Item className={classes.schema}>
               <h1>Schema</h1>
@@ -203,7 +211,7 @@ export class Designer extends Component<
             <Flex.Item className={classes.form}>
               <h1>Form</h1>
               <Paper square elevation={3}>
-                <Form config={config} />
+                <Form config={config} open={open} onClose={this.handleClose} />
               </Paper>
             </Flex.Item>
           </Flex.Set>
@@ -211,6 +219,14 @@ export class Designer extends Component<
       </div>
     );
   }
+
+  private handleClickOpen = () => {
+    this.setState({ open: true });
+  };
+
+  private handleClose = () => {
+    this.setState({ open: false });
+  };
 
   private addContainer = (container: HTMLDivElement): void => {
     if (container) {

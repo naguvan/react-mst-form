@@ -10,10 +10,11 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import { Form, IFormConfig } from "react-mst-form";
+import { Form, FormDialog, IFormConfig } from "react-mst-form";
 
 export interface IFormStyles {
   root: CSSProperties;
+  dialog: CSSProperties;
 }
 
 export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
@@ -22,6 +23,8 @@ export interface IFormProps {
   style?: CSSProperties;
   className?: string;
   config: IFormConfig;
+  open?: boolean;
+  onClose?: () => void;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -34,7 +37,7 @@ export class FormComponent extends Component<
   public render(): ReactNode {
     const { className, classes, style } = this.props;
     const root: string = classNames(classes!.root, className);
-    const { config } = this.props;
+    const { config, open, onClose } = this.props;
     return (
       <div className={root} style={style}>
         <Form
@@ -45,6 +48,19 @@ export class FormComponent extends Component<
           onPatch={this.onPatch}
           onSnapshot={this.onSnapshot}
         />
+        {open && (
+          <FormDialog
+            classes={{ paper: classes.dialog }}
+            open={open}
+            onClose={onClose}
+            config={config}
+            onCancel={onClose}
+            onSubmit={this.onSubmit}
+            onErrors={this.onErrors}
+            onPatch={this.onPatch}
+            onSnapshot={this.onSnapshot}
+          />
+        )}
       </div>
     );
   }
@@ -77,6 +93,10 @@ export class FormComponent extends Component<
 }
 
 export default withStyles<keyof IFormStyles, {}>({
+  dialog: {
+    width: 500,
+    height: 460
+  },
   root: {
     margin: "0 auto",
     width: 500

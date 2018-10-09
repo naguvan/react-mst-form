@@ -17,3 +17,6 @@ export * from "./Type";
 
 export * from "./Form";
 export { default as Form } from "./Form";
+
+export * from "./Dialog";
+export { default as FormDialog } from "./Dialog";

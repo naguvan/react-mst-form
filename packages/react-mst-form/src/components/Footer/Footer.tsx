@@ -17,6 +17,7 @@ import { observer } from "mobx-react";
 
 export interface IFooterStyles {
   root: CSSProperties;
+  item: CSSProperties;
 }
 
 export interface IFooterStyleProps extends WithStyles<keyof IFooterStyles> {}
@@ -48,11 +49,11 @@ export class Footer extends Component<
       <Grid {...{ className, style }} container={true} spacing={24}>
         {onCancel &&
           cancel && (
-            <Grid item xs={6} sm={3}>
+            <Grid className={classes.item} item={true} xs={6} sm={3}>
               <FormCancel label={cancel} {...{ form, onCancel }} />
             </Grid>
           )}
-        <Grid item xs={6} sm={3}>
+        <Grid className={classes.item} item={true} xs={6} sm={3}>
           <FormSubmit label={submit} {...{ form, onSubmit, onErrors }} />
         </Grid>
       </Grid>
@@ -61,6 +62,9 @@ export class Footer extends Component<
 }
 
 export default withStyles<keyof IFooterStyles, {}>({
+  item: {
+    padding: 10
+  },
   root: {
     display: "flex",
     justifyContent: "flex-end"
