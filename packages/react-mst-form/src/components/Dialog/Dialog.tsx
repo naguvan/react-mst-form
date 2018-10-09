@@ -102,6 +102,10 @@ export class FormDialog extends Component<
       onErrors,
       renderer = new Renderer(),
       open,
+      // tslint:disable-next-line:no-shadowed-variable
+      onPatch,
+      // tslint:disable-next-line:no-shadowed-variable
+      onSnapshot,
       scroll = "paper",
       ...others
     } = this.props;
