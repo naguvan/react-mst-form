@@ -1,34 +1,22 @@
 import { flow, IModelType, types } from "mobx-state-tree";
 
-import {
-  createObject,
-  IObject,
-  IObjectConfig,
-  IType
-} from "reactive-json-schema";
+import { createType, IObject, IType, ITypeConfig } from "reactive-json-schema";
 
 import { flatArray } from "../../utils";
 
-export type IFormLayout = Array<
-  string | Array<string | Array<string | string[]>>
->;
-
-export interface IFormSection {
-  title: string;
-  layout: IFormLayout;
-}
+import Section, { ILayout, ISection, ISectionConfig } from "../Section";
 
 export interface IFormConfig {
   readonly title: string;
   readonly cancel?: string;
   readonly submit?: string;
-  readonly schema: IObjectConfig;
-  readonly layout?: IFormLayout;
-  readonly sections?: IFormSection[];
+  readonly schema: ITypeConfig;
+  readonly layout?: ILayout;
+  readonly sections?: ISectionConfig[];
 }
 
 export interface IForm {
-  readonly schema: IObject;
+  readonly schema: IType;
   readonly title: string;
   readonly cancel: string;
   readonly submit: string;
@@ -38,12 +26,14 @@ export interface IForm {
   readonly fields: IType[];
   readonly errors: string[];
   readonly values: { [key: string]: any };
-  readonly layout: IFormLayout;
-  readonly sections: IFormSection[];
+  readonly layout: ILayout;
+  readonly sections: ISection[];
+  readonly selected: ISection | undefined;
   readonly fieldErrors: { [key: string]: string[] };
   get(key: string): IType | undefined;
   reset(): void;
   validate(): Promise<void>;
+  makeSelection(section: ISection): void;
 }
 
 const Form: IModelType<Partial<IFormConfig>, IForm> = types
@@ -51,16 +41,8 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
     cancel: types.optional(types.string, ""),
     errors: types.optional(types.array(types.string), []),
     layout: types.optional(types.frozen, []),
-    schema: types.late("Schema", createObject),
-    sections: types.optional(
-      types.array(
-        types.model({
-          layout: types.frozen,
-          title: types.string
-        })
-      ),
-      []
-    ),
+    schema: types.late("Schema", createType),
+    sections: types.optional(types.array(Section), []),
     submit: types.optional(types.string, "Submit"),
     title: types.string
   })
@@ -70,7 +52,13 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
       const { schema, layout, sections } = it;
       const layouts = sections.map(section => section.layout);
       const items = flatArray([...layout, ...layouts]);
-      const invalids = items.filter(item => !schema.properties!.has(item));
+      if (sections.length > 0 && !sections.some(section => section.selected)) {
+        sections[0].makeSelection(true);
+      }
+      const invalids =
+        schema.type === "object"
+          ? items.filter(item => !schema.properties!.has(item))
+          : [];
 
       if (invalids.length) {
         throw new TypeError(
@@ -85,31 +73,51 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
   }))
   .views(it => ({
     get fields(): IType[] {
-      return it.schema.fields;
+      if (it.schema.type === "object") {
+        return it.schema.fields!;
+      }
+      return [it.schema];
     },
+
     get values(): { [key: string]: any } {
-      return it.schema.data!;
+      if (it.schema.type === "object") {
+        return it.schema.data!;
+      }
+      return { [`${it.schema.title}`]: it.schema.value };
     },
+
     get(key: string): IType | undefined {
-      return it.schema.getProperty(key);
+      return (it.schema as IObject).getProperty
+        ? (it.schema as IObject).getProperty(key)
+        : undefined;
     },
+
     get fieldErrors(): { [key: string]: string[] } {
-      return Array.from(it.schema.properties!.entries()).reduce(
+      if (!(it.schema as IObject).properties) {
+        return { [`${it.schema.title}`]: it.schema.errors!.slice(0) };
+      }
+      return Array.from((it.schema as IObject).properties!.entries()).reduce(
         (values, [key, field]) => {
           values[key] = field.errors!.slice(0);
           return values;
         },
         {} as { [key: string]: string[] }
       );
+    },
+
+    get selected(): ISection | undefined {
+      return it.sections.find(section => section.selected);
     }
   }))
   .views(it => ({
     get valid(): boolean {
       return it.schema.valid;
     },
+
     get modified(): boolean {
       return it.schema.modified;
     },
+
     get validating(): boolean {
       return it._validating || it.schema.validating;
     }
@@ -119,6 +127,13 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
       it.errors.length = 0;
       it.schema.reset();
     },
+
+    makeSelection(selected: ISection): void {
+      for (const section of it.sections) {
+        section.makeSelection(section === selected);
+      }
+    },
+
     validate: flow<void>(function*() {
       if (it.validating) {
         return [];

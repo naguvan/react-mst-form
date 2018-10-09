@@ -1,6 +1,9 @@
 export * from "./Cancel";
 export { default as FormCancel } from "./Cancel";
 
+export * from "./Header";
+export { default as FormHeader } from "./Header";
+
 export * from "./Content";
 export { default as FormContent } from "./Content";
 

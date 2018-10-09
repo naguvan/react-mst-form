@@ -8,6 +8,7 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import FormContent from "../Content";
 import FormFooter from "../Footer";
+import FormHeader from "../Header";
 import Renderer, { IRenderer } from "../Type/Renderer";
 
 import FormModel, { IForm, IFormConfig } from "../../models/Form";
@@ -17,6 +18,7 @@ import { onPatch, onSnapshot } from "mobx-state-tree";
 
 export interface IFormStyles {
   root: CSSProperties;
+  header: CSSProperties;
   content: CSSProperties;
   footer: CSSProperties;
 }
@@ -90,6 +92,7 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
+        <FormHeader {...{ className: classes.header, form }} />
         <FormContent {...{ className: classes.content, form, renderer }} />
         <FormFooter
           {...{ className: classes.footer, form, onCancel, onSubmit, onErrors }}
@@ -106,6 +109,7 @@ export default withStyles<keyof IFormStyles, {}>({
   footer: {
     padding: 10
   },
+  header: {},
   root: {
     padding: 10
   }

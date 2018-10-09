@@ -7,14 +7,15 @@ import { IObject } from "reactive-json-schema";
 
 import FormHelperText from "@material-ui/core/FormHelperText";
 
-import { IForm, IFormLayout } from "../../../models/Form";
+import { IForm } from "../../../models/Form";
+import { ILayout } from "../../../models/Section";
 
 import { IRenderer } from "../Renderer";
 
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 export interface IObjectProps extends ITypeProps<IObject> {
-  layout: IFormLayout;
+  layout: ILayout;
   renderer: IRenderer;
 }
 
@@ -48,7 +49,7 @@ export default class NObject extends Type<
     return item => renderer.render(type.getProperty(item)!, form);
   }
 
-  protected layout(type: IObject): IFormLayout {
+  protected layout(type: IObject): ILayout {
     const properties = type.getProperties();
     const sequences = properties.map((property, index) => {
       const sequence = type.getProperty(property)!.sequence;
@@ -74,7 +75,7 @@ export default class NObject extends Type<
       }
       layout.push(property);
     }
-    const layout: IFormLayout = [];
+    const layout: ILayout = [];
     for (const [sequence, values] of mappings.entries()) {
       if (values.length === 1) {
         layout.push(values[0]);

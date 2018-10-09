@@ -11,6 +11,7 @@ import {
 } from "reactive-json-schema";
 
 import { IForm } from "../../../models/Form";
+import { ILayout } from "../../../models/Section";
 
 import Array from "../Array";
 import Boolean from "../Boolean";
@@ -20,18 +21,18 @@ import Object from "../Object";
 import String from "../String";
 
 export interface IRenderer {
-  render(type: IType, form: IForm): ReactNode;
+  render(type: IType, form: IForm, layout?: ILayout): ReactNode;
 }
 
 export default class Renderer implements IRenderer {
-  public render(type: IType, form: IForm): ReactNode {
+  public render(type: IType, form: IForm, layout: ILayout = []): ReactNode {
     switch (type.type) {
       case "object":
         return (
           <Object
             type={type as IObject}
             form={form}
-            layout={[]}
+            layout={layout}
             renderer={this}
             // TODO: find alternate configuration
             // layout={(type as IObject).layout!}
