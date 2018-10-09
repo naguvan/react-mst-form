@@ -69,7 +69,7 @@ export class Schema extends Component<
           />
         </Paper>
         <Button
-          variant={"raised"}
+          variant={"contained"}
           color={"primary"}
           disabled={!this.isJSON(config)}
           onClick={this.onSubmit}

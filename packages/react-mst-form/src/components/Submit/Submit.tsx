@@ -42,7 +42,7 @@ export class Submit extends Component<
       classes,
       form,
       label,
-      variant = "raised",
+      variant = "contained",
       color = "primary",
       onErrors,
       onSubmit,

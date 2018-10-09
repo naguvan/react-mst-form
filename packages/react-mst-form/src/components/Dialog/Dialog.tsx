@@ -106,23 +106,25 @@ export class FormDialog extends Component<
       ...others
     } = this.props;
 
+    const { content, title, footer, header, ...rest } = classes;
+
     const className: string = classNames(classes!.root, clazz);
     const {} = this.props;
     return (
       <Dialog
         {...{
           className,
-          classes,
+          classes: rest,
           open,
           scroll,
           style,
           ...others
         }}
       >
-        <DialogTitle className={classes.title}>
+        <DialogTitle className={title}>
           <FormHeader
             {...{
-              className: classes.header,
+              className: header,
               form
             }}
           />
@@ -130,7 +132,7 @@ export class FormDialog extends Component<
         <DialogContent>
           <FormContent
             {...{
-              className: classes.content,
+              className: content,
               form,
               renderer
             }}
@@ -139,7 +141,7 @@ export class FormDialog extends Component<
         <DialogActions>
           <FormFooter
             {...{
-              className: classes.footer,
+              className: footer,
               form,
               onCancel,
               onErrors,
@@ -152,12 +154,23 @@ export class FormDialog extends Component<
   }
 }
 
-export default withStyles<IFormDialogClassKey, {}>(({
+export default withStyles<IFormDialogClassKey, {}>({
   content: {},
   footer: {},
   header: {},
   root: {},
   title: {
     paddingBottom: 0
-  }
-} as IFormDialogStyles) as any)(FormDialog);
+  },
+
+  paper: {},
+  paperFullScreen: {},
+  paperFullWidth: {},
+  paperScrollBody: {},
+  paperScrollPaper: {},
+  paperWidthMd: {},
+  paperWidthSm: {},
+  paperWidthXs: {},
+  scrollBody: {},
+  scrollPaper: {}
+})(FormDialog);

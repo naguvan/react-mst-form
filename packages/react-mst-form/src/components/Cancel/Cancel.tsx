@@ -42,7 +42,7 @@ export class Cancel extends Component<
       classes,
       form,
       label,
-      variant = "raised",
+      variant = "contained",
       color = "primary",
       onCancel,
       ...others

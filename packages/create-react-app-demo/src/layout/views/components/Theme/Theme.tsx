@@ -67,6 +67,9 @@ export default class Theme extends Component<IThemeProps, IThemeStates> {
     return createMuiTheme({
       palette: {
         type: theme
+      },
+      typography: {
+        useNextVariants: true
       }
       // palette: {
       //   // primary: green,
