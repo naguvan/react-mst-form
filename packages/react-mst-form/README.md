@@ -2,7 +2,7 @@
 
 Library for generating React forms from [JSON schema](https://json-schema.org/) using the [react](https://github.com/facebook/react), [material-ui](https://github.com/mui-org/material-ui), [mobx](https://github.com/mobxjs/mobx) and [mobx-state-tree](https://github.com/mobxjs/mobx-state-tree).
 
-**https://naguvan.github.io/react-mst-form/packages/react-mst-form-demo/src/index.html**
+**https://naguvan.github.io/react-mst-form/packages/typescript-react-app-demo/src/index.html**
 
 # Running the demo
 
@@ -11,7 +11,7 @@ To run the `demo`, clone this repository, then run:
 ```bash
 lerna bootstrap
 
-cd packages/react-mst-form-demo
+cd packages/typescript-react-app-demo or cd packages/create-react-app-demo
 
 npm run start
 ```
@@ -164,8 +164,8 @@ render(
 
 And, provided that you have a `<div id="form-holder">`, you should see something like this:
 
-![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form-demo/demo/sections.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form/demo/sections.png)
 
 And when the form has validation errors..
 
-![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form-demo/demo/form-validation.png)
+![](https://raw.githubusercontent.com/naguvan/react-mst-form/master/packages/react-mst-form/demo/form-validation.png)
