@@ -1,7 +1,0 @@
-.*
-**/tsconfig.json
-**/tslint.json
-**/webpack.config.js
-node_modules
-src
-typings

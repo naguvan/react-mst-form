@@ -28,25 +28,18 @@ export default class NObject extends Type<
   IObjectStates
 > {
   protected renderType(type: IObject, form: IForm): ReactNode {
-    const { layout } = this.props;
+    const { layout, renderer } = this.props;
     return (
       <>
-        <Layout
-          center
-          items={layout.length > 0 ? layout : this.layout(type)}
-          render={this.getFieldRenderer() as any}
-        />
+        <Layout center items={layout.length > 0 ? layout : this.layout(type)}>
+          {(item: any) => renderer.render(type.getProperty(item)!, form)}
+        </Layout>
         {!type.valid &&
           type.errors!.length > 0 && (
             <FormHelperText error>{type.errors!.join(", ")}</FormHelperText>
           )}
       </>
     );
-  }
-
-  protected getFieldRenderer(): (item: string) => ReactNode {
-    const { type, form, renderer } = this.props;
-    return item => renderer.render(type.getProperty(item)!, form);
   }
 
   protected layout(type: IObject): ILayout {
