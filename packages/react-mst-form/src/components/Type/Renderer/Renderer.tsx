@@ -16,6 +16,7 @@ import { ILayout } from "../../../models/Section";
 import Array from "../Array";
 import Boolean from "../Boolean";
 import Color from "../Color";
+import Multiline from "../Multiline";
 import Number from "../Number";
 import Object from "../Object";
 import String from "../String";
@@ -45,11 +46,22 @@ export default class Renderer implements IRenderer {
       case "array":
         return <Array type={type as IArray} form={form} renderer={this} />;
       case "string":
-        if (type.component === "color") {
-          return <Color type={type as IString} form={form} />;
+        switch (type.meta.component) {
+          case "color":
+            return <Color type={type as IString} form={form} />;
+          case "textarea":
+            return <Multiline type={type as IString} form={form} />;
+          default:
+            return <String type={type as IString} form={form} />;
         }
       default:
-        return <String type={type as IString} form={form} />;
+        throw new Error(
+          `${
+            type.type
+          } is not valid field type configuration for type titled : ${
+            type.title
+          }`
+        );
     }
   }
 }

@@ -20,6 +20,7 @@ import FormModel, { IForm, IFormConfig } from "../../models/Form";
 
 import { observer } from "mobx-react";
 import { onPatch, onSnapshot } from "mobx-state-tree";
+import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFormDialogStyles {
   root: CSSProperties;
@@ -41,7 +42,7 @@ export interface IFormDialogProps extends DialogProps {
   renderer?: IRenderer;
   onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: string[] }) => void;
+  onErrors?: (errors: IFieldErrors) => void;
   onPatch?: (
     patch: {
       op: "replace" | "add" | "remove";

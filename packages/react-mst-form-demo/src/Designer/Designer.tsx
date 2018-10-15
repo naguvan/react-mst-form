@@ -24,6 +24,7 @@ export interface IDesignerStyles {
   container: CSSProperties;
   designer: CSSProperties;
   schema: CSSProperties;
+  formItem: CSSProperties;
   form: CSSProperties;
 }
 
@@ -53,42 +54,52 @@ const config: IFormConfig = {
         type: "object",
         properties: {
           first: {
+            meta: {
+              sequence: 1,
+              value: "naguvan"
+            },
             type: "string",
             title: "First",
-            value: "naguvan",
-            minLength: 5,
-            sequence: 1
+            minLength: 5
           },
           middle: {
+            meta: {
+              sequence: 1,
+              value: "sk"
+            },
             type: "string",
             title: "Middle",
-            value: "sk",
-            minLength: 5,
-            sequence: 1
+            minLength: 5
           },
           last: {
+            meta: {
+              sequence: 2,
+              value: "sk"
+            },
             type: "string",
             title: "Last",
-            value: "sk",
-            minLength: 5,
-            sequence: 2
+            minLength: 5
           },
           age: {
+            meta: {
+              sequence: 2,
+              value: 5
+            },
             type: "number",
             title: "Age",
-            value: 5,
-            sequence: 2,
             maximum: 10,
             minimum: 3
           }
         } // ,
         // layout: [["first", "last"], "middle", "age"]
       },
-      title: {
+      birthdate: {
+        format: "date",
+        meta: {
+          component: "date"
+        },
         type: "string",
-        title: "Title",
-        value: "sk",
-        minLength: 5
+        title: "Birth date"
       },
       ipv4: {
         type: "string",
@@ -98,29 +109,42 @@ const config: IFormConfig = {
         format: "ipv4"
       },
       color: {
+        meta: {
+          component: "color"
+        },
         type: "string",
         title: "In which color",
-        component: "color",
         format: "color"
       },
       size: {
+        meta: {
+          value: 5
+        },
         type: "number",
         title: "Size",
-        value: 5,
         maximum: 10,
         minimum: 3,
         multipleOf: 3
       },
       type: {
+        meta: {
+          error: "should not be empty",
+          options: [
+            { label: "One", value: 1 },
+            { label: "Two", value: 2 },
+            { label: "Three", value: 3 }
+          ]
+        },
         type: "number",
         title: "Select a type",
-        enum: [1, 2],
-        options: [{ label: "One", value: 1 }, { label: "Two", value: 2 }]
+        enum: [1, 2, 3]
       },
       agree: {
+        meta: {
+          value: false
+        },
         type: "boolean",
         title: "I agree with your terms",
-        value: false,
         const: true
       },
       array: {
@@ -135,6 +159,9 @@ const config: IFormConfig = {
               minLength: 3
             },
             age: {
+              meta: {
+                value: 0
+              },
               type: "number",
               title: "age",
               multipleOf: 2,
@@ -150,7 +177,7 @@ const config: IFormConfig = {
   sections: [
     {
       title: "Basic",
-      layout: ["name", "title", ["size", "color"]]
+      layout: ["name", "birthdate", ["size", "color"]]
     },
     {
       title: "Others",
@@ -208,10 +235,15 @@ export class Designer extends Component<
               <h1>Schema</h1>
               <Schema config={config} onConfig={this.onConfig} />
             </Flex.Item>
-            <Flex.Item className={classes.form}>
+            <Flex.Item className={classes.formItem}>
               <h1>Form</h1>
               <Paper square elevation={3}>
-                <Form config={config} open={open} onClose={this.handleClose} />
+                <Form
+                  className={classes.form}
+                  config={config}
+                  open={open}
+                  onClose={this.handleClose}
+                />
               </Paper>
             </Flex.Item>
           </Flex.Set>
@@ -267,8 +299,12 @@ export default withStyles<keyof IDesignerStyles, {}>({
     justifyContent: "space-around"
   },
   form: {
+    height: 450
+  },
+  formItem: {
     flexDirection: "column",
     flex: 0,
+    height: 450,
     minWidth: 520,
     padding: 10
   },

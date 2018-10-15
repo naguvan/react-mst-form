@@ -1,6 +1,6 @@
 {
   "name": "react-mst-form-demo",
-  "version": "1.5.5",
+  "version": "2.0.0-beta1",
   "description": "react-mst-form-demo",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -25,7 +25,7 @@
     "classnames": "2.2.6",
     "react": "16.5.2",
     "react-dom": "16.5.2",
-    "react-mst-form": "1.5.5",
+    "react-mst-form": "2.0.0-beta1",
     "react-flow-layout": "1.5.0"
   },
   "devDependencies": {

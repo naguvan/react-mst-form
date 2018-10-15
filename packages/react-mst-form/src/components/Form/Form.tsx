@@ -15,6 +15,7 @@ import FormModel, { IForm, IFormConfig } from "../../models/Form";
 
 import { observer } from "mobx-react";
 import { onPatch, onSnapshot } from "mobx-state-tree";
+import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFormStyles {
   root: CSSProperties;
@@ -32,7 +33,7 @@ export interface IFormProps {
   renderer?: IRenderer;
   onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: string[] }) => void;
+  onErrors?: (errors: IFieldErrors) => void;
   onPatch?: (
     patch: {
       op: "replace" | "add" | "remove";
@@ -104,13 +105,27 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
 
 export default withStyles<keyof IFormStyles, {}>({
   content: {
+    order: 3,
+    overflowY: "auto",
     padding: 10
   },
   footer: {
+    flexBasis: 80,
+    flexShrink: 0,
+    order: 3,
     padding: 10
   },
-  header: {},
+  header: {
+    flexBasis: 48,
+    flexShrink: 0,
+    order: 1
+  },
   root: {
+    display: "flex",
+    flexDirection: "column",
+    height: "100%",
+    margin: 0,
+    minHeight: "100%",
     padding: 10
   }
 })(Form);

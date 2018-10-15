@@ -1,6 +1,6 @@
 {
   "name": "create-react-app-demo",
-  "version": "1.5.5",
+  "version": "2.0.0-beta1",
   "description": "create-react-app demo",
   "author": "naguvan <naguvan@outlook.com>",
   "license": "MIT",
@@ -22,7 +22,7 @@
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "reflect-metadata": "0.1.12",
-    "react-mst-form-demo": "1.5.5"
+    "react-mst-form-demo": "2.0.0-beta1"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",

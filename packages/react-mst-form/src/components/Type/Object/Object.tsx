@@ -5,13 +5,11 @@ import { observer } from "mobx-react";
 import Layout from "react-flow-layout";
 import { IObject } from "reactive-json-schema";
 
-import FormHelperText from "@material-ui/core/FormHelperText";
-
 import { IForm } from "../../../models/Form";
 import { ILayout } from "../../../models/Section";
-
 import { IRenderer } from "../Renderer";
 
+import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 export interface IObjectProps extends ITypeProps<IObject> {
@@ -34,10 +32,7 @@ export default class NObject extends Type<
         <Layout center items={layout.length > 0 ? layout : this.layout(type)}>
           {(item: any) => renderer.render(type.getProperty(item)!, form)}
         </Layout>
-        {!type.valid &&
-          type.errors!.length > 0 && (
-            <FormHelperText error>{type.errors!.join(", ")}</FormHelperText>
-          )}
+        <Error type={type} />
       </>
     );
   }
@@ -45,7 +40,7 @@ export default class NObject extends Type<
   protected layout(type: IObject): ILayout {
     const properties = type.getProperties();
     const sequences = properties.map((property, index) => {
-      const sequence = type.getProperty(property)!.sequence;
+      const sequence = type.getProperty(property)!.meta.sequence;
       return {
         property,
         sequence: sequence !== null && sequence !== undefined ? sequence : index

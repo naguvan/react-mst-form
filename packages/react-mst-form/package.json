@@ -1,6 +1,6 @@
 {
   "name": "react-mst-form",
-  "version": "1.5.5",
+  "version": "2.0.0-beta1",
   "description": "react-mobx-state-tree-form",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -34,7 +34,7 @@
     "react": "16.5.2",
     "react-dom": "16.5.2",
     "react-flow-layout": "1.5.0",
-    "reactive-json-schema": "1.5.0"
+    "reactive-json-schema": "2.0.0-beta3"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",

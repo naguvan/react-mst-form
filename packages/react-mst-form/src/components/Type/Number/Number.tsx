@@ -1,12 +1,11 @@
 import * as React from "react";
-import { ReactNode } from "react";
-
-import { INumber } from "reactive-json-schema";
-
-import { IForm } from "../../../models/Form";
+import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
+import { INumber } from "reactive-json-schema";
+import { IForm } from "../../../models/Form";
 
+import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 import MenuItem from "@material-ui/core/MenuItem";
@@ -26,22 +25,21 @@ export default class Number extends Type<INumber, INumberProps, INumberStates> {
       <>
         <TextField
           select={select}
-          key={type.name!}
+          key={type.meta.name!}
           type={"number"}
           margin={"normal"}
           fullWidth={true}
-          name={type.name!}
-          id={type.name!}
+          name={type.meta.name!}
+          id={type.meta.name!}
           value={type.data || ""}
-          disabled={type.disabled!}
+          disabled={type.meta.disabled!}
           error={!type.valid}
           label={type.title!}
-          helperText={type.errors!.join(", ")}
-          // tslint:disable-next-line:jsx-no-lambda
-          onChange={e => type.sync(toNumber(e.target.value, type.value!))}
+          helperText={Error.getError(type)}
+          onChange={this.onChange}
         >
-          {type.options &&
-            type.options.map(option => (
+          {type.meta.options &&
+            type.meta.options.map(option => (
               <MenuItem key={option.value} value={option.value}>
                 {option.label}
               </MenuItem>
@@ -50,4 +48,9 @@ export default class Number extends Type<INumber, INumberProps, INumberStates> {
       </>
     );
   }
+
+  private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const { type } = this.props;
+    type.sync(toNumber(event.target.value, type.meta.value!));
+  };
 }

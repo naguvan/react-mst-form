@@ -14,6 +14,7 @@ import FormSubmit from "../Submit";
 import { IForm } from "../../models/Form";
 
 import { observer } from "mobx-react";
+import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFooterStyles {
   root: CSSProperties;
@@ -28,7 +29,7 @@ export interface IFooterProps {
   form: IForm;
   onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: string[] }) => void;
+  onErrors?: (errors: IFieldErrors) => void;
 }
 
 // tslint:disable-next-line:no-empty-interface

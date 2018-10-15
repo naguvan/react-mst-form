@@ -1,6 +1,12 @@
 import { flow, IModelType, types } from "mobx-state-tree";
 
-import { createType, IObject, IType, ITypeConfig } from "reactive-json-schema";
+import {
+  createType,
+  IFieldErrors,
+  IObject,
+  IType,
+  ITypeConfig
+} from "reactive-json-schema";
 
 import { flatArray } from "../../utils";
 
@@ -29,7 +35,7 @@ export interface IForm {
   readonly layout: ILayout;
   readonly sections: ISection[];
   readonly selected: ISection | undefined;
-  readonly fieldErrors: { [key: string]: string[] };
+  readonly fieldErrors: IFieldErrors;
   get(key: string): IType | undefined;
   reset(): void;
   validate(): Promise<void>;
@@ -83,7 +89,7 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
       if (it.schema.type === "object") {
         return it.schema.data!;
       }
-      return { [`${it.schema.title}`]: it.schema.value };
+      return { [`${it.schema.title}`]: it.schema.data };
     },
 
     get(key: string): IType | undefined {
@@ -92,17 +98,13 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
         : undefined;
     },
 
-    get fieldErrors(): { [key: string]: string[] } {
+    get fieldErrors(): IFieldErrors {
       if (!(it.schema as IObject).properties) {
-        return { [`${it.schema.title}`]: it.schema.errors!.slice(0) };
+        return {
+          errors: it.schema.errors!.slice(0)
+        };
       }
-      return Array.from((it.schema as IObject).properties!.entries()).reduce(
-        (values, [key, field]) => {
-          values[key] = field.errors!.slice(0);
-          return values;
-        },
-        {} as { [key: string]: string[] }
-      );
+      return (it.schema as IObject).getFieldErrors();
     },
 
     get selected(): ISection | undefined {

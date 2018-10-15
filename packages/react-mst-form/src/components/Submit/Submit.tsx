@@ -2,6 +2,7 @@ import * as React from "react";
 import { Component, MouseEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
+import { IFieldErrors } from "reactive-json-schema";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
@@ -25,7 +26,7 @@ export interface ISubmitProps {
   form: IForm;
   label?: string;
   onSubmit?: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: { [key: string]: string[] }) => void;
+  onErrors?: (errors: IFieldErrors) => void;
 }
 
 // tslint:disable-next-line:no-empty-interface

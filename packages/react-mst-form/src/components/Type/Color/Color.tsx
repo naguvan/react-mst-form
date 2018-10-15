@@ -1,14 +1,13 @@
 import * as React from "react";
-import { ReactNode } from "react";
-
-import { IString } from "reactive-json-schema";
-
-import { IForm } from "../../../models/Form";
+import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
+import { IString } from "reactive-json-schema";
+import { IForm } from "../../../models/Form";
 
 import TextField from "@material-ui/core/TextField";
 
+import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 export interface IColorProps extends ITypeProps<IString> {}
@@ -21,21 +20,24 @@ export default class Color extends Type<IString, IColorProps, IColorStates> {
     return (
       <>
         <TextField
-          key={type.name!}
+          key={type.meta.name!}
           type={"color"}
           margin={"normal"}
           fullWidth={true}
-          name={type.name!}
-          id={type.name!}
+          name={type.meta.name!}
+          id={type.meta.name!}
           value={type.data || "#000000"}
-          disabled={type.disabled!}
+          disabled={type.meta.disabled!}
           error={!type.valid}
           label={type.title}
-          helperText={type.errors!.join(", ")!}
-          // tslint:disable-next-line:jsx-no-lambda
-          onChange={e => type.sync(e.target.value)}
+          helperText={Error.getError(type)}
+          onChange={this.onChange}
         />
       </>
     );
   }
+
+  private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    this.props.type.sync(event.target.value);
+  };
 }

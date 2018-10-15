@@ -1,22 +1,21 @@
 import * as React from "react";
-import { Fragment, ReactNode } from "react";
-
-import { IArray } from "reactive-json-schema";
-
-import { IForm } from "../../../models/Form";
-
-import { IRenderer } from "../Renderer";
+import { Fragment, MouseEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
+import { IArray } from "reactive-json-schema";
+import { IForm } from "../../../models/Form";
+import { IRenderer } from "../Renderer";
 
+import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 import FormControl from "@material-ui/core/FormControl";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormLabel from "@material-ui/core/FormLabel";
 import IconButton from "@material-ui/core/IconButton";
 import ActionAdd from "@material-ui/icons/Add";
 import ActionClear from "@material-ui/icons/Clear";
+
+import { toNumber } from "../../../utils";
 
 export interface IArrayProps extends ITypeProps<IArray> {
   renderer: IRenderer;
@@ -27,6 +26,7 @@ export interface IArrayStates extends ITypeStates<IArray> {}
 @observer
 export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
   protected renderType(type: IArray, form: IForm): ReactNode {
+    const { renderer } = this.props;
     return (
       <>
         <FormControl
@@ -46,34 +46,32 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
                     marginBottom: -10,
                     marginTop: 10
                   }}
-                  onClick={
-                    // tslint:disable-next-line:jsx-no-lambda
-                    e => type.remove(index)
-                  }
+                  data-index={index}
+                  onClick={this.onRemove}
                 >
                   <ActionClear />
                 </IconButton>
               )}
-              {this.props.renderer.render(element, form)}
+              {renderer.render(element, form)}
             </Fragment>
           ))}
           {type.dynamic && (
-            <IconButton
-              style={{ float: "right" }}
-              onClick={
-                // tslint:disable-next-line:jsx-no-lambda
-                e => type.push()
-              }
-            >
+            <IconButton style={{ float: "right" }} onClick={this.onPush}>
               <ActionAdd />
             </IconButton>
           )}
-          {!type.valid &&
-            type.errors!.length > 0 && (
-              <FormHelperText error>{type.errors!.join(", ")}</FormHelperText>
-            )}
+          <Error type={type} />
         </FormControl>
       </>
     );
   }
+
+  private onRemove = (event: MouseEvent<HTMLButtonElement>): void => {
+    const index = event.currentTarget.getAttribute("data-index") || "";
+    this.props.type.remove(toNumber(index, 0));
+  };
+
+  private onPush = (event: MouseEvent<HTMLElement>): void => {
+    this.props.type.push();
+  };
 }

@@ -19,5 +19,8 @@ export { default as String } from "./String";
 export * from "./Type";
 export { default as Type } from "./Type";
 
+export * from "./Multiline";
+export { default as Multiline } from "./Multiline";
+
 export * from "./Renderer";
 export { default as Renderer } from "./Renderer";

@@ -74,7 +74,7 @@ export class FormComponent extends Component<
     window.alert(`submitted values:\n\n${JSON.stringify(values, null, 2)}`);
   };
 
-  private onErrors = (errors: { [key: string]: string[] }) => {
+  private onErrors = (errors: any) => {
     console.error(errors);
     window.alert(`errors:\n\n${JSON.stringify(errors, null, 2)}`);
   };
