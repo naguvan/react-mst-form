@@ -10,8 +10,10 @@ import classNames from "classnames";
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 
+import { ILayout } from "reactive-json-schema";
+
 import { IForm } from "../../models/Form";
-import { ILayout, ISection } from "../../models/Section";
+import { ISection } from "../../models/Section";
 
 export interface IHeaderStyles {
   root: CSSProperties;
@@ -37,7 +39,7 @@ export class Header extends Component<
   public render(): ReactNode {
     const { form } = this.props;
     if (!form.selected) {
-      return null;
+      return form.title;
     }
     const { className: clazz, classes, style } = this.props;
     const className: string = classNames(classes!.root, clazz);

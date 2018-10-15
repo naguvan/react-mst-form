@@ -28,41 +28,39 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
   protected renderType(type: IArray, form: IForm): ReactNode {
     const { renderer } = this.props;
     return (
-      <>
-        <FormControl
-          component={"fieldset"}
-          error={!type.valid}
-          style={{ width: "100%" }}
-        >
-          <FormLabel component={"legend"} style={{ paddingTop: 20 }}>
-            {type.title}
-          </FormLabel>
-          {type.elements.map((element, index) => (
-            <Fragment key={index}>
-              {type.dynamic && (
-                <IconButton
-                  style={{
-                    float: "right",
-                    marginBottom: -10,
-                    marginTop: 10
-                  }}
-                  data-index={index}
-                  onClick={this.onRemove}
-                >
-                  <ActionClear />
-                </IconButton>
-              )}
-              {renderer.render(element, form)}
-            </Fragment>
-          ))}
-          {type.dynamic && (
-            <IconButton style={{ float: "right" }} onClick={this.onPush}>
-              <ActionAdd />
-            </IconButton>
-          )}
-          <Error type={type} />
-        </FormControl>
-      </>
+      <FormControl
+        component={"fieldset"}
+        error={!type.valid}
+        style={{ width: "100%" }}
+      >
+        <FormLabel component={"legend"} style={{ paddingTop: 20 }}>
+          {type.title}
+        </FormLabel>
+        {type.elements.map((element, index) => (
+          <Fragment key={index}>
+            {type.dynamic && (
+              <IconButton
+                style={{
+                  float: "right",
+                  marginBottom: -10,
+                  marginTop: 10
+                }}
+                data-index={index}
+                onClick={this.onRemove}
+              >
+                <ActionClear />
+              </IconButton>
+            )}
+            {renderer.render(element, form)}
+          </Fragment>
+        ))}
+        {type.dynamic && (
+          <IconButton style={{ float: "right" }} onClick={this.onPush}>
+            <ActionAdd />
+          </IconButton>
+        )}
+        <Error type={type} />
+      </FormControl>
     );
   }
 

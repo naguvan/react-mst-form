@@ -9,6 +9,7 @@ import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 import TextField from "@material-ui/core/TextField";
+import { types } from "util";
 
 export interface IMultilineProps extends ITypeProps<IString> {}
 
@@ -23,25 +24,23 @@ export default class Multiline extends Type<
   protected renderType(type: IString, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (
-      <>
-        <TextField
-          select={select}
-          key={type.meta.name!}
-          multiline={true}
-          rows={4}
-          rowsMax={4}
-          margin={"normal"}
-          fullWidth={true}
-          name={type.meta.name!}
-          id={type.meta.name!}
-          value={type.data || ""}
-          disabled={type.meta.disabled!}
-          error={!type.valid}
-          label={type.title}
-          helperText={Error.getError(type)}
-          onChange={this.onChange}
-        />
-      </>
+      <TextField
+        select={select}
+        key={type.meta.name!}
+        multiline={true}
+        rows={type.meta.rows || 4}
+        rowsMax={type.meta.rowsMax || 4}
+        margin={"normal"}
+        fullWidth={true}
+        name={type.meta.name!}
+        id={type.meta.name!}
+        value={type.data || ""}
+        disabled={type.meta.disabled!}
+        error={!type.valid}
+        label={type.title}
+        helperText={Error.getError(type)}
+        onChange={this.onChange}
+      />
     );
   }
 

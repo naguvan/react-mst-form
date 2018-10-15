@@ -22,30 +22,28 @@ export default class Number extends Type<INumber, INumberProps, INumberStates> {
   protected renderType(type: INumber, form: IForm): ReactNode {
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (
-      <>
-        <TextField
-          select={select}
-          key={type.meta.name!}
-          type={"number"}
-          margin={"normal"}
-          fullWidth={true}
-          name={type.meta.name!}
-          id={type.meta.name!}
-          value={type.data || ""}
-          disabled={type.meta.disabled!}
-          error={!type.valid}
-          label={type.title!}
-          helperText={Error.getError(type)}
-          onChange={this.onChange}
-        >
-          {type.meta.options &&
-            type.meta.options.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-        </TextField>
-      </>
+      <TextField
+        select={select}
+        key={type.meta.name!}
+        type={"number"}
+        margin={"normal"}
+        fullWidth={true}
+        name={type.meta.name!}
+        id={type.meta.name!}
+        value={type.data || ""}
+        disabled={type.meta.disabled!}
+        error={!type.valid}
+        label={type.title!}
+        helperText={Error.getError(type)}
+        onChange={this.onChange}
+      >
+        {type.meta.options &&
+          type.meta.options.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+      </TextField>
     );
   }
 

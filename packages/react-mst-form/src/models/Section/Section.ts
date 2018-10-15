@@ -1,6 +1,6 @@
 import { IModelType, types } from "mobx-state-tree";
 
-export type ILayout = Array<string | Array<string | Array<string | string[]>>>;
+import { ILayout } from "reactive-json-schema";
 
 export interface ISectionConfig {
   readonly title: string;

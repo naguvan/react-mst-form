@@ -5,6 +5,7 @@ import Form, { IFormConfig } from "./Form";
 import {
   IBooleanConfig,
   INumberConfig,
+  IObject,
   IString,
   IStringConfig
 } from "reactive-json-schema";
@@ -208,6 +209,9 @@ describe("testing form", () => {
         type: "object",
         properties: {
           name: {
+            meta: {
+              layout: [["first", "last"], "middle", "age"]
+            },
             type: "object",
             properties: {
               first: {
@@ -247,8 +251,7 @@ describe("testing form", () => {
                 maximum: 10,
                 minimum: 3
               }
-            } // ,
-            // layout: [["first", "last"], "middle", "age"]
+            }
           },
           birthdate: {
             format: "date",
@@ -341,6 +344,11 @@ describe("testing form", () => {
 
     const form = Form.create(config);
 
+    const schema = form.schema as IObject;
+
+    const namex = schema.getProperty("name") as IObject;
+
     expect(form.title).toBe("Test Form");
+    expect(namex.meta.layout).toEqual([["first", "last"], "middle", "age"]);
   });
 });

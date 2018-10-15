@@ -51,6 +51,9 @@ const config: IFormConfig = {
     type: "object",
     properties: {
       name: {
+        meta: {
+          layout: [["first", "last"], "middle", "age"]
+        },
         type: "object",
         properties: {
           first: {

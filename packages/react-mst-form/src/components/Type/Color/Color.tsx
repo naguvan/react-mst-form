@@ -18,22 +18,20 @@ export interface IColorStates extends ITypeStates<IString> {}
 export default class Color extends Type<IString, IColorProps, IColorStates> {
   protected renderType(type: IString, form: IForm): ReactNode {
     return (
-      <>
-        <TextField
-          key={type.meta.name!}
-          type={"color"}
-          margin={"normal"}
-          fullWidth={true}
-          name={type.meta.name!}
-          id={type.meta.name!}
-          value={type.data || "#000000"}
-          disabled={type.meta.disabled!}
-          error={!type.valid}
-          label={type.title}
-          helperText={Error.getError(type)}
-          onChange={this.onChange}
-        />
-      </>
+      <TextField
+        key={type.meta.name!}
+        type={"color"}
+        margin={"normal"}
+        fullWidth={true}
+        name={type.meta.name!}
+        id={type.meta.name!}
+        value={type.data || "#000000"}
+        disabled={type.meta.disabled!}
+        error={!type.valid}
+        label={type.title}
+        helperText={Error.getError(type)}
+        onChange={this.onChange}
+      />
     );
   }
 

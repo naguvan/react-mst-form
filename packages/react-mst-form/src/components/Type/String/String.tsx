@@ -32,31 +32,29 @@ export default class String extends Type<IString, IStringProps, IStringStates> {
       typex === "select" ||
       (!!type.meta.options && type.meta.options.length > 0);
     return (
-      <>
-        <TextField
-          select={select}
-          key={type.meta.name!}
-          type={typex}
-          margin={"normal"}
-          fullWidth={true}
-          name={type.meta.name!}
-          id={type.meta.name!}
-          value={type.data || ""}
-          disabled={type.meta.disabled!}
-          error={!type.valid}
-          label={type.title}
-          helperText={Error.getError(type)}
-          onChange={this.onChange}
-          InputLabelProps={typex.indexOf("date") === 0 ? { shrink: true } : {}}
-        >
-          {type.meta.options &&
-            type.meta.options.map(option => (
-              <MenuItem key={option.value} value={option.value}>
-                {option.label}
-              </MenuItem>
-            ))}
-        </TextField>
-      </>
+      <TextField
+        select={select}
+        key={type.meta.name!}
+        type={typex}
+        margin={"normal"}
+        fullWidth={true}
+        name={type.meta.name!}
+        id={type.meta.name!}
+        value={type.data || ""}
+        disabled={type.meta.disabled!}
+        error={!type.valid}
+        label={type.title}
+        helperText={Error.getError(type)}
+        onChange={this.onChange}
+        InputLabelProps={typex.indexOf("date") === 0 ? { shrink: true } : {}}
+      >
+        {type.meta.options &&
+          type.meta.options.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+      </TextField>
     );
   }
 

@@ -3,6 +3,7 @@ import { flow, IModelType, types } from "mobx-state-tree";
 import {
   createType,
   IFieldErrors,
+  ILayout,
   IObject,
   IType,
   ITypeConfig
@@ -10,7 +11,7 @@ import {
 
 import { flatArray } from "../../utils";
 
-import Section, { ILayout, ISection, ISectionConfig } from "../Section";
+import Section, { ISection, ISectionConfig } from "../Section";
 
 export interface IFormConfig {
   readonly title: string;

@@ -4,6 +4,7 @@ import { ReactNode } from "react";
 import {
   IArray,
   IBoolean,
+  ILayout,
   INumber,
   IObject,
   IString,
@@ -11,7 +12,6 @@ import {
 } from "reactive-json-schema";
 
 import { IForm } from "../../../models/Form";
-import { ILayout } from "../../../models/Section";
 
 import Array from "../Array";
 import Boolean from "../Boolean";
@@ -26,17 +26,15 @@ export interface IRenderer {
 }
 
 export default class Renderer implements IRenderer {
-  public render(type: IType, form: IForm, layout: ILayout = []): ReactNode {
+  public render(type: IType, form: IForm, layout?: ILayout): ReactNode {
     switch (type.type) {
       case "object":
         return (
           <Object
             type={type as IObject}
             form={form}
-            layout={layout}
+            layout={layout || type.meta.layout || []}
             renderer={this}
-            // TODO: find alternate configuration
-            // layout={(type as IObject).layout!}
           />
         );
       case "number":

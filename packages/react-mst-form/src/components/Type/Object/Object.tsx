@@ -3,10 +3,9 @@ import { ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import Layout from "react-flow-layout";
-import { IObject } from "reactive-json-schema";
+import { ILayout, IObject } from "reactive-json-schema";
 
 import { IForm } from "../../../models/Form";
-import { ILayout } from "../../../models/Section";
 import { IRenderer } from "../Renderer";
 
 import Error from "../Error";
