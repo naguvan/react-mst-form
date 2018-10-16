@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Component, ReactNode } from "react";
+import { ReactNode } from "react";
 
 import classNames from "classnames";
 
@@ -14,13 +14,11 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormContent from "../Content";
 import FormFooter from "../Footer";
 import FormHeader from "../Header";
-import Renderer, { IRenderer } from "../Type/Renderer";
+import Renderer from "../Type/Renderer";
 
-import FormModel, { IForm, IFormConfig } from "../../models/Form";
+import Form, { IFormProps, IFormStates } from "../Form";
 
 import { observer } from "mobx-react";
-import { onPatch, onSnapshot } from "mobx-state-tree";
-import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFormDialogStyles {
   root: CSSProperties;
@@ -35,61 +33,21 @@ export type IFormDialogClassKey = keyof IFormDialogStyles | DialogClassKey;
 export interface IFormDialogStyleProps
   extends WithStyles<IFormDialogClassKey> {}
 
-export interface IFormDialogProps extends DialogProps {
+export interface IFormDialogProps extends IFormProps, DialogProps {
   style?: CSSProperties;
-  className?: string;
-  config: IFormConfig;
-  renderer?: IRenderer;
-  onCancel?: (form?: IForm) => void;
   onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: IFieldErrors) => void;
-  onPatch?: (
-    patch: {
-      op: "replace" | "add" | "remove";
-      path: string;
-      value?: any;
-    }
-  ) => void;
-  onSnapshot?: (snapshot: {}) => void;
 }
 
-export interface IFormDialogStates {
-  form: IForm;
-}
+// tslint:disable-next-line:no-empty-interface
+export interface IFormDialogStates extends IFormStates {}
 
 @observer
-export class FormDialog extends Component<
+export class FormDialog extends Form<
   IFormDialogProps & IFormDialogStyleProps,
   IFormDialogStates
 > {
-  private static getDerivedStateFromPropsFix(
-    props: Readonly<IFormDialogProps & IFormDialogStyleProps>,
-    state?: IFormDialogStates
-  ): IFormDialogStates {
-    const { config, onPatch: xonPatch, onSnapshot: xonSnapshot } = props;
-    const form = FormModel.create(config);
-    if (xonSnapshot) {
-      onSnapshot(form, snapshot => xonSnapshot(snapshot));
-    }
-    if (xonPatch) {
-      onPatch(form, patch => xonPatch(patch));
-    }
-    return { form };
-  }
-
   constructor(props: IFormDialogProps & IFormDialogStyleProps) {
     super(props);
-    this.state = FormDialog.getDerivedStateFromPropsFix(props);
-  }
-
-  public componentWillReceiveProps(
-    nextProps: Readonly<IFormDialogProps & IFormDialogStyleProps>
-  ): void {
-    if (this.props.config !== nextProps.config) {
-      this.setState(state =>
-        FormDialog.getDerivedStateFromPropsFix(nextProps, state)
-      );
-    }
   }
 
   public render(): ReactNode {

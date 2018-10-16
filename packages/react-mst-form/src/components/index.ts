@@ -15,8 +15,11 @@ export { default as FormFooter } from "./Footer";
 
 export * from "./Type";
 
-export * from "./Form";
-export { default as Form } from "./Form";
-
 export * from "./Dialog";
 export { default as FormDialog } from "./Dialog";
+
+export * from "./Inline";
+export { default as FormInline } from "./Inline";
+
+export * from "./Form";
+export { default as Form } from "./Inline";

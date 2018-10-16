@@ -1,30 +1,13 @@
-import * as React from "react";
 import { Component, ReactNode } from "react";
 
-import classNames from "classnames";
+import { CSSProperties } from "@material-ui/core/styles/withStyles";
 
-import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
-import withStyles from "@material-ui/core/styles/withStyles";
-
-import FormContent from "../Content";
-import FormFooter from "../Footer";
-import FormHeader from "../Header";
-import Renderer, { IRenderer } from "../Type/Renderer";
+import { IRenderer } from "../Type/Renderer";
 
 import FormModel, { IForm, IFormConfig } from "../../models/Form";
 
-import { observer } from "mobx-react";
 import { onPatch, onSnapshot } from "mobx-state-tree";
 import { IFieldErrors } from "reactive-json-schema";
-
-export interface IFormStyles {
-  root: CSSProperties;
-  header: CSSProperties;
-  content: CSSProperties;
-  footer: CSSProperties;
-}
-
-export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
 
 export interface IFormProps {
   style?: CSSProperties;
@@ -48,12 +31,14 @@ export interface IFormStates {
   form: IForm;
 }
 
-@observer
-export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
-  private static getDerivedStateFromPropsFix(
-    props: Readonly<IFormProps & IFormStyleProps>,
-    state?: IFormStates
-  ): IFormStates {
+export default abstract class Form<
+  P extends IFormProps,
+  S extends IFormStates
+> extends Component<P, S> {
+  private static getDerivedStateFromPropsFix<
+    P extends IFormProps,
+    S extends IFormStates
+  >(props: Readonly<P>, state?: IFormStates): S {
     const { config, onPatch: xonPatch, onSnapshot: xonSnapshot } = props;
     const form = FormModel.create(config);
     if (xonSnapshot) {
@@ -62,17 +47,15 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     if (xonPatch) {
       onPatch(form, patch => xonPatch(patch));
     }
-    return { form };
+    return { form } as S;
   }
 
-  constructor(props: IFormProps & IFormStyleProps) {
+  constructor(props: P) {
     super(props);
-    this.state = Form.getDerivedStateFromPropsFix(props);
+    this.state = Form.getDerivedStateFromPropsFix<P, S>(props);
   }
 
-  public componentWillReceiveProps(
-    nextProps: Readonly<IFormProps & IFormStyleProps>
-  ): void {
+  public componentWillReceiveProps(nextProps: Readonly<P>): void {
     if (this.props.config !== nextProps.config) {
       this.setState(state =>
         Form.getDerivedStateFromPropsFix(nextProps, state)
@@ -80,52 +63,5 @@ export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
     }
   }
 
-  public render(): ReactNode {
-    const { form } = this.state;
-    const { className: clazz, classes, style } = this.props;
-    const {
-      onCancel,
-      onSubmit,
-      onErrors,
-      renderer = new Renderer()
-    } = this.props;
-
-    const className: string = classNames(classes!.root, clazz);
-    return (
-      <div {...{ className, style }}>
-        <FormHeader {...{ className: classes.header, form }} />
-        <FormContent {...{ className: classes.content, form, renderer }} />
-        <FormFooter
-          {...{ className: classes.footer, form, onCancel, onSubmit, onErrors }}
-        />
-      </div>
-    );
-  }
+  public abstract render(): ReactNode;
 }
-
-export default withStyles<keyof IFormStyles, {}>({
-  content: {
-    order: 3,
-    overflowY: "auto",
-    padding: 10
-  },
-  footer: {
-    flexBasis: 80,
-    flexShrink: 0,
-    order: 3,
-    padding: 10
-  },
-  header: {
-    flexBasis: 48,
-    flexShrink: 0,
-    order: 1
-  },
-  root: {
-    display: "flex",
-    flexDirection: "column",
-    height: "100%",
-    margin: 0,
-    minHeight: "100%",
-    padding: 10
-  }
-})(Form);
