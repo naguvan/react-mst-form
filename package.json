@@ -1,6 +1,7 @@
 {
   "name": "root",
-  "private": true,
+  "author": "naguvan <naguvan@outlook.com>",
+  "license": "MIT",
   "workspaces": [
     "packages/*"
   ],
