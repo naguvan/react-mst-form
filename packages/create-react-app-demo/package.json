@@ -4,6 +4,7 @@
   "description": "create-react-app demo",
   "author": "naguvan <naguvan@outlook.com>",
   "license": "MIT",
+  "private": false,
   "scripts": {
     "prepare": "npm run build",
     "prebuild": "npm run lint && npm run clean",

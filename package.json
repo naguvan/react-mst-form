@@ -1,7 +1,9 @@
 {
   "name": "root",
+  "repository": "https://github.com/naguvan/react-mst-form.git",
   "author": "naguvan <naguvan@outlook.com>",
   "license": "MIT",
+  "private": false,
   "workspaces": [
     "packages/*"
   ],
