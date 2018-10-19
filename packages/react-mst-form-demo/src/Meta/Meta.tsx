@@ -1,16 +1,16 @@
 import * as React from "react";
-import { ChangeEvent, Component, MouseEvent, ReactNode } from "react";
+import { ChangeEvent, Component, KeyboardEvent, ReactNode } from "react";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 
 import { IMetaConfig } from "react-mst-form";
 
 export interface IMetaStyles {
+  editor: CSSProperties;
   paper: CSSProperties;
 }
 
@@ -58,21 +58,15 @@ export class Meta extends Component<IMetaProps & IMetaStyleProps, IMetaStates> {
       <div {...{ className, style }}>
         <Paper square elevation={3} className={classes.paper}>
           <TextField
+            InputProps={{ classes: { input: classes.editor } }}
             multiline
             fullWidth
             rows={25}
             value={meta}
             onChange={this.onChange}
+            onKeyDown={this.onSubmit}
           />
         </Paper>
-        <Button
-          variant={"contained"}
-          color={"primary"}
-          disabled={!this.isJSON(meta)}
-          onClick={this.onSubmit}
-        >
-          Render
-        </Button>
       </div>
     );
   }
@@ -90,15 +84,21 @@ export class Meta extends Component<IMetaProps & IMetaStyleProps, IMetaStates> {
     this.setState(() => ({ meta }));
   };
 
-  private onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     const { meta } = this.state;
-    const { onMeta } = this.props;
-    if (onMeta) {
-      onMeta(JSON.parse(meta));
+    if (this.isJSON(meta) && event.shiftKey && event.keyCode === 13) {
+      const { onMeta } = this.props;
+      if (onMeta) {
+        onMeta(JSON.parse(meta));
+      }
     }
   };
 }
 
 export default withStyles<keyof IMetaStyles, {}>({
+  editor: {
+    height: 300,
+    padding: 10
+  },
   paper: {}
 })(Meta);

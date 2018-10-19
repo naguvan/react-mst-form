@@ -1,14 +1,14 @@
 import * as React from "react";
-import { ChangeEvent, Component, MouseEvent, ReactNode } from "react";
+import { ChangeEvent, Component, KeyboardEvent, ReactNode } from "react";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 
 export interface ISnapshotStyles {
+  editor: CSSProperties;
   paper: CSSProperties;
 }
 
@@ -60,21 +60,15 @@ export class Snapshot extends Component<
       <div {...{ className, style }}>
         <Paper square elevation={3} className={classes.paper}>
           <TextField
+            InputProps={{ classes: { input: classes.editor } }}
             multiline
             fullWidth
             rows={25}
             value={snapshot}
             onChange={this.onChange}
+            onKeyDown={this.onSubmit}
           />
         </Paper>
-        <Button
-          variant={"contained"}
-          color={"primary"}
-          disabled={!this.isJSON(snapshot)}
-          onClick={this.onSubmit}
-        >
-          Render
-        </Button>
       </div>
     );
   }
@@ -92,15 +86,21 @@ export class Snapshot extends Component<
     this.setState(() => ({ snapshot }));
   };
 
-  private onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     const { snapshot } = this.state;
-    const { onSnapshot } = this.props;
-    if (onSnapshot) {
-      onSnapshot(JSON.parse(snapshot));
+    if (this.isJSON(snapshot) && event.shiftKey && event.keyCode === 13) {
+      const { onSnapshot } = this.props;
+      if (onSnapshot) {
+        onSnapshot(JSON.parse(snapshot));
+      }
     }
   };
 }
 
 export default withStyles<keyof ISnapshotStyles, {}>({
+  editor: {
+    height: 300,
+    padding: 10
+  },
   paper: {}
 })(Snapshot);

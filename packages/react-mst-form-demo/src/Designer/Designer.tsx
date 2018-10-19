@@ -8,13 +8,12 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 
 import Button from "@material-ui/core/Button";
-import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
 import classNames from "classnames";
-
+import Layout from "react-flow-layout";
 import { IFormConfig, IMetaConfig, ISchemaConfig } from "react-mst-form";
 
 import Form from "../Form";
@@ -29,6 +28,7 @@ export interface IDesignerStyles {
   schema: CSSProperties;
   formItem: CSSProperties;
   form: CSSProperties;
+  stretch: CSSProperties;
 }
 
 export interface IDesignerStyleProps
@@ -214,56 +214,38 @@ export class Designer extends Component<
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
-        <Paper
-          className={classes.root}
-          style={{ backgroundColor: "azure", height: 600 }}
-        >
-          <Grid container xs={12} direction="row" style={{ height: "100%" }}>
-            <Grid
-              item
-              xs={6}
-              container
-              direction="column"
-              style={{ backgroundColor: "red", height: 300 }}
-            >
-              <Grid item>
-                <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>
-              </Grid>
-              <Grid item style={{ backgroundColor: "green", height: 300 }}>
-                <Schema config={config} onConfig={this.onConfig} />
-              </Grid>
-              <Grid
-                item
-                container
-                direction="row"
-                style={{ backgroundColor: "yellow", height: 300 }}
-              >
-                <Grid item xs={6} style={{ backgroundColor: "orange" }}>
-                  <Meta meta={meta} onMeta={this.onMeta} />
-                </Grid>
-                <Grid item xs={6} style={{ backgroundColor: "yellow" }}>
-                  <Snapshot snapshot={snapshot} onSnapshot={this.onSnapshot} />
-                </Grid>
-              </Grid>
-            </Grid>
-            <Grid
-              item
-              xs={6}
-              style={{ backgroundColor: "blue", height: "100%" }}
-            >
-              <Paper square elevation={3}>
-                <Form
-                  className={classes.form}
-                  config={config}
-                  schema={schema}
-                  meta={meta}
-                  snapshot={snapshot}
-                  open={open}
-                  onClose={this.handleClose}
-                />
-              </Paper>
-            </Grid>
-          </Grid>
+        <Paper className={classes.root} elevation={3} style={{ padding: 15 }}>
+          <Layout
+            center={false}
+            items={[
+              <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>,
+              [
+                [
+                  <Schema config={config} onConfig={this.onConfig} />,
+                  [
+                    <Meta meta={meta} onMeta={this.onMeta} />,
+                    <Snapshot
+                      snapshot={snapshot}
+                      onSnapshot={this.onSnapshot}
+                    />
+                  ]
+                ],
+                <Paper square elevation={3} style={{ width: "100%" }}>
+                  <Form
+                    className={classes.form}
+                    config={config}
+                    schema={schema}
+                    meta={meta}
+                    snapshot={snapshot}
+                    open={open}
+                    onClose={this.handleClose}
+                  />
+                </Paper>
+              ]
+            ]}
+          >
+            {(item: ReactNode) => <div className={classes.stretch}>{item}</div>}
+          </Layout>
         </Paper>
       </div>
     );
@@ -324,5 +306,9 @@ export default withStyles<keyof IDesignerStyles, {}>({
     // flexDirection: "column",
     // flex: 0,
     // minWidth: 520
+  },
+  stretch: {
+    padding: 10,
+    width: "100%"
   }
 })(Designer);

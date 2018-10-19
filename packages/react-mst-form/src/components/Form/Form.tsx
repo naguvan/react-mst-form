@@ -76,12 +76,16 @@ export default class Form extends Component<
   }
 
   public componentWillReceiveProps(
-    nextProps: Readonly<IFormProps & IFormRenderProps>
+    next: Readonly<IFormProps & IFormRenderProps>
   ): void {
-    if (this.props.config !== nextProps.config) {
-      this.setState(state =>
-        Form.getDerivedStateFromPropsFix(nextProps, state)
-      );
+    const { config, schema, meta, snapshot } = this.props;
+    if (
+      config !== next.config ||
+      schema !== next.schema ||
+      meta !== next.schema ||
+      snapshot !== next.snapshot
+    ) {
+      this.setState(state => Form.getDerivedStateFromPropsFix(next, state));
     }
   }
 

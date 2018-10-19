@@ -114,7 +114,7 @@ export default withStyles<keyof IFormStyles, {}>({
     height: 460
   },
   root: {
-    margin: "0 auto",
-    width: 500
+    margin: "0 auto"
+    // width: 500
   }
 })(FormComponent);

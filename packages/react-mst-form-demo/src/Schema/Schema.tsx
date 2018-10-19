@@ -1,16 +1,16 @@
 import * as React from "react";
-import { ChangeEvent, Component, MouseEvent, ReactNode } from "react";
+import { ChangeEvent, Component, KeyboardEvent, ReactNode } from "react";
 
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 
-import Button from "@material-ui/core/Button";
 import Paper from "@material-ui/core/Paper";
 import TextField from "@material-ui/core/TextField";
 
 import { IFormConfig } from "react-mst-form";
 
 export interface ISchemaStyles {
+  editor: CSSProperties;
   paper: CSSProperties;
 }
 
@@ -61,21 +61,15 @@ export class Schema extends Component<
       <div {...{ className, style }}>
         <Paper square elevation={3} className={classes.paper}>
           <TextField
+            InputProps={{ classes: { input: classes.editor } }}
             multiline
             fullWidth
             rows={25}
             value={config}
             onChange={this.onChange}
+            onKeyDown={this.onSubmit}
           />
         </Paper>
-        <Button
-          variant={"contained"}
-          color={"primary"}
-          disabled={!this.isJSON(config)}
-          onClick={this.onSubmit}
-        >
-          Render
-        </Button>
       </div>
     );
   }
@@ -93,15 +87,21 @@ export class Schema extends Component<
     this.setState(() => ({ config }));
   };
 
-  private onSubmit = (event: MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = (event: KeyboardEvent<HTMLInputElement>) => {
     const { config } = this.state;
-    const { onConfig } = this.props;
-    if (onConfig) {
-      onConfig(JSON.parse(config));
+    if (this.isJSON(config) && event.shiftKey && event.keyCode === 13) {
+      const { onConfig } = this.props;
+      if (onConfig) {
+        onConfig(JSON.parse(config));
+      }
     }
   };
 }
 
 export default withStyles<keyof ISchemaStyles, {}>({
+  editor: {
+    height: 300,
+    padding: 10
+  },
   paper: {}
 })(Schema);
