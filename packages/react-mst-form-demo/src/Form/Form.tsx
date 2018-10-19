@@ -10,7 +10,13 @@ import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
-import { Form, FormDialog, IFormConfig } from "react-mst-form";
+import {
+  Form,
+  FormDialog,
+  IFormConfig,
+  IMetaConfig,
+  ISchemaConfig
+} from "react-mst-form";
 
 export interface IFormStyles {
   root: CSSProperties;
@@ -22,7 +28,10 @@ export interface IFormStyleProps extends WithStyles<keyof IFormStyles> {}
 export interface IFormProps {
   style?: CSSProperties;
   className?: string;
+  meta?: IMetaConfig;
+  schema?: ISchemaConfig;
   config: IFormConfig;
+  snapshot?: {};
   open?: boolean;
   onClose?: () => void;
 }
@@ -38,10 +47,14 @@ export class FormComponent extends Component<
     const { className, classes, style } = this.props;
     const root: string = classNames(classes!.root, className);
     const { config, open, onClose } = this.props;
+    const { schema, meta, snapshot } = this.props;
     return (
       <div className={root} style={style}>
         <Form
           config={config}
+          schema={schema}
+          meta={meta}
+          snapshot={snapshot}
           onCancel={this.onCancel}
           onSubmit={this.onSubmit}
           onErrors={this.onErrors}
@@ -54,6 +67,9 @@ export class FormComponent extends Component<
             open={open}
             onClose={onClose}
             config={config}
+            schema={schema}
+            meta={meta}
+            snapshot={snapshot}
             onCancel={onClose}
             onSubmit={this.onSubmit}
             onErrors={this.onErrors}

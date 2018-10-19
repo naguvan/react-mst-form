@@ -30,5 +30,6 @@
     "webpack",
     "jest",
     "src/setupTests.ts"
-  ]
+  ],
+  "include": ["typings"]
 }

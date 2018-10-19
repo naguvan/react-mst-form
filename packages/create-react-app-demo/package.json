@@ -20,8 +20,10 @@
   "dependencies": {
     "@material-ui/core": "3.2.0",
     "classnames": "2.2.6",
+    "jss-preset-default": "4.5.0",
     "react": "16.5.2",
     "react-dom": "16.5.2",
+    "react-jss": "8.6.1",
     "reflect-metadata": "0.1.12",
     "react-mst-form-demo": "2.0.0-beta1"
   },
@@ -43,7 +45,7 @@
     "tslint-config-prettier": "1.15.0",
     "tslint-loader": "3.5.4",
     "tslint-react": "3.6.0",
-    "typescript": "3.1.2",
+    "typescript": "3.1.3",
     "react-scripts-ts": "3.1.0"
   }
 }

@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactNode } from "react";
+import { Component, ReactNode } from "react";
 
 import classNames from "classnames";
 
@@ -14,11 +14,14 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormContent from "../Content";
 import FormFooter from "../Footer";
 import FormHeader from "../Header";
-import Renderer from "../Type/Renderer";
+import Renderer, { IRenderer } from "../Type/Renderer";
 
-import Form, { IFormProps, IFormStates } from "../Form";
+import Form, { IFormProps } from "../Form";
 
 import { observer } from "mobx-react";
+import { IForm } from "../../models";
+
+import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFormDialogStyles {
   root: CSSProperties;
@@ -34,15 +37,20 @@ export interface IFormDialogStyleProps
   extends WithStyles<IFormDialogClassKey> {}
 
 export interface IFormDialogProps extends IFormProps, DialogProps {
+  className?: string;
   style?: CSSProperties;
+  children?: null;
+  renderer?: IRenderer;
+  onCancel?: (form?: IForm) => void;
+  onErrors?: (errors: IFieldErrors) => void;
   onSubmit: (values: { [key: string]: any }) => void;
 }
 
 // tslint:disable-next-line:no-empty-interface
-export interface IFormDialogStates extends IFormStates {}
+export interface IFormDialogStates {}
 
 @observer
-export class FormDialog extends Form<
+export class FormDialog extends Component<
   IFormDialogProps & IFormDialogStyleProps,
   IFormDialogStates
 > {
@@ -51,8 +59,16 @@ export class FormDialog extends Form<
   }
 
   public render(): ReactNode {
-    const { form } = this.state;
     const {
+      // form props
+      config,
+      schema,
+      meta,
+      snapshot,
+      onPatch,
+      onSnapshot,
+
+      // dialog props
       className: clazz,
       classes,
       style,
@@ -61,10 +77,6 @@ export class FormDialog extends Form<
       onErrors,
       renderer = new Renderer(),
       open,
-      // tslint:disable-next-line:no-shadowed-variable
-      onPatch,
-      // tslint:disable-next-line:no-shadowed-variable
-      onSnapshot,
       scroll = "paper",
       ...others
     } = this.props;
@@ -74,45 +86,58 @@ export class FormDialog extends Form<
     const className: string = classNames(classes!.root, clazz);
     const {} = this.props;
     return (
-      <Dialog
+      <Form
         {...{
-          className,
-          classes: rest,
-          open,
-          scroll,
-          style,
-          ...others
+          config,
+          meta,
+          onPatch,
+          onSnapshot,
+          schema,
+          snapshot
         }}
       >
-        <DialogTitle className={title}>
-          <FormHeader
+        {(form: IForm) => (
+          <Dialog
             {...{
-              className: header,
-              form
+              className,
+              classes: rest,
+              open,
+              scroll,
+              style,
+              ...others
             }}
-          />
-        </DialogTitle>
-        <DialogContent>
-          <FormContent
-            {...{
-              className: content,
-              form,
-              renderer
-            }}
-          />
-        </DialogContent>
-        <DialogActions>
-          <FormFooter
-            {...{
-              className: footer,
-              form,
-              onCancel,
-              onErrors,
-              onSubmit
-            }}
-          />
-        </DialogActions>
-      </Dialog>
+          >
+            <DialogTitle className={title}>
+              <FormHeader
+                {...{
+                  className: header,
+                  form
+                }}
+              />
+            </DialogTitle>
+            <DialogContent>
+              <FormContent
+                {...{
+                  className: content,
+                  form,
+                  renderer
+                }}
+              />
+            </DialogContent>
+            <DialogActions>
+              <FormFooter
+                {...{
+                  className: footer,
+                  form,
+                  onCancel,
+                  onErrors,
+                  onSubmit
+                }}
+              />
+            </DialogActions>
+          </Dialog>
+        )}
+      </Form>
     );
   }
 }

@@ -8,16 +8,19 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 
 import Button from "@material-ui/core/Button";
+import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import { CSSProperties, WithStyles } from "@material-ui/core/styles/withStyles";
 import withStyles from "@material-ui/core/styles/withStyles";
+
 import classNames from "classnames";
 
-import { Flex } from "react-flow-layout";
-import { IFormConfig } from "react-mst-form";
+import { IFormConfig, IMetaConfig, ISchemaConfig } from "react-mst-form";
 
 import Form from "../Form";
+import Meta from "../Meta";
 import Schema from "../Schema";
+import Snapshot from "../Snapshot";
 
 export interface IDesignerStyles {
   root: CSSProperties;
@@ -39,7 +42,10 @@ export interface IDesignerProps {
 export interface IDesignerStates {
   width: string;
   height: string;
+  meta?: IMetaConfig;
+  schema?: ISchemaConfig;
   config: IFormConfig;
+  snapshot?: {};
   open: boolean;
 }
 
@@ -193,64 +199,72 @@ export class Designer extends Component<
   IDesignerProps & IDesignerStyleProps,
   IDesignerStates
 > {
-  public state = {
+  public state: IDesignerStates = {
     width: "100%",
     height: "100%",
     config,
     open: false
   };
 
-  private containers: HTMLDivElement[] = [];
-
-  private timeout: number = -1;
-
-  public componentWillUpdate() {
-    this.containers.length = 0;
-  }
-
-  public componentDidMount() {
-    this.adjustWidthHeight();
-  }
-
-  public componentDidUpdate() {
-    this.adjustWidthHeight();
-  }
-
-  public componentWillUnmount() {
-    window.clearTimeout(this.timeout);
-  }
-
   public render(): ReactNode {
     const { className: clazz, classes, style } = this.props;
+    const { width, height, open } = this.state;
     // tslint:disable-next-line:no-shadowed-variable
-    const { width, height, config, open } = this.state;
+    const { config, meta, schema, snapshot } = this.state;
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
-        <div
-          className={classes.container}
-          style={{ width, height }}
-          ref={this.addContainer}
+        <Paper
+          className={classes.root}
+          style={{ backgroundColor: "azure", height: 600 }}
         >
-          <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>
-          <Flex.Set direction={"row"} className={classes.designer}>
-            <Flex.Item className={classes.schema}>
-              <h1>Schema</h1>
-              <Schema config={config} onConfig={this.onConfig} />
-            </Flex.Item>
-            <Flex.Item className={classes.formItem}>
-              <h1>Form</h1>
+          <Grid container xs={12} direction="row" style={{ height: "100%" }}>
+            <Grid
+              item
+              xs={6}
+              container
+              direction="column"
+              style={{ backgroundColor: "red", height: 300 }}
+            >
+              <Grid item>
+                <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>
+              </Grid>
+              <Grid item style={{ backgroundColor: "green", height: 300 }}>
+                <Schema config={config} onConfig={this.onConfig} />
+              </Grid>
+              <Grid
+                item
+                container
+                direction="row"
+                style={{ backgroundColor: "yellow", height: 300 }}
+              >
+                <Grid item xs={6} style={{ backgroundColor: "orange" }}>
+                  <Meta meta={meta} onMeta={this.onMeta} />
+                </Grid>
+                <Grid item xs={6} style={{ backgroundColor: "yellow" }}>
+                  <Snapshot snapshot={snapshot} onSnapshot={this.onSnapshot} />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              xs={6}
+              style={{ backgroundColor: "blue", height: "100%" }}
+            >
               <Paper square elevation={3}>
                 <Form
                   className={classes.form}
                   config={config}
+                  schema={schema}
+                  meta={meta}
+                  snapshot={snapshot}
                   open={open}
                   onClose={this.handleClose}
                 />
               </Paper>
-            </Flex.Item>
-          </Flex.Set>
-        </div>
+            </Grid>
+          </Grid>
+        </Paper>
       </div>
     );
   }
@@ -263,62 +277,52 @@ export class Designer extends Component<
     this.setState({ open: false });
   };
 
-  private addContainer = (container: HTMLDivElement): void => {
-    if (container) {
-      this.containers.push(container);
-    }
-  };
-
-  private adjustWidthHeight(): void {
-    window.clearTimeout(this.timeout);
-    const { width, height } = this.state;
-    if (width === "auto" || height === "auto") {
-      this.timeout = window.setTimeout(() => this.updateWidthHeight(), 4);
-    }
-  }
-
-  private updateWidthHeight(): void {
-    const containers = this.containers.filter(container => !!container);
-    const widths = containers.map(container => container.offsetWidth);
-    const heights = containers.map(container => container.offsetHeight);
-
-    const width = `${Math.max(...widths)}px`;
-    const height = `${Math.max(...heights)}px`;
-
-    // this.setState(() => ({ width, height }));
-  }
-
   // tslint:disable-next-line:no-shadowed-variable
   private onConfig = (config: IFormConfig) => {
     this.setState(() => ({ config }));
+  };
+
+  // tslint:disable-next-line:no-shadowed-variable
+  private onSchema = (schema: ISchemaConfig) => {
+    this.setState(() => ({ schema }));
+  };
+
+  // tslint:disable-next-line:no-shadowed-variable
+  private onSnapshot = (snapshot: {}) => {
+    this.setState(() => ({ snapshot }));
+  };
+
+  // tslint:disable-next-line:no-shadowed-variable
+  private onMeta = (meta: IMetaConfig) => {
+    this.setState(() => ({ meta }));
   };
 }
 
 export default withStyles<keyof IDesignerStyles, {}>({
   container: {
-    minWidth: 1000
+    // minWidth: 1000
   },
   designer: {
     justifyContent: "space-around"
   },
   form: {
-    height: 450
+    // height: 450
   },
   formItem: {
-    flexDirection: "column",
-    flex: 0,
-    height: 450,
-    minWidth: 520,
+    // flexDirection: "column",
+    // flex: 0,
+    // height: 450,
+    // minWidth: 520,
     padding: 10
   },
   root: {
-    display: "flex",
-    justifyContent: "center",
+    // display: "flex",
+    // justifyContent: "center",
     margin: 20
   },
   schema: {
-    flexDirection: "column",
-    flex: 0,
-    minWidth: 520
+    // flexDirection: "column",
+    // flex: 0,
+    // minWidth: 520
   }
 })(Designer);

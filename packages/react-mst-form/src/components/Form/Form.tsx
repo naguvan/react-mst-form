@@ -1,22 +1,27 @@
 import { Component, ReactNode } from "react";
 
-import { CSSProperties } from "@material-ui/core/styles/withStyles";
-
-import { IRenderer } from "../Type/Renderer";
-
 import FormModel, { IForm, IFormConfig } from "../../models/Form";
 
 import { onPatch, onSnapshot } from "mobx-state-tree";
-import { IFieldErrors } from "reactive-json-schema";
+
+import {
+  ITypeConfig,
+  ITypeMetaProps,
+  metafy,
+  valuefy
+} from "reactive-json-schema";
+
+import { deepmerge } from "../../utils";
+
+export type ISchemaConfig = ITypeConfig;
+
+export type IMetaConfig = ITypeMetaProps;
 
 export interface IFormProps {
-  style?: CSSProperties;
-  className?: string;
+  schema?: ISchemaConfig;
+  meta?: IMetaConfig;
   config: IFormConfig;
-  renderer?: IRenderer;
-  onCancel?: (form?: IForm) => void;
-  onSubmit: (values: { [key: string]: any }) => void;
-  onErrors?: (errors: IFieldErrors) => void;
+  snapshot?: {};
   onPatch?: (
     patch: {
       op: "replace" | "add" | "remove";
@@ -27,35 +32,52 @@ export interface IFormProps {
   onSnapshot?: (snapshot: {}) => void;
 }
 
+export interface IFormRenderProps {
+  children: (form: IForm) => ReactNode;
+}
+
 export interface IFormStates {
   form: IForm;
 }
 
-export default abstract class Form<
-  P extends IFormProps,
-  S extends IFormStates
-> extends Component<P, S> {
-  private static getDerivedStateFromPropsFix<
-    P extends IFormProps,
-    S extends IFormStates
-  >(props: Readonly<P>, state?: IFormStates): S {
+export default class Form extends Component<
+  IFormProps & IFormRenderProps,
+  IFormStates
+> {
+  private static getDerivedStateFromPropsFix(
+    props: Readonly<IFormProps & IFormRenderProps>,
+    state?: IFormStates
+  ): IFormStates {
+    const { schema: pschema, meta, snapshot } = props;
     const { config, onPatch: xonPatch, onSnapshot: xonSnapshot } = props;
-    const form = FormModel.create(config);
+    let schema = deepmerge<ISchemaConfig, ISchemaConfig>(
+      { ...config.schema! },
+      { ...pschema! }
+    );
+    if (meta) {
+      schema = metafy(schema, meta);
+    }
+    if (snapshot) {
+      schema = valuefy(schema, snapshot);
+    }
+    const form = FormModel.create({ ...config, schema });
     if (xonSnapshot) {
-      onSnapshot(form, snapshot => xonSnapshot(snapshot));
+      onSnapshot(form, xonSnapshot);
     }
     if (xonPatch) {
-      onPatch(form, patch => xonPatch(patch));
+      onPatch(form, xonPatch);
     }
-    return { form } as S;
+    return { form };
   }
 
-  constructor(props: P) {
+  constructor(props: IFormProps & IFormRenderProps) {
     super(props);
-    this.state = Form.getDerivedStateFromPropsFix<P, S>(props);
+    this.state = Form.getDerivedStateFromPropsFix(props);
   }
 
-  public componentWillReceiveProps(nextProps: Readonly<P>): void {
+  public componentWillReceiveProps(
+    nextProps: Readonly<IFormProps & IFormRenderProps>
+  ): void {
     if (this.props.config !== nextProps.config) {
       this.setState(state =>
         Form.getDerivedStateFromPropsFix(nextProps, state)
@@ -63,5 +85,9 @@ export default abstract class Form<
     }
   }
 
-  public abstract render(): ReactNode;
+  public render(): ReactNode {
+    const { children } = this.props;
+    const { form } = this.state;
+    return children(form);
+  }
 }

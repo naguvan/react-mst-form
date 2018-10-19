@@ -1,5 +1,5 @@
 import * as React from "react";
-import { ReactNode } from "react";
+import { Component, ReactNode } from "react";
 
 import classNames from "classnames";
 
@@ -9,11 +9,14 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import FormContent from "../Content";
 import FormFooter from "../Footer";
 import FormHeader from "../Header";
-import Renderer from "../Type/Renderer";
+import Renderer, { IRenderer } from "../Type/Renderer";
 
-import Form, { IFormProps, IFormStates } from "../Form";
+import Form, { IFormProps } from "../Form";
+
+import { IForm } from "../../models";
 
 import { observer } from "mobx-react";
+import { IFieldErrors } from "reactive-json-schema";
 
 export interface IFormInlineStyles {
   root: CSSProperties;
@@ -25,21 +28,36 @@ export interface IFormInlineStyles {
 export interface IFormInlineStyleProps
   extends WithStyles<keyof IFormInlineStyles> {}
 
-// tslint:disable-next-line:no-empty-interface
-export interface IFormInlineProps extends IFormProps {}
+export interface IFormInlineProps extends IFormProps {
+  className?: string;
+  style?: CSSProperties;
+  children?: null;
+  renderer?: IRenderer;
+  onCancel?: (form?: IForm) => void;
+  onErrors?: (errors: IFieldErrors) => void;
+  onSubmit: (values: { [key: string]: any }) => void;
+}
 
 // tslint:disable-next-line:no-empty-interface
-export interface IFormInlineStates extends IFormStates {}
+export interface IFormInlineStates {}
 
 @observer
-export class FormInline extends Form<
+export class FormInline extends Component<
   IFormInlineProps & IFormInlineStyleProps,
   IFormInlineStates
 > {
   public render(): ReactNode {
-    const { form } = this.state;
     const { className: clazz, classes, style } = this.props;
     const {
+      // form props
+      config,
+      schema,
+      meta,
+      snapshot,
+      onPatch,
+      onSnapshot,
+
+      // inline props
       onCancel,
       onSubmit,
       onErrors,
@@ -48,13 +66,32 @@ export class FormInline extends Form<
 
     const className: string = classNames(classes!.root, clazz);
     return (
-      <div {...{ className, style }}>
-        <FormHeader {...{ className: classes.header, form }} />
-        <FormContent {...{ className: classes.content, form, renderer }} />
-        <FormFooter
-          {...{ className: classes.footer, form, onCancel, onSubmit, onErrors }}
-        />
-      </div>
+      <Form
+        {...{
+          config,
+          meta,
+          onPatch,
+          onSnapshot,
+          schema,
+          snapshot
+        }}
+      >
+        {(form: IForm) => (
+          <div {...{ className, style }}>
+            <FormHeader {...{ className: classes.header, form }} />
+            <FormContent {...{ className: classes.content, form, renderer }} />
+            <FormFooter
+              {...{
+                className: classes.footer,
+                form,
+                onCancel,
+                onErrors,
+                onSubmit
+              }}
+            />
+          </div>
+        )}
+      </Form>
     );
   }
 }

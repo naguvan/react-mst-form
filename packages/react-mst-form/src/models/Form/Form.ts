@@ -17,7 +17,7 @@ export interface IFormConfig {
   readonly title: string;
   readonly cancel?: string;
   readonly submit?: string;
-  readonly schema: ITypeConfig;
+  readonly schema?: ITypeConfig;
   readonly layout?: ILayout;
   readonly sections?: ISectionConfig[];
 }
