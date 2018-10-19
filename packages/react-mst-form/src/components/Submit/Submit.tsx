@@ -61,9 +61,9 @@ export class Submit extends Component<
     );
   }
 
-  private onSubmit = async (e: MouseEvent<HTMLButtonElement>) => {
+  private onSubmit = (e: MouseEvent<HTMLButtonElement>) => {
     const { form, onSubmit, onErrors } = this.props;
-    await form.validate();
+    form.validate();
     if (form.valid) {
       if (onSubmit) {
         onSubmit(form.values);

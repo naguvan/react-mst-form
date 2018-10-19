@@ -1,4 +1,4 @@
-import { flow, IModelType, types } from "mobx-state-tree";
+import { IModelType, types } from "mobx-state-tree";
 
 import {
   createType,
@@ -39,7 +39,7 @@ export interface IForm {
   readonly fieldErrors: IFieldErrors;
   get(key: string): IType | undefined;
   reset(): void;
-  validate(): Promise<void>;
+  validate(): void;
   makeSelection(section: ISection): void;
 }
 
@@ -137,14 +137,14 @@ const Form: IModelType<Partial<IFormConfig>, IForm> = types
       }
     },
 
-    validate: flow<void>(function*() {
+    validate() {
       if (it.validating) {
         return [];
       }
       it._validating = true;
-      yield it.schema.validate();
+      it.schema.validate();
       it._validating = false;
-    })
+    }
   }));
 
 export default Form;

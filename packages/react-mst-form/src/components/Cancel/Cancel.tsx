@@ -56,7 +56,7 @@ export class Cancel extends Component<
     );
   }
 
-  private onCancel = async (e: MouseEvent<HTMLButtonElement>) => {
+  private onCancel = (e: MouseEvent<HTMLButtonElement>) => {
     const { form, reset = false, onCancel } = this.props;
     if (reset) {
       form.reset();
