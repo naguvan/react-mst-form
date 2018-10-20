@@ -9,6 +9,7 @@ import classNames from "classnames";
 
 import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
+import Typography from "@material-ui/core/Typography";
 
 import { ILayout } from "reactive-json-schema";
 
@@ -17,6 +18,7 @@ import { ISection } from "../../models/Section";
 
 export interface IHeaderStyles {
   root: CSSProperties;
+  title: CSSProperties;
   secondary: CSSProperties;
 }
 
@@ -37,11 +39,15 @@ export class Header extends Component<
   IHeaderStates
 > {
   public render(): ReactNode {
+    const { className: clazz, classes, style } = this.props;
     const { form } = this.props;
     if (!form.selected) {
-      return form.title;
+      return (
+        <Typography variant="h4" className={classes.title}>
+          {form.title}
+        </Typography>
+      );
     }
-    const { className: clazz, classes, style } = this.props;
     const className: string = classNames(classes!.root, clazz);
     const selected: ISection = form.selected;
     const hasError = this.hasSectionError(selected, form);
@@ -90,5 +96,6 @@ export default withStyles<keyof IHeaderStyles, {}>(theme => ({
   root: {},
   secondary: {
     color: theme.palette.secondary.main
-  }
+  },
+  title: {}
 }))(Header);

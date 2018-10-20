@@ -23,6 +23,7 @@ export interface IFormInlineStyles {
   header: CSSProperties;
   content: CSSProperties;
   footer: CSSProperties;
+  title: CSSProperties;
 }
 
 export interface IFormInlineStyleProps
@@ -78,7 +79,13 @@ export class FormInline extends Component<
       >
         {(form: IForm) => (
           <div {...{ className, style }}>
-            <FormHeader {...{ className: classes.header, form }} />
+            <FormHeader
+              {...{
+                className: classes.header,
+                classes: { title: classes.title },
+                form
+              }}
+            />
             <FormContent {...{ className: classes.content, form, renderer }} />
             <FormFooter
               {...{
@@ -120,5 +127,8 @@ export default withStyles<keyof IFormInlineStyles, {}>({
     margin: 0,
     minHeight: "100%",
     padding: 10
+  },
+  title: {
+    paddingLeft: 10
   }
 })(FormInline);

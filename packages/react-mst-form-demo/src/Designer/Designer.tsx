@@ -218,7 +218,9 @@ export class Designer extends Component<
           <Layout
             center={false}
             items={[
-              <Button onClick={this.handleClickOpen}>Open Form Dialog</Button>,
+              <Button variant="raised" onClick={this.handleClickOpen}>
+                Open Form Dialog
+              </Button>,
               [
                 [
                   <Schema config={config} onConfig={this.onConfig} />,
