@@ -218,7 +218,7 @@ export class Designer extends Component<
           <Layout
             center={false}
             items={[
-              <Button variant="raised" onClick={this.handleClickOpen}>
+              <Button variant="contained" onClick={this.handleClickOpen}>
                 Open Form Dialog
               </Button>,
               [
