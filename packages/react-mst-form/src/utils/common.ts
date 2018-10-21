@@ -8,6 +8,10 @@ export function toString(value: any): string {
   return Object.prototype.toString.call(value);
 }
 
+export function toBoolean(value?: string | null): boolean {
+  return !isNullOrUndefined(value) && value.toLowerCase() === "true";
+}
+
 export function keys(value: object): string[] {
   return Object.keys(value);
 }
