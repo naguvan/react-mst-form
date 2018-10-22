@@ -127,6 +127,8 @@ const config: IFormConfig = {
       },
       size: {
         meta: {
+          component: "range",
+          step: 1,
           value: 5
         },
         type: "number",
