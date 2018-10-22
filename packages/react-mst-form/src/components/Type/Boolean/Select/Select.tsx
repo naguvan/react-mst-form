@@ -3,7 +3,6 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IBoolean } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
@@ -12,6 +11,8 @@ import Error from "../../Error";
 import Type, { ITypeProps, ITypeStates } from "../../Type";
 
 import { toBoolean } from "../../../../utils";
+
+import { IRenderContext } from "../../Renderer/Type";
 
 export interface ISelectProps extends ITypeProps<IBoolean> {}
 
@@ -23,7 +24,8 @@ export default class Select extends Type<
   ISelectProps,
   ISelectStates
 > {
-  protected renderType(type: IBoolean, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IBoolean>): ReactNode {
+    const { type } = context;
     const { options } = type.meta;
     return (
       <TextField
@@ -52,6 +54,6 @@ export default class Select extends Type<
   }
 
   private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.props.type.sync(toBoolean(event.target.value));
+    this.props.context.type.sync(toBoolean(event.target.value));
   };
 }

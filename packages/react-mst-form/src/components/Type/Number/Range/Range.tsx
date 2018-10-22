@@ -6,7 +6,6 @@ import withStyles from "@material-ui/core/styles/withStyles";
 
 import { observer } from "mobx-react";
 import { INumber } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import FormControl from "@material-ui/core/FormControl";
 import FormGroup from "@material-ui/core/FormGroup";
@@ -15,6 +14,8 @@ import Slider from "@material-ui/lab/Slider";
 
 import Error from "../../Error";
 import Type, { ITypeProps, ITypeStates } from "../../Type";
+
+import { IRenderContext } from "../../Renderer/Type";
 
 export interface IRangeStyles {
   group: CSSProperties;
@@ -35,7 +36,8 @@ export class Range extends Type<
   IRangeProps & IRangeStyleProps,
   IRangeStates
 > {
-  protected renderType(type: INumber, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<INumber>): ReactNode {
+    const { type } = context;
     const { classes } = this.props;
     const error = !type.valid ? classes.error : undefined;
     return (
@@ -69,7 +71,7 @@ export class Range extends Type<
   }
 
   private onChange = (event: ChangeEvent<{}>, value: number): void => {
-    this.props.type.sync(value);
+    this.props.context.type.sync(value);
   };
 }
 

@@ -3,7 +3,6 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IBoolean } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,6 +15,8 @@ import Type, { ITypeProps, ITypeStates } from "../../Type";
 
 import { toBoolean } from "../../../../utils";
 
+import { IRenderContext } from "../../Renderer/Type";
+
 export interface IRadiosProps extends ITypeProps<IBoolean> {}
 
 export interface IRadiosStates extends ITypeStates<IBoolean> {}
@@ -26,7 +27,8 @@ export default class Radios extends Type<
   IRadiosProps,
   IRadiosStates
 > {
-  protected renderType(type: IBoolean, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IBoolean>): ReactNode {
+    const { type } = context;
     const { options } = type.meta;
     return (
       <FormControl
@@ -62,6 +64,6 @@ export default class Radios extends Type<
   }
 
   private onChange = (event: ChangeEvent<{}>, value: string): void => {
-    this.props.type.sync(toBoolean(value));
+    this.props.context.type.sync(toBoolean(value));
   };
 }

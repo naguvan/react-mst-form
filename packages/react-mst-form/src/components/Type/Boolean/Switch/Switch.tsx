@@ -3,13 +3,14 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IBoolean } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import Error from "../../Error";
 import Type, { ITypeProps, ITypeStates } from "../../Type";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import MuiSwitch from "@material-ui/core/Switch";
+
+import { IRenderContext } from "../../Renderer/Type";
 
 export interface ISwitchProps extends ITypeProps<IBoolean> {}
 
@@ -21,7 +22,8 @@ export default class Switch extends Type<
   ISwitchProps,
   ISwitchStates
 > {
-  protected renderType(type: IBoolean, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IBoolean>): ReactNode {
+    const { type } = context;
     return (
       <>
         <FormControlLabel
@@ -44,6 +46,6 @@ export default class Switch extends Type<
   }
 
   private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.props.type.sync(event.target.checked);
+    this.props.context.type.sync(event.target.checked);
   };
 }

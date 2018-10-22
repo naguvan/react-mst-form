@@ -3,12 +3,13 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IString } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import Error from "../../Error";
 import Type, { ITypeProps, ITypeStates } from "../../Type";
 
 import TextField from "@material-ui/core/TextField";
+
+import { IRenderContext } from "../../Renderer/Type";
 
 export interface IMultilineProps extends ITypeProps<IString> {}
 
@@ -20,7 +21,8 @@ export default class Multiline extends Type<
   IMultilineProps,
   IMultilineStates
 > {
-  protected renderType(type: IString, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IString>): ReactNode {
+    const { type } = context;
     const select: boolean = !!type.enum && type.enum.length > 0;
     return (
       <TextField
@@ -44,6 +46,6 @@ export default class Multiline extends Type<
   }
 
   private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.props.type.sync(event.target.value);
+    this.props.context.type.sync(event.target.value);
   };
 }

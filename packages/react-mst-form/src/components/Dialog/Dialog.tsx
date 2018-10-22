@@ -14,7 +14,9 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import FormContent from "../Content";
 import FormFooter from "../Footer";
 import FormHeader from "../Header";
-import Renderer, { IRenderer } from "../Type/Renderer";
+
+import IconRenderer, { IIconRenderer } from "../Type/Renderer/Icon";
+import TypeRenderer, { ITypeRenderer } from "../Type/Renderer/Type";
 
 import Form, { IFormProps } from "../Form";
 
@@ -40,7 +42,8 @@ export interface IFormDialogProps extends IFormProps, DialogProps {
   className?: string;
   style?: CSSProperties;
   children?: null;
-  renderer?: IRenderer;
+  renderer?: ITypeRenderer;
+  iconer?: IIconRenderer;
   onCancel?: (form?: IForm) => void;
   onErrors?: (errors: IFieldErrors) => void;
   onSubmit: (values: { [key: string]: any }) => void;
@@ -75,7 +78,8 @@ export class FormDialog extends Component<
       onCancel,
       onSubmit,
       onErrors,
-      renderer = new Renderer(),
+      iconer = new IconRenderer(),
+      renderer = new TypeRenderer(),
       open,
       scroll = "paper",
       ...others
@@ -120,6 +124,7 @@ export class FormDialog extends Component<
                 {...{
                   className: content,
                   form,
+                  iconer,
                   renderer
                 }}
               />

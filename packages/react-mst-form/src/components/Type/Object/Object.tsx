@@ -5,15 +5,13 @@ import { observer } from "mobx-react";
 import Layout from "react-flow-layout";
 import { ILayout, IObject } from "reactive-json-schema";
 
-import { IForm } from "../../../models/Form";
-import { IRenderer } from "../Renderer";
+import { IRenderContext, ITypeRenderer } from "../Renderer/Type";
 
 import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 export interface IObjectProps extends ITypeProps<IObject> {
-  layout: ILayout;
-  renderer: IRenderer;
+  renderer: ITypeRenderer;
 }
 
 export interface IObjectStates extends ITypeStates<IObject> {}
@@ -24,12 +22,23 @@ export default class NObject extends Type<
   IObjectProps,
   IObjectStates
 > {
-  protected renderType(type: IObject, form: IForm): ReactNode {
-    const { layout, renderer } = this.props;
+  protected renderType(context: IRenderContext<IObject>): ReactNode {
+    const { type } = context;
+    const { layout = type.meta.layout } = context;
+    const { renderer } = this.props;
     return (
       <>
-        <Layout center items={layout.length > 0 ? layout : this.layout(type)}>
-          {(item: any) => renderer.render(type.getProperty(item)!, form)}
+        <Layout
+          center
+          items={layout && layout.length > 0 ? layout : this.layout(type)}
+        >
+          {(item: any) =>
+            renderer.render({
+              ...context,
+              layout: undefined,
+              type: type.getProperty(item)!
+            })
+          }
         </Layout>
         <Error type={type} />
       </>

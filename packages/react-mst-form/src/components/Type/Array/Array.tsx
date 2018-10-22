@@ -3,8 +3,7 @@ import { Fragment, MouseEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IArray } from "reactive-json-schema";
-import { IForm } from "../../../models/Form";
-import { IRenderer } from "../Renderer";
+import { ITypeRenderer } from "../Renderer/Type";
 
 import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
@@ -17,15 +16,18 @@ import ActionClear from "@material-ui/icons/Clear";
 
 import { toNumber } from "../../../utils";
 
+import { IRenderContext } from "../Renderer/Type";
+
 export interface IArrayProps extends ITypeProps<IArray> {
-  renderer: IRenderer;
+  renderer: ITypeRenderer;
 }
 
 export interface IArrayStates extends ITypeStates<IArray> {}
 
 @observer
 export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
-  protected renderType(type: IArray, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IArray>): ReactNode {
+    const { type } = context;
     const { renderer } = this.props;
     return (
       <FormControl
@@ -51,7 +53,7 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
                 <ActionClear />
               </IconButton>
             )}
-            {renderer.render(element, form)}
+            {renderer.render({ ...context, type: element })}
           </Fragment>
         ))}
         {type.dynamic && (
@@ -66,10 +68,10 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
 
   private onRemove = (event: MouseEvent<HTMLButtonElement>): void => {
     const index = event.currentTarget.getAttribute("data-index") || "";
-    this.props.type.remove(toNumber(index, 0));
+    this.props.context.type.remove(toNumber(index, 0));
   };
 
   private onPush = (event: MouseEvent<HTMLElement>): void => {
-    this.props.type.push();
+    this.props.context.type.push();
   };
 }

@@ -16,5 +16,8 @@ export { default as String } from "./String";
 export * from "./Type";
 export { default as Type } from "./Type";
 
-export * from "./Renderer";
-export { default as Renderer } from "./Renderer";
+export * from "./Renderer/Type";
+export { default as TypeRenderer } from "./Renderer/Type";
+
+export * from "./Renderer/Icon";
+export { default as IconRenderer } from "./Renderer/Icon";

@@ -3,13 +3,14 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { IString } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
 
 import Error from "../../Error";
 import Type, { ITypeProps, ITypeStates } from "../../Type";
+
+import { IRenderContext } from "../../Renderer/Type";
 
 export interface ITextProps extends ITypeProps<IString> {}
 
@@ -26,7 +27,8 @@ const mappings: { [key: string]: string } = {
 
 @observer
 export default class Text extends Type<IString, ITextProps, ITextStates> {
-  protected renderType(type: IString, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<IString>): ReactNode {
+    const { type } = context;
     const typex = mappings[type.meta.component!] || "text";
     const { options } = type.meta;
     const select: boolean =
@@ -59,6 +61,6 @@ export default class Text extends Type<IString, ITextProps, ITextStates> {
   }
 
   private onChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    this.props.type.sync(event.target.value);
+    this.props.context.type.sync(event.target.value);
   };
 }

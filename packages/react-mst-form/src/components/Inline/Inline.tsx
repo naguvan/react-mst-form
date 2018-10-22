@@ -9,7 +9,9 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import FormContent from "../Content";
 import FormFooter from "../Footer";
 import FormHeader from "../Header";
-import Renderer, { IRenderer } from "../Type/Renderer";
+
+import IconRenderer, { IIconRenderer } from "../Type/Renderer/Icon";
+import TypeRenderer, { ITypeRenderer } from "../Type/Renderer/Type";
 
 import Form, { IFormProps } from "../Form";
 
@@ -33,7 +35,8 @@ export interface IFormInlineProps extends IFormProps {
   className?: string;
   style?: CSSProperties;
   children?: null;
-  renderer?: IRenderer;
+  renderer?: ITypeRenderer;
+  iconer?: IIconRenderer;
   onCancel?: (form?: IForm) => void;
   onErrors?: (errors: IFieldErrors) => void;
   onSubmit: (values: { [key: string]: any }) => void;
@@ -62,7 +65,8 @@ export class FormInline extends Component<
       onCancel,
       onSubmit,
       onErrors,
-      renderer = new Renderer()
+      iconer = new IconRenderer(),
+      renderer = new TypeRenderer()
     } = this.props;
 
     const className: string = classNames(classes!.root, clazz);
@@ -86,7 +90,9 @@ export class FormInline extends Component<
                 form
               }}
             />
-            <FormContent {...{ className: classes.content, form, renderer }} />
+            <FormContent
+              {...{ className: classes.content, form, iconer, renderer }}
+            />
             <FormFooter
               {...{
                 className: classes.footer,

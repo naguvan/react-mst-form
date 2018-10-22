@@ -2,11 +2,10 @@ import * as React from "react";
 import { Component, ReactNode } from "react";
 
 import { IType } from "reactive-json-schema";
-import { IForm } from "../../../models/Form";
+import { IRenderContext } from "../Renderer/Type";
 
 export interface ITypeProps<T extends IType> {
-  type: T;
-  form: IForm;
+  context: IRenderContext<T>;
 }
 
 // tslint:disable-next-line:no-empty-interface
@@ -18,7 +17,8 @@ export default abstract class Type<
   S extends ITypeStates<T>
 > extends Component<P, S> {
   public render(): ReactNode {
-    const { type, form } = this.props;
+    const { context } = this.props;
+    const { type } = context;
     const { visible, name } = type.meta;
     return (
       visible && (
@@ -28,11 +28,11 @@ export default abstract class Type<
             width: "100%"
           }}
         >
-          {this.renderType(type, form)}
+          {this.renderType(context)}
         </div>
       )
     );
   }
 
-  protected abstract renderType(type: T, form: IForm): ReactNode;
+  protected abstract renderType(context: IRenderContext<T>): ReactNode;
 }

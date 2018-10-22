@@ -3,7 +3,6 @@ import { ChangeEvent, ReactNode } from "react";
 
 import { observer } from "mobx-react";
 import { INumber } from "reactive-json-schema";
-import { IForm } from "../../../../models/Form";
 
 import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
@@ -16,13 +15,16 @@ import Type, { ITypeProps, ITypeStates } from "../../Type";
 
 import { toNumber } from "../../../../utils";
 
+import { IRenderContext } from "../../Renderer/Type";
+
 export interface IRadiosProps extends ITypeProps<INumber> {}
 
 export interface IRadiosStates extends ITypeStates<INumber> {}
 
 @observer
 export default class Radios extends Type<INumber, IRadiosProps, IRadiosStates> {
-  protected renderType(type: INumber, form: IForm): ReactNode {
+  protected renderType(context: IRenderContext<INumber>): ReactNode {
+    const { type } = context;
     const { options } = type.meta;
     return (
       <FormControl
@@ -58,6 +60,6 @@ export default class Radios extends Type<INumber, IRadiosProps, IRadiosStates> {
   }
 
   private onChange = (event: ChangeEvent<{}>, value: string): void => {
-    this.props.type.sync(toNumber(value, 0));
+    this.props.context.type.sync(toNumber(value, 0));
   };
 }
