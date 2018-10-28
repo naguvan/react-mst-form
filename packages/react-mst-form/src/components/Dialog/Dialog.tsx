@@ -42,7 +42,7 @@ export interface IFormDialogProps extends IFormProps, DialogProps {
   className?: string;
   style?: CSSProperties;
   children?: null;
-  renderer?: ITypeRenderer;
+  typer?: ITypeRenderer;
   iconer?: IIconRenderer;
   onCancel?: (form?: IForm) => void;
   onErrors?: (errors: IFieldErrors) => void;
@@ -79,7 +79,7 @@ export class FormDialog extends Component<
       onSubmit,
       onErrors,
       iconer = new IconRenderer(),
-      renderer = new TypeRenderer(),
+      typer = new TypeRenderer(),
       open,
       scroll = "paper",
       ...others
@@ -125,7 +125,7 @@ export class FormDialog extends Component<
                   className: content,
                   form,
                   iconer,
-                  renderer
+                  typer
                 }}
               />
             </DialogContent>

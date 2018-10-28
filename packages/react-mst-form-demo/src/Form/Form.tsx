@@ -18,6 +18,8 @@ import {
   ISchemaConfig
 } from "react-mst-form";
 
+import Iconer from "../Iconer";
+
 export interface IFormStyles {
   root: CSSProperties;
   dialog: CSSProperties;
@@ -48,33 +50,23 @@ export class FormComponent extends Component<
     const root: string = classNames(classes!.root, className);
     const { config, open, onClose } = this.props;
     const { schema, meta, snapshot } = this.props;
+    const iconer = new Iconer();
+
+    const props = { config, schema, meta, iconer, snapshot };
+    const { onCancel, onSubmit, onErrors, onPatch, onSnapshot } = this;
+    const events = { onCancel, onSubmit, onErrors, onPatch, onSnapshot };
+
     return (
       <div className={root} style={style}>
-        <Form
-          config={config}
-          schema={schema}
-          meta={meta}
-          snapshot={snapshot}
-          onCancel={this.onCancel}
-          onSubmit={this.onSubmit}
-          onErrors={this.onErrors}
-          onPatch={this.onPatch}
-          onSnapshot={this.onSnapshot}
-        />
+        <Form {...props} {...events} />
         {open && (
           <FormDialog
+            {...props}
+            {...events}
             classes={{ paper: classes.dialog }}
             open={open}
             onClose={onClose}
-            config={config}
-            schema={schema}
-            meta={meta}
-            snapshot={snapshot}
             onCancel={onClose}
-            onSubmit={this.onSubmit}
-            onErrors={this.onErrors}
-            onPatch={this.onPatch}
-            onSnapshot={this.onSnapshot}
           />
         )}
       </div>

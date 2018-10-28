@@ -44,6 +44,10 @@ export default class Numeric extends Type<
         label={type.title!}
         helperText={Error.getError(type)}
         onChange={this.onChange}
+        InputProps={{
+          endAdornment: this.adornment("end"),
+          startAdornment: this.adornment("start")
+        }}
       >
         {options &&
           options.map(option => (

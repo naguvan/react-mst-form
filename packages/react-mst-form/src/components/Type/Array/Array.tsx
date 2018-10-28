@@ -19,7 +19,7 @@ import { toNumber } from "../../../utils";
 import { IRenderContext } from "../Renderer/Type";
 
 export interface IArrayProps extends ITypeProps<IArray> {
-  renderer: ITypeRenderer;
+  typer: ITypeRenderer;
 }
 
 export interface IArrayStates extends ITypeStates<IArray> {}
@@ -28,7 +28,7 @@ export interface IArrayStates extends ITypeStates<IArray> {}
 export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
   protected renderType(context: IRenderContext<IArray>): ReactNode {
     const { type } = context;
-    const { renderer } = this.props;
+    const { typer } = this.props;
     return (
       <FormControl
         component={"fieldset"}
@@ -53,7 +53,7 @@ export default class Array extends Type<IArray, IArrayProps, IArrayStates> {
                 <ActionClear />
               </IconButton>
             )}
-            {renderer.render({ ...context, type: element })}
+            {typer.render({ ...context, type: element })}
           </Fragment>
         ))}
         {type.dynamic && (

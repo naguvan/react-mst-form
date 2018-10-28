@@ -35,7 +35,7 @@ export interface IFormInlineProps extends IFormProps {
   className?: string;
   style?: CSSProperties;
   children?: null;
-  renderer?: ITypeRenderer;
+  typer?: ITypeRenderer;
   iconer?: IIconRenderer;
   onCancel?: (form?: IForm) => void;
   onErrors?: (errors: IFieldErrors) => void;
@@ -66,7 +66,7 @@ export class FormInline extends Component<
       onSubmit,
       onErrors,
       iconer = new IconRenderer(),
-      renderer = new TypeRenderer()
+      typer = new TypeRenderer()
     } = this.props;
 
     const className: string = classNames(classes!.root, clazz);
@@ -91,7 +91,7 @@ export class FormInline extends Component<
               }}
             />
             <FormContent
-              {...{ className: classes.content, form, iconer, renderer }}
+              {...{ className: classes.content, form, iconer, typer }}
             />
             <FormFooter
               {...{

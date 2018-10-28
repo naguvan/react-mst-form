@@ -65,7 +65,8 @@ const config: IFormConfig = {
           first: {
             meta: {
               sequence: 1,
-              value: "naguvan"
+              value: "naguvan",
+              icon: "Mr."
             },
             type: "string",
             title: "First",

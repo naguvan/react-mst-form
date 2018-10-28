@@ -1,16 +1,8 @@
 import * as React from "react";
 import { ReactNode } from "react";
 
-import {
-  IArray,
-  IBoolean,
-  ILayout,
-  INumber,
-  IObject,
-  IString,
-  IType
-} from "reactive-json-schema";
-
+import { IArray, IBoolean, ILayout } from "reactive-json-schema";
+import { INumber, IObject, IString, IType } from "reactive-json-schema";
 import { IForm } from "../../../../models/Form";
 
 import Array from "../../Array";
@@ -34,14 +26,11 @@ export interface ITypeRenderer {
 
 export default class TypeRenderer implements ITypeRenderer {
   public render(context: IRenderContext): ReactNode {
-    const { type, form } = context;
+    const { type } = context;
     switch (type.type) {
       case "object":
         return (
-          <Object
-            context={context as IRenderContext<IObject>}
-            renderer={this}
-          />
+          <Object context={context as IRenderContext<IObject>} typer={this} />
         );
       case "number":
         return <Number context={context as IRenderContext<INumber>} />;
@@ -49,7 +38,7 @@ export default class TypeRenderer implements ITypeRenderer {
         return <Boolean context={context as IRenderContext<IBoolean>} />;
       case "array":
         return (
-          <Array context={context as IRenderContext<IArray>} renderer={this} />
+          <Array context={context as IRenderContext<IArray>} typer={this} />
         );
       case "string":
         return <String context={context as IRenderContext<IString>} />;

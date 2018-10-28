@@ -4,6 +4,8 @@ import { Component, ReactNode } from "react";
 import { IType } from "reactive-json-schema";
 import { IRenderContext } from "../Renderer/Type";
 
+import InputAdornment from "@material-ui/core/InputAdornment";
+
 export interface ITypeProps<T extends IType> {
   context: IRenderContext<T>;
 }
@@ -31,6 +33,23 @@ export default abstract class Type<
           {this.renderType(context)}
         </div>
       )
+    );
+  }
+
+  protected adornment(position: "start" | "end"): ReactNode {
+    const {
+      context: { type, form, iconer }
+    } = this.props;
+    const {
+      meta: { icon, iconAlign }
+    } = type;
+    if (!icon || iconAlign !== position) {
+      return null;
+    }
+    return (
+      <InputAdornment position={position}>
+        {iconer.render(icon, { form, type })}
+      </InputAdornment>
     );
   }
 

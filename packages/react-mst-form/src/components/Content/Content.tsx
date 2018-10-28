@@ -22,7 +22,7 @@ export interface IContentProps {
   form: IForm;
   style?: CSSProperties;
   className?: string;
-  renderer: ITypeRenderer;
+  typer: ITypeRenderer;
   iconer: IIconRenderer;
 }
 
@@ -35,13 +35,13 @@ export class Content extends Component<
   IContentStates
 > {
   public render(): ReactNode {
-    const { form, renderer, iconer } = this.props;
+    const { form, typer, iconer } = this.props;
     const { className: clazz, classes, style } = this.props;
     const className: string = classNames(classes!.root, clazz);
     const layout = form.selected ? form.selected.layout : undefined;
     return (
       <div {...{ className, style }}>
-        {renderer.render({
+        {typer.render({
           form,
           iconer,
           layout,

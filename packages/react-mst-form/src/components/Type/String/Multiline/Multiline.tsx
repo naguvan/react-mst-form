@@ -41,6 +41,10 @@ export default class Multiline extends Type<
         label={type.title}
         helperText={Error.getError(type)}
         onChange={this.onChange}
+        InputProps={{
+          endAdornment: this.adornment("end"),
+          startAdornment: this.adornment("start")
+        }}
       />
     );
   }

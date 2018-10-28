@@ -49,6 +49,10 @@ export default class Text extends Type<IString, ITextProps, ITextStates> {
         helperText={Error.getError(type)}
         onChange={this.onChange}
         InputLabelProps={typex.indexOf("date") === 0 ? { shrink: true } : {}}
+        InputProps={{
+          endAdornment: this.adornment("end"),
+          startAdornment: this.adornment("start")
+        }}
       >
         {options &&
           options.map(option => (

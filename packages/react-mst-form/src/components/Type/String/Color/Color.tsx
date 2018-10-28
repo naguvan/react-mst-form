@@ -33,6 +33,10 @@ export default class Color extends Type<IString, IColorProps, IColorStates> {
         label={type.title}
         helperText={Error.getError(type)}
         onChange={this.onChange}
+        InputProps={{
+          endAdornment: this.adornment("end"),
+          startAdornment: this.adornment("start")
+        }}
       />
     );
   }

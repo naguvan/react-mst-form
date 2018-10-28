@@ -11,7 +11,7 @@ import Error from "../Error";
 import Type, { ITypeProps, ITypeStates } from "../Type";
 
 export interface IObjectProps extends ITypeProps<IObject> {
-  renderer: ITypeRenderer;
+  typer: ITypeRenderer;
 }
 
 export interface IObjectStates extends ITypeStates<IObject> {}
@@ -25,7 +25,7 @@ export default class NObject extends Type<
   protected renderType(context: IRenderContext<IObject>): ReactNode {
     const { type } = context;
     const { layout = type.meta.layout } = context;
-    const { renderer } = this.props;
+    const { typer } = this.props;
     return (
       <>
         <Layout
@@ -33,7 +33,7 @@ export default class NObject extends Type<
           items={layout && layout.length > 0 ? layout : this.layout(type)}
         >
           {(item: any) =>
-            renderer.render({
+            typer.render({
               ...context,
               layout: undefined,
               type: type.getProperty(item)!
