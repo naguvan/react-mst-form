@@ -23,6 +23,7 @@ import Snapshot from "../Snapshot";
 
 export interface IDesignerStyles {
   root: CSSProperties;
+  action: CSSProperties;
   container: CSSProperties;
   designer: CSSProperties;
   schema: CSSProperties;
@@ -42,11 +43,17 @@ export interface IDesignerProps {
 export interface IDesignerStates {
   width: string;
   height: string;
-  meta?: IMetaConfig;
-  schema?: ISchemaConfig;
-  config: IFormConfig;
-  snapshot?: {};
+  meta: string;
+  schema: string;
+  config: string;
+  snapshot: string;
   open: boolean;
+  form: {
+    schema?: ISchemaConfig;
+    config?: IFormConfig;
+    snapshot?: {};
+    meta?: IMetaConfig;
+  };
 }
 
 const config: IFormConfig = {
@@ -66,7 +73,8 @@ const config: IFormConfig = {
             meta: {
               sequence: 1,
               value: "naguvan",
-              icon: "Mr."
+              icon: "face",
+              iconAlign: "start"
             },
             type: "string",
             title: "First",
@@ -93,20 +101,22 @@ const config: IFormConfig = {
           age: {
             meta: {
               sequence: 2,
-              value: 5
+              value: 5,
+              icon: "build"
             },
             type: "number",
             title: "Age",
             maximum: 10,
             minimum: 3
           }
-        } // ,
-        // layout: [["first", "last"], "middle", "age"]
+        }
       },
       birthdate: {
         format: "date",
         meta: {
-          component: "date"
+          component: "date",
+          icon: "date-range",
+          iconAlign: "end"
         },
         type: "string",
         title: "Birth date"
@@ -205,15 +215,21 @@ export class Designer extends Component<
   public state: IDesignerStates = {
     width: "100%",
     height: "100%",
-    config,
-    open: false
+    config: JSON.stringify(config, null, 2),
+    open: false,
+    meta: "{}",
+    schema: "{}",
+    snapshot: "{}",
+    form: {
+      config
+    }
   };
 
   public render(): ReactNode {
     const { className: clazz, classes, style } = this.props;
     const { width, height, open } = this.state;
     // tslint:disable-next-line:no-shadowed-variable
-    const { config, meta, schema, snapshot } = this.state;
+    const { config, meta, form, snapshot } = this.state;
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
@@ -221,9 +237,14 @@ export class Designer extends Component<
           <Layout
             center={false}
             items={[
-              <Button variant="contained" onClick={this.handleClickOpen}>
-                Open Form Dialog
-              </Button>,
+              <div className={classes.action}>
+                <Button variant="contained" onClick={this.handleClickOpen}>
+                  Open Form Dialog
+                </Button>
+                <Button variant="contained" onClick={this.handleRender}>
+                  Render Form
+                </Button>
+              </div>,
               [
                 [
                   <Schema config={config} onConfig={this.onConfig} />,
@@ -238,10 +259,10 @@ export class Designer extends Component<
                 <Paper square elevation={3} style={{ width: "100%" }}>
                   <Form
                     className={classes.form}
-                    config={config}
-                    schema={schema}
-                    meta={meta}
-                    snapshot={snapshot}
+                    config={form.config as any}
+                    schema={form.schema}
+                    meta={form.meta}
+                    snapshot={form.snapshot}
                     open={open}
                     onClose={this.handleClose}
                   />
@@ -256,8 +277,55 @@ export class Designer extends Component<
     );
   }
 
+  private getConfig(): IFormConfig | undefined {
+    return this.parse(this.state.config);
+  }
+
+  private getSchema(): ISchemaConfig | undefined {
+    return this.parse(this.state.schema);
+  }
+
+  private getMeta(): IMetaConfig | undefined {
+    return this.parse(this.state.meta);
+  }
+
+  private getSnapshot(): {} | undefined {
+    return this.parse(this.state.snapshot);
+  }
+
+  private parse<T>(value: string): T | undefined {
+    try {
+      return JSON.parse(value);
+    } catch (e) {
+      return undefined;
+    }
+  }
+
   private handleClickOpen = () => {
     this.setState({ open: true });
+  };
+
+  private handleRender = () => {
+    let form = this.state.form;
+    // tslint:disable-next-line:no-shadowed-variable
+    const config = this.getConfig();
+    if (config) {
+      form = { ...form, config };
+    }
+    const schema = this.getSchema();
+    if (schema) {
+      form = { ...form, schema };
+    }
+    const meta = this.getMeta();
+    if (meta && Object.keys(meta).length) {
+      form = { ...form, meta };
+    }
+    const snapshot = this.getSnapshot();
+    if (snapshot) {
+      form = { ...form, snapshot };
+    }
+
+    this.setState({ form });
   };
 
   private handleClose = () => {
@@ -265,27 +333,32 @@ export class Designer extends Component<
   };
 
   // tslint:disable-next-line:no-shadowed-variable
-  private onConfig = (config: IFormConfig) => {
+  private onConfig = (config: string) => {
     this.setState(() => ({ config }));
   };
 
   // tslint:disable-next-line:no-shadowed-variable
-  private onSchema = (schema: ISchemaConfig) => {
+  private onSchema = (schema: string) => {
     this.setState(() => ({ schema }));
   };
 
   // tslint:disable-next-line:no-shadowed-variable
-  private onSnapshot = (snapshot: {}) => {
+  private onSnapshot = (snapshot: string) => {
     this.setState(() => ({ snapshot }));
   };
 
   // tslint:disable-next-line:no-shadowed-variable
-  private onMeta = (meta: IMetaConfig) => {
+  private onMeta = (meta: string) => {
     this.setState(() => ({ meta }));
   };
 }
 
 export default withStyles<keyof IDesignerStyles, {}>({
+  action: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
   container: {
     // minWidth: 1000
   },
