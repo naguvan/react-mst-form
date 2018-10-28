@@ -18,11 +18,11 @@
     "pretty": "prettier --write src/**/*.{ts,tsx}"
   },
   "dependencies": {
-    "@material-ui/core": "3.3.0",
+    "@material-ui/core": "3.3.2",
     "classnames": "2.2.6",
     "jss-preset-default": "4.5.0",
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "react": "16.6.0",
+    "react-dom": "16.6.0",
     "react-jss": "8.6.1",
     "reflect-metadata": "0.1.12",
     "react-mst-form-demo": "2.0.0-beta1"

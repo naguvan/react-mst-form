@@ -6,6 +6,6 @@ export interface IIconRenderer {
 
 export default class IconRenderer implements IIconRenderer {
   public render(icon: string): ReactNode {
-    return null;
+    return icon;
   }
 }

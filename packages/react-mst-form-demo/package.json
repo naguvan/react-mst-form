@@ -21,16 +21,16 @@
     "react-dom": "^16.5.2"
   },
   "dependencies": {
-    "@material-ui/core": "3.3.0",
+    "@material-ui/core": "3.3.2",
     "classnames": "2.2.6",
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "react": "16.6.0",
+    "react-dom": "16.6.0",
     "react-mst-form": "2.0.0-beta1",
     "react-flow-layout": "1.5.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
-    "@types/jest": "23.3.5",
+    "@types/jest": "23.3.8",
     "@types/react": "16.4.18",
     "@types/react-dom": "16.0.9",
     "cross-env": "5.2.0",

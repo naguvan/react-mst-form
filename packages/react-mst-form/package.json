@@ -26,21 +26,21 @@
     "react-dom": "^16.5.2"
   },
   "dependencies": {
-    "@material-ui/core": "3.3.0",
+    "@material-ui/core": "3.3.2",
     "@material-ui/icons": "3.0.1",
-    "@material-ui/lab": "3.0.0-alpha.21",
+    "@material-ui/lab": "3.0.0-alpha.22",
     "classnames": "2.2.6",
     "mobx": "4.5.0",
-    "mobx-react": "5.3.4",
+    "mobx-react": "5.3.6",
     "mobx-state-tree": "2.2.0",
-    "react": "16.5.2",
-    "react-dom": "16.5.2",
+    "react": "16.6.0",
+    "react-dom": "16.6.0",
     "react-flow-layout": "1.5.0",
     "reactive-json-schema": "2.0.0-beta11"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
-    "@types/jest": "23.3.5",
+    "@types/jest": "23.3.8",
     "@types/react": "16.4.18",
     "@types/react-dom": "16.0.9",
     "cross-env": "5.2.0",

@@ -38,7 +38,7 @@ export default class Numeric extends Type<
         fullWidth={true}
         name={type.meta.name!}
         id={type.meta.name!}
-        value={type.data || ""}
+        value={String(type.data)}
         disabled={type.meta.disabled!}
         error={!type.valid}
         label={type.title!}
