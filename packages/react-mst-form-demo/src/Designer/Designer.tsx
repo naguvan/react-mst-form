@@ -16,10 +16,8 @@ import classNames from "classnames";
 import Layout from "react-flow-layout";
 import { IFormConfig, IMetaConfig, ISchemaConfig } from "react-mst-form";
 
+import Editor from "../Editor";
 import Form from "../Form";
-import Meta from "../Meta";
-import Schema from "../Schema";
-import Snapshot from "../Snapshot";
 
 export interface IDesignerStyles {
   root: CSSProperties;
@@ -56,146 +54,167 @@ export interface IDesignerStates {
   };
 }
 
+const schema: ISchemaConfig = {
+  type: "object",
+  properties: {
+    name: {
+      type: "object",
+      properties: {
+        first: {
+          type: "string",
+          title: "First",
+          minLength: 5
+        },
+        middle: {
+          type: "string",
+          title: "Middle",
+          minLength: 5
+        },
+        last: {
+          type: "string",
+          title: "Last",
+          minLength: 5
+        },
+        age: {
+          type: "number",
+          title: "Age",
+          maximum: 10,
+          minimum: 3
+        }
+      }
+    },
+    birthdate: {
+      format: "date",
+      type: "string",
+      title: "Birth date"
+    },
+    ipv4: {
+      type: "string",
+      title: "ipv4",
+      minLength: 5,
+      maxLength: 20,
+      format: "ipv4"
+    },
+    color: {
+      type: "string",
+      title: "In which color",
+      format: "color"
+    },
+    size: {
+      type: "number",
+      title: "Size",
+      maximum: 10,
+      minimum: 3,
+      multipleOf: 3
+    },
+    type: {
+      type: "number",
+      title: "Select a type",
+      enum: [1, 2, 3]
+    },
+    agree: {
+      type: "boolean",
+      title: "I agree with your terms",
+      const: true
+    },
+    array: {
+      type: "array",
+      title: "Array",
+      items: {
+        type: "object",
+        properties: {
+          name: {
+            type: "string",
+            title: "name",
+            minLength: 3
+          },
+          age: {
+            type: "number",
+            title: "age",
+            multipleOf: 2,
+            minimum: 2
+          }
+        }
+      },
+      minItems: 2,
+      maxItems: 4
+    }
+  }
+};
+
+const meta: IMetaConfig = {
+  type: "object",
+  properties: {
+    name: {
+      layout: [["first", "last"], "middle", "age"],
+      type: "object",
+      properties: {
+        first: {
+          sequence: 1,
+          icon: "face",
+          iconAlign: "start",
+          type: "string"
+        },
+        middle: {
+          sequence: 1,
+          type: "string"
+        },
+        last: {
+          sequence: 2,
+          type: "string"
+        },
+        age: {
+          sequence: 2,
+          icon: "build",
+          type: "number"
+        }
+      }
+    },
+    birthdate: {
+      component: "date",
+      icon: "date-range",
+      iconAlign: "end",
+      type: "string"
+    },
+    color: {
+      component: "color",
+      type: "string"
+    },
+    size: {
+      component: "range",
+      step: 1,
+      type: "number"
+    },
+    type: {
+      error: "should not be empty",
+      options: [
+        { label: "One", value: 1 },
+        { label: "Two", value: 2 },
+        { label: "Three", value: 3 }
+      ],
+      type: "number"
+    },
+    agree: {
+      type: "boolean"
+    },
+    array: {
+      type: "array",
+      items: {
+        properties: {
+          age: {
+            type: "number"
+          }
+        },
+        type: "object"
+      }
+    }
+  }
+};
+
 const config: IFormConfig = {
   title: "Test Form",
   cancel: "Cancel",
   submit: "create",
-  schema: {
-    type: "object",
-    properties: {
-      name: {
-        meta: {
-          layout: [["first", "last"], "middle", "age"]
-        },
-        type: "object",
-        properties: {
-          first: {
-            meta: {
-              sequence: 1,
-              value: "naguvan",
-              icon: "face",
-              iconAlign: "start"
-            },
-            type: "string",
-            title: "First",
-            minLength: 5
-          },
-          middle: {
-            meta: {
-              sequence: 1,
-              value: "sk"
-            },
-            type: "string",
-            title: "Middle",
-            minLength: 5
-          },
-          last: {
-            meta: {
-              sequence: 2,
-              value: "sk"
-            },
-            type: "string",
-            title: "Last",
-            minLength: 5
-          },
-          age: {
-            meta: {
-              sequence: 2,
-              value: 5,
-              icon: "build"
-            },
-            type: "number",
-            title: "Age",
-            maximum: 10,
-            minimum: 3
-          }
-        }
-      },
-      birthdate: {
-        format: "date",
-        meta: {
-          component: "date",
-          icon: "date-range",
-          iconAlign: "end"
-        },
-        type: "string",
-        title: "Birth date"
-      },
-      ipv4: {
-        type: "string",
-        title: "ipv4",
-        minLength: 5,
-        maxLength: 20,
-        format: "ipv4"
-      },
-      color: {
-        meta: {
-          component: "color"
-        },
-        type: "string",
-        title: "In which color",
-        format: "color"
-      },
-      size: {
-        meta: {
-          component: "range",
-          step: 1,
-          value: 5
-        },
-        type: "number",
-        title: "Size",
-        maximum: 10,
-        minimum: 3,
-        multipleOf: 3
-      },
-      type: {
-        meta: {
-          error: "should not be empty",
-          options: [
-            { label: "One", value: 1 },
-            { label: "Two", value: 2 },
-            { label: "Three", value: 3 }
-          ]
-        },
-        type: "number",
-        title: "Select a type",
-        enum: [1, 2, 3]
-      },
-      agree: {
-        meta: {
-          value: false
-        },
-        type: "boolean",
-        title: "I agree with your terms",
-        const: true
-      },
-      array: {
-        type: "array",
-        title: "Array",
-        items: {
-          type: "object",
-          properties: {
-            name: {
-              type: "string",
-              title: "name",
-              minLength: 3
-            },
-            age: {
-              meta: {
-                value: 0
-              },
-              type: "number",
-              title: "age",
-              multipleOf: 2,
-              minimum: 2
-            }
-          }
-        },
-        minItems: 2,
-        maxItems: 4
-      }
-    }
-  },
   sections: [
     {
       title: "Basic",
@@ -208,6 +227,18 @@ const config: IFormConfig = {
   ]
 };
 
+const snapshot = {
+  name: {
+    first: "naguvan",
+    middle: "sk",
+    last: "sk",
+    age: 1
+  },
+  birthdate: "2018-10-29",
+  size: 5,
+  agree: false
+};
+
 export class Designer extends Component<
   IDesignerProps & IDesignerStyleProps,
   IDesignerStates
@@ -217,11 +248,14 @@ export class Designer extends Component<
     height: "100%",
     config: JSON.stringify(config, null, 2),
     open: false,
-    meta: "{}",
-    schema: "{}",
-    snapshot: "{}",
+    meta: JSON.stringify(meta, null, 2),
+    schema: JSON.stringify(schema, null, 2),
+    snapshot: JSON.stringify(snapshot, null, 2),
     form: {
-      config
+      config,
+      schema,
+      meta,
+      snapshot
     }
   };
 
@@ -229,7 +263,7 @@ export class Designer extends Component<
     const { className: clazz, classes, style } = this.props;
     const { width, height, open } = this.state;
     // tslint:disable-next-line:no-shadowed-variable
-    const { config, meta, form, snapshot } = this.state;
+    const { config, meta, schema, form, snapshot } = this.state;
     const className: string = classNames(classes!.root, clazz);
     return (
       <div {...{ className, style }}>
@@ -247,12 +281,28 @@ export class Designer extends Component<
               </div>,
               [
                 [
-                  <Schema config={config} onConfig={this.onConfig} />,
                   [
-                    <Meta meta={meta} onMeta={this.onMeta} />,
-                    <Snapshot
-                      snapshot={snapshot}
-                      onSnapshot={this.onSnapshot}
+                    <Editor
+                      title="Form Config"
+                      value={config}
+                      onChange={this.onConfig}
+                    />,
+                    <Editor
+                      title="Schema Config"
+                      value={schema}
+                      onChange={this.onSchema}
+                    />
+                  ],
+                  [
+                    <Editor
+                      title="Meta Config"
+                      value={meta}
+                      onChange={this.onMeta}
+                    />,
+                    <Editor
+                      title="Snapshot"
+                      value={snapshot}
+                      onChange={this.onSnapshot}
                     />
                   ]
                 ],
@@ -312,14 +362,17 @@ export class Designer extends Component<
     if (config) {
       form = { ...form, config };
     }
+    // tslint:disable-next-line:no-shadowed-variable
     const schema = this.getSchema();
     if (schema) {
       form = { ...form, schema };
     }
+    // tslint:disable-next-line:no-shadowed-variable
     const meta = this.getMeta();
     if (meta && Object.keys(meta).length) {
       form = { ...form, meta };
     }
+    // tslint:disable-next-line:no-shadowed-variable
     const snapshot = this.getSnapshot();
     if (snapshot) {
       form = { ...form, snapshot };
