@@ -39,8 +39,6 @@ export class App extends Component<IAppProps & IAppStyleProps, IAppStates> {
 
 export default withStyles<keyof IAppStyles, {}>({
   root: {
-    display: "flex",
-    justifyContent: "center",
     margin: 20
   }
 })(App);

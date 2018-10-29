@@ -11,8 +11,8 @@ import withStyles from "@material-ui/core/styles/withStyles";
 import classNames from "classnames";
 
 import {
-  Form,
   FormDialog,
+  FormInline,
   IFormConfig,
   IMetaConfig,
   ISchemaConfig
@@ -41,10 +41,7 @@ export interface IFormProps {
 // tslint:disable-next-line:no-empty-interface
 export interface IFormStates {}
 
-export class FormComponent extends Component<
-  IFormProps & IFormStyleProps,
-  IFormStates
-> {
+export class Form extends Component<IFormProps & IFormStyleProps, IFormStates> {
   public render(): ReactNode {
     const { className, classes, style } = this.props;
     const root: string = classNames(classes!.root, className);
@@ -58,7 +55,7 @@ export class FormComponent extends Component<
 
     return (
       <div className={root} style={style}>
-        <Form {...props} {...events} />
+        <FormInline {...props} {...events} />
         {open && (
           <FormDialog
             {...props}
@@ -106,7 +103,7 @@ export default withStyles<keyof IFormStyles, {}>({
     height: 460
   },
   root: {
-    margin: "0 auto"
-    // width: 500
+    margin: "0 auto",
+    height: 460
   }
-})(FormComponent);
+})(Form);

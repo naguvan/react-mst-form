@@ -31,119 +31,189 @@ import createMuiTheme from "material-ui/styles/createMuiTheme";
 
 import { Form } from "react-mst-form";
 
-const config = {
-  title: "Test Form",
-  submit: "create",
-  schema: {
-    type: "object",
-    properties: {
-      name: {
+const schema = {
+  type: "object",
+  properties: {
+    name: {
+      type: "object",
+      properties: {
+        first: {
+          type: "string",
+          title: "First",
+          minLength: 5
+        },
+        middle: {
+          type: "string",
+          title: "Middle",
+          minLength: 5
+        },
+        last: {
+          type: "string",
+          title: "Last",
+          minLength: 5
+        },
+        age: {
+          type: "number",
+          title: "Age",
+          maximum: 10,
+          minimum: 3
+        }
+      }
+    },
+    birthdate: {
+      format: "date",
+      type: "string",
+      title: "Birth date"
+    },
+    ipv4: {
+      type: "string",
+      title: "ipv4",
+      minLength: 5,
+      maxLength: 20,
+      format: "ipv4"
+    },
+    color: {
+      type: "string",
+      title: "In which color",
+      format: "color"
+    },
+    size: {
+      type: "number",
+      title: "Size",
+      maximum: 10,
+      minimum: 3,
+      multipleOf: 3
+    },
+    type: {
+      type: "number",
+      title: "Select a type",
+      enum: [1, 2, 3]
+    },
+    agree: {
+      type: "boolean",
+      title: "I agree with your terms",
+      const: true
+    },
+    array: {
+      type: "array",
+      title: "Array",
+      items: {
         type: "object",
         properties: {
-          first: {
+          name: {
             type: "string",
-            title: "First",
-            value: "naguvan",
-            minLength: 5,
-            sequence: 1
-          },
-          middle: {
-            type: "string",
-            title: "Middle",
-            value: "sk",
-            minLength: 5,
-            sequence: 1
-          },
-          last: {
-            type: "string",
-            title: "Last",
-            value: "sk",
-            minLength: 5,
-            sequence: 2
+            title: "name",
+            minLength: 3
           },
           age: {
             type: "number",
-            title: "Age",
-            value: 5,
-            sequence: 2,
-            maximum: 10,
-            minimum: 3
+            title: "age",
+            multipleOf: 2,
+            minimum: 2
           }
         }
       },
-      title: {
-        type: "string",
-        title: "Title",
-        value: "sk",
-        minLength: 5
-      },
-      ipv4: {
-        type: "string",
-        title: "ipv4",
-        minLength: 5,
-        maxLength: 20,
-        format: "ipv4"
-      },
-      color: {
-        type: "string",
-        title: "In which color",
-        component: "color",
-        format: "color"
-      },
-      size: {
-        type: "number",
-        title: "Size",
-        value: 5,
-        maximum: 10,
-        minimum: 3,
-        multipleOf: 3
-      },
-      type: {
-        type: "number",
-        title: "Select a type",
-        enum: [1, 2],
-        options: [{ label: "One", value: 1 }, { label: "Two", value: 2 }]
-      },
-      agree: {
-        type: "boolean",
-        title: "I agree with your terms",
-        value: false,
-        const: true
-      },
-      array: {
-        type: "array",
-        title: "Array",
-        items: {
-          type: "object",
-          properties: {
-            name: {
-              type: "string",
-              title: "name",
-              minLength: 3
-            },
-            age: {
-              type: "number",
-              title: "age",
-              multipleOf: 2,
-              minimum: 2
-            }
+      minItems: 2,
+      maxItems: 4
+    }
+  }
+};
+
+const meta = {
+  type: "object",
+  properties: {
+    name: {
+      layout: [["first", "last"], "middle", "age"],
+      type: "object",
+      properties: {
+        first: {
+          sequence: 1,
+          icon: "face",
+          iconAlign: "start",
+          type: "string"
+        },
+        middle: {
+          sequence: 1,
+          type: "string"
+        },
+        last: {
+          sequence: 2,
+          type: "string"
+        },
+        age: {
+          sequence: 2,
+          icon: "build",
+          type: "number"
+        }
+      }
+    },
+    birthdate: {
+      component: "date",
+      icon: "date-range",
+      iconAlign: "end",
+      type: "string"
+    },
+    color: {
+      component: "color",
+      type: "string"
+    },
+    size: {
+      component: "range",
+      step: 1,
+      type: "number"
+    },
+    type: {
+      error: "should not be empty",
+      options: [
+        { label: "One", value: 1 },
+        { label: "Two", value: 2 },
+        { label: "Three", value: 3 }
+      ],
+      type: "number"
+    },
+    agree: {
+      type: "boolean"
+    },
+    array: {
+      type: "array",
+      items: {
+        properties: {
+          age: {
+            type: "number"
           }
         },
-        minItems: 2,
-        maxItems: 4
+        type: "object"
       }
     }
-  },
+  }
+};
+
+const config = {
+  title: "Test Form",
+  cancel: "Cancel",
+  submit: "create",
   sections: [
     {
       title: "Basic",
-      layout: ["name", "title", ["size", "color"]]
+      layout: ["name", "birthdate", ["size", "color"]]
     },
     {
       title: "Others",
       layout: ["ipv4", "type", "agree", "array"]
     }
   ]
+};
+
+const snapshot = {
+  name: {
+    first: "naguvan",
+    middle: "sk",
+    last: "sk",
+    age: 1
+  },
+  birthdate: "2018-10-29",
+  size: 5,
+  agree: false
 };
 
 const onSubmit = values => {
@@ -155,7 +225,13 @@ const jss = create(preset());
 render(
   <JssProvider jss={jss}>
     <MuiThemeProvider theme={createMuiTheme({})}>
-      <Form config={config} onSubmit={onSubmit} />
+      <Form
+        config={config}
+        schema={schema}
+        meta={meta}
+        snapshot={snapshot}
+        onSubmit={onSubmit}
+      />
     </MuiThemeProvider>
   </JssProvider>,
   document.getElementById("form-holder")
