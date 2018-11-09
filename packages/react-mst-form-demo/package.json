@@ -1,6 +1,6 @@
 {
   "name": "react-mst-form-demo",
-  "version": "2.0.0-beta2",
+  "version": "2.0.0-beta3",
   "description": "react-mst-form-demo",
   "main": "./lib/index.js",
   "typings": "./lib/index.d.ts",
@@ -26,7 +26,7 @@
     "classnames": "2.2.6",
     "react": "16.6.1",
     "react-dom": "16.6.1",
-    "react-mst-form": "2.0.0-beta2",
+    "react-mst-form": "2.0.0-beta3",
     "react-flow-layout": "1.5.0"
   },
   "devDependencies": {
@@ -77,6 +77,7 @@
     ]
   },
   "scripts": {
+    "audit": "npm audit fix",
     "prepare": "npm run build",
     "prebuild": "npm run lint && npm run clean",
     "clean": "rimraf {lib,lib-esm}",

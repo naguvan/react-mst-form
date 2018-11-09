@@ -1,11 +1,12 @@
 {
   "name": "create-react-app-demo",
-  "version": "2.0.0-beta2",
+  "version": "2.0.0-beta3",
   "description": "create-react-app demo",
   "author": "naguvan <naguvan@outlook.com>",
   "license": "MIT",
   "private": false,
   "scripts": {
+    "audit": "npm audit fix",
     "prepare": "npm run build",
     "prebuild": "npm run lint && npm run clean",
     "clean": "rimraf build",
@@ -25,7 +26,7 @@
     "react-dom": "16.6.1",
     "react-jss": "8.6.1",
     "reflect-metadata": "0.1.12",
-    "react-mst-form-demo": "2.0.0-beta2"
+    "react-mst-form-demo": "2.0.0-beta3"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
