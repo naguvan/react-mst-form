@@ -36,7 +36,7 @@
     "react": "16.6.1",
     "react-dom": "16.6.1",
     "react-flow-layout": "1.5.0",
-    "reactive-json-schema": "2.0.0-beta12"
+    "reactive-json-schema": "2.0.0-beta13"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
