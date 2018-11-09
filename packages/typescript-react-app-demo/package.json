@@ -1,6 +1,6 @@
 {
   "name": "typescript-react-app-demo",
-  "version": "2.0.0-beta3",
+  "version": "2.0.0",
   "description": "typescript-react-mobx-state-tree-form-demo",
   "main": "./dist/index.js",
   "typings": "./dist/index.d.ts",
@@ -28,7 +28,7 @@
     "react": "16.6.1",
     "react-dom": "16.6.1",
     "react-jss": "8.6.1",
-    "react-mst-form-demo": "2.0.0-beta3"
+    "react-mst-form-demo": "2.0.0"
   },
   "devDependencies": {
     "@types/classnames": "2.2.6",
